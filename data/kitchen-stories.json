@@ -1,0 +1,117 @@
+{
+  "chapter1": [
+    {
+      "id": "dawn",
+      "chapter": 1,
+      "title": "Dawn at the Kitchen",
+      "icon": "svg/dawn-kitchen.svg",
+      "caption": "Dawn at the Kitchen",
+      "tilt": "tilt-left",
+      "story": "The first light catches the flour dust still hanging in the air from yesterday. Lena arrives at 4:15, flicks on the ovens, and stands in the quiet for exactly three minutes \u2014 the last silence she'll hear all day. By 4:30, the mixer is humming and the first batch of brown butter is already foaming on the stove."
+    },
+    {
+      "id": "weigh",
+      "chapter": 1,
+      "title": "Weigh & Measure",
+      "icon": "svg/weigh-measure.svg",
+      "caption": "Weigh & Measure",
+      "tilt": "tilt-right",
+      "story": "We don't use cups here. Everything goes on the scale \u2014 200 grams of dark brown sugar, 340 grams of European butter, each egg weighed to the gram. Marcus can scoop a kilo of flour and be off by less than five grams. He says his hands just know. Priya checks anyway."
+    },
+    {
+      "id": "mix",
+      "chapter": 1,
+      "title": "Mix & Fold",
+      "icon": "svg/mix-fold.svg",
+      "caption": "Mix & Fold",
+      "tilt": "tilt-left",
+      "story": "The dough hook turns at exactly 42 RPM \u2014 fast enough to develop gluten, slow enough not to overheat the butter. Lena watches the dough pull away from the sides of the bowl, a moment she calls 'the clean break.' That's when she knows the structure is right. Too early and the cookies spread. Too late and they're tough. She's never been wrong."
+    },
+    {
+      "id": "cold",
+      "chapter": 1,
+      "title": "48h Cold Rest",
+      "icon": "svg/cold-rest.svg",
+      "caption": "48h Cold Rest",
+      "tilt": "tilt-none",
+      "tall": true,
+      "story": "This is where the magic actually happens \u2014 and nobody sees it. The dough rests in a walk-in fridge at 3\u00b0C for two full days. The flour fully hydrates, the butterfat recrystallizes, and enzymes quietly break starches into complex sugars. When people ask why our cookies taste different, the answer is in this fridge. Two days. No shortcuts."
+    }
+  ],
+  "chapter2": [
+    {
+      "id": "oven",
+      "chapter": 2,
+      "title": "Oven Spring",
+      "icon": "svg/oven-spring.svg",
+      "caption": "Oven Spring",
+      "tilt": "tilt-right",
+      "story": "The ovens run at exactly 200\u00b0C \u2014 not 195, not 205. Priya calibrated them herself with an infrared thermometer and checks the dials between every batch. When the dough balls hit the hot steel deck, they spread, then rise, then set \u2014 a 14-minute performance with three distinct acts. Through the glass door, you can watch the crinkle-top form. It never gets old."
+    },
+    {
+      "id": "bake",
+      "chapter": 2,
+      "title": "Bake to Order",
+      "icon": "svg/bake-order.svg",
+      "caption": "Bake to Order",
+      "tilt": "tilt-left",
+      "story": "Nothing sits in a display case here. When your order comes in, that's when your batch goes in. Marcus reads each ticket aloud \u2014 'One dozen, heavy on the Double Chocolate' \u2014 and the team builds the box from scratch. The cookies you're eating were raw dough four hours ago. That's not a marketing line. That's the schedule."
+    },
+    {
+      "id": "qc",
+      "chapter": 2,
+      "title": "Quality Check",
+      "icon": "svg/quality-check.svg",
+      "caption": "Quality Check",
+      "tilt": "tilt-none",
+      "story": "Every batch gets a taste test. Not a visual check \u2014 an actual bite. Lena pulls one cookie from each tray, breaks it open, checks the crumb structure, and tastes it warm. If the salt doesn't hit right behind the chocolate, the whole batch gets pulled. 'We've done it twice,' she admits. 'Both times it hurt. Both times it was the right call.'"
+    },
+    {
+      "id": "rack",
+      "chapter": 2,
+      "title": "Cooling Rack",
+      "icon": "svg/cooling-rack.svg",
+      "caption": "Cooling Rack",
+      "tilt": "tilt-right",
+      "story": "Fresh from the oven, a cookie is still cooking \u2014 residual heat keeps the center baking for another two minutes. The team transfers each tray to a wire rack with the gentleness of handling a newborn. Steam curls upward, carrying the smell of warm chocolate through the entire kitchen. Visitors on Open Day always stop here. Nobody blames them."
+    }
+  ],
+  "chapter3": [
+    {
+      "id": "wrap",
+      "chapter": 3,
+      "title": "Wrap & Pack",
+      "icon": "svg/wrap-pack.svg",
+      "caption": "Wrap & Pack",
+      "tilt": "tilt-left",
+      "story": "Each box is hand-folded from recycled kraft paper and stamped with the Big Cookies seal \u2014 a custom brass stamp Lena found at an estate sale in Sellwood. The tissue paper is compostable, the ribbon is cotton, and every box gets a handwritten note if you ask for one. The team can wrap and pack a dozen in under two minutes. They race each other. Priya holds the record."
+    },
+    {
+      "id": "ship",
+      "chapter": 3,
+      "title": "Ship Same Day",
+      "icon": "svg/ship-same-day.svg",
+      "caption": "Ship Same Day",
+      "tilt": "tilt-right",
+      "story": "By 2:00pm, the day's orders are boxed, labeled, and stacked by the loading door. Our courier, a guy named Eddie who's been doing this route for 16 years, backs his van up to the kitchen entrance and loads each box by hand. Portland orders arrive by dinner. Seattle by tomorrow. If your box shows up with a corner dent, Eddie probably already heard about it from Lena."
+    },
+    {
+      "id": "enjoy",
+      "chapter": 3,
+      "title": "You Enjoy",
+      "icon": "svg/you-enjoy.svg",
+      "caption": "You Enjoy",
+      "tilt": "tilt-none",
+      "story": "This is the moment the whole process builds toward. You open the box, the smell hits you first, and then you take a bite of something that started 48 hours ago as flour, butter, and an idea. Maybe you're on your couch. Maybe you're sharing with friends. Maybe you're hiding the last one so nobody else finds it. We get it. We do that too."
+    },
+    {
+      "id": "coffee",
+      "chapter": 3,
+      "title": "Coffee Pairing",
+      "icon": "svg/coffee-pairing.svg",
+      "caption": "Coffee Pairing",
+      "tilt": "tilt-left",
+      "story": "Every cookie has a soulmate. The Classic Chocolate Chip was practically designed for a dark roast \u2014 the bitterness cuts the sweetness and makes the chocolate taste deeper. Matcha White Chocolate wants green tea, obviously. Raspberry Dark Chocolate with a black coffee is a breakfast we fully endorse. Lena's personal pairing: Toffee Crunch with a flat white. 'Try it and tell me I'm wrong.'"
+    }
+  ]
+}

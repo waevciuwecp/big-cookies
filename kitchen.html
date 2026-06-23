@@ -53,32 +53,7 @@
                 <h3 class="chapter-title">Morning Prep</h3>
                 <p class="chapter-desc">The day starts at 4:30am. The kitchen is quiet, the ovens are cold, and 200 pounds of butter are waiting to become something extraordinary.</p>
             </div>
-            <div class="gallery-wall">
-                <div class="polaroid tilt-left">
-                    <div class="polaroid-frame">
-                        <img src="svg/dawn-kitchen.svg" alt="Dawn at the Kitchen" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Dawn at the Kitchen</p>
-                </div>
-                <div class="polaroid tilt-right">
-                    <div class="polaroid-frame">
-                        <img src="svg/weigh-measure.svg" alt="Weigh &amp; Measure" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Weigh & Measure</p>
-                </div>
-                <div class="polaroid tilt-left">
-                    <div class="polaroid-frame">
-                        <img src="svg/mix-fold.svg" alt="Mix &amp; Fold" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Mix & Fold</p>
-                </div>
-                <div class="polaroid tilt-none polaroid-tall">
-                    <div class="polaroid-frame">
-                        <img src="svg/cold-rest.svg" alt="48h Cold Rest" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">48h Cold Rest</p>
-                </div>
-            </div>
+            <div class="gallery-wall" data-load="data/kitchen-stories.json" data-template="kitchen-card" data-section="chapter1"></div>
         </div>
 
         <!-- Chapter 2: The Bake -->
@@ -88,32 +63,7 @@
                 <h3 class="chapter-title">The Bake</h3>
                 <p class="chapter-desc">The ovens hit 200°C. The kitchen fills with the smell of brown butter and melting chocolate. This is where chemistry becomes alchemy.</p>
             </div>
-            <div class="gallery-wall">
-                <div class="polaroid tilt-right">
-                    <div class="polaroid-frame">
-                        <img src="svg/oven-spring.svg" alt="Oven Spring" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Oven Spring</p>
-                </div>
-                <div class="polaroid tilt-left">
-                    <div class="polaroid-frame">
-                        <img src="svg/bake-order.svg" alt="Bake to Order" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Bake to Order</p>
-                </div>
-                <div class="polaroid tilt-none">
-                    <div class="polaroid-frame">
-                        <img src="svg/quality-check.svg" alt="Quality Check" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Quality Check</p>
-                </div>
-                <div class="polaroid tilt-right">
-                    <div class="polaroid-frame">
-                        <img src="svg/cooling-rack.svg" alt="Cooling Rack" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Cooling Rack</p>
-                </div>
-            </div>
+            <div class="gallery-wall" data-load="data/kitchen-stories.json" data-template="kitchen-card" data-section="chapter2"></div>
         </div>
 
         <!-- Chapter 3: The Finish -->
@@ -123,32 +73,7 @@
                 <h3 class="chapter-title">The Finish</h3>
                 <p class="chapter-desc">Each cookie gets a final inspection, a hand-stamped box, and a one-way ticket to your doorstep. No cookie leaves this kitchen without a story.</p>
             </div>
-            <div class="gallery-wall">
-                <div class="polaroid tilt-left">
-                    <div class="polaroid-frame">
-                        <img src="svg/wrap-pack.svg" alt="Wrap &amp; Pack" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Wrap & Pack</p>
-                </div>
-                <div class="polaroid tilt-right">
-                    <div class="polaroid-frame">
-                        <img src="svg/ship-same-day.svg" alt="Ship Same Day" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Ship Same Day</p>
-                </div>
-                <div class="polaroid tilt-none">
-                    <div class="polaroid-frame">
-                        <img src="svg/you-enjoy.svg" alt="You Enjoy" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">You Enjoy</p>
-                </div>
-                <div class="polaroid tilt-left">
-                    <div class="polaroid-frame">
-                        <img src="svg/coffee-pairing.svg" alt="Coffee Pairing" width="180" height="180" loading="lazy">
-                    </div>
-                    <p class="polaroid-caption">Coffee Pairing</p>
-                </div>
-            </div>
+            <div class="gallery-wall" data-load="data/kitchen-stories.json" data-template="kitchen-card" data-section="chapter3"></div>
         </div>
 
         <!-- Kitchen Stats -->
@@ -212,6 +137,7 @@
 
 <script src="ui.js"></script>
 <script src="nav.js"></script>
+<script src="data-loader.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -546,3 +546,81 @@ window.addEventListener('data-ready', function() {
         if (messages[clicks]) showToast(messages[clicks]);
     });
 })();
+
+// ── Kitchen story expand ────────────────────
+(function() {
+    function openStory(polaroid) {
+        var story = polaroid.getAttribute('data-story');
+        var title = polaroid.getAttribute('data-story-title');
+        var icon = polaroid.querySelector('img');
+        var iconSrc = icon ? icon.getAttribute('src') : '';
+
+        // Create backdrop
+        var backdrop = document.createElement('div');
+        backdrop.className = 'story-backdrop';
+        backdrop.setAttribute('aria-hidden', 'true');
+
+        // Create modal
+        var modal = document.createElement('div');
+        modal.className = 'story-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-label', title);
+
+        var headerHTML = '<div class="story-modal-header"><button class="story-modal-close" aria-label="Close story">&times;</button>';
+        if (iconSrc) {
+            headerHTML += '<img class="story-modal-icon" src="' + iconSrc + '" alt="" aria-hidden="true">';
+        }
+        headerHTML += '</div>';
+
+        modal.innerHTML = headerHTML +
+            '<div class="story-modal-body"><h3>' + title + '</h3><p>' + story + '</p></div>';
+
+        document.body.appendChild(backdrop);
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+
+        function closeStory() {
+            backdrop.remove();
+            modal.remove();
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', onKey);
+        }
+
+        function onKey(e) {
+            if (e.key === 'Escape') closeStory();
+        }
+
+        backdrop.addEventListener('click', closeStory);
+        modal.querySelector('.story-modal-close').addEventListener('click', closeStory);
+        document.addEventListener('keydown', onKey);
+
+        // Focus trap: focus the close button
+        modal.querySelector('.story-modal-close').focus();
+    }
+
+    // Event delegation on the whole document (cards can be dynamically loaded)
+    document.addEventListener('click', function(e) {
+        var card = e.target.closest('.polaroid');
+        if (!card) return;
+        if (!card.hasAttribute('data-story')) return;
+        // Don't trigger if clicking inside an already-open modal
+        if (e.target.closest('.story-modal')) return;
+        e.preventDefault();
+        openStory(card);
+    });
+
+    // Keyboard: Enter/Space on polaroid to open
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var card = e.target.closest('.polaroid');
+        if (!card || !card.hasAttribute('data-story')) return;
+        e.preventDefault();
+        openStory(card);
+    });
+
+    // Close any open story on history pop (browser back)
+    window.addEventListener('popstate', function() {
+        var open = document.querySelector('.story-backdrop');
+        if (open) { open.click(); }
+    });
+})();
