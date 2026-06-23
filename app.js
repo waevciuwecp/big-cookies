@@ -516,22 +516,49 @@ window.addEventListener('data-ready', function() {
     cookie.appendChild(counter);
 
     cookie.style.cursor = 'pointer';
-    cookie.addEventListener('click', () => {
+    cookie.addEventListener('click', function(e) {
         clicks++;
         counter.textContent = clicks;
         counter.classList.add('show');
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => counter.classList.remove('show'), 2000);
+        hideTimer = setTimeout(function() { counter.classList.remove('show'); }, 2000);
 
-        cookie.style.transition = 'transform 0.15s ease';
-        const current = cookie.style.transform;
-        const base = current.replace(/ scale\([^)]+\)/, '');
-        cookie.style.transform = base + ' scale(1.1)';
-        setTimeout(() => {
-            cookie.style.transform = base;
-        }, 150);
+        // Crumble particles
+        var rect = cookie.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var colors = ['#C8853E', '#D4954B', '#A8612E', '#3C1D0E', '#E8A850', '#8B5A2E'];
+        for (var i = 0; i < 8; i++) {
+            var crumb = document.createElement('div');
+            crumb.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;' +
+                'width:' + (4 + Math.random() * 8) + 'px;' +
+                'height:' + (4 + Math.random() * 8) + 'px;' +
+                'background:' + colors[Math.floor(Math.random() * colors.length)] + ';' +
+                'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px') + ';' +
+                'left:' + cx + 'px;top:' + cy + 'px;' +
+                'transition: all ' + (0.5 + Math.random() * 0.4) + 's cubic-bezier(0.25,0,0.35,1);' +
+                'opacity:1;';
+            document.body.appendChild(crumb);
+            requestAnimationFrame(function(c) {
+                return function() {
+                    var angle = Math.random() * Math.PI * 2;
+                    var dist = 40 + Math.random() * 80;
+                    c.style.transform = 'translate(' + Math.cos(angle) * dist + 'px,' + (Math.sin(angle) * dist - 30) + 'px) rotate(' + (Math.random()*360) + 'deg)';
+                    c.style.opacity = '0';
+                };
+            }(crumb));
+            setTimeout(function(c) { return function() { if (c.parentNode) c.remove(); }; }(crumb), 1000);
+        }
 
-        const messages = {
+        // Shake cookie
+        cookie.style.transition = 'transform 0.1s ease';
+        var current = cookie.style.transform || '';
+        var base = current.replace(/ scale\([^)]+\)/, '');
+        cookie.style.transform = base + ' scale(0.95)';
+        setTimeout(function() { cookie.style.transform = base + ' scale(1.05)'; }, 100);
+        setTimeout(function() { cookie.style.transform = base; }, 250);
+
+        var messages = {
             3: 'That tickles.',
             5: 'You found the secret cookie stash!',
             7: 'Seven clicks. Lucky number.',
@@ -543,7 +570,7 @@ window.addEventListener('data-ready', function() {
             69: 'Nice.',
             100: 'You have way too much free time.'
         };
-        if (messages[clicks]) showToast(messages[clicks]);
+        if (messages[clicks]) setTimeout(function() { showToast(messages[clicks]); }, 300);
     });
 })();
 
