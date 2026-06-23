@@ -869,3 +869,79 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     *, *::before, *::after { animation-duration: 0.01ms !important; }
 }
 @keyframes tagPulse{0%,100%{opacity:1}50%{opacity:0.7}}.gift-savings{display:inline-block;font-size:0.6875rem;font-weight:600;color:#3A8C3F;background:#EDF7EE;padding:0.2rem 0.625rem;border-radius:100px;margin-top:0.5rem;}
+
+/* ── DARK MODE ───────────────────────────── */
+[data-theme="dark"] {
+    --bg:      #1C1510;
+    --ink:     #F0E4D4;
+    --paper:   #2A1E16;
+    --vanilla: #261A12;
+    --soft:    #3D2E22;
+    --mocha:   #F0E4D4;
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+[data-theme="dark"] .nav { background: rgba(28,21,16,0.9); border-color: var(--soft); }
+[data-theme="dark"] .nav-logo { color: var(--ink); }
+[data-theme="dark"] .nav-links a { color: #D4C4B0; }
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active { color: var(--gold); }
+[data-theme="dark"] .nav-toggle span { background: #D4C4B0; }
+[data-theme="dark"] .mobile-menu { background: var(--bg); }
+[data-theme="dark"] .mobile-menu a { color: #D4C4B0; }
+[data-theme="dark"] .hero-badge { background: var(--paper); }
+[data-theme="dark"] .hero p { color: #B8A898; }
+[data-theme="dark"] .section-subtitle { color: #B8A898; }
+[data-theme="dark"] .product-card-front,
+[data-theme="dark"] .product-card-back { background: var(--paper); }
+[data-theme="dark"] .product-desc { color: #B8A898; }
+[data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #2A1E16 0%, #1F1610 100%); border-color: var(--soft); }
+[data-theme="dark"] .ingredients-list li { color: #C8B8A5; border-color: rgba(200,133,62,0.08); }
+[data-theme="dark"] .gift-card { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .gift-desc { color: #B8A898; }
+[data-theme="dark"] .gift-includes { color: #9B8A78; }
+[data-theme="dark"] .builder-item { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .builder-item.selected { background: var(--vanilla); }
+[data-theme="dark"] .builder-box { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .builder-count { color: #B8A898; }
+[data-theme="dark"] .step { background: var(--paper); }
+[data-theme="dark"] .step p { color: #B8A898; }
+[data-theme="dark"] .phil-card { background: var(--vanilla); }
+[data-theme="dark"] .philosophy-text p { color: #B8A898; }
+[data-theme="dark"] .polaroid { background: #2A1E16; }
+[data-theme="dark"] .polaroid-caption { color: #9B8A78; }
+[data-theme="dark"] .testimonial { background: var(--paper); }
+[data-theme="dark"] .testimonial cite { color: #9B8A78; }
+[data-theme="dark"] .faq-answer p { color: #B8A898; }
+[data-theme="dark"] .order-form-wrap { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea { background: var(--vanilla); color: var(--ink); border-color: var(--soft); }
+[data-theme="dark"] .sold-out-caption { color: #9B8A78; }
+[data-theme="dark"] .btn-outline { color: #D4C4B0; border-color: var(--soft); }
+[data-theme="dark"] .btn-outline:hover { color: var(--gold); border-color: var(--gold); }
+[data-theme="dark"] .footer-bottom p { color: #9B8A78; }
+[data-theme="dark"] .builder-slot.empty { border-color: rgba(200,168,80,0.15); }
+[data-theme="dark"] .allergen-tag { background: rgba(200,133,62,0.12); }
+[data-theme="dark"] .faq-item { border-color: var(--soft); }
+[data-theme="dark"] .product-card:hover { box-shadow: none; }
+[data-theme="dark"] .gallery-wall .polaroid-frame { background: linear-gradient(135deg, #2A1E16 0%, #1F1610 100%); }
+[data-theme="dark"] .dough-divider svg path:first-child { fill: var(--bg); }
+[data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #1F1610 0%, #18120D 100%) !important; }
+
+/* ── DARK MODE TOGGLE ────────────────────── */
+.theme-toggle {
+    background: none; border: 1px solid var(--soft); border-radius: 100px;
+    cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center;
+    justify-content: center; color: var(--ink); transition: all 0.25s;
+    margin-left: 1rem;
+}
+.theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+.theme-toggle svg { width: 18px; height: 18px; }
+[data-theme="dark"] .sun { display: block; }
+[data-theme="dark"] .moon { display: none; }
+.sun { display: none; }
+.moon { display: block; }
+
+@media (max-width: 600px) {
+    .theme-toggle { margin-left: auto; margin-right: 0.5rem; }
+}

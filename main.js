@@ -294,3 +294,18 @@ function showToast(msg, icon) {
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => toast.classList.remove('visible'), 3000);
 }
+
+// ── Theme toggle ──────────────────────────
+(function() {
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.setAttribute('data-theme', 'dark');
+    }
+    toggle.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+})();
