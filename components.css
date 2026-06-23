@@ -97,15 +97,15 @@
         0 20px 60px rgba(160,100,40,0.3),
         inset 0 -4px 8px rgba(0,0,0,0.18),
         inset 0 2px 4px rgba(255,220,170,0.15);
-    /* Irregular bite mark on right edge — 3 overlapping circles */
+    /* Bite mark: main arch centered OUTSIDE right edge, smaller circles for irregularity */
     -webkit-mask-image:
-        radial-gradient(circle at 92% 48%, transparent 28px, black 29px),
-        radial-gradient(circle at 88% 56%, transparent 18px, black 19px),
-        radial-gradient(circle at 90% 40%, transparent 14px, black 15px);
+        radial-gradient(circle at 102% 48%, transparent 58px, black 59px),
+        radial-gradient(circle at 96% 34%, transparent 16px, black 17px),
+        radial-gradient(circle at 97% 62%, transparent 12px, black 13px);
     mask-image:
-        radial-gradient(circle at 92% 48%, transparent 28px, black 29px),
-        radial-gradient(circle at 88% 56%, transparent 18px, black 19px),
-        radial-gradient(circle at 90% 40%, transparent 14px, black 15px);
+        radial-gradient(circle at 102% 48%, transparent 58px, black 59px),
+        radial-gradient(circle at 96% 34%, transparent 16px, black 17px),
+        radial-gradient(circle at 97% 62%, transparent 12px, black 13px);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
 }
