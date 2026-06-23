@@ -211,32 +211,62 @@ body {
 }
 .cookie-illustration .cookie-main {
     width: 220px; height: 220px; border-radius: 50%;
-    background: radial-gradient(circle at 50% 40%, #D4954B 0%, #C1783A 60%, #A8612E 100%);
-    position: absolute; top: 50%; left: 50%;
-    box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.15);
-    /* Bite mark: radial-gradient mask cuts a circle out of the top-right edge */
-    -webkit-mask-image: radial-gradient(circle at 78% 22%, transparent 24px, black 25px);
-    mask-image: radial-gradient(circle at 78% 22%, transparent 24px, black 25px);
+    background:
+        radial-gradient(circle at 50% 38%, #DBA055 0%, #CC8840 45%, #B87832 75%, #A06528 100%);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+        0 20px 60px rgba(160,100,40,0.3),
+        inset 0 -4px 8px rgba(0,0,0,0.18),
+        inset 0 2px 4px rgba(255,220,170,0.15);
+    /* Irregular bite mark: 3 overlapping circles for a natural crescent shape */
+    -webkit-mask-image:
+        radial-gradient(circle at 76% 18%, transparent 20px, black 21px),
+        radial-gradient(circle at 80% 26%, transparent 14px, black 15px),
+        radial-gradient(circle at 72% 28%, transparent 10px, black 11px);
+    mask-image:
+        radial-gradient(circle at 76% 18%, transparent 20px, black 21px),
+        radial-gradient(circle at 80% 26%, transparent 14px, black 15px),
+        radial-gradient(circle at 72% 28%, transparent 10px, black 11px);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+/* Surface cracks — subtle darker lines */
+.cookie-illustration .cookie-main::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 30% 70%, rgba(0,0,0,0.08) 0%, transparent 30%),
+        radial-gradient(ellipse at 65% 55%, rgba(0,0,0,0.06) 0%, transparent 25%),
+        radial-gradient(ellipse at 50% 80%, rgba(0,0,0,0.05) 0%, transparent 20%);
+    pointer-events: none;
 }
 .cookie-illustration .cookie-chip {
-    position: absolute; width: 28px; height: 22px;
-    background: #3C1D0E; border-radius: 40%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    position: absolute;
+    width: 28px; height: 22px;
+    background:
+        radial-gradient(circle at 40% 35%, #5C3020 0%, #3C1D0E 50%, #1A0A04 100%);
+    border-radius: 40%;
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(160,120,80,0.2);
+    /* Highlight on top edge makes chips look embedded */
 }
-.cookie-illustration .cookie-chip:nth-child(2) { top: 28%; left: 38%; transform: rotate(-20deg); }
-.cookie-illustration .cookie-chip:nth-child(3) { top: 35%; left: 58%; transform: rotate(15deg); width: 22px; height: 18px; }
-.cookie-illustration .cookie-chip:nth-child(4) { top: 55%; left: 32%; transform: rotate(-35deg); width: 24px; height: 20px; }
-.cookie-illustration .cookie-chip:nth-child(5) { top: 50%; left: 62%; transform: rotate(25deg); }
-.cookie-illustration .cookie-chip:nth-child(6) { top: 40%; left: 22%; transform: rotate(-10deg); width: 20px; height: 16px; }
-.cookie-illustration .cookie-chip:nth-child(7) { top: 62%; left: 50%; transform: rotate(40deg); width: 18px; height: 14px; }
+.cookie-illustration .cookie-chip:nth-child(2) { top: 25%; left: 35%; transform: rotate(-18deg); width: 30px; height: 24px; }
+.cookie-illustration .cookie-chip:nth-child(3) { top: 32%; left: 56%; transform: rotate(22deg); width: 24px; height: 19px; }
+.cookie-illustration .cookie-chip:nth-child(4) { top: 48%; left: 28%; transform: rotate(-40deg); width: 26px; height: 21px; }
+.cookie-illustration .cookie-chip:nth-child(5) { top: 45%; left: 60%; transform: rotate(30deg); width: 22px; height: 18px; }
+.cookie-illustration .cookie-chip:nth-child(6) { top: 60%; left: 38%; transform: rotate(-12deg); width: 20px; height: 16px; }
+.cookie-illustration .cookie-chip:nth-child(7) { top: 58%; left: 20%; transform: rotate(45deg); width: 18px; height: 14px; }
 .cookie-illustration .cookie-crumb {
-    position: absolute; width: 8px; height: 8px; background: #C1783A;
-    border-radius: 50%;
+    position: absolute; width: 7px; height: 7px;
+    background: #B87832; border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
-.cookie-illustration .cookie-crumb:nth-child(8)  { top: 20%; left: 75%; }
-.cookie-illustration .cookie-crumb:nth-child(9)  { top: 80%; left: 20%; }
-.cookie-illustration .cookie-crumb:nth-child(10) { top: 75%; left: 78%; }
-.cookie-illustration .cookie-crumb:nth-child(11) { top: 15%; left: 30%; }
+.cookie-illustration .cookie-crumb:nth-child(8)  { top: 18%; left: 72%; }
+.cookie-illustration .cookie-crumb:nth-child(9)  { top: 78%; left: 22%; width: 5px; height: 5px; }
+.cookie-illustration .cookie-crumb:nth-child(10) { top: 73%; left: 74%; width: 6px; height: 6px; }
+.cookie-illustration .cookie-crumb:nth-child(11) { top: 15%; left: 28%; width: 5px; height: 5px; }
 
 /* ── STEAM WISPS (hero cookie) ───────────── */
 .steam-wisp {
@@ -1001,8 +1031,8 @@ body.has-banner { padding-top: 40px; }
     animation: warmPulse 3s ease-in-out infinite;
 }
 @keyframes warmPulse {
-    0%, 100% { box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.15); }
-    50% { box-shadow: 0 20px 80px rgba(232,168,80,0.45), 0 0 120px rgba(232,168,80,0.15), inset 0 -4px 8px rgba(0,0,0,0.15); }
+    0%, 100% { box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,220,170,0.15); }
+    50% { box-shadow: 0 20px 80px rgba(232,168,80,0.45), 0 0 120px rgba(232,168,80,0.15), inset 0 -4px 8px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,220,170,0.15); }
 }
 
 /* ── MOBILE STEP CONNECTOR ────────────────── */
