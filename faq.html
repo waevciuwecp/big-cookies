@@ -58,38 +58,7 @@
         <div class="section-label text-center">FAQ</div>
         <h2 class="section-title text-center">You asked, we answered</h2>
 
-        <div class="faq-list">
-            <div class="faq-item open">
-                <button class="faq-question">How long do the cookies stay fresh?</button>
-                <div class="faq-answer">
-                    <p>Five days at room temp in the sealed bag they arrive in. Two weeks refrigerated. Three months frozen — just reheat at 160°C for 5 minutes and they're 90% as good as fresh. Reheat instructions come in every box.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Do you ship internationally?</button>
-                <div class="faq-answer">
-                    <p>Currently we ship within the US and Canada. International shipping is in the works — customs forms for cookies are surprisingly complicated. Join the newsletter for updates.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Can I customize a gift box?</button>
-                <div class="faq-answer">
-                    <p>Absolutely. After you place an order, reply to your confirmation email with any preferences — extra chocolate, no nuts, all one flavor — and we'll make it work. Or use the Build Your Box tool above to hand-pick every cookie.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What if my cookies arrive damaged?</button>
-                <div class="faq-answer">
-                    <p>They shouldn't — we pack each cookie in its own sleeve inside a crush-proof box. But if anything goes wrong, email us with a photo and we'll rush a replacement. No questions asked.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Do you do corporate orders or events?</button>
-                <div class="faq-answer">
-                    <p>We do. Orders of 50+ cookies get custom packaging with your logo. Lead time is one week. Email us directly and we'll sort out the details.</p>
-                </div>
-            </div>
-        </div>
+        <div data-load="data/faq.json" data-template="faq-item" class="faq-list"></div>
     </div>
 </section>
     </div>
@@ -116,6 +85,7 @@
 
 <script src="ui.js"></script>
 <script src="nav.js"></script>
+<script src="data-loader.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

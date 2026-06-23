@@ -12,6 +12,11 @@
             if (item.year === '2024' && item.medal === 'gold') medalLabel = "'24";
             return '<div class="award-card"><div class="award-medal '+item.medal+'">'+medalLabel+'</div><div><span class="award-year">'+item.year+'</span><h3 class="award-title">'+item.title+'</h3><p class="award-desc">'+item.desc+'</p></div></div>';
         },
+                'faq-item': function(item, _unused, index) {
+            var openAttr = index === 0 ? ' open' : '';
+            var expandedAttr = index === 0 ? ' aria-expanded="true"' : ' aria-expanded="false"';
+            return '<div class="faq-item' + openAttr + '"><button class="faq-question"' + expandedAttr + '>' + item.q + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>';
+        },
         'faculty-card': function(member, isPast) {
             var cls = isPast ? 'faculty-card alumni' : 'faculty-card';
             var avStyle = isPast ? ' style="opacity:0.6"' : '';

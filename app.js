@@ -151,9 +151,14 @@ window.addEventListener('DOMContentLoaded', function() { setTimeout(initScrollRe
 })();
 
 // ── FAQ accordion ─────────────────────────
-document.querySelectorAll('.faq-question').forEach(btn => {
-    btn.setAttribute('aria-expanded', 'false');
-    btn.addEventListener('click', () => {
+function initFAQ() {
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        if (btn.hasAttribute('data-faq-bound')) return;
+        btn.setAttribute('data-faq-bound', '1');
+        var item = btn.parentElement;
+        if (item.classList.contains('open')) btn.setAttribute('aria-expanded', 'true');
+        else btn.setAttribute('aria-expanded', 'false');
+        btn.addEventListener('click', () => {
         const item = btn.parentElement;
         const wasOpen = item.classList.contains('open');
         document.querySelectorAll('.faq-item.open').forEach(open => {
@@ -167,7 +172,11 @@ document.querySelectorAll('.faq-question').forEach(btn => {
     });
 });
 // Set initial state for the default-open FAQ item
-document.querySelectorAll('.faq-item.open .faq-question').forEach(btn => btn.setAttribute('aria-expanded', 'true'));
+    });
+}
+initFAQ();
+// Re-bind after data-loader renders
+window.addEventListener('DOMContentLoaded', function() { setTimeout(initFAQ, 600); });
 
 // ── Order form ────────────────────────────
 const orderForm = document.getElementById('orderForm');
