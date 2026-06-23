@@ -1,13 +1,13 @@
 // ── Big Cookies — Navigation, Theme & Scroll ────
 (function initNav() {
     const nav = document.getElementById('nav');
-    if (!nav) { 
+    if (!nav) {
         // Nav not injected yet, wait for ui-ready
         window.addEventListener('ui-ready', initNav, {once: true});
         return;
     }
-const nav = document.getElementById('nav');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
 function updateActiveNav() {
@@ -73,9 +73,10 @@ document.addEventListener('keydown', (e) => {
 
 // ── Scroll progress bar ───────────────────
 (function() {
-    const bar = document.getElementById('scrollProgress');
+    var bar = document.getElementById('scrollProgress');
+    if (!bar) return;
     function updateProgress() {
-        const h = document.documentElement.scrollHeight - window.innerHeight;
+        var h = document.documentElement.scrollHeight - window.innerHeight;
         bar.style.width = h > 0 ? Math.min(100, (window.scrollY / h) * 100) + '%' : '0%';
     }
     window.addEventListener('scroll', updateProgress, {passive: true});

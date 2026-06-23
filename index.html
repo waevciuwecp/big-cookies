@@ -13,6 +13,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Bakery","name":"Big Cookies","description":"Handcrafted artisan cookies in small batches. European butter, single-origin chocolate, 48-hour cold fermentation.","url":"https://big-cookies.yaoyy.moe","email":"hello@big-cookies.yaoyy.moe","address":{"@type":"PostalAddress","streetAddress":"1428 SE Division Street","addressLocality":"Portland","addressRegion":"OR","postalCode":"97202","addressCountry":"US"},"servesCuisine":"Bakery","priceRange":"$$"}
@@ -495,7 +496,7 @@
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/></svg>
 </button>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="ui.js"></script>
 <script src="nav.js"></script>

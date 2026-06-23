@@ -73,38 +73,40 @@ if (heroCookie) {
 
 // ── Cookies baked today (live estimate) ──────
 (function() {
-    var el = document.getElementById('batchBanner');
-    if (!el) return;
-    var start = new Date();
-    start.setHours(4, 30, 0, 0); // 4:30am today
-    if (new Date() < start) start.setDate(start.getDate() - 1);
-    function updateBaked() {
-        var mins = Math.floor((new Date() - start) / 60000);
-        var baked = Math.min(300, Math.floor(mins * 0.48)); // ~0.48 cookies/min = ~300/day over 10.5hrs
-        var span = document.getElementById('bakedCount');
-        if (span) span.textContent = baked;
+    function initBakedCounter() {
+        var el = document.getElementById('batchBanner');
+        if (!el) { setTimeout(initBakedCounter, 200); return; }
+        var start = new Date();
+        start.setHours(4, 30, 0, 0); // 4:30am today
+        if (new Date() < start) start.setDate(start.getDate() - 1);
+        function updateBaked() {
+            var mins = Math.floor((new Date() - start) / 60000);
+            var baked = Math.min(300, Math.floor(mins * 0.48));
+            var span = document.getElementById('bakedCount');
+            if (span) span.textContent = baked;
+        }
+        var dot = el.querySelector('.batch-dot');
+        if (dot && !document.getElementById('bakedCount')) {
+            var span = document.createElement('span');
+            span.innerHTML = '&nbsp;·&nbsp;<span id="bakedCount">0</span> baked today';
+            span.style.fontSize = '0.8125rem';
+            dot.parentNode.insertBefore(span, dot);
+        }
+        updateBaked();
+        setInterval(updateBaked, 30000);
     }
-    // Add counter span to batch banner
-    var dot = el.querySelector('.batch-dot');
-    if (dot && !document.getElementById('bakedCount')) {
-        var span = document.createElement('span');
-        span.innerHTML = '&nbsp;·&nbsp;<span id="bakedCount">0</span> baked today';
-        span.style.fontSize = '0.8125rem';
-        dot.parentNode.insertBefore(span, dot);
-    }
-    updateBaked();
-    setInterval(updateBaked, 30000);
+    initBakedCounter();
 })();
 
 
-const batchBanner = document.getElementById('batchBanner');
-let bannerShown = false;
-window.addEventListener('scroll', () => {
+var batchBanner = document.getElementById('batchBanner');
+var bannerShown = false;
+window.addEventListener('scroll', function() {
     if (!bannerShown && window.scrollY > window.innerHeight * 0.6) {
-        batchBanner.classList.add('visible');
-        bannerShown = true;
+        if (!batchBanner) batchBanner = document.getElementById('batchBanner');
+        if (batchBanner) { batchBanner.classList.add('visible'); bannerShown = true; }
     }
-});
+}, {passive: true});
 
 // ── Scroll-reveal animations ──────────────
 const observer = new IntersectionObserver((entries) => {
@@ -119,28 +121,26 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 function initScrollReveal() {
-    document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    el.style.transitionDelay = (i % 3) * 0.1 + 's';
-    if (el.classList.contains('tilt-left')) {
-        el.dataset.originalTransform = 'rotate(-2.5deg)';
-    } else if (el.classList.contains('tilt-right')) {
-        el.dataset.originalTransform = 'rotate(3deg)';
-    } else if (el.classList.contains('tilt-none')) {
-        el.dataset.originalTransform = 'rotate(0.5deg)';
-    }
+    document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach(function(el, i) {
+        if (el.dataset.revealBound) return;
+        el.dataset.revealBound = '1';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transitionDelay = (i % 3) * 0.1 + 's';
+        if (el.classList.contains('tilt-left')) {
+            el.dataset.originalTransform = 'rotate(-2.5deg)';
+        } else if (el.classList.contains('tilt-right')) {
+            el.dataset.originalTransform = 'rotate(3deg)';
+        } else if (el.classList.contains('tilt-none')) {
+            el.dataset.originalTransform = 'rotate(0.5deg)';
+        }
         observer.observe(el);
     });
 }
 initScrollReveal();
-// Re-run after data-loader renders
-if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() { setTimeout(initScrollReveal, 800); });
-    } else {
-        setTimeout(initScrollReveal, 800);
-    }
+// Re-run after data-loader renders for dynamically-added elements only
+window.addEventListener('data-ready', function() { setTimeout(initScrollReveal, 100); }, {once: true});
 
 // ── Step & phil-card reveal ────────────────
 (function() {
@@ -367,14 +367,24 @@ if (newsletterForm) {
     }
 
     // Run after data-loader renders
+    var _sliderInited = false;
     function tryInitSlider() {
+        if (_sliderInited) return;
         // If data-ready already fired (or no data-load on page), init after short delay
         var hasDataLoad = document.querySelector('[data-load]');
-        if (!hasDataLoad) { initSlider(); return; }
+        if (!hasDataLoad) { _sliderInited = true; initSlider(); return; }
         // Otherwise wait for data-ready event (data-loader signals when done)
-        window.addEventListener('data-ready', function() { setTimeout(initSlider, 100); }, {once: true});
+        window.addEventListener('data-ready', function() {
+            if (_sliderInited) return;
+            _sliderInited = true;
+            setTimeout(initSlider, 100);
+        }, {once: true});
         // Fallback: if data-ready never fires, init after 3s anyway
-        setTimeout(function() { initSlider(); }, 3000);
+        setTimeout(function() {
+            if (_sliderInited) return;
+            _sliderInited = true;
+            initSlider();
+        }, 3000);
     }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', tryInitSlider);
@@ -385,16 +395,20 @@ if (newsletterForm) {
 
 
 // ── Back to top ──────────────────────────
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-    backToTop.classList.toggle('visible', window.scrollY > 600);
-});
-backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+var backToTop = document.getElementById('backToTop');
+if (backToTop) {
+    window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 600);
+    }, {passive: true});
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 // ── Product card tap-to-flip (mobile) ─────
 document.querySelectorAll('.product-card').forEach(card => {
+    if (card.hasAttribute('data-flip-bound')) return;
+    card.setAttribute('data-flip-bound', '1');
     let flipTimer;
     card.addEventListener('click', (e) => {
         if (e.target.closest('.product-card-back') || window.innerWidth > 900) return;
@@ -457,10 +471,10 @@ function showToast(msg, icon) {
 // ── Re-bind after data-loader renders ────────
 window.addEventListener('data-ready', function() {
     setTimeout(function() {
-        // Re-bind scroll-reveal for dynamically loaded cards
+        // Re-scan for new dynamically-loaded elements (idempotent via data-reveal-bound)
         initScrollReveal();
-        
-        // Re-bind tap-to-flip for product cards
+
+        // Re-bind tap-to-flip for new product cards (idempotent via data-flip-bound)
         document.querySelectorAll('.product-card').forEach(function(card) {
             if (card.hasAttribute('data-flip-bound')) return;
             card.setAttribute('data-flip-bound', '1');
@@ -476,19 +490,6 @@ window.addEventListener('data-ready', function() {
                 card.classList.remove('flipped');
                 clearTimeout(flipTimer);
             });
-        });
-
-        // Re-bind scroll-reveal observer
-        document.querySelectorAll('.product-card, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach(function(el, i) {
-            if (el.style.opacity === '1') return; // already revealed
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            el.style.transitionDelay = (i % 3) * 0.1 + 's';
-            if (el.classList.contains('tilt-left')) el.dataset.originalTransform = 'rotate(-2.5deg)';
-            else if (el.classList.contains('tilt-right')) el.dataset.originalTransform = 'rotate(3deg)';
-            else if (el.classList.contains('tilt-none')) el.dataset.originalTransform = 'rotate(0.5deg)';
-            observer.observe(el);
         });
     }, 200);
 }, {once: true});

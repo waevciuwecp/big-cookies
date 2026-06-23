@@ -414,7 +414,6 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .builder-item-name { font-weight: 600; font-size: 0.875rem; flex: 1; line-height: 1.2; }
 .builder-item-price { font-size: 0.8125rem; color: var(--gold); font-weight: 600; }
 
-.builder-item.selected 
 .builder-box {
     background: #fff; border-radius: 1.5rem; border: 1px solid var(--soft);
     position: sticky; top: 100px;
@@ -991,11 +990,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 .slider-dot.active { background: var(--gold); width: 28px; border-radius: 5px; }
 
-[data-theme="dark"] 
 [data-theme="dark"] .slider-dot { background: #3D2E22; }
-@media (max-width: 900px) {
-    
-}
 
 /* ── ORDER CART SUMMARY ───────────────────── */
 .order-cart-summary { min-height: 40px; }
