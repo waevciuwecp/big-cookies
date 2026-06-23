@@ -34,11 +34,11 @@
         'error': '<div style="text-align:center;padding:3rem;color:var(--jam)">Could not load content.</div>'
     };
 
-    function loadAndRender(el) {
+    function loadAndRender(el, cb) {
         var src = el.getAttribute('data-load');
         var tpl = el.getAttribute('data-template');
         var section = el.getAttribute('data-section');
-        if (!src || !tpl || !templates[tpl]) return;
+        if (!src || !tpl || !templates[tpl]) { if (cb) cb(); return; }
         el.innerHTML = templates['loading'];
         fetch(src).then(function(res) {
             if (!res.ok) throw new Error('HTTP '+res.status);
@@ -49,14 +49,24 @@
             el.innerHTML = items.map(function(item) {
                 return templates[tpl](item, section==='past');
             }).join('');
+            if (cb) cb();
         }).catch(function(err) {
             console.warn('Data load failed: '+src, err);
             el.innerHTML = templates['error'];
+            if (cb) cb();
         });
     }
 
     function init() {
-        document.querySelectorAll('[data-load]').forEach(loadAndRender);
+        var els = document.querySelectorAll('[data-load]');
+        var pending = els.length;
+        if (pending === 0) { window.dispatchEvent(new CustomEvent('data-ready')); return; }
+        els.forEach(function(el) {
+            loadAndRender(el, function() {
+                pending--;
+                if (pending === 0) window.dispatchEvent(new CustomEvent('data-ready'));
+            });
+        });
     }
     if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
     else init();

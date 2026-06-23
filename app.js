@@ -322,10 +322,19 @@ if (newsletterForm) {
     }
 
     // Run after data-loader renders
+    function tryInitSlider() {
+        // If data-ready already fired (or no data-load on page), init after short delay
+        var hasDataLoad = document.querySelector('[data-load]');
+        if (!hasDataLoad) { initSlider(); return; }
+        // Otherwise wait for data-ready event (data-loader signals when done)
+        window.addEventListener('data-ready', function() { setTimeout(initSlider, 100); }, {once: true});
+        // Fallback: if data-ready never fires, init after 3s anyway
+        setTimeout(function() { initSlider(); }, 3000);
+    }
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() { setTimeout(initSlider, 800); });
+        document.addEventListener('DOMContentLoaded', tryInitSlider);
     } else {
-        setTimeout(initSlider, 800);
+        tryInitSlider();
     }
 })();
 
