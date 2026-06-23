@@ -172,6 +172,9 @@ builderReset.addEventListener('click', () => {
     showToast('Box cleared.');
 });
 
+const allIds=["classic","double","toffee","raspberry","caramel","matcha"];
+document.getElementById("btnSurprise").addEventListener("click",()=>{selectedCookies.length=0;updateBuilderBox();[...allIds].sort(()=>Math.random()-0.5).forEach((id,i)=>{setTimeout(()=>{const it=builderPicker.querySelector("[data-id="+id+"]");if(it){selectedCookies.push({id,name:it.dataset.name,price:it.dataset.price});updateBuilderBox();if(i===5)showToast("Surprise mix ready!");}},i*80);});});
+
 // Quick Fill: staff picks (sequential)
 document.getElementById('btnQuickFill').addEventListener('click', () => {
     selectedCookies.length = 0;

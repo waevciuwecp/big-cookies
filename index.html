@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress" style="width:0%"></div>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
     <defs>
@@ -407,7 +408,8 @@
         <div class="builder-layout">
             <div class="builder-picker-header">
                 <span class="builder-picker-label">Pick your cookies</span>
-                <button class="btn-quickfill" id="btnQuickFill">Fill with Staff Picks</button>
+                <button class="btn-quickfill" id="btnQuickFill">Staff Picks</button>
+                <button class="btn-quickfill" id="btnSurprise" style="margin-left:0.375rem">Surprise Me</button>
             </div>
             <div class="builder-picker" id="builderPicker">
                 <div class="builder-item" data-id="classic" data-name="Classic Chocolate Chunk" data-emoji="classic" data-price="4.50">
@@ -675,7 +677,7 @@
         <h2 class="section-title text-center">You asked, we answered</h2>
 
         <div class="faq-list">
-            <div class="faq-item">
+            <div class="faq-item open">
                 <button class="faq-question">How long do the cookies stay fresh?</button>
                 <div class="faq-answer">
                     <p>Five days at room temp in the sealed bag they arrive in. Two weeks refrigerated. Three months frozen — just reheat at 160°C for 5 minutes and they're 90% as good as fresh. Reheat instructions come in every box.</p>
@@ -813,6 +815,7 @@
             <ul>
                 <li><a href="#" onclick="document.getElementById('newsletterForm').querySelector('input').focus();return false">Newsletter</a></li>
                 <li><a href="#how">How It Works</a></li>
+                <li style="margin-top:0.5rem;color:#8B6F5C;font-size:0.6875rem">@bigcookies on Instagram</li>
             </ul>
         </div>
     </div>
