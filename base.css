@@ -1,0 +1,151 @@
+:root {
+    --bg:      #FFF9F2;
+    --ink:     #3C2415;
+    --gold:    #C8853E;
+    --honey:   #E8A850;
+    --paper:   #F5EDE3;
+    --jam:     #B84444;
+    --vanilla: #FDF3E7;
+    --soft:    #E8D9C6;
+    --mocha:   #5C3D2E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--honey));z-index:200;transition:width 0.1s linear;border-radius:0 2px 2px 0;}
+html { scroll-behavior: smooth; }
+
+body::before{content:"";position:fixed;inset:0;opacity:0.015;pointer-events:none;z-index:-1;background-image:radial-gradient(circle,var(--ink) 1px,transparent 1px);background-size:24px 24px;}
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────── */
+.nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 2rem;
+    background: rgba(255,249,242,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--soft);
+    transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 1px 20px rgba(60,36,21,0.06); }
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900; color: var(--ink);
+    text-decoration: none; letter-spacing: -0.02em;
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo .logo-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 38%, #D4954B 0%, #C1783A 60%, #A8612E 100%);
+    position: relative; flex-shrink: 0;
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.15);
+}
+.nav-logo .logo-icon::after {
+    content: ''; position: absolute; width: 6px; height: 4px;
+    background: #3C1D0E; border-radius: 40%; top: 35%; left: 30%;
+    box-shadow: 8px 2px 0 #3C1D0E, 3px 8px 0 #3C1D0E;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+    text-decoration: none; color: var(--ink);
+    font-size: 0.875rem; font-weight: 500;
+    transition: color 0.2s; letter-spacing: 0.01em;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a.active { color: var(--gold); position: relative; }
+.nav-links a.active::after {
+    content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px; border-radius: 50%; background: var(--gold);
+}
+.nav-cta {
+    background: var(--gold); color: #fff !important;
+    padding: 0.5rem 1.25rem; border-radius: 100px;
+    font-weight: 600 !important; font-size: 0.8125rem !important;
+    transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--honey); transform: translateY(-1px); }
+.nav-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+}
+.nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); border-radius: 2px; transition: all 0.3s;
+}
+
+/* ── MOBILE MENU ─────────────────────────── */
+.mobile-menu {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--bg); z-index: 99;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 2rem;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.mobile-menu.open { opacity: 1; pointer-events: auto; }
+.mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; color: var(--ink); text-decoration: none;
+    font-weight: 700; transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ── BATCH BANNER ────────────────────────── */
+.batch-banner {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+    background: linear-gradient(90deg, #3C2415 0%, #5C3D2E 50%, #3C2415 100%);
+    color: #FCEBD9; text-align: center; padding: 0.5rem 1rem;
+    font-size: 0.8125rem; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    transform: translateY(-100%); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.batch-banner.visible { transform: translateY(0); opacity: 1; }
+.batch-banner .batch-icon { display: inline-block; animation: flameFlicker 1.5s ease-in-out infinite; }
+/* ── BACK TO TOP ─────────────────────────── */
+.back-to-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--gold); color: #fff; border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(200,133,62,0.35);
+    opacity: 0; transform: translateY(20px); pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { background: var(--honey); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(200,133,62,0.45); }
+.back-to-top { transition: opacity 0.3s, transform 0.3s, background 0.25s, box-shadow 0.25s; }
+
+/* ── BATCH NUMBER ────────────────────────── */
+.batch-banner .batch-num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; color: var(--honey); font-size: 0.9375rem;
+}
+.scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; animation: bounceDown 2s ease-in-out infinite;
+    opacity: 0.5; transition: opacity 0.4s;
+}
+.scroll-indicator.faded { opacity: 0; }
+.scroll-indicator svg { display: block; }
+
+/* ── TOAST ──────────────────────────────── */
+.toast { padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(120px);
+    background: var(--ink); color: #fff; padding: 0.75rem 1.5rem;
+    border-radius: 100px; font-weight: 500; font-size: 0.875rem;
+    z-index: 200; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.toast.visible { transform: translateX(-50%) translateY(0); }
+.toast-icon { font-size: 1rem; flex-shrink: 0; }
