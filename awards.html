@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards — Big Cookies</title>
+    <meta name="description" content="Awards and recognition earned by Big Cookies — National Bakery Awards, Small Business of the Year, and more.">
+    <meta property="og:title" content="Awards — Big Cookies">
+    <meta property="og:description" content="Awards and recognition earned by Big Cookies — National Bakery Awards, Small Business of the Year, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Big Cookies">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+    (function(){
+        var t=localStorage.getItem('theme');
+        if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}
+    })();
+    </script>
+</head>
+<body>
+<div id="site-nav"></div>
+<section style="padding-top:6rem">
+    <div class="section-inner">
+        <div class="section-label text-center">Recognition</div>
+        <h2 class="section-title text-center">Awards & Accolades</h2>
+        <p class="section-subtitle text-center mx-auto" style="max-width:560px">We don't bake for awards. But when they show up, we don't send them back.</p>
+        <div style="max-width:700px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.5rem">
+            <div class="award-card"><div class="award-medal gold">1</div><div><span class="award-year">2025</span><h3 class="award-title">Best Artisan Cookie — National Bakery Awards</h3><p class="award-desc">Judges cited the "unprecedented depth of flavor" in our Classic Chocolate Chunk, noting the 48-hour cold fermentation as "a technique more common in three-Michelin-star kitchens than cookie bakeries."</p></div></div>
+            <div class="award-card"><div class="award-medal silver">2</div><div><span class="award-year">2024</span><h3 class="award-title">Small Business of the Year — Regional Chamber of Commerce</h3><p class="award-desc">Grew from 2 to 12 employees in 12 months while maintaining a 4.9-star average across 2,400+ reviews. The Chamber called our growth "disciplined, sustainable, and entirely word-of-mouth."</p></div></div>
+            <div class="award-card"><div class="award-medal bronze">3</div><div><span class="award-year">2024</span><h3 class="award-title">Reader's Choice — City Food Magazine</h3><p class="award-desc">Our Sea Salt Caramel cookie was voted "Dessert of the Year" by 12,000+ readers. One reviewer wrote: "I've eaten cookies in 14 countries and these are top three."</p></div></div>
+            <div class="award-card"><div class="award-medal gold">24</div><div><span class="award-year">2024</span><h3 class="award-title">Sustainability Star — Green Kitchen Alliance</h3><p class="award-desc">Recognized for sourcing all chocolate from certified fair-trade cooperatives and using 100% compostable packaging. Our kitchen runs on renewable energy.</p></div></div>
+        </div>
+    </div>
+</section>
+<section style="padding:4rem 2rem;text-align:center">
+    <div class="section-inner">
+        <h2 class="section-title">The only award that matters</h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom:2rem">Is the one you give us when you come back for a second box.</p>
+        <a href="/" class="btn btn-primary btn-large">Back to the Shop</a>
+    </div>
+</section>
+<div id="site-footer"></div>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/></svg>
+</button>
+<div class="toast" id="toast"></div>
+<script src="ui.js"></script>
+<script src="nav.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -815,3 +815,76 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+
+/* ── FACULTY CARDS ────────────────────────── */
+.faculty-card {
+    background: var(--paper); border-radius: 1.5rem; padding: 2.5rem 2rem;
+    text-align: center; border: 1px solid var(--soft);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.faculty-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(60,36,21,0.08); }
+.faculty-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 38%, #D4954B, #A8612E);
+    margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 -3px 6px rgba(0,0,0,0.2);
+}
+.faculty-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+.faculty-role { font-size: 0.8125rem; color: var(--gold); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.faculty-bio { font-size: 0.9375rem; color: #6B5444; line-height: 1.6; margin-top: 1rem; }
+[data-theme="dark"] .faculty-card { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .faculty-bio { color: #B8A898; }
+
+/* ── AWARD CARDS ──────────────────────────── */
+.award-card {
+    background: var(--paper); border-radius: 1.25rem; padding: 2rem;
+    border: 1px solid var(--soft); display: flex; gap: 1.5rem; align-items: flex-start;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.award-card:hover { transform: translateX(4px); box-shadow: 0 8px 24px rgba(60,36,21,0.06); }
+.award-medal {
+    flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: #fff; font-weight: 900;
+    font-family: 'Playfair Display', serif;
+}
+.award-medal.gold { background: linear-gradient(135deg, var(--gold), var(--honey)); }
+.award-medal.silver { background: linear-gradient(135deg, #B8B8B8, #909090); }
+.award-medal.bronze { background: linear-gradient(135deg, #CD7F32, #A06030); }
+.award-year { font-size: 0.75rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+.award-year + .award-medal { margin-top: 0; }
+.award-title { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; margin: 0.25rem 0 0.5rem; }
+.award-desc { font-size: 0.9375rem; color: #6B5444; line-height: 1.6; }
+[data-theme="dark"] .award-card { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .award-desc { color: #B8A898; }
+
+/* ── FACTORY OPEN DAY ─────────────────────── */
+.open-day-hero {
+    background: var(--paper); border-radius: 1.5rem; padding: 2.5rem;
+    border: 2px solid var(--gold); text-align: center; margin-bottom: 2rem;
+}
+.open-day-label { font-size: 0.8125rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+.open-day-date { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--ink); margin: 0.5rem 0; }
+.open-day-meta { font-size: 1.0625rem; color: #6B5444; line-height: 1.6; }
+.open-day-features {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 3rem;
+}
+.od-feature {
+    background: var(--paper); border-radius: 1rem; padding: 1.75rem;
+    text-align: center; border: 1px solid var(--soft);
+    transition: transform 0.3s;
+}
+.od-feature:hover { transform: translateY(-4px); }
+.od-feature-icon { margin-bottom: 0.75rem; }
+.od-feature h3 { font-family: 'Playfair Display', serif; font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
+.od-feature p { font-size: 0.875rem; color: #6B5444; line-height: 1.5; }
+[data-theme="dark"] .open-day-hero { background: var(--paper); }
+[data-theme="dark"] .od-feature { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .od-feature p { color: #B8A898; }
+[data-theme="dark"] .open-day-meta { color: #B8A898; }
+
+@media (max-width: 600px) {
+    .open-day-features { grid-template-columns: 1fr; }
+    .award-card { flex-direction: column; text-align: center; align-items: center; }
+    [data-masonry] { grid-template-columns: 1fr !important; }
+}

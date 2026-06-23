@@ -173,6 +173,20 @@ if (orderForm) {
     });
 }
 
+
+// ── Open Day form ───────────────────────────
+(function() {
+    const form = document.getElementById('openDayForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('You\'re on the list! Check your email for confirmation.');
+            form.reset();
+        });
+    }
+})();
+
+
 // ── Newsletter form ───────────────────────
 const newsletterForm = document.getElementById('newsletterForm');
 if (newsletterForm) {

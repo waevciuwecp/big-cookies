@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Faculty — Big Cookies</title>
+    <meta name="description" content="Meet the bakers behind Big Cookies. Lena, Marcus, Priya, and Diego — four bakers, one obsession with perfect cookies.">
+    <meta property="og:title" content="Our Faculty — Big Cookies">
+    <meta property="og:description" content="Meet the bakers behind Big Cookies. Lena, Marcus, Priya, and Diego — four bakers, one obsession with perfect cookies.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Big Cookies">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+    (function(){
+        var t=localStorage.getItem('theme');
+        if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}
+    })();
+    </script>
+</head>
+<body>
+<div id="site-nav"></div>
+<section style="padding-top:6rem">
+    <div class="section-inner">
+        <div class="section-label text-center">Our Faculty</div>
+        <h2 class="section-title text-center">The hands behind every cookie</h2>
+        <p class="section-subtitle text-center mx-auto" style="max-width:600px">
+            Four bakers, one obsession. Each brings something unique to the kitchen.
+        </p>
+        <div data-masonry style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;max-width:840px;margin-left:auto;margin-right:auto">
+            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Lena Kovač</h3><span class="faculty-role">Head Baker</span><p class="faculty-bio">14 years in pastry. Trained at Le Cordon Bleu Paris. Lena tastes every batch before it ships — she has never approved a cookie she wouldn't feed to her own children.</p></div>
+            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Marcus Chen</h3><span class="faculty-role">Dough Master</span><p class="faculty-bio">Former bread baker who switched to cookies and never looked back. Marcus manages the 48-hour cold fermentation schedule with the precision of a Swiss watchmaker.</p></div>
+            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Priya Sharma</h3><span class="faculty-role">Flavor Architect</span><p class="faculty-bio">Priya develops every new flavor. She's tested over 200 chocolate sources and keeps a notebook of rejected combinations. The Raspberry Dark was her idea.</p></div>
+            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Diego Reyes</h3><span class="faculty-role">Pack & Ship Lead</span><p class="faculty-bio">The last pair of hands on every box. Diego inspects every cookie under a lamp, hand-stamps every box, and has been known to re-pack an order at 5pm because a corner looked off.</p></div>
+        </div>
+    </div>
+</section>
+<section style="padding:4rem 2rem;text-align:center">
+    <div class="section-inner">
+        <h2 class="section-title">Want to join the faculty?</h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom:2rem">We're always looking for people who care more than they should.</p>
+        <a href="mailto:hello@big-cookies.yaoyy.moe" class="btn btn-primary btn-large">Get in Touch</a>
+    </div>
+</section>
+<div id="site-footer"></div>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/></svg>
+</button>
+<div class="toast" id="toast"></div>
+<script src="ui.js"></script>
+<script src="nav.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
