@@ -128,8 +128,9 @@ body {
     transition: opacity 0.3s, transform 0.3s;
 }
 .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.back-to-top:hover { background: var(--honey); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(200,133,62,0.45); }
-.back-to-top { transition: opacity 0.3s, transform 0.3s, background 0.25s, box-shadow 0.25s; }
+.back-to-top:hover { background: var(--honey); transform: translateY(-4px) scale(1.08); box-shadow: 0 8px 28px rgba(200,133,62,0.5); }
+.back-to-top:active { transform: translateY(-1px) scale(0.95); }
+.back-to-top { transition: opacity 0.3s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s, box-shadow 0.25s; }
 
 /* ── BATCH NUMBER ────────────────────────── */
 .batch-banner .batch-num {
