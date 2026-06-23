@@ -117,10 +117,12 @@ function updateBuilderBox() {
             slot.classList.add('filled');
             slot.classList.remove('empty');
             slot.innerHTML = `<div class="slot-cookie cookie-icon flavor-${cookie.id}" style="width:36px;height:36px;margin:0"></div>`;
+            slot.setAttribute('aria-label', cookie.name);
         } else {
             slot.classList.remove('filled');
             slot.classList.add('empty');
             slot.innerHTML = '';
+            slot.setAttribute('aria-label', 'Empty slot');
         }
     });
 
@@ -253,14 +255,19 @@ backToTop.addEventListener('click', () => {
 
 // ── Product card tap-to-flip (mobile) ─────
 document.querySelectorAll('.product-card').forEach(card => {
+    let flipTimer;
     card.addEventListener('click', (e) => {
-        // Only toggle on direct card click, not on inner element interactions
         if (e.target.closest('.product-card-back') || window.innerWidth > 900) return;
+        const wasFlipped = card.classList.contains('flipped');
         card.classList.toggle('flipped');
+        clearTimeout(flipTimer);
+        if (!wasFlipped) {
+            flipTimer = setTimeout(() => card.classList.remove('flipped'), 3000);
+        }
     });
-    // Unflip when mouse leaves (desktop reset after tap)
     card.addEventListener('mouseleave', () => {
         card.classList.remove('flipped');
+        clearTimeout(flipTimer);
     });
 });
 
