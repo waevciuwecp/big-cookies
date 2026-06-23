@@ -281,7 +281,7 @@ if (newsletterForm) {
             var dot = document.createElement('button');
             dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
             dot.setAttribute('aria-label', 'Testimonial ' + (i + 1));
-            dot.addEventListener('click', function() { goTo(i); });
+            dot.addEventListener('click', function(e) { e.stopPropagation(); goTo(i); });
             dotsEl.appendChild(dot);
         });
 
@@ -298,8 +298,17 @@ if (newsletterForm) {
         function prev() { goTo((current - 1 + slides.length) % slides.length); }
         function resetTimer() { clearInterval(timer); timer = setInterval(next, 5000); }
 
-        if (prevBtn) prevBtn.addEventListener('click', prev);
-        if (nextBtn) nextBtn.addEventListener('click', next);
+        if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); prev(); });
+        if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); next(); });
+
+        // Click left 1/3 → prev, right 1/3 → next, middle → no-op
+        container.addEventListener('click', function(e) {
+            var rect = container.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var third = rect.width / 3;
+            if (x < third) { prev(); }
+            else if (x > third * 2) { next(); }
+        });
 
         // Pause on hover
         container.addEventListener('mouseenter', function() { clearInterval(timer); });

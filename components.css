@@ -947,7 +947,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 /* ── TESTIMONIAL SLIDER ───────────────────── */
 .testimonial-slider {
     position: relative; max-width: 800px; margin: 3rem auto 0;
-    overflow: hidden;
+    overflow: hidden; cursor: default;
 }
 .testimonial-slider .testimonial {
     display: none; transition: opacity 0.5s ease;
@@ -959,8 +959,27 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+/* Click-region hints: subtle gradient overlays on hover */
+.testimonial-slider::before,
+.testimonial-slider::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 33.33%;
+    pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.3s;
+}
+.testimonial-slider::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(200,133,62,0.06), transparent);
+    cursor: w-resize;
+}
+.testimonial-slider::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(200,133,62,0.06), transparent);
+    cursor: e-resize;
+}
+.testimonial-slider:hover::before,
+.testimonial-slider:hover::after { opacity: 1; }
 .slider-dots {
     display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem;
+    position: relative; z-index: 2;
 }
 .slider-dot {
     width: 10px; height: 10px; border-radius: 50%; background: var(--soft);
