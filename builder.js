@@ -1,6 +1,16 @@
 // ── Big Cookies — Shopping Cart ────────────────
 (function() {
-    var cart = {}; // {id: {name, price, qty}}
+    // Load cart from localStorage
+    var cart = {};
+    try {
+        var saved = localStorage.getItem('bigCookiesCart');
+        if (saved) cart = JSON.parse(saved);
+    } catch(e) { cart = {}; }
+
+    function saveCart() {
+        try { localStorage.setItem('bigCookiesCart', JSON.stringify(cart)); } catch(e) {}
+    }
+
     var picker = document.getElementById('builderPicker');
     var cartList = document.getElementById('cartList');
     var cartEmpty = document.getElementById('cartEmpty');
@@ -11,6 +21,9 @@
     var builderBox = document.getElementById('builderBox');
 
     if (!picker) return;
+
+    var MAX_PER_ITEM = 50;
+    var MAX_TOTAL = 100;
 
     function updateCart() {
         var html = '';
@@ -73,6 +86,8 @@
             item.querySelector('.qty-num').textContent = qty;
             item.classList.toggle('in-cart', qty > 0);
         });
+
+        saveCart();
     }
 
     // Plus/minus button handlers
@@ -87,6 +102,16 @@
         if (!cart[id]) cart[id] = {name: name, price: price, qty: 0};
 
         if (btn.classList.contains('qty-plus')) {
+            if (cart[id].qty >= MAX_PER_ITEM) {
+                window.showToast && showToast('Max ' + MAX_PER_ITEM + ' per flavor. That\'s a lot of cookies!');
+                return;
+            }
+            var totalQty = 0;
+            for (var k in cart) { if (cart[k].qty > 0) totalQty += cart[k].qty; }
+            if (totalQty >= MAX_TOTAL) {
+                window.showToast && showToast('Cart limit: ' + MAX_TOTAL + ' cookies. That\'s a big order!');
+                return;
+            }
             cart[id].qty++;
         } else if (btn.classList.contains('qty-minus')) {
             cart[id].qty = Math.max(0, cart[id].qty - 1);
@@ -103,7 +128,8 @@
     });
 
     // Staff Picks: 1 of each
-    document.getElementById('btnQuickFill').addEventListener('click', function() {
+    var btnQuickFill = document.getElementById('btnQuickFill');
+    if (btnQuickFill) btnQuickFill.addEventListener('click', function() {
         var ids = ['double','caramel','classic','toffee','raspberry','matcha'];
         ids.forEach(function(id) {
             var item = picker.querySelector('[data-id="' + id + '"]');
@@ -117,7 +143,8 @@
     });
 
     // Surprise Me: random 1-2 of each
-    document.getElementById('btnSurprise').addEventListener('click', function() {
+    var btnSurprise = document.getElementById('btnSurprise');
+    if (btnSurprise) btnSurprise.addEventListener('click', function() {
         var ids = ['classic','double','toffee','raspberry','caramel','matcha'];
         // Fisher-Yates shuffle then take random qty
         for (var i = ids.length-1; i > 0; i--) {
@@ -142,8 +169,11 @@
         if (count > 0) window.showToast && showToast(count + ' cookies in cart — ' + total);
     });
 
-    // Clear cart
+    // Clear cart with confirmation
     builderReset.addEventListener('click', function() {
+        var count = 0;
+        for (var id in cart) count += cart[id].qty;
+        if (count > 0 && !confirm('Clear your cart of ' + count + ' cookie' + (count !== 1 ? 's' : '') + '?')) return;
         cart = {};
         updateCart();
         window.showToast && showToast('Cart cleared.');

@@ -429,7 +429,7 @@
 
             <div class="order-form-wrap">
                 <h3>Your Order</h3>
-                <form id="orderForm">
+                <form id="orderForm" action="#" method="post">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Full Name</label>
@@ -482,8 +482,9 @@
         <div class="newsletter">
             <h2>Get first dibs on new flavors</h2>
             <p>We drop limited batches every Friday. Subscribers get early access + free shipping on first orders.</p>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" placeholder="your@email.com" required>
+            <form class="newsletter-form" id="newsletterForm" action="#" method="post">
+                <label for="newsletterEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+                <input type="email" id="newsletterEmail" name="email" placeholder="your@email.com" required>
                 <button type="submit" class="btn btn-primary">Notify Me</button>
             </form>
             <div class="newsletter-success" id="newsletterSuccess">You're on the list! We'll email you when the next batch drops.</div>

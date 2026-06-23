@@ -109,6 +109,9 @@
     .order-form-wrap { padding: 2rem 1.5rem; }
     section { padding: 4rem 1.5rem; }
     .hero { padding: 5rem 1.5rem 3rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
+    .footer-col ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1rem; }
+    .gifts-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -176,6 +179,16 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .faq-item { border-color: var(--soft); }
 [data-theme="dark"] .product-card:hover { box-shadow: none; }
 [data-theme="dark"] .gallery-wall .polaroid-frame { background: linear-gradient(135deg, #2A1E16 0%, #1F1610 100%); }
+[data-theme="dark"] .product-tag { background: rgba(200,133,62,0.15); color: #E8A850; }
+[data-theme="dark"] .btn-reset { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .btn-reset:hover { border-color: var(--gold); }
+[data-theme="dark"] .gift-savings { background: rgba(58,140,63,0.15); color: #5BBA63; }
+[data-theme="dark"] .batch-dot { background: #5BBA63; box-shadow: 0 0 8px rgba(91,186,99,0.3); }
+[data-theme="dark"] .archive-card.archive-returning { border-left-color: #5BBA63; }
+[data-theme="dark"] .archive-card.archive-retired { border-left-color: #6B5A4A; }
+[data-theme="dark"] .news-read-time { color: #9B8A78; }
+[data-theme="dark"] .order-cart-item span:nth-child(2) { color: #9B8A78; }
+[data-theme="dark"] .internship-check { color: #5BBA63; }
 [data-theme="dark"] .dough-divider svg path:first-child { fill: var(--bg); }
 [data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #1F1610 0%, #18120D 100%) !important; }
 
@@ -224,8 +237,8 @@ body.has-banner .nav { top: 0; }
 body.has-banner { padding-top: 40px; }
 
 @keyframes warmPulse {
-    0%, 100% { box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,220,170,0.15); }
-    50% { box-shadow: 0 20px 80px rgba(232,168,80,0.45), 0 0 120px rgba(232,168,80,0.15), inset 0 -4px 8px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,220,170,0.15); }
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
 }
 
 /* ── MOBILE STEP CONNECTOR ────────────────── */

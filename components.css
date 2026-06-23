@@ -691,7 +691,12 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 /* ── HERO COOKIE WARM PULSE ───────────────── */
 .cookie-illustration .cookie-main {
-    animation: warmPulse 3s ease-in-out infinite;
+    box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,220,170,0.15);
+}
+.cookie-illustration .cookie-main::after {
+    content: ''; position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
+    border-radius: 50%; background: radial-gradient(circle, rgba(232,168,80,0.25) 0%, transparent 70%);
+    animation: warmPulse 3s ease-in-out infinite; pointer-events: none; z-index: -1;
 }
 /* ── KITCHEN STORY ────────────────────────── */
 .kitchen-chapter { margin-top: 5rem; }

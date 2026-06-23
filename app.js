@@ -116,6 +116,7 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.transform = entry.target.dataset.originalTransform
                 ? entry.target.dataset.originalTransform
                 : 'translateY(0)';
+            observer.unobserve(entry.target);
         }
     });
 }, { threshold: 0.15 });
