@@ -19,6 +19,26 @@
       "name": "Diego Reyes",
       "role": "Pack & Ship Lead",
       "bio": "The last pair of hands on every box. Diego inspects every cookie under a lamp, hand-stamps every box, and has been known to re-pack an order at 5pm because a corner looked off."
+    },
+    {
+      "name": "Thomas Berg",
+      "role": "Production Baker",
+      "bio": "Thomas runs the morning bake \u2014 200 cookies before 8am, every day. He came from a high-volume bread bakery and treats consistency like a religion. If your cookie looks perfect, Thomas made it."
+    },
+    {
+      "name": "Olivia Watts",
+      "role": "Pastry Chef",
+      "bio": "Olivia handles our seasonal and special-order creations. Trained at The Culinary Institute of America, she's the reason our Lemon Lavender cookie exists \u2014 47 test batches, zero compromises."
+    },
+    {
+      "name": "James Okonkwo",
+      "role": "Logistics Coordinator",
+      "bio": "James makes sure every box arrives on time and intact. He designed our crush-proof packaging system and personally stress-tests new box designs by shipping cookies to himself."
+    },
+    {
+      "name": "Sofia Ramirez",
+      "role": "Customer Experience Lead",
+      "bio": "Sofia answers every email, handles every substitution request, and once hand-delivered a replacement box to a customer whose cookies got lost in transit. She's the voice of Big Cookies."
     }
   ],
   "past": [
@@ -39,6 +59,36 @@
       "role": "Packaging Designer",
       "bio": "Designed the original hand-stamped kraft box. Now creative director at a sustainable packaging startup in Berlin.",
       "tenure": "2024 \u2013 2024"
+    },
+    {
+      "name": "Raj Patel",
+      "role": "Supply Chain Lead",
+      "bio": "Built our entire sourcing network \u2014 from Valrhona chocolate to custom kraft boxes \u2014 in the first 6 months. Now runs logistics for a farm-to-table network in Vermont.",
+      "tenure": "2024 \u2013 2025"
+    },
+    {
+      "name": "Emma Larsson",
+      "role": "Pastry Intern",
+      "bio": "Joined as our first intern while finishing her pastry diploma. Developed the Matcha White Chocolate cookie as her final project. Now head pastry chef at a Michelin-starred restaurant in Copenhagen.",
+      "tenure": "2024 \u2013 2024"
+    },
+    {
+      "name": "Carlos Mendez",
+      "role": "Night Baker",
+      "bio": "Carlos ran the overnight cold-proofing shift \u2014 the most important hours in our process. Set a kitchen record of 340 cookies in a single shift. Left to open his own bakery in Mexico City.",
+      "tenure": "2024 \u2013 2026"
     }
-  ]
+  ],
+  "internships": {
+    "title": "Internship Program",
+    "description": "Every semester, we welcome two pastry students into our kitchen for a 12-week paid internship. You'll work every station \u2014 dough prep, baking, QC, packing, and shipping \u2014 and develop your own cookie flavor as a final project. Past interns have gone on to Michelin-starred kitchens, food science PhDs, and their own bakeries.",
+    "details": [
+      "12 weeks, paid ($22/hr), 30 hrs/week",
+      "Rotate through all 5 kitchen stations",
+      "Develop and pitch your own cookie flavor",
+      "Mentorship from Lena and Priya",
+      "Letter of recommendation upon completion"
+    ],
+    "cta": "Applications for Fall 2026 are open until August 15. Email your r\u00e9sum\u00e9 and a brief note about why you want to bake with us."
+  }
 }
