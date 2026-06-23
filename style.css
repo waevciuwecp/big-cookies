@@ -383,7 +383,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 .product-card-front::before {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(232,168,80,0.2) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 30%, rgba(232,168,80,0.25) 0%, rgba(200,133,62,0.08) 50%, transparent 80%);
     opacity: 0; transition: opacity 0.35s;
 }
 .product-card:hover .product-card-front::before { opacity: 1; }
@@ -573,11 +573,12 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
     transition: transform 0.35s, box-shadow 0.35s;
 }
-.polaroid:hover { transform: scale(1.04) rotate(0deg) !important; box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+.polaroid:hover { transform: scale(1.05) rotate(0deg) !important; box-shadow: 0 16px 40px rgba(200,133,62,0.18), 0 0 0 2px rgba(200,133,62,0.15); }
 .tilt-left  { transform: rotate(-2.5deg); }
 .tilt-right { transform: rotate(3deg); }
 .tilt-none  { transform: rotate(0.5deg); }
 .polaroid-tall { grid-row: span 2; }
+@media (max-width: 600px) { .polaroid-tall { grid-row: span 1; } .polaroid-tall .polaroid-frame { aspect-ratio: 1/1; } }
 .polaroid-tall .polaroid-frame { aspect-ratio: 3/4; }
 .polaroid-frame {
     aspect-ratio: 1; border-radius: 2px;
@@ -1065,3 +1066,15 @@ body.has-banner { padding-top: 40px; }
     .kitchen-stat { min-width: 70px; }
     .bakers-note { padding: 1.5rem; }
 }
+
+/* ── CHAPTER REVEAL ───────────────────────── */
+.kitchen-chapter { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.kitchen-chapter.revealed { opacity: 1; transform: translateY(0); }
+.kitchen-stats { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s; }
+.kitchen-stats.revealed { opacity: 1; transform: translateY(0); }
+.bakers-note { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s; }
+.bakers-note.revealed { opacity: 1; transform: translateY(0); }
+
+[data-theme="dark"] .chapter-title { color: var(--ink); }
+[data-theme="dark"] .bakers-note blockquote { color: var(--ink); }
+[data-theme="dark"] .gallery-wall .polaroid { background: #2A1E16; }

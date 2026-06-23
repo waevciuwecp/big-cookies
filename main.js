@@ -259,6 +259,21 @@ document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaro
     observer.observe(el);
 });
 
+// ── Kitchen chapter reveal ────────────────
+(function() {
+    const chapterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.kitchen-chapter, .kitchen-stats, .bakers-note').forEach(el => {
+        chapterObserver.observe(el);
+    });
+})();
+
 // ── FAQ accordion ─────────────────────────
 document.querySelectorAll('.faq-question').forEach(btn => {
     btn.setAttribute('aria-expanded', 'false');
@@ -389,9 +404,15 @@ function showToast(msg, icon) {
             setTimeout(() => {
                 cookie.style.transform = cookie.style.transform.replace(/ scale\([^)]+\)/, '');
             }, 150);
+            if (clicks === 3) showToast('That tickles.');
             if (clicks === 5) showToast('You found the secret cookie stash!');
+            if (clicks === 7) showToast('Seven clicks. Lucky number.');
             if (clicks === 10) showToast('Okay, that is a lot of cookies.');
+            if (clicks === 15) showToast('You really like cookies, huh?');
             if (clicks === 20) showToast('You have officially eaten too many cookies.');
+            if (clicks === 25) showToast('The cookie is getting tired.');
+            if (clicks === 42) showToast('The answer to life, the universe, and cookies.');
+            if (clicks === 69) showToast('Nice.');
         });
     }
 })();
