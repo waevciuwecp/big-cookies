@@ -82,3 +82,12 @@ document.addEventListener('keydown', (e) => {
     window.addEventListener('resize', updateProgress, {passive: true});
     updateProgress();
 })();
+
+// ── Cart badge updater ──
+window.addEventListener('cart-update', function(e) {
+    var badge = document.getElementById('cartBadge');
+    if (badge) {
+        badge.textContent = e.detail.count;
+        badge.style.display = e.detail.count > 0 ? 'inline-flex' : 'none';
+    }
+});

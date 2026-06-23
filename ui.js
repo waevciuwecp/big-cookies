@@ -14,7 +14,7 @@
     '<ul class="nav-links">' +
     '<li><a href="/#products">Our Cookies</a></li>' +
     '<li><a href="/#gifts">Gift Boxes</a></li>' +
-    '<li><a href="/#build">Build a Box</a></li>' +
+    '<li><a href="/#build">Build a Box <span class="cart-badge" id="cartBadge" style="display:none">0</span></a></li>' +
     '<li><a href="kitchen.html">The Kitchen</a></li>' +
     '<li><a href="faq.html">FAQ</a></li>' +
     '<li><a href="/#order" class="nav-cta">Order Now</a></li>' +

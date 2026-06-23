@@ -30,6 +30,7 @@
         }
         cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
         builderCount.textContent = count;
+        window.dispatchEvent(new CustomEvent('cart-update', {detail: {count: count}}));
         builderTotal.textContent = '$' + total.toFixed(2);
         builderSubmit.disabled = count === 0;
         builderReset.disabled = count === 0;

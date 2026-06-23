@@ -208,6 +208,22 @@ if (orderForm) {
     }
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     el.textContent = 'Saturday, ' + months[date.getMonth()] + ' ' + date.getDate();
+
+    // Show countdown timer
+    var cdEl = document.querySelector('.open-day-meta');
+    if (cdEl && date) {
+        function updateCD() {
+            var diff = date - new Date();
+            if (diff <= 0) { cdEl.innerHTML = 'Today! &nbsp;·&nbsp; Free admission &nbsp;·&nbsp; Kids welcome'; return; }
+            var d = Math.floor(diff/86400000);
+            var h = Math.floor((diff%86400000)/3600000);
+            var m = Math.floor((diff%3600000)/60000);
+            cdEl.innerHTML = '9:00am – 2:00pm &nbsp;·&nbsp; Free admission &nbsp;·&nbsp; Kids welcome &nbsp;·&nbsp; <strong>' + d + 'd ' + h + 'h ' + m + 'm</strong> away';
+        }
+        updateCD();
+        setInterval(updateCD, 60000);
+    }
+
 })();
 
 // ── Newsletter form ───────────────────────

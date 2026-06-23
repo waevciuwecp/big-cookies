@@ -934,3 +934,5 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .cart-item { background: #261A12; }
 [data-theme="dark"] .cart-empty { color: #9B8A78; }
 [data-theme="dark"] .cart-item-name { color: var(--ink); }
+
+[data-theme="dark"] .faculty-card.alumni .faculty-avatar { filter: grayscale(0.3) brightness(0.8); }

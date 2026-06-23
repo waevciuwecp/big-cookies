@@ -7,6 +7,11 @@
             var dateStr = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
             return '<article class="news-card"><div class="news-date">' + dateStr + '</div><h3 class="news-title">' + item.title + '</h3><p class="news-excerpt">' + item.excerpt + '</p><span class="news-read-time">' + (item.readTime||'') + '</span>' + (item.tag?' &nbsp;·&nbsp; <span class="news-tag">'+item.tag+'</span>':'') + '</article>';
         },
+                'award-card': function(item) {
+            var medalLabel = item.medal === 'gold' ? '1' : item.medal === 'silver' ? '2' : '3';
+            if (item.year === '2024' && item.medal === 'gold') medalLabel = "'24";
+            return '<div class="award-card"><div class="award-medal '+item.medal+'">'+medalLabel+'</div><div><span class="award-year">'+item.year+'</span><h3 class="award-title">'+item.title+'</h3><p class="award-desc">'+item.desc+'</p></div></div>';
+        },
         'faculty-card': function(member, isPast) {
             var cls = isPast ? 'faculty-card alumni' : 'faculty-card';
             var avStyle = isPast ? ' style="opacity:0.6"' : '';
