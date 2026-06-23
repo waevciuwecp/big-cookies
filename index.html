@@ -22,68 +22,7 @@
     <link rel="stylesheet" href="theme.css">
 </head>
 <body>
-<div class="scroll-progress" id="scrollProgress" style="width:0%"></div>
-
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-    <defs>
-        <symbol id="icon-star" viewBox="0 0 24 24">
-            <path d="M12 2l2.8 6.6L22 9.5l-5 5.4 1.5 7.1-6.5-3.8-6.5 3.8L7 14.9l-5-5.4 7.2-.9L12 2z" fill="currentColor"/>
-        </symbol>
-        <symbol id="icon-mail" viewBox="0 0 24 24">
-            <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M2 6l10 7 10-7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        </symbol>
-        <symbol id="icon-reset" viewBox="0 0 24 24">
-            <path d="M1 4v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3.5 15.5a9 9 0 102.8-8.2L1 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </symbol>
-    </defs>
-</svg>
-
-<!-- NAV -->
-<nav class="nav" id="nav">
-    <div class="nav-inner">
-        <a href="#" class="nav-logo">
-            <span class="logo-icon" aria-hidden="true"></span>
-            Big<span>.</span>Cookies
-        </a>
-        <ul class="nav-links">
-            <li><a href="#products">Our Cookies</a></li>
-            <li><a href="#gifts">Gift Boxes</a></li>
-            <li><a href="#build">Build a Box</a></li>
-            <li><a href="kitchen.html">The Kitchen</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#order" class="nav-cta">Order Now</a></li>
-        </ul>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></button>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#products">Our Cookies</a>
-    <a href="#gifts">Gift Boxes</a>
-    <a href="#build">Build a Box</a>
-    <a href="kitchen.html">The Kitchen</a>
-    <a href="#faq">FAQ</a>
-    <a href="#order" style="color:var(--gold)">Order Now</a>
-</div>
-
-<!-- BATCH STATUS -->
-<div class="batch-banner" id="batchBanner">
-    <span class="batch-icon">
-        <svg width="14" height="18" viewBox="0 0 16 20" aria-hidden="true">
-            <path d="M8 0c-2 5-5 8-5 12a5 5 0 0010 0c0-4-3-7-5-12z" fill="#E8A850"/>
-            <path d="M8 8c-1.2 3-2.5 5-2.5 7a2.5 2.5 0 005 0c0-2-1.3-4-2.5-7z" fill="#F5C85A"/>
-        </svg>
-    </span>
-    <span class="batch-num">Batch #<span id="batchNum">47</span></span>
-    <span>·</span>
-    <span>Next batch drops <strong id="batchCountdown">this Friday</strong></span>
-    <span class="batch-dot"></span>
-</div>
+<div id="site-nav"></div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -635,43 +574,32 @@
     </div>
 </section>
 
-<!-- FAQ -->
+  <!-- FAQ TEASER -->
 <section id="faq">
     <div class="section-inner">
         <div class="section-label text-center">FAQ</div>
         <h2 class="section-title text-center">You asked, we answered</h2>
+        <p class="section-subtitle text-center mx-auto" style="max-width:500px">
+            Shipping, freshness, custom orders — the answers to life's most pressing cookie questions.
+        </p>
 
-        <div class="faq-list">
+        <div class="faq-list" style="max-width:600px;margin:2rem auto 0">
             <div class="faq-item open">
-                <button class="faq-question">How long do the cookies stay fresh?</button>
-                <div class="faq-answer">
-                    <p>Five days at room temp in the sealed bag they arrive in. Two weeks refrigerated. Three months frozen — just reheat at 160°C for 5 minutes and they're 90% as good as fresh. Reheat instructions come in every box.</p>
+                <button class="faq-question" aria-expanded="true">How long do the cookies stay fresh?</button>
+                <div class="faq-answer" style="max-height:300px;padding-bottom:1.5rem">
+                    <p>Five days at room temp in the sealed bag they arrive in. Two weeks refrigerated. Three months frozen — just reheat at 160°C for 5 minutes and they're 90% as good as fresh.</p>
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question">Do you ship internationally?</button>
+                <button class="faq-question" aria-expanded="false">Do you ship internationally?</button>
                 <div class="faq-answer">
-                    <p>Currently we ship within the US and Canada. International shipping is in the works — customs forms for cookies are surprisingly complicated. Join the newsletter for updates.</p>
+                    <p>Currently we ship within the US and Canada. International shipping is in the works.</p>
                 </div>
             </div>
-            <div class="faq-item">
-                <button class="faq-question">Can I customize a gift box?</button>
-                <div class="faq-answer">
-                    <p>Absolutely. After you place an order, reply to your confirmation email with any preferences — extra chocolate, no nuts, all one flavor — and we'll make it work. Or use the Build Your Box tool above to hand-pick every cookie.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What if my cookies arrive damaged?</button>
-                <div class="faq-answer">
-                    <p>They shouldn't — we pack each cookie in its own sleeve inside a crush-proof box. But if anything goes wrong, email us with a photo and we'll rush a replacement. No questions asked.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Do you do corporate orders or events?</button>
-                <div class="faq-answer">
-                    <p>We do. Orders of 50+ cookies get custom packaging with your logo. Lead time is one week. Email us directly and we'll sort out the details.</p>
-                </div>
-            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:2rem">
+            <a href="faq.html" class="btn btn-outline">Read All 5 FAQs →</a>
         </div>
     </div>
 </section>
@@ -754,54 +682,14 @@
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>Shop</h4>
-            <ul>
-                <li><a href="#products">Our Cookies</a></li>
-                <li><a href="#gifts">Gift Boxes</a></li>
-                <li><a href="#build">Build a Box</a></li>
-                <li><a href="#order">Order Now</a></li>
-                <li><a href="kitchen.html">The Kitchen</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>About</h4>
-            <ul>
-                <li><a href="#philosophy">Philosophy</a></li>
-                <li><a href="#gallery">Our Kitchen</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="mailto:hello@big-cookies.yaoyy.moe">Contact</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Big Cookies</h4>
-            <ul>
-                <li><a href="#" onclick="document.getElementById('newsletterForm').querySelector('input').focus();return false">Newsletter</a></li>
-                <li><a href="#how">How It Works</a></li>
-                <li style="margin-top:0.5rem;color:#8B6F5C;font-size:0.6875rem">@bigcookies on Instagram</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2024 Big Cookies. Baked with love. &nbsp;·&nbsp;
-            <a href="mailto:hello@big-cookies.yaoyy.moe">
-                <svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px" aria-hidden="true">
-                    <use href="#icon-mail"/>
-                </svg>
-                hello@big-cookies.yaoyy.moe
-            </a>
-        </p>
-    </div>
-</footer>
+<div id="site-footer"></div>
 
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/></svg>
 </button>
 <div class="toast" id="toast"></div>
 
+<script src="ui.js"></script>
 <script src="nav.js"></script>
 <script src="builder.js"></script>
 <script src="app.js"></script>

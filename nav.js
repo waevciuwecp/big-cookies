@@ -1,5 +1,11 @@
 // ── Big Cookies — Navigation, Theme & Scroll ────
-// ── Nav scroll shadow + active link ────────
+(function initNav() {
+    const nav = document.getElementById('nav');
+    if (!nav) { 
+        // Nav not injected yet, wait for ui-ready
+        window.addEventListener('ui-ready', initNav, {once: true});
+        return;
+    }
 const nav = document.getElementById('nav');
 const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
