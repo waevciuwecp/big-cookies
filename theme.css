@@ -229,8 +229,8 @@ body { transition: background-color 0.35s ease; }
     .hero { min-height: auto; padding: 2rem 0; }
     body { font-size: 12pt; color: #000; background: #fff; }
     .product-card-inner { transform: none !important; }
-    .product-card-back, .product-card-front { position: static; }
-    .product-card-back { display: block !important; }
+    .product-card-front { position: static; }
+    .product-card-back { display: none !important; }
 }
 /* ── NAV+BANNER COMPENSATION ────────────── */
 body.has-banner .nav { top: 0; }
