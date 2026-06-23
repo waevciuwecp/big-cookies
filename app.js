@@ -73,7 +73,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid').forEach((el, i) => {
+document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -186,6 +186,29 @@ if (orderForm) {
     }
 })();
 
+
+
+// ── Dynamic Open Day date ───────────────────
+(function() {
+    var el = document.querySelector('.open-day-date');
+    if (!el) return;
+    function nthWeekday(year, month, weekday, n) {
+        var d = new Date(year, month, 1);
+        var count = 0;
+        while (d.getMonth() === month) {
+            if (d.getDay() === weekday) { count++; if (count === n) return d; }
+            d.setDate(d.getDate() + 1);
+        }
+        return null;
+    }
+    var now = new Date();
+    var date = nthWeekday(now.getFullYear(), now.getMonth(), 6, 3); // 3rd Saturday
+    if (!date || date <= now) {
+        date = nthWeekday(now.getFullYear(), now.getMonth() + 1, 6, 3);
+    }
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    el.textContent = 'Saturday, ' + months[date.getMonth()] + ' ' + date.getDate();
+})();
 
 // ── Newsletter form ───────────────────────
 const newsletterForm = document.getElementById('newsletterForm');
