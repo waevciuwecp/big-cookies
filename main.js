@@ -216,6 +216,40 @@ if (newsletterForm) {
     });
 }
 
+// ── Back to top ──────────────────────────
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 600);
+});
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── Product card tap-to-flip (mobile) ─────
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+        // Only toggle on direct card click, not on inner element interactions
+        if (e.target.closest('.product-card-back') || window.innerWidth > 900) return;
+        card.classList.toggle('flipped');
+    });
+    // Unflip when mouse leaves (desktop reset after tap)
+    card.addEventListener('mouseleave', () => {
+        card.classList.remove('flipped');
+    });
+});
+
+// ── Batch counter ─────────────────────────
+(function() {
+    const batchEl = document.getElementById('batchNum');
+    if (batchEl) {
+        // Base batch 47 from June 2024, +1 per week since
+        const start = new Date('2024-06-01');
+        const now = new Date();
+        const weeks = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000));
+        batchEl.textContent = 47 + weeks;
+    }
+})();
+
 // ── Toast helper ──────────────────────────
 function showToast(msg, icon) {
     const toast = document.getElementById('toast');

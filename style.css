@@ -357,7 +357,8 @@ section { padding: 6rem 2rem; }
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
 }
-.product-card:hover .product-card-inner {
+.product-card:hover .product-card-inner,
+.product-card.flipped .product-card-inner {
     transform: rotateY(180deg);
 }
 .product-card-front,
@@ -721,7 +722,24 @@ section { padding: 6rem 2rem; }
 .footer p { font-size: 0.8125rem; color: #A88C78; }
 .footer a { color: var(--honey); text-decoration: none; font-weight: 500; }
 
-/* ── SCROLL-DOWN INDICATOR ──────────────── */
+/* ── BACK TO TOP ─────────────────────────── */
+.back-to-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--gold); color: #fff; border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(200,133,62,0.35);
+    opacity: 0; transform: translateY(20px); pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { background: var(--honey); transform: translateY(-2px); }
+
+/* ── BATCH NUMBER ────────────────────────── */
+.batch-banner .batch-num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; color: var(--honey); font-size: 0.9375rem;
+}
 .scroll-indicator {
     position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
     z-index: 2; animation: bounceDown 2s ease-in-out infinite;
