@@ -394,25 +394,45 @@ function showToast(msg, icon) {
 // ── Cookie click easter egg ──────────────
 (function() {
     let clicks = 0;
+    let hideTimer;
     const cookie = document.getElementById('heroCookie');
-    if (cookie) {
-        cookie.style.cursor = 'pointer';
-        cookie.addEventListener('click', () => {
-            clicks++;
-            cookie.style.transition = 'transform 0.15s ease';
-            cookie.style.transform = cookie.style.transform.replace(/scale\([^)]+\)/, '') + ' scale(1.1)';
-            setTimeout(() => {
-                cookie.style.transform = cookie.style.transform.replace(/ scale\([^)]+\)/, '');
-            }, 150);
-            if (clicks === 3) showToast('That tickles.');
-            if (clicks === 5) showToast('You found the secret cookie stash!');
-            if (clicks === 7) showToast('Seven clicks. Lucky number.');
-            if (clicks === 10) showToast('Okay, that is a lot of cookies.');
-            if (clicks === 15) showToast('You really like cookies, huh?');
-            if (clicks === 20) showToast('You have officially eaten too many cookies.');
-            if (clicks === 25) showToast('The cookie is getting tired.');
-            if (clicks === 42) showToast('The answer to life, the universe, and cookies.');
-            if (clicks === 69) showToast('Nice.');
-        });
-    }
+    if (!cookie) return;
+
+    // Create click counter badge
+    const counter = document.createElement('span');
+    counter.className = 'cookie-click-count';
+    counter.textContent = '0';
+    cookie.style.position = 'relative';
+    cookie.appendChild(counter);
+
+    cookie.style.cursor = 'pointer';
+    cookie.addEventListener('click', () => {
+        clicks++;
+        counter.textContent = clicks;
+        counter.classList.add('show');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => counter.classList.remove('show'), 2000);
+
+        cookie.style.transition = 'transform 0.15s ease';
+        const current = cookie.style.transform;
+        const base = current.replace(/ scale\([^)]+\)/, '');
+        cookie.style.transform = base + ' scale(1.1)';
+        setTimeout(() => {
+            cookie.style.transform = base;
+        }, 150);
+
+        const messages = {
+            3: 'That tickles.',
+            5: 'You found the secret cookie stash!',
+            7: 'Seven clicks. Lucky number.',
+            10: 'Okay, that is a lot of cookies.',
+            15: 'You really like cookies, huh?',
+            20: 'You have officially eaten too many cookies.',
+            25: 'The cookie is getting tired.',
+            42: 'The answer to life, the universe, and cookies.',
+            69: 'Nice.',
+            100: 'You have way too much free time.'
+        };
+        if (messages[clicks]) showToast(messages[clicks]);
+    });
 })();

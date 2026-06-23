@@ -118,8 +118,9 @@ body {
     75% { transform: scale(1.1, 0.9); opacity: 1; }
 }
 .batch-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--jam);
+    width: 8px; height: 8px; border-radius: 50%; background: #4CAF50;
     animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(76,175,80,0.5);
 }
 @keyframes pulse {
     0%, 100% { opacity: 0.4; transform: scale(0.8); }
@@ -439,7 +440,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem; font-weight: 700; color: var(--gold);
 }
-.product-tag{animation:tagPulse 2.5s ease-in-out infinite;
+.product-tag{animation:tagPulse 2.5s ease-in-out infinite, tagWiggle 4s ease-in-out infinite;
     font-size: 0.75rem; font-weight: 600; color: var(--jam);
     background: #FEF0F0; padding: 0.25rem 0.75rem; border-radius: 100px;
 }
@@ -599,6 +600,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 .step { text-align: center; padding: 2.5rem 1.5rem; }
 .step:hover { transform: translateY(-4px); transition: transform 0.3s; }
+.step:hover .step-num { transform: scale(1.15); box-shadow: 0 0 24px rgba(200,133,62,0.4); transition: transform 0.3s, box-shadow 0.3s; }
 .step-num {
     width: 48px; height: 48px; border-radius: 50%;
     background: var(--gold); color: #fff;
@@ -655,7 +657,19 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 /* ── TESTIMONIAL ─────────────────────────── */
 .testimonial {
     background: var(--paper); border-radius: 1.5rem; padding: 3rem;
-    text-align: center; max-width: 800px; margin: 3rem auto 0;
+    text-align: center; max-width: 800px; margin: 3rem auto 0; position: relative; overflow: hidden;
+}
+.testimonial::before {
+    content: '"';
+    position: absolute; top: -0.3rem; left: 1.5rem;
+    font-family: 'Playfair Display', serif; font-size: 8rem; font-weight: 900;
+    color: rgba(200,133,62,0.07); line-height: 1; pointer-events: none;
+}
+.testimonial::after {
+    content: '"';
+    position: absolute; bottom: -2.5rem; right: 1.5rem;
+    font-family: 'Playfair Display', serif; font-size: 8rem; font-weight: 900;
+    color: rgba(200,133,62,0.07); line-height: 1; pointer-events: none;
 }
 .testimonial blockquote {
     font-family: 'Playfair Display', serif;
@@ -873,7 +887,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; }
 }
-@keyframes tagPulse{0%,100%{opacity:1}50%{opacity:0.7}}.gift-savings{display:inline-block;font-size:0.6875rem;font-weight:600;color:#3A8C3F;background:#EDF7EE;padding:0.2rem 0.625rem;border-radius:100px;margin-top:0.5rem;}
+@keyframes tagWiggle{0%,100%{transform:rotate(0)}2%{transform:rotate(1.5deg)}4%{transform:rotate(-1.5deg)}6%{transform:rotate(0.5deg)}8%{transform:rotate(0)}}@keyframes tagPulse{0%,100%{opacity:1}50%{opacity:0.7}}.gift-savings{display:inline-block;font-size:0.6875rem;font-weight:600;color:#3A8C3F;background:#EDF7EE;padding:0.2rem 0.625rem;border-radius:100px;margin-top:0.5rem;}
 
 /* ── DARK MODE ───────────────────────────── */
 [data-theme="dark"] {
@@ -1078,3 +1092,22 @@ body.has-banner { padding-top: 40px; }
 [data-theme="dark"] .chapter-title { color: var(--ink); }
 [data-theme="dark"] .bakers-note blockquote { color: var(--ink); }
 [data-theme="dark"] .gallery-wall .polaroid { background: #2A1E16; }
+
+.footer-col ul li:last-child { cursor: default; }
+.footer-col ul li:last-child::before { content: '📷 '; font-size: 0.75rem; }
+
+/* ── COOKIE CLICK COUNTER ─────────────────── */
+.cookie-click-count {
+    position: absolute; top: -10px; right: -10px;
+    background: var(--gold); color: #fff; border-radius: 50%;
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; pointer-events: none;
+    opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+}
+.cookie-click-count.show {
+    opacity: 1; transform: scale(1);
+}
+
+.nav-logo:hover .logo-icon { transform: scale(1.15); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.nav-logo .logo-icon { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
