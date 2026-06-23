@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News — Big Cookies</title>
+    <meta name="description" content="News and updates from Big Cookies — new flavors, awards, events, and behind-the-scenes stories.">
+    <meta property="og:title" content="News — Big Cookies">
+    <meta property="og:description" content="News and updates from Big Cookies — new flavors, awards, events, and behind-the-scenes stories.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Big Cookies">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+    (function(){
+        var t=localStorage.getItem('theme');
+        if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}
+    })();
+    </script>
+</head>
+<body>
+<div id="site-nav"></div>
+<section style="padding-top:6rem">
+    <div class="section-inner">
+        <div class="section-label text-center">News</div>
+        <h2 class="section-title text-center">What's baking</h2>
+        <p class="section-subtitle text-center mx-auto" style="max-width:560px">
+            New flavors, events, and behind-the-scenes stories from the Big Cookies kitchen.
+        </p>
+
+        <div style="max-width:700px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.5rem">
+            <article class="news-card">
+                <div class="news-date">June 15, 2025</div>
+                <h3 class="news-title">New Summer Flavor: Lemon Lavender drops July 1</h3>
+                <p class="news-excerpt">After 47 test batches, Priya has finally signed off on our first seasonal flavor of 2025. Meyer lemon zest meets culinary lavender in a brown-butter base. "It tastes like a summer garden smells," she says. Available for a limited 8-week run.</p>
+                <span class="news-tag">New Flavor</span>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">May 28, 2025</div>
+                <h3 class="news-title">We won Best Artisan Cookie at the National Bakery Awards</h3>
+                <p class="news-excerpt">The Classic Chocolate Chunk took top honors in a blind tasting against 200+ entries. The judges' comment: "Unprecedented depth of flavor. The 48-hour cold fermentation produces a complexity we've never encountered in a chocolate chip cookie."</p>
+                <span class="news-tag">Awards</span>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">April 12, 2025</div>
+                <h3 class="news-title">Factory Open Day: 40 visitors, 300 cookies, zero leftovers</h3>
+                <p class="news-excerpt">Our April Open Day was the busiest yet. Marcus ran three sold-out baking demos. Diego's packaging station was the surprise hit — kids loved the hand-stamper. Next one: July 18. RSVP on the Open Day page.</p>
+                <span class="news-tag">Events</span>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">March 3, 2025</div>
+                <h3 class="news-title">Now shipping to Canada</h3>
+                <p class="news-excerpt">After months of navigating customs forms (turns out "cookie" is surprisingly complicated as an export category), we now ship to all Canadian provinces. Delivery takes 3-5 days. Same freshness guarantee applies.</p>
+                <span class="news-tag">Shipping</span>
+            </article>
+
+            <article class="news-card">
+                <div class="news-date">January 20, 2025</div>
+                <h3 class="news-title">Meet Diego: our new Pack & Ship Lead</h3>
+                <p class="news-excerpt">Diego joins us from a ceramics studio, where he developed an almost unreasonable attention to detail. "Cookies are just edible ceramics," he says. Every box now gets a hand-stamped logo and a personal QC check under a daylight lamp.</p>
+                <span class="news-tag">Team</span>
+            </article>
+        </div>
+    </div>
+</section>
+<section style="padding:4rem 2rem;text-align:center">
+    <div class="section-inner">
+        <h2 class="section-title">Stay in the loop</h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom:2rem">New flavors, open days, and cookie science — delivered to your inbox.</p>
+        <a href="mailto:hello@big-cookies.yaoyy.moe" class="btn btn-primary btn-large">Join the Newsletter</a>
+    </div>
+</section>
+<div id="site-footer"></div>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z" fill="currentColor"/></svg>
+</button>
+<div class="toast" id="toast"></div>
+<script src="ui.js"></script>
+<script src="nav.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
