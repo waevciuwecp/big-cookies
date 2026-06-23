@@ -565,19 +565,25 @@
             </div>
         </div>
 
-        <div class="testimonial">
-            <div class="stars" aria-label="5 out of 5 stars">
-                <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+        <div class="testimonial-slider" id="testimonialSlider">
+            <div class="testimonial" data-load="data/testimonials.json" data-template="testimonial-slide">
+                <div class="stars" aria-label="5 out of 5 stars">
+                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                </div>
+                <blockquote>Loading testimonials…</blockquote>
+                <cite></cite>
             </div>
-            <blockquote>
-                "I've eaten cookies in 14 countries and these are top three. The sea salt caramel
-                made me close my eyes on first bite. I'm not being dramatic."
-            </blockquote>
-            <cite>— A very happy customer</cite>
+            <div class="slider-dots" id="sliderDots"></div>
+            <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous testimonial">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next testimonial">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
         </div>
     </div>
 </section>
@@ -599,15 +605,21 @@
                 </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">Do you ship internationally?</button>
+                <button class="faq-question" aria-expanded="false">What makes your cookies different?</button>
                 <div class="faq-answer">
-                    <p>Currently we ship within the US and Canada. International shipping is in the works.</p>
+                    <p>82% butterfat European butter, single-origin chocolate, 48-hour cold fermentation, and every cookie shaped by hand.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Can I visit the bakery?</button>
+                <div class="faq-answer">
+                    <p>Yes! Factory Open Day every third Saturday. Tours, demos, all-you-can-eat cookies.</p>
                 </div>
             </div>
         </div>
 
         <div style="text-align:center;margin-top:2rem">
-            <a href="faq.html" class="btn btn-outline">Read All 5 FAQs →</a>
+            <a href="faq.html" class="btn btn-outline">Read All 10 FAQs →</a>
         </div>
     </div>
 </section>

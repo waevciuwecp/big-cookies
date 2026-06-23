@@ -254,6 +254,67 @@ if (newsletterForm) {
     });
 }
 
+
+// ── Testimonial slider ──────────────────────
+(function() {
+    function initSlider() {
+        var container = document.getElementById('testimonialSlider');
+        if (!container) return;
+        var slides = container.querySelectorAll('.testimonial');
+        var dotsEl = document.getElementById('sliderDots');
+        var prevBtn = document.getElementById('sliderPrev');
+        var nextBtn = document.getElementById('sliderNext');
+        if (slides.length < 2) return;
+
+        var current = 0;
+        var timer;
+
+        // Build dots
+        dotsEl.innerHTML = '';
+        slides.forEach(function(_, i) {
+            var dot = document.createElement('button');
+            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+            dot.addEventListener('click', function() { goTo(i); });
+            dotsEl.appendChild(dot);
+        });
+
+        function goTo(i) {
+            slides[current].classList.remove('active');
+            dotsEl.children[current].classList.remove('active');
+            current = i;
+            slides[current].classList.add('active');
+            dotsEl.children[current].classList.add('active');
+            resetTimer();
+        }
+
+        function next() { goTo((current + 1) % slides.length); }
+        function prev() { goTo((current - 1 + slides.length) % slides.length); }
+        function resetTimer() { clearInterval(timer); timer = setInterval(next, 5000); }
+
+        if (prevBtn) prevBtn.addEventListener('click', prev);
+        if (nextBtn) nextBtn.addEventListener('click', next);
+
+        // Pause on hover
+        container.addEventListener('mouseenter', function() { clearInterval(timer); });
+        container.addEventListener('mouseleave', function() { timer = setInterval(next, 5000); });
+
+        // Touch swipe support
+        var touchX = 0;
+        container.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; });
+        container.addEventListener('touchend', function(e) {
+            var diff = touchX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+        });
+
+        resetTimer();
+    }
+
+    // Run after data-loader renders
+    window.addEventListener('DOMContentLoaded', function() { setTimeout(initSlider, 700); });
+})();
+
+
 // ── Back to top ──────────────────────────
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
