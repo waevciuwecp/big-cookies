@@ -12,7 +12,14 @@
             if (item.year === '2024' && item.medal === 'gold') medalLabel = "'24";
             return '<div class="award-card"><div class="award-medal '+item.medal+'">'+medalLabel+'</div><div><span class="award-year">'+item.year+'</span><h3 class="award-title">'+item.title+'</h3><p class="award-desc">'+item.desc+'</p></div></div>';
         },
-                        'testimonial-slide': function(item) {
+                                'product-card': function(item) {
+            var tags = item.tags.map(function(t) { return '<span class="product-tag">' + t + '</span>'; }).join('');
+            var ingredients = item.ingredients.map(function(i) { return '<li>' + i + '</li>'; }).join('');
+            var allergens = item.allergens.map(function(a) { return '<span class="allergen-tag">' + a + '</span>'; }).join('');
+            var steamHTML = item.id === 'double' ? '<div class="steam-container"><div class="steam-wisp-card s1"></div><div class="steam-wisp-card s2"></div></div>' : '';
+            return '<div class="product-card"><div class="product-card-inner"><div class="product-card-front"><div class="cookie-icon flavor-' + item.id + '" aria-hidden="true"></div>' + steamHTML + '<h3 class="product-name">' + item.name + '</h3><p class="product-desc">' + item.desc + '</p><div class="product-footer"><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span>' + tags + '</div></div><div class="product-card-back"><h3 class="product-name">What\'s Inside</h3><ul class="ingredients-list">' + ingredients + '</ul><div class="allergen-tags">' + allergens + '</div><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span></div></div></div>';
+        },
+        'testimonial-slide': function(item) {
             var stars = '';
             for (var i = 0; i < 5; i++) {
                 stars += '<span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>';

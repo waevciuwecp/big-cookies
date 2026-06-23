@@ -30,6 +30,7 @@
         }
         cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
         builderCount.textContent = count;
+        if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!'); setTimeout(function() { window._celebrated = false; }, 5000); }
 
     // Sync with order form cart summary
     var orderSummary = document.getElementById('orderCartSummary');

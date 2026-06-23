@@ -1017,3 +1017,9 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 @media (max-width: 600px) {
     .internship-card > div { grid-template-columns: 1fr !important; }
 }
+
+@media (max-width: 600px) {
+    .nav-toggle span { transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    .mobile-menu { transition: opacity 0.35s ease, backdrop-filter 0.35s ease; backdrop-filter: blur(0); }
+    .mobile-menu.open { backdrop-filter: blur(16px); }
+}

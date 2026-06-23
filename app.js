@@ -1,4 +1,23 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
+
+// ── Hero word cycle ─────────────────────────
+(function() {
+    var el = document.querySelector('.hero h1 .gold');
+    if (!el) return;
+    var words = ['worth the wait', 'worth the calories', 'worth every crumb', 'worth sharing', 'worth the hype'];
+    var i = 0;
+    setInterval(function() {
+        i = (i + 1) % words.length;
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.3s';
+        setTimeout(function() {
+            el.textContent = words[i];
+            el.style.opacity = '1';
+        }, 300);
+    }, 3500);
+})();
+
+
 // ── Cookie parallax ───────────────────────
 const heroCookie = document.getElementById('heroCookie');
 if (heroCookie) {
@@ -51,6 +70,32 @@ if (heroCookie) {
     update();
     setInterval(update, 60000);
 })();
+
+// ── Cookies baked today (live estimate) ──────
+(function() {
+    var el = document.getElementById('batchBanner');
+    if (!el) return;
+    var start = new Date();
+    start.setHours(4, 30, 0, 0); // 4:30am today
+    if (new Date() < start) start.setDate(start.getDate() - 1);
+    function updateBaked() {
+        var mins = Math.floor((new Date() - start) / 60000);
+        var baked = Math.min(300, Math.floor(mins * 0.48)); // ~0.48 cookies/min = ~300/day over 10.5hrs
+        var span = document.getElementById('bakedCount');
+        if (span) span.textContent = baked;
+    }
+    // Add counter span to batch banner
+    var dot = el.querySelector('.batch-dot');
+    if (dot && !document.getElementById('bakedCount')) {
+        var span = document.createElement('span');
+        span.innerHTML = '&nbsp;·&nbsp;<span id="bakedCount">0</span> baked today';
+        span.style.fontSize = '0.8125rem';
+        dot.parentNode.insertBefore(span, dot);
+    }
+    updateBaked();
+    setInterval(updateBaked, 30000);
+})();
+
 
 const batchBanner = document.getElementById('batchBanner');
 let bannerShown = false;
@@ -396,6 +441,12 @@ function showToast(msg, icon) {
         html.setAttribute('data-theme', isDark ? 'light' : 'dark');
         localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
+})();
+
+// ── Footer year auto-update ──────────────
+(function() {
+    var el = document.getElementById('copyYear');
+    if (el) el.textContent = new Date().getFullYear();
 })();
 
 // ── Cookie click easter egg ──────────────

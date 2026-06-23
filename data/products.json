@@ -1,0 +1,127 @@
+[
+  {
+    "id": "classic",
+    "name": "Classic Chocolate Chunk",
+    "desc": "72% Valrhona dark chocolate folded into brown-butter dough. The one that started it all.",
+    "price": "4.50",
+    "ingredients": [
+      "Valrhona 72% dark chocolate",
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Free-range eggs",
+      "Madagascar vanilla bean"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": []
+  },
+  {
+    "id": "double",
+    "name": "Double Dark Chocolate",
+    "desc": "Dutch cocoa base loaded with bittersweet chunks. Dusted with Maldon salt.",
+    "price": "5.00",
+    "ingredients": [
+      "Dutch-process cocoa",
+      "Bittersweet chocolate chunks",
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Maldon sea salt flakes"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": [
+      "Staff Pick"
+    ]
+  },
+  {
+    "id": "toffee",
+    "name": "Brown Butter Toffee",
+    "desc": "Nutty brown butter meets house-made almond toffee. Sweet, salty, crunch, chew.",
+    "price": "5.50",
+    "ingredients": [
+      "European brown butter",
+      "House-made almond toffee",
+      "Organic wheat flour",
+      "Demerara sugar",
+      "Free-range eggs",
+      "Madagascar vanilla bean"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten",
+      "Nuts"
+    ],
+    "tags": []
+  },
+  {
+    "id": "raspberry",
+    "name": "Raspberry Dark",
+    "desc": "Tart freeze-dried raspberries woven through dark chocolate dough. Pink-flecked and punchy.",
+    "price": "5.50",
+    "ingredients": [
+      "Freeze-dried raspberries",
+      "72% dark chocolate",
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Madagascar vanilla bean"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": [
+      "Limited"
+    ]
+  },
+  {
+    "id": "caramel",
+    "name": "Sea Salt Caramel",
+    "desc": "Gooey caramel core wrapped in vanilla bean dough. Finished with flaky sea salt.",
+    "price": "5.00",
+    "ingredients": [
+      "House-made liquid caramel",
+      "Vanilla bean dough",
+      "European brown butter",
+      "Organic wheat flour",
+      "Demerara sugar",
+      "Flaky sea salt"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": []
+  },
+  {
+    "id": "matcha",
+    "name": "Matcha White Chocolate",
+    "desc": "Ceremonial-grade matcha and creamy white chocolate. Earthy, sweet, and vibrant green.",
+    "price": "5.50",
+    "ingredients": [
+      "Ceremonial-grade matcha",
+      "White chocolate",
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Madagascar vanilla bean"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": []
+  }
+]
