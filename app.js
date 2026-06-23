@@ -550,10 +550,18 @@ window.addEventListener('data-ready', function() {
 // ── Kitchen story expand ────────────────────
 (function() {
     function openStory(polaroid) {
-        var story = polaroid.getAttribute('data-story');
-        var title = polaroid.getAttribute('data-story-title');
-        var icon = polaroid.querySelector('img');
-        var iconSrc = icon ? icon.getAttribute('src') : '';
+        var storyId = polaroid.getAttribute('data-story-id');
+        if (!storyId) return;
+        var data = window._kitchenStories && window._kitchenStories[storyId];
+        if (!data) return;
+        var story = data.story;
+        var title = data.title;
+        var iconSrc = data.icon || '';
+        // Also check the img element as fallback for icon
+        if (!iconSrc) {
+            var icon = polaroid.querySelector('img');
+            if (icon) iconSrc = icon.getAttribute('src') || '';
+        }
 
         // Create backdrop
         var backdrop = document.createElement('div');
@@ -594,33 +602,27 @@ window.addEventListener('data-ready', function() {
         modal.querySelector('.story-modal-close').addEventListener('click', closeStory);
         document.addEventListener('keydown', onKey);
 
-        // Focus trap: focus the close button
+        // Focus the close button
         modal.querySelector('.story-modal-close').focus();
     }
 
-    // Event delegation on the whole document (cards can be dynamically loaded)
+    // Event delegation — cards can be dynamically loaded
     document.addEventListener('click', function(e) {
         var card = e.target.closest('.polaroid');
         if (!card) return;
-        if (!card.hasAttribute('data-story')) return;
-        // Don't trigger if clicking inside an already-open modal
+        if (!card.hasAttribute('data-story-id')) return;
         if (e.target.closest('.story-modal')) return;
         e.preventDefault();
         openStory(card);
     });
 
-    // Keyboard: Enter/Space on polaroid to open
+    // Keyboard support
     document.addEventListener('keydown', function(e) {
         if (e.key !== 'Enter' && e.key !== ' ') return;
         var card = e.target.closest('.polaroid');
-        if (!card || !card.hasAttribute('data-story')) return;
+        if (!card || !card.hasAttribute('data-story-id')) return;
+        if (e.target.closest('.story-modal')) return;
         e.preventDefault();
         openStory(card);
-    });
-
-    // Close any open story on history pop (browser back)
-    window.addEventListener('popstate', function() {
-        var open = document.querySelector('.story-backdrop');
-        if (open) { open.click(); }
     });
 })();

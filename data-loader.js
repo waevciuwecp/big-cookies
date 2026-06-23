@@ -44,12 +44,16 @@
         'kitchen-card': function(item) {
             var tiltClass = item.tilt || 'tilt-none';
             var tallClass = item.tall ? ' polaroid-tall' : '';
-            var storyEscaped = (item.story || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            return '<div class="polaroid ' + tiltClass + tallClass + '" data-story="' + storyEscaped + '" data-story-title="' + (item.title || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;') + '" role="button" tabindex="0" aria-label="Read story: ' + (item.title || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;') + '">' +
+            // Store story in global lookup to avoid HTML attribute escaping issues
+            if (item.id && item.story) {
+                if (!window._kitchenStories) window._kitchenStories = {};
+                window._kitchenStories[item.id] = { title: item.title, story: item.story, icon: item.icon };
+            }
+            return '<div class="polaroid ' + tiltClass + tallClass + '" data-story-id="' + (item.id || '') + '" role="button" tabindex="0" aria-label="Read story: ' + (item.title || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;') + '">' +
                 '<div class="polaroid-frame">' +
                 '<img src="' + (item.icon || '') + '" alt="' + (item.caption || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;') + '" width="180" height="180" loading="lazy">' +
                 '</div>' +
-                '<p class="polaroid-caption">' + (item.caption || '') + '</p>' +
+                '<p class="polaroid-caption">' + (item.caption || '').replace(/&/g,'&amp;') + '</p>' +
                 '<span class="polaroid-hint">Read the story →</span>' +
                 '</div>';
         },
