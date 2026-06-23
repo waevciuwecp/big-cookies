@@ -1,7 +1,28 @@
-// ── Nav scroll shadow ─────────────────────
+// ── Nav scroll shadow + active link ────────
 const nav = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+function updateActiveNav() {
+    const scrollY = window.scrollY + 100;
+    let activeIdx = -1;
+    sections.forEach((sec, i) => {
+        if (sec && sec.offsetTop <= scrollY) activeIdx = i;
+    });
+    navLinks.forEach((a, i) => a.classList.toggle('active', i === activeIdx));
+}
+
 window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 10);
+    updateActiveNav();
+
+    // Fade scroll indicator
+    const indicator = document.getElementById('scrollIndicator');
+    if (indicator && window.scrollY > 100) {
+        indicator.classList.add('faded');
+    } else if (indicator) {
+        indicator.classList.remove('faded');
+    }
 });
 
 // ── Mobile menu toggle ────────────────────
@@ -135,9 +156,8 @@ builderPicker.querySelectorAll('.builder-item').forEach(item => {
 
 builderSubmit.addEventListener('click', () => {
     if (selectedCookies.length === 0) return;
-    const names = selectedCookies.map(c => c.name).join(', ');
     const total = selectedCookies.reduce((sum, c) => sum + parseFloat(c.price), 0).toFixed(2);
-    showToast(selectedCookies.length + ' cookies added: ' + names + ' — $' + total);
+    showToast(selectedCookies.length + ' cookies in box — $' + total);
 });
 
 builderReset.addEventListener('click', () => {
@@ -197,9 +217,9 @@ if (newsletterForm) {
 }
 
 // ── Toast helper ──────────────────────────
-function showToast(msg) {
+function showToast(msg, icon) {
     const toast = document.getElementById('toast');
-    toast.textContent = msg;
+    toast.innerHTML = (icon ? `<span class="toast-icon">${icon}</span>` : '') + msg;
     toast.classList.add('visible');
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => toast.classList.remove('visible'), 3000);
