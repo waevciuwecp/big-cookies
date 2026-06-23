@@ -242,3 +242,6 @@ body.has-banner { padding-top: 40px; }
     .kitchen-stat { min-width: 70px; }
     .bakers-note { padding: 1.5rem; }
 }
+
+[data-theme="dark"] .kitchen-stats { background: #1F1610; border-color: #3D2E22; }
+[data-theme="dark"] .bakers-note { background: linear-gradient(135deg, #1F1610 0%, #18120D 100%); border-color: #3D2E22; }

@@ -88,6 +88,48 @@ document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaro
     observer.observe(el);
 });
 
+// ── Step & phil-card reveal ────────────────
+(function() {
+    const stepObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.step').forEach(el => stepObserver.observe(el));
+})();
+
+// ── Philosophy stat count-up ────────────────
+(function() {
+    const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.target);
+                const suffix = el.dataset.suffix || '';
+                if (!target || target <= 1) return;
+                const duration = 1500;
+                const start = performance.now();
+                function tick(now) {
+                    const progress = Math.min(1, (now - start) / duration);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.round(eased * target) + suffix;
+                    if (progress < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+                statObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.phil-card .num').forEach(el => {
+        const text = el.textContent.trim();
+        const num = parseInt(text.replace(/[^0-9]/g, ''));
+        const suffix = text.replace(/[0-9]/g, '');
+        if (num > 1) { el.dataset.target = num; el.dataset.suffix = suffix; statObserver.observe(el); }
+    });
+})();
+
 // ── Kitchen chapter reveal ────────────────
 (function() {
     const chapterObserver = new IntersectionObserver((entries) => {
