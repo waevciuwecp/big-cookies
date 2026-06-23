@@ -502,6 +502,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     border-radius: 1rem; cursor: pointer; transition: all 0.25s; user-select: none;
 }
 .builder-item:hover { border-color: var(--gold); }
+.builder-item:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
 .builder-item.selected {
     border-color: var(--gold); background: var(--vanilla);
     box-shadow: 0 4px 16px rgba(200,133,62,0.15);

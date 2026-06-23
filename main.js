@@ -52,6 +52,18 @@ mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', closeMobileMenu);
 });
 
+// Close on backdrop click
+mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) closeMobileMenu();
+});
+
+// Close on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+    }
+});
+
 // ── Cookie parallax ───────────────────────
 const heroCookie = document.getElementById('heroCookie');
 if (heroCookie) {
@@ -70,24 +82,40 @@ if (heroCookie) {
     });
 }
 
-// ── Batch countdown ───────────────────────
-function updateCountdown() {
-    const now = new Date();
-    const day = now.getDay();
-    let daysUntilFriday = (5 - day + 7) % 7;
-    if (daysUntilFriday === 0 && now.getHours() >= 12) daysUntilFriday = 7;
-
+// ── Batch countdown (live) ────────────────
+(function() {
     const el = document.getElementById('batchCountdown');
     if (!el) return;
 
-    if (daysUntilFriday === 0) {
-        el.textContent = 'today — order now!';
-    } else if (daysUntilFriday === 1) {
-        el.textContent = 'tomorrow';
-    } else {
-        el.textContent = `in ${daysUntilFriday} days`;
+    function getNextFridayNoon() {
+        const now = new Date();
+        const target = new Date(now);
+        target.setDate(target.getDate() + ((5 - target.getDay() + 7) % 7));
+        target.setHours(12, 0, 0, 0);
+        if (target <= now) target.setDate(target.getDate() + 7);
+        return target;
     }
-}
+
+    function update() {
+        const diff = getNextFridayNoon() - new Date();
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+
+        if (d === 0 && h === 0) {
+            el.textContent = `in ${m} min`;
+        } else if (d === 0) {
+            el.textContent = `in ${h}h ${m}m`;
+        } else if (d === 1) {
+            el.textContent = `tomorrow at noon`;
+        } else {
+            el.textContent = `in ${d} days`;
+        }
+    }
+
+    update();
+    setInterval(update, 60000);
+})();
 
 const batchBanner = document.getElementById('batchBanner');
 let bannerShown = false;
@@ -97,7 +125,6 @@ window.addEventListener('scroll', () => {
         bannerShown = true;
     }
 });
-updateCountdown();
 
 // ── Build Your Box ────────────────────────
 const MAX_SLOTS = 6;
@@ -137,6 +164,7 @@ function updateBuilderBox() {
         const id = item.dataset.id;
         const isSelected = selectedCookies.some(c => c.id === id);
         item.classList.toggle('selected', isSelected);
+        item.setAttribute('aria-checked', isSelected);
         item.querySelector('.builder-check').textContent = isSelected ? '✓' : '+';
     });
 }
@@ -157,6 +185,14 @@ builderPicker.querySelectorAll('.builder-item').forEach(item => {
             return;
         }
         updateBuilderBox();
+    });
+
+    // Keyboard: Enter/Space to toggle
+    item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.click();
+        }
     });
 });
 
@@ -232,6 +268,15 @@ document.querySelectorAll('.faq-question').forEach(btn => {
         if (!wasOpen) item.classList.add('open');
     });
 });
+
+// ── Order form ────────────────────────────
+const orderForm = document.getElementById('orderForm');
+if (orderForm) {
+    orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('Sorry, we\'re sold out! Next batch drops Friday.');
+    });
+}
 
 // ── Newsletter form ───────────────────────
 const newsletterForm = document.getElementById('newsletterForm');
