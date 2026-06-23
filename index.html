@@ -20,6 +20,16 @@
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="theme.css">
+    <script>
+    // Prevent dark-mode flash — must run before first paint
+    (function(){
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    })();
+    </script>
+
 </head>
 <body>
 <div id="site-nav"></div>

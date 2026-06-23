@@ -97,17 +97,11 @@
         0 20px 60px rgba(160,100,40,0.3),
         inset 0 -4px 8px rgba(0,0,0,0.18),
         inset 0 2px 4px rgba(255,220,170,0.15);
-    /* Bite mark: main arch centered OUTSIDE right edge, smaller circles for irregularity */
-    -webkit-mask-image:
-        radial-gradient(circle at 102% 48%, transparent 58px, black 59px),
-        radial-gradient(circle at 96% 34%, transparent 16px, black 17px),
-        radial-gradient(circle at 97% 62%, transparent 12px, black 13px);
-    mask-image:
-        radial-gradient(circle at 102% 48%, transparent 58px, black 59px),
-        radial-gradient(circle at 96% 34%, transparent 16px, black 17px),
-        radial-gradient(circle at 97% 62%, transparent 12px, black 13px);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
+    /* Bite mark: single transparent circle centered OUTSIDE right edge.
+       Only the inner arc overlaps the cookie = natural arched cutout.
+       Zero compositing — works identically in all browsers. */
+    -webkit-mask-image: radial-gradient(circle at 103% 50%, transparent 62px, black 63px);
+    mask-image: radial-gradient(circle at 103% 50%, transparent 62px, black 63px);
 }
 /* Surface cracks — subtle darker lines */
 .cookie-illustration .cookie-main::after {
