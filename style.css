@@ -993,3 +993,75 @@ body.has-banner { padding-top: 40px; }
         width: 2px; height: 2rem; background: linear-gradient(to bottom, var(--gold), var(--soft));
     }
 }
+
+/* ── KITCHEN STORY ────────────────────────── */
+.kitchen-chapter { margin-top: 5rem; }
+.kitchen-chapter:first-child { margin-top: 3rem; }
+.chapter-header { text-align: center; max-width: 600px; margin: 0 auto 2.5rem; }
+.chapter-num {
+    font-size: 0.6875rem; font-weight: 700; color: var(--gold);
+    letter-spacing: 0.15em; text-transform: uppercase;
+}
+.chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem; font-weight: 700; margin: 0.5rem 0;
+    color: var(--ink);
+}
+.chapter-desc {
+    font-size: 0.9375rem; color: #6B5444; line-height: 1.7;
+}
+[data-theme="dark"] .chapter-desc { color: #B8A898; }
+
+/* ── KITCHEN STATS BAR ────────────────────── */
+.kitchen-stats {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    margin-top: 5rem; padding: 2.5rem 2rem;
+    background: var(--paper); border-radius: 1.5rem;
+    border: 1px solid var(--soft);
+}
+.kitchen-stat { text-align: center; min-width: 90px; }
+.stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem; font-weight: 900; color: var(--gold);
+    line-height: 1; display: block;
+}
+.stat-unit { font-size: 0.75rem; font-weight: 600; color: #8B6F5C; margin-left: 0.125rem; }
+.stat-label {
+    display: block; font-size: 0.75rem; font-weight: 600;
+    color: #8B6F5C; margin-top: 0.5rem; letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+[data-theme="dark"] .kitchen-stats { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .stat-unit { color: #9B8A78; }
+
+/* ── BAKER'S NOTE ─────────────────────────── */
+.bakers-note {
+    max-width: 650px; margin: 4rem auto 0; text-align: center;
+    padding: 2.5rem; background: linear-gradient(135deg, var(--vanilla) 0%, var(--paper) 100%);
+    border-radius: 1.5rem; border: 1px solid var(--soft);
+}
+.bakers-note-avatar { margin: 0 auto 1rem; width: 48px; height: 48px; }
+.bakers-note blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem; font-weight: 600; font-style: italic;
+    line-height: 1.6; color: var(--ink);
+}
+.bakers-note cite {
+    display: block; margin-top: 1rem; font-size: 0.8125rem;
+    font-style: normal; color: #8B6F5C;
+}
+[data-theme="dark"] .bakers-note { background: linear-gradient(135deg, #261A12 0%, #1F1610 100%); }
+[data-theme="dark"] .bakers-note cite { color: #9B8A78; }
+
+/* Kitchen story responsive */
+@media (max-width: 900px) {
+    .kitchen-stats { gap: 1.5rem; padding: 2rem 1rem; }
+    .stat-num { font-size: 1.75rem; }
+    .chapter-title { font-size: 1.5rem; }
+}
+@media (max-width: 600px) {
+    .kitchen-stats { gap: 1rem; }
+    .kitchen-stat { min-width: 70px; }
+    .bakers-note { padding: 1.5rem; }
+}
