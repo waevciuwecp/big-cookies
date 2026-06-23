@@ -326,7 +326,7 @@ body {
 .star svg { display: block; }
 
 /* ── SECTIONS ────────────────────────────── */
-section { padding: 6rem 2rem; }
+section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .section-inner { max-width: 1200px; margin: 0 auto; }
 .section-label {
     font-size: 0.8125rem; font-weight: 600; color: var(--gold);
