@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="trayGrad"><stop offset="0%" stop-color="#D0D0D0"/><stop offset="100%" stop-color="#A0A0A0"/></linearGradient>
+  </defs>
+  <!-- baking tray --><rect x="20" y="95" width="160" height="24" rx="6" fill="url(#trayGrad)" stroke="#888" stroke-width="2"/><rect x="24" y="97" width="152" height="18" rx="4" fill="#C8C8C8"/>
+  <!-- tray rim highlight --><line x1="24" y1="97" x2="176" y2="97" stroke="#E8E8E8" stroke-width="1.5"/>
+  <!-- cookie dough balls 4x3 grid --><circle cx="50" cy="107" r="13" fill="#E8D5B8"/><ellipse cx="50" cy="104" rx="3.5" ry="5" fill="#3C1D0E" transform="rotate(-10 50 104)"/><ellipse cx="53" cy="109" rx="3" ry="4" fill="#3C1D0E" transform="rotate(20 53 109)"/>
+  <circle cx="86" cy="107" r="14" fill="#DCC5A0"/><ellipse cx="86" cy="103" rx="4" ry="5.5" fill="#3C1D0E" transform="rotate(15 86 103)"/><ellipse cx="89" cy="110" rx="3" ry="4" fill="#3C1D0E" transform="rotate(-10 89 110)"/>
+  <circle cx="122" cy="107" r="13" fill="#E8D5B8"/><ellipse cx="122" cy="104" rx="3.5" ry="5" fill="#3C1D0E" transform="rotate(-5 122 104)"/><ellipse cx="125" cy="109" rx="3" ry="4" fill="#3C1D0E" transform="rotate(25 125 109)"/>
+  <circle cx="158" cy="107" r="13.5" fill="#DCC5A0"/><ellipse cx="158" cy="103" rx="4" ry="5.5" fill="#3C1D0E" transform="rotate(-15 158 103)"/><ellipse cx="161" cy="109" rx="3" ry="4" fill="#3C1D0E" transform="rotate(10 161 109)"/>
+  <!-- oven mitt --><path d="M140 75c0-18 10-30 22-30s22 12 22 30" fill="#E8A850" stroke="#C8853E" stroke-width="2.5"/><path d="M144 60c0-10 4-16 10-16" fill="none" stroke="#D4954B" stroke-width="3" stroke-linecap="round"/><rect x="148" y="78" width="28" height="18" rx="4" fill="#D4954B" opacity="0.5"/>
+  <!-- order slip paper --><rect x="38" y="46" width="44" height="40" rx="2" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5" transform="rotate(-8 60 66)"/>
+  <line x1="48" y1="54" x2="72" y2="54" stroke="#C8853E" stroke-width="0.8"/><line x1="48" y1="60" x2="68" y2="60" stroke="#C8853E" stroke-width="0.8"/><line x1="48" y1="66" x2="73" y2="66" stroke="#C8853E" stroke-width="0.8"/><line x1="48" y1="72" x2="65" y2="72" stroke="#C8853E" stroke-width="0.8"/>
+  <!-- checkmark on slip --><path d="M64 75l4 5 8-10" fill="none" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- salt/flour shaker --><rect x="145" y="140" width="20" height="32" rx="6" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5"/><rect x="150" y="142" width="10" height="6" rx="1" fill="#C8853E" opacity="0.3"/><circle cx="152" cy="150" r="1" fill="#C8853E"/><circle cx="156" cy="150" r="1" fill="#C8853E"/><circle cx="160" cy="150" r="1" fill="#C8853E"/><circle cx="154" cy="154" r="1" fill="#C8853E"/><circle cx="158" cy="154" r="1" fill="#C8853E"/><circle cx="152" cy="158" r="1" fill="#C8853E"/>
+</svg>

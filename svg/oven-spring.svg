@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="ovenBody"><stop offset="0%" stop-color="#4A4A4A"/><stop offset="100%" stop-color="#2A2A2A"/></linearGradient>
+    <radialGradient id="ovenGlow"><stop offset="0%" stop-color="#E8A850" stop-opacity="0.8"/><stop offset="100%" stop-color="#C8853E" stop-opacity="0.15"/></radialGradient>
+  </defs>
+  <!-- oven body --><rect x="30" y="70" width="140" height="110" rx="14" fill="url(#ovenBody)" stroke="#1A1A1A" stroke-width="3"/>
+  <!-- oven top panel --><rect x="30" y="70" width="140" height="18" rx="10" fill="#3A3A3A"/>
+  <!-- oven window frame --><rect x="50" y="95" width="100" height="60" rx="8" fill="#1A1A1A" stroke="#555" stroke-width="2.5"/>
+  <!-- warm glow inside --><rect x="54" y="99" width="92" height="52" rx="6" fill="url(#ovenGlow)"/>
+  <!-- cookies inside oven --><ellipse cx="80" cy="130" rx="16" ry="9" fill="#D4954B"/><ellipse cx="80" cy="128" rx="3" ry="4.5" fill="#3C1D0E" transform="rotate(-10 80 128)"/><ellipse cx="80" cy="134" rx="2.5" ry="3.5" fill="#3C1D0E" transform="rotate(15 80 134)"/>
+  <ellipse cx="100" cy="133" rx="18" ry="10" fill="#C8853E"/><ellipse cx="100" cy="131" rx="3.5" ry="5" fill="#3C1D0E" transform="rotate(-15 100 131)"/><ellipse cx="100" cy="136" rx="3" ry="4" fill="#3C1D0E" transform="rotate(10 100 136)"/>
+  <ellipse cx="120" cy="130" rx="16" ry="9" fill="#D4954B"/><ellipse cx="120" cy="128" rx="3" ry="4.5" fill="#3C1D0E" transform="rotate(-5 120 128)"/><ellipse cx="120" cy="133" rx="2.5" ry="3.5" fill="#3C1D0E" transform="rotate(20 120 133)"/>
+  <!-- cookies rising (domed tops) --><path d="M68 124c4-6 20-6 24 0" fill="#D4954B" opacity="0.8"/><path d="M88 127c4-6 20-6 24 0" fill="#C8853E" opacity="0.8"/><path d="M108 124c4-6 20-6 24 0" fill="#D4954B" opacity="0.8"/>
+  <!-- oven handle --><rect x="60" y="158" width="80" height="8" rx="4" fill="#888" stroke="#666" stroke-width="1"/>
+  <!-- heat waves --><path d="M80 55c-3-6 0-14 6-18" fill="none" stroke="#E8A850" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/><path d="M100 42c0-8 4-16 10-18" fill="none" stroke="#E8A850" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/><path d="M120 55c3-6 0-14-6-18" fill="none" stroke="#E8A850" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- temp dial left --><circle cx="48" cy="84" r="9" fill="#555" stroke="#444" stroke-width="1.5"/><line x1="48" y1="84" x2="44" y2="78" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- temp dial right --><circle cx="152" cy="84" r="9" fill="#555" stroke="#444" stroke-width="1.5"/><line x1="152" y1="84" x2="156" y2="78" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- temp label --><text x="100" y="186" text-anchor="middle" font-size="10" font-weight="700" fill="#E8A850" font-family="Inter,sans-serif">200°C</text>
+</svg>

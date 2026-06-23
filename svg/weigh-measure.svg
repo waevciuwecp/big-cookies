@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="scaleBeam"><stop offset="0%" stop-color="#6B3A20"/><stop offset="100%" stop-color="#4A2510"/></linearGradient>
+    <radialGradient id="flourPile"><stop offset="0%" stop-color="#FFF9F2"/><stop offset="100%" stop-color="#F0E0C0"/></radialGradient>
+  </defs>
+  <!-- scale base --><ellipse cx="100" cy="170" rx="40" ry="8" fill="#3A1E0A"/><rect x="65" y="140" width="70" height="32" rx="10" fill="#5C3D2E"/><rect x="70" y="165" width="60" height="5" rx="2" fill="#3A1E0A"/>
+  <!-- scale pillar --><rect x="92" y="90" width="16" height="55" rx="5" fill="url(#scaleBeam)"/><rect x="96" y="88" width="8" height="8" rx="2" fill="#C8853E"/>
+  <!-- fulcrum --><circle cx="100" cy="90" r="5" fill="#E8A850" stroke="#C8853E" stroke-width="1"/>
+  <!-- scale beam --><line x1="30" y1="88" x2="170" y2="88" stroke="#5C3D2E" stroke-width="5" stroke-linecap="round"/>
+  <!-- left pan chains --><line x1="30" y1="88" x2="22" y2="110" stroke="#8B6F5C" stroke-width="2"/><line x1="40" y1="88" x2="48" y2="110" stroke="#8B6F5C" stroke-width="2"/>
+  <!-- left pan --><path d="M12 110c0 10 10 20 28 20s28-10 28-20" fill="none" stroke="#5C3D2E" stroke-width="2.5"/><ellipse cx="40" cy="110" rx="28" ry="6" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2"/>
+  <!-- flour in left pan --><path d="M16 108c2-6 20-6 24 0" fill="#FFF9F2"/><path d="M14 108c3-5 25-5 28 0" fill="#FAF5EB"/><ellipse cx="40" cy="108" rx="26" ry="5" fill="url(#flourPile)"/>
+  <!-- flour dust --><circle cx="8" cy="85" r="2" fill="#E8A850" opacity="0.35"/><circle cx="18" cy="78" r="1.5" fill="#E8A850" opacity="0.3"/><circle cx="12" cy="72" r="1" fill="#E8A850" opacity="0.25"/>
+  <!-- right pan chains --><line x1="160" y1="88" x2="152" y2="110" stroke="#8B6F5C" stroke-width="2"/><line x1="170" y1="88" x2="178" y2="110" stroke="#8B6F5C" stroke-width="2"/>
+  <!-- right pan --><path d="M142 110c0 10 10 20 28 20s28-10 28-20" fill="none" stroke="#5C3D2E" stroke-width="2.5"/><ellipse cx="170" cy="110" rx="28" ry="6" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2"/>
+  <!-- weight blocks --><rect x="154" y="98" width="16" height="12" rx="2" fill="#C8853E" stroke="#A8612E" stroke-width="1"/><rect x="164" y="90" width="12" height="8" rx="2" fill="#D4954B" stroke="#A8612E" stroke-width="1"/>
+  <!-- measuring cup nearby --><rect x="145" y="150" width="22" height="28" rx="4" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5"/><rect x="147" y="150" width="3" height="8" rx="1" fill="#C8853E"/><line x1="150" y1="158" x2="164" y2="158" stroke="#C8853E" stroke-width="1"/><line x1="150" y1="164" x2="164" y2="164" stroke="#C8853E" stroke-width="1"/><line x1="150" y1="170" x2="162" y2="170" stroke="#C8853E" stroke-width="1"/>
+</svg>

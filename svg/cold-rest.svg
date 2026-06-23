@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="fridgeBody"><stop offset="0%" stop-color="#F5EDE0"/><stop offset="100%" stop-color="#E8DCC8"/></linearGradient>
+    <linearGradient id="freezerComp"><stop offset="0%" stop-color="#E0D4BC"/><stop offset="100%" stop-color="#D4C4A8"/></linearGradient>
+  </defs>
+  <!-- fridge body --><rect x="40" y="30" width="120" height="140" rx="12" fill="url(#fridgeBody)" stroke="#5C3D2E" stroke-width="3"/>
+  <!-- fridge top (freezer) --><rect x="44" y="34" width="112" height="52" rx="6" fill="url(#freezerComp)"/>
+  <!-- freezer shelves --><line x1="44" y1="54" x2="156" y2="54" stroke="#C8B898" stroke-width="1.5"/><line x1="44" y1="74" x2="156" y2="74" stroke="#C8B898" stroke-width="1.5"/>
+  <!-- ice crystals in freezer --><line x1="60" y1="44" x2="60" y2="50" stroke="#C8853E" stroke-width="2" stroke-linecap="round"/><line x1="57" y1="47" x2="63" y2="47" stroke="#C8853E" stroke-width="2" stroke-linecap="round"/><line x1="140" y1="42" x2="140" y2="48" stroke="#C8853E" stroke-width="2" stroke-linecap="round"/><line x1="137" y1="45" x2="143" y2="45" stroke="#C8853E" stroke-width="2" stroke-linecap="round"/>
+  <!-- fridge door line --><line x1="40" y1="100" x2="160" y2="100" stroke="#5C3D2E" stroke-width="2.5"/>
+  <!-- bowl of dough in fridge compartment --><path d="M68 90c0-10 20-14 36-14s36 4 36 14" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5"/><ellipse cx="104" cy="90" rx="32" ry="6" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.2"/>
+  <!-- dough surface detail --><path d="M80 90c4-3 12-5 24-5s20 2 24 5" fill="none" stroke="#E8D5B8" stroke-width="1.5"/>
+  <!-- plastic wrap over bowl --><path d="M72 88c10-4 22-5 32-5s22 1 32 5" fill="none" stroke="#D4E8F0" stroke-width="0.8" opacity="0.4"/>
+  <!-- clock on door --><circle cx="104" cy="128" r="22" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2.5"/>
+  <!-- clock inner ring --><circle cx="104" cy="128" r="18" fill="none" stroke="#C8853E" stroke-width="0.8" opacity="0.4"/>
+  <!-- clock hands --><line x1="104" y1="128" x2="104" y2="112" stroke="#5C3D2E" stroke-width="3" stroke-linecap="round"/><line x1="104" y1="128" x2="116" y2="128" stroke="#5C3D2E" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="128" r="3" fill="#C8853E"/>
+  <!-- 48 on clock --><text x="104" y="138" text-anchor="middle" font-size="11" font-weight="900" fill="#C8853E" font-family="Inter,sans-serif">48</text><text x="104" y="148" text-anchor="middle" font-size="6" font-weight="600" fill="#8B6F5C" font-family="Inter,sans-serif">HRS</text>
+  <!-- fridge handle --><rect x="148" y="115" width="6" height="30" rx="3" fill="#A0A0A0" stroke="#888" stroke-width="1"/>
+  <!-- fridge feet --><rect x="56" y="170" width="14" height="10" rx="3" fill="#5C3D2E"/><rect x="130" y="170" width="14" height="10" rx="3" fill="#5C3D2E"/>
+  <!-- cold indicator badge --><circle cx="160" cy="42" r="12" fill="#C8853E" opacity="0.15"/><text x="160" y="45" text-anchor="middle" font-size="9" font-weight="700" fill="#C8853E" font-family="Inter,sans-serif">❄</text>
+</svg>

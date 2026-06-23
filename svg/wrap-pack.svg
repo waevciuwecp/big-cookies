@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="boxFront"><stop offset="0%" stop-color="#D4954B"/><stop offset="100%" stop-color="#B8752E"/></linearGradient>
+    <linearGradient id="boxLid"><stop offset="0%" stop-color="#E8A850"/><stop offset="100%" stop-color="#C8853E"/></linearGradient>
+    <linearGradient id="ribbonGrad"><stop offset="0%" stop-color="#E8A850"/><stop offset="100%" stop-color="#C8853E"/></linearGradient>
+  </defs>
+  <!-- gift box bottom --><rect x="50" y="90" width="100" height="70" rx="6" fill="url(#boxFront)" stroke="#A8612E" stroke-width="2"/>
+  <!-- box pattern decoration --><rect x="60" y="100" width="80" height="50" rx="3" fill="none" stroke="#E8A850" stroke-width="1" opacity="0.3"/>
+  <!-- cookie icon on box --><circle cx="100" cy="125" r="12" fill="#F5E6C8" opacity="0.5"/><circle cx="96" cy="122" r="2.5" fill="#3C1D0E" opacity="0.5"/><circle cx="103" cy="120" r="2" fill="#3C1D0E" opacity="0.5"/><circle cx="100" cy="128" r="2.5" fill="#3C1D0E" opacity="0.5"/>
+  <!-- box lid --><path d="M42 90c0-12 26-22 58-22s58 10 58 22" fill="url(#boxLid)" stroke="#A8612E" stroke-width="2"/>
+  <!-- lid top highlight --><path d="M46 86c2-8 22-16 48-16" fill="none" stroke="#F5D5A0" stroke-width="2" opacity="0.5"/>
+  <!-- tissue paper peeking out --><path d="M60 88c4-4 12-6 20-6s16 2 20 6" fill="#FFF9F2" opacity="0.7"/><path d="M64 90c2-3 8-4 14-4s12 1 14 4" fill="#FAF5EB" opacity="0.6"/>
+  <!-- ribbon vertical --><rect x="93" y="60" width="14" height="100" rx="3" fill="url(#ribbonGrad)" stroke="#A8612E" stroke-width="1.5"/>
+  <!-- ribbon horizontal --><rect x="50" y="118" width="100" height="14" rx="3" fill="url(#ribbonGrad)" stroke="#A8612E" stroke-width="1.5"/>
+  <!-- ribbon bow --><path d="M100 68c-8-6-18-8-22-4s-2 14 4 18" fill="#E8A850" stroke="#C8853E" stroke-width="1.5"/><path d="M100 68c8-6 18-8 22-4s2 14-4 18" fill="#E8A850" stroke="#C8853E" stroke-width="1.5"/>
+  <!-- bow center knot --><circle cx="100" cy="66" r="6" fill="#D4954B" stroke="#A8612E" stroke-width="1.5"/>
+  <!-- bow tails --><path d="M100 72c-4 8-8 14-10 18" fill="none" stroke="#C8853E" stroke-width="3" stroke-linecap="round"/><path d="M100 72c4 8 8 14 10 18" fill="none" stroke="#C8853E" stroke-width="3" stroke-linecap="round"/>
+  <!-- stamp seal --><circle cx="160" cy="132" r="18" fill="#5C3D2E" opacity="0.8"/><circle cx="160" cy="132" r="15" fill="none" stroke="#E8A850" stroke-width="1.5"/><text x="160" y="128" text-anchor="middle" font-size="6" font-weight="700" fill="#E8A850" font-family="Inter,sans-serif">HAND</text><text x="160" y="137" text-anchor="middle" font-size="6" font-weight="700" fill="#E8A850" font-family="Inter,sans-serif">MADE</text>
+</svg>

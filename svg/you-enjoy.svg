@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="cheekGlow"><stop offset="0%" stop-color="#E8A850" stop-opacity="0.35"/><stop offset="100%" stop-color="#E8A850" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- face base --><circle cx="100" cy="90" r="65" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="3"/>
+  <!-- rosy cheeks --><ellipse cx="56" cy="105" rx="14" ry="8" fill="url(#cheekGlow)"/><ellipse cx="144" cy="105" rx="14" ry="8" fill="url(#cheekGlow)"/>
+  <!-- happy eyes (squinting) --><path d="M62 78c8-12 20-12 28 0" fill="none" stroke="#5C3D2E" stroke-width="3.5" stroke-linecap="round"/><path d="M110 78c8-12 20-12 28 0" fill="none" stroke="#5C3D2E" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- eye sparkles --><circle cx="66" cy="74" r="2" fill="#FFF" opacity="0.7"/><circle cx="114" cy="74" r="2" fill="#FFF" opacity="0.7"/>
+  <!-- smile --><path d="M65 118c12 16 50 16 62 0" fill="none" stroke="#5C3D2E" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- teeth peeking through smile --><path d="M90 122c4 6 12 6 16 0" fill="#FFF" stroke="#5C3D2E" stroke-width="1"/>
+  <!-- cookie being held --><circle cx="155" cy="145" r="28" fill="#D4954B" stroke="#A8612E" stroke-width="2"/>
+  <!-- cookie texture --><circle cx="155" cy="145" r="28" fill="none" stroke="#C8853E" stroke-width="0.8" opacity="0.3"/>
+  <!-- chocolate chips on cookie --><ellipse cx="142" cy="136" rx="4.5" ry="6" fill="#3C1D0E" transform="rotate(-15 142 136)"/><ellipse cx="168" cy="134" rx="4" ry="5.5" fill="#3C1D0E" transform="rotate(20 168 134)"/><ellipse cx="160" cy="158" rx="4.5" ry="5.5" fill="#3C1D0E" transform="rotate(-5 160 158)"/><ellipse cx="140" cy="152" rx="3.5" ry="5" fill="#3C1D0E" transform="rotate(-25 140 152)"/><ellipse cx="152" cy="148" rx="4" ry="5.5" fill="#3C1D0E" transform="rotate(10 152 148)"/>
+  <!-- bite mark on cookie --><circle cx="178" cy="145" r="11" fill="#FFF9F2"/>
+  <!-- crumbs near bite --><circle cx="182" cy="155" r="2" fill="#C8853E" opacity="0.5"/><circle cx="185" cy="150" r="1.5" fill="#C8853E" opacity="0.4"/><circle cx="180" cy="160" r="1.2" fill="#D4954B" opacity="0.35"/>
+  <!-- hand holding cookie --><path d="M128 140c-8-10-12-25-8-35" stroke="#5C3D2E" stroke-width="3" stroke-linecap="round" fill="#F5E6D3"/><path d="M125 138c-6-8-9-20-5-28" stroke="#D4B896" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <!-- tiny heart near face --><path d="M40 55c-2-3 0-6 3-6s5 3 3 6c-1.5 2-3 2-3 2s-1.5 0-3-2z" fill="#E8A850" opacity="0.6"/>
+</svg>
