@@ -427,9 +427,6 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .builder-box-inner { padding: 2rem; }
 .builder-box-title { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; margin-bottom: 1.25rem; }
 
-
-
-
 /* ── PHILOSOPHY ──────────────────────────── */
 .philosophy-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
@@ -986,20 +983,11 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     border: none; cursor: pointer; transition: all 0.3s; padding: 0;
 }
 .slider-dot.active { background: var(--gold); width: 28px; border-radius: 5px; }
-.slider-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: #fff; border: 1px solid var(--soft); border-radius: 50%;
-    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; color: var(--ink); transition: all 0.2s; z-index: 2;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.slider-arrow:hover { border-color: var(--gold); color: var(--gold); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-.slider-prev { left: -20px; }
-.slider-next { right: -20px; }
-[data-theme="dark"] .slider-arrow { background: var(--paper); }
+
+[data-theme="dark"] 
 [data-theme="dark"] .slider-dot { background: #3D2E22; }
 @media (max-width: 900px) {
-    .slider-arrow { display: none; }
+    
 }
 
 /* ── ORDER CART SUMMARY ───────────────────── */

@@ -268,8 +268,6 @@ if (newsletterForm) {
         if (!container) return;
         var slides = container.querySelectorAll('.testimonial');
         var dotsEl = document.getElementById('sliderDots');
-        var prevBtn = document.getElementById('sliderPrev');
-        var nextBtn = document.getElementById('sliderNext');
         if (slides.length < 2) return;
 
         var current = 0;
@@ -298,9 +296,7 @@ if (newsletterForm) {
         function prev() { goTo((current - 1 + slides.length) % slides.length); }
         function resetTimer() { clearInterval(timer); timer = setInterval(next, 5000); }
 
-        if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); prev(); });
-        if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); next(); });
-
+        
         // Click left 1/3 → prev, right 1/3 → next, middle → no-op
         container.addEventListener('click', function(e) {
             var rect = container.getBoundingClientRect();
