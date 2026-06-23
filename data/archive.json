@@ -2,7 +2,7 @@
   {
     "name": "Lemon Lavender",
     "season": "Summer 2025",
-    "desc": "Meyer lemon zest meets culinary lavender in a brown-butter base. 47 test batches. Priya's personal favorite.",
+    "desc": "Meyer lemon zest meets culinary lavender in a brown-butter base. Made with peak-summer lavender from an Oregon farm and year-round Meyer lemons. 47 test batches. Priya's personal favorite.",
     "price": "5.50",
     "status": "returning",
     "note": "Returns Summer 2026"
@@ -57,10 +57,58 @@
   },
   {
     "name": "Hot Honey Cornbread",
-    "season": "Spring 2026",
+    "season": "Late Summer 2026",
     "desc": "Cornmeal cookie with hot honey drizzle and a hint of lime zest. Sweet, spicy, and utterly unexpected. Diego's brainchild.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns Spring 2027"
+    "note": "Returns Summer 2027"
+  },
+  {
+    "name": "Marionberry Crumble",
+    "season": "Late Summer 2025",
+    "desc": "Oregon's own marionberries in a brown butter crumble cookie. Tart, sweet, and purple-stained. Made with berries picked 30 miles from the kitchen.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns August 2026"
+  },
+  {
+    "name": "Apple Cider Donut",
+    "season": "Fall 2025",
+    "desc": "Reduced apple cider from Hood River orchards, cinnamon sugar coating, and a cake-donut texture. Tastes like a Vermont orchard in October.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns October 2026"
+  },
+  {
+    "name": "Eggnog Rum",
+    "season": "Winter 2024",
+    "desc": "Fresh-grated nutmeg, a splash of dark rum in the dough, and a rum glaze. Our holiday party cookie. Strictly 21+ recommended pairing.",
+    "price": "6.00",
+    "status": "returning",
+    "note": "Returns December 2026"
+  },
+  {
+    "name": "Rhubarb Pistachio",
+    "season": "Spring 2026",
+    "desc": "Tart rhubarb from a family farm in the Willamette Valley, roasted pistachios, and a hint of cardamom. Pink, green, and absolutely spring.",
+    "price": "6.00",
+    "status": "returning",
+    "note": "Returns May 2027"
+  },
+  {
+    "name": "Blackberry Sage",
+    "season": "Late Summer 2024",
+    "desc": "Wild-picked Oregon blackberries with fried sage leaves in brown butter. Savory-sweet and tasted like the Pacific Northwest in a cookie.",
+    "price": "5.50",
+    "status": "retired",
+    "note": "Sage crop failed in 2025"
+  },
+  {
+    "name": "Hazelnut Praline",
+    "season": "Fall 2024",
+    "desc": "Oregon hazelnuts (99% of US crop) candied in-house with caramel and sea salt. Crunchy, buttery, and unmistakably local. A love letter to the Willamette Valley.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns Fall 2026"
   }
 ]
