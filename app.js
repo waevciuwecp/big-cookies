@@ -300,13 +300,27 @@ if (orderForm) {
 // ── Newsletter form ───────────────────────
 const newsletterForm = document.getElementById('newsletterForm');
 if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    var newsletterInput = newsletterForm.querySelector('input');
+    newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const input = newsletterForm.querySelector('input');
-        const success = document.getElementById('newsletterSuccess');
-        input.value = '';
+        var email = newsletterInput.value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            newsletterInput.style.borderColor = 'var(--jam)';
+            newsletterInput.style.animation = 'none';
+            newsletterInput.offsetHeight; // force reflow
+            newsletterInput.style.animation = 'shake 0.4s ease';
+            showToast('Please enter a valid email address.');
+            setTimeout(function() { newsletterInput.style.borderColor = ''; }, 2000);
+            return;
+        }
+        var success = document.getElementById('newsletterSuccess');
+        newsletterInput.value = '';
+        newsletterInput.style.borderColor = '#3A8C3F';
         success.classList.add('visible');
-        setTimeout(() => success.classList.remove('visible'), 4000);
+        setTimeout(function() {
+            success.classList.remove('visible');
+            newsletterInput.style.borderColor = '';
+        }, 4000);
         showToast('You\'re on the list! We\'ll email you when the next batch drops.');
     });
 }
