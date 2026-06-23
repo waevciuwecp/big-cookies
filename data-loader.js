@@ -41,8 +41,10 @@
             var tenureHTML = isPast && member.tenure ? '<span style="font-size:0.6875rem;color:#8B6F5C;font-weight:600;display:block;margin-top:0.5rem">'+member.tenure+'</span>' : '';
             return '<div class="'+cls+'"><div class="faculty-avatar"'+avStyle+'><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">'+member.name+'</h3><span class="faculty-role">'+member.role+'</span><p class="faculty-bio">'+member.bio+'</p>'+tenureHTML+'</div>';
         },
-        'loading': '<div style="text-align:center;padding:3rem;color:#8B6F5C">Loading…</div>',
-        'error': '<div style="text-align:center;padding:3rem;color:var(--jam)">Could not load content.</div>'
+        'loading': '<div class="skeleton-list"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>',
+        'loading-faq': '<div class="skeleton-list"><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div></div>',
+        'loading-testimonial': '<div class="skeleton-card skeleton-card-tall"></div>',
+        'error': '<div class="load-error" role="alert"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Could not load content. <button onclick="location.reload()" style="background:none;border:none;color:var(--gold);cursor:pointer;text-decoration:underline;font:inherit">Try again</button></p></div>'
     };
 
     function loadAndRender(el, cb) {
@@ -50,8 +52,14 @@
         var tpl = el.getAttribute('data-template');
         var section = el.getAttribute('data-section');
         if (!src || !tpl || !templates[tpl]) { if (cb) cb(); return; }
-        el.innerHTML = templates['loading'];
-        fetch(src, {cache: 'no-cache'}).then(function(res) {
+        // Use template-specific loading skeleton
+        var loadingKey = 'loading-' + tpl;
+        el.innerHTML = templates[loadingKey] || templates['loading'];
+        // Fetch with timeout
+        var controller = new AbortController();
+        var timeout = setTimeout(function() { controller.abort(); }, 15000);
+        fetch(src, {cache: 'no-cache', signal: controller.signal}).then(function(res) {
+            clearTimeout(timeout);
             if (!res.ok) throw new Error('HTTP '+res.status);
             return res.json();
         }).then(function(data) {
