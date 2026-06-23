@@ -936,3 +936,10 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .cart-item-name { color: var(--ink); }
 
 [data-theme="dark"] .faculty-card.alumni .faculty-avatar { filter: grayscale(0.3) brightness(0.8); }
+
+.gift-add-cart { cursor: pointer; font-family: 'Inter', sans-serif; }
+
+@media (max-width: 600px) {
+    .cart-item { flex-wrap: wrap; gap: 0.375rem; }
+    .cart-item-name { flex: 1 1 100%; }
+}

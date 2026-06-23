@@ -121,4 +121,20 @@
     });
 
     updateCart();
+
+// Gift card "Add to Cart" buttons
+document.querySelectorAll('.gift-add-cart').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var id = this.dataset.gift;
+        var name = this.dataset.name;
+        var price = this.dataset.price;
+        if (!cart[id]) cart[id] = {name: name, price: price, qty: 0};
+        cart[id].qty++;
+        updateCart();
+        window.showToast && showToast(name + ' added to cart!');
+        // Scroll to cart
+        document.getElementById('build').scrollIntoView({behavior: 'smooth'});
+    });
+});
+
 })();

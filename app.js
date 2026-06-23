@@ -73,7 +73,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach((el, i) => {
+function initScrollReveal() {
+    document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -85,8 +86,12 @@ document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaro
     } else if (el.classList.contains('tilt-none')) {
         el.dataset.originalTransform = 'rotate(0.5deg)';
     }
-    observer.observe(el);
-});
+        observer.observe(el);
+    });
+}
+initScrollReveal();
+// Re-run after data-loader renders
+window.addEventListener('DOMContentLoaded', function() { setTimeout(initScrollReveal, 500); });
 
 // ── Step & phil-card reveal ────────────────
 (function() {
