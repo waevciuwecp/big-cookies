@@ -40,7 +40,7 @@
         var section = el.getAttribute('data-section');
         if (!src || !tpl || !templates[tpl]) { if (cb) cb(); return; }
         el.innerHTML = templates['loading'];
-        fetch(src).then(function(res) {
+        fetch(src, {cache: 'no-cache'}).then(function(res) {
             if (!res.ok) throw new Error('HTTP '+res.status);
             return res.json();
         }).then(function(data) {
