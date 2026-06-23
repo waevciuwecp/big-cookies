@@ -30,6 +30,34 @@
         }
         cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
         builderCount.textContent = count;
+
+    // Sync with order form cart summary
+    var orderSummary = document.getElementById('orderCartSummary');
+    var orderTotal = document.getElementById('orderCartTotal');
+    var orderCount = document.getElementById('orderCartCount');
+    var orderPrice = document.getElementById('orderCartPrice');
+    if (orderSummary) {
+        var items = '';
+        var totalCount = 0, totalPrice = 0;
+        for (var id in cart) {
+            var item = cart[id];
+            if (item.qty <= 0) continue;
+            totalCount += item.qty;
+            var st = item.qty * parseFloat(item.price);
+            totalPrice += st;
+            items += '<div class="order-cart-item"><span>' + item.name + '</span><span>' + item.qty + ' &times; $' + parseFloat(item.price).toFixed(2) + '</span><span>$' + st.toFixed(2) + '</span></div>';
+        }
+        if (totalCount > 0) {
+            orderSummary.innerHTML = items;
+            orderTotal.style.display = 'flex';
+            orderCount.textContent = totalCount + ' cookie' + (totalCount !== 1 ? 's' : '');
+            orderPrice.textContent = '$' + totalPrice.toFixed(2);
+        } else {
+            orderSummary.innerHTML = '<p class="order-cart-empty">Your cart is empty. <a href="#build">Build your box</a> first, then come back here.</p>';
+            orderTotal.style.display = 'none';
+        }
+    }
+
         window.dispatchEvent(new CustomEvent('cart-update', {detail: {count: count}}));
         builderTotal.textContent = '$' + total.toFixed(2);
         builderSubmit.disabled = count === 0;

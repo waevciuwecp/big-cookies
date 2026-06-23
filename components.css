@@ -982,3 +982,24 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 @media (max-width: 900px) {
     .slider-arrow { display: none; }
 }
+
+/* ── ORDER CART SUMMARY ───────────────────── */
+.order-cart-summary { min-height: 40px; }
+.order-cart-empty { font-size: 0.875rem; color: #8B6F5C; padding: 0.5rem 0; }
+.order-cart-empty a { color: var(--gold); font-weight: 600; }
+.order-cart-item {
+    display: grid; grid-template-columns: 1fr auto auto; gap: 1rem; align-items: center;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--soft);
+    font-size: 0.875rem;
+}
+.order-cart-item span:first-child { font-weight: 600; }
+.order-cart-item span:nth-child(2) { color: #8B6F5C; font-size: 0.8125rem; }
+.order-cart-item span:last-child { font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+.order-cart-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 0.75rem; margin-top: 0.5rem; border-top: 2px solid var(--gold);
+}
+.order-cart-count { font-weight: 600; font-size: 0.9375rem; }
+.order-cart-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+[data-theme="dark"] .order-cart-empty { color: #9B8A78; }
+[data-theme="dark"] .order-cart-item { border-color: var(--soft); }

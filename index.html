@@ -566,16 +566,18 @@
         </div>
 
         <div class="testimonial-slider" id="testimonialSlider">
-            <div class="testimonial" data-load="data/testimonials.json" data-template="testimonial-slide">
-                <div class="stars" aria-label="5 out of 5 stars">
-                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
-                    <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+            <div data-load="data/testimonials.json" data-template="testimonial-slide" style="min-height:150px">
+                <div class="testimonial">
+                    <div class="stars" aria-label="5 out of 5 stars">
+                        <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                        <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                        <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                        <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                        <span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>
+                    </div>
+                    <blockquote>Loading testimonials…</blockquote>
+                    <cite></cite>
                 </div>
-                <blockquote>Loading testimonials…</blockquote>
-                <cite></cite>
             </div>
             <div class="slider-dots" id="sliderDots"></div>
             <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous testimonial">
@@ -652,14 +654,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cookie">Cookie Selection</label>
-                        <select id="cookie" required>
-                            <option value="">Choose your cookies…</option>
-                            <option value="sampler">The Sampler — 6 cookies, 6 flavors ($28)</option>
-                            <option value="dozen">The Dozen — 12 cookies ($52)</option>
-                            <option value="celebration">The Celebration — 24 cookies ($98)</option>
-                            <option value="custom">Custom mix — tell us below</option>
-                        </select>
+                        <label>Your Cart</label>
+                        <div class="order-cart-summary" id="orderCartSummary">
+                            <p class="order-cart-empty">Your cart is empty. <a href="#build">Build your box</a> first, then come back here.</p>
+                        </div>
+                        <div class="order-cart-total" id="orderCartTotal" style="display:none">
+                            <span class="order-cart-count" id="orderCartCount">0 cookies</span>
+                            <span class="order-cart-price" id="orderCartPrice">$0.00</span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="notes">Special Instructions</label>

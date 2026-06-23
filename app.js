@@ -91,7 +91,11 @@ function initScrollReveal() {
 }
 initScrollReveal();
 // Re-run after data-loader renders
-window.addEventListener('DOMContentLoaded', function() { setTimeout(initScrollReveal, 500); });
+if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { setTimeout(initScrollReveal, 800); });
+    } else {
+        setTimeout(initScrollReveal, 800);
+    }
 
 // ── Step & phil-card reveal ────────────────
 (function() {
@@ -158,25 +162,27 @@ function initFAQ() {
         var item = btn.parentElement;
         if (item.classList.contains('open')) btn.setAttribute('aria-expanded', 'true');
         else btn.setAttribute('aria-expanded', 'false');
-        btn.addEventListener('click', () => {
-        const item = btn.parentElement;
-        const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(open => {
-            open.classList.remove('open');
-            open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        btn.addEventListener('click', function() {
+            var item = this.parentElement;
+            var wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(function(open) {
+                open.classList.remove('open');
+                open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+            if (!wasOpen) {
+                item.classList.add('open');
+                this.setAttribute('aria-expanded', 'true');
+            }
         });
-        if (!wasOpen) {
-            item.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-        }
-    });
-});
-// Set initial state for the default-open FAQ item
     });
 }
 initFAQ();
 // Re-bind after data-loader renders
-window.addEventListener('DOMContentLoaded', function() { setTimeout(initFAQ, 600); });
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(initFAQ, 800); });
+} else {
+    setTimeout(initFAQ, 800);
+}
 
 // ── Order form ────────────────────────────
 const orderForm = document.getElementById('orderForm');
@@ -311,7 +317,11 @@ if (newsletterForm) {
     }
 
     // Run after data-loader renders
-    window.addEventListener('DOMContentLoaded', function() { setTimeout(initSlider, 700); });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { setTimeout(initSlider, 800); });
+    } else {
+        setTimeout(initSlider, 800);
+    }
 })();
 
 
