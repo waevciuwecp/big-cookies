@@ -108,6 +108,13 @@ body {
     transform: translateY(-100%); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease;
 }
 .batch-banner.visible { transform: translateY(0); opacity: 1; }
+.batch-banner .batch-icon { display: inline-block; animation: flameFlicker 1.5s ease-in-out infinite; }
+@keyframes flameFlicker {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    25% { transform: scale(1.15, 0.85); opacity: 1; }
+    50% { transform: scale(0.9, 1.1); opacity: 0.8; }
+    75% { transform: scale(1.1, 0.9); opacity: 1; }
+}
 .batch-dot {
     width: 6px; height: 6px; border-radius: 50%; background: var(--jam);
     animation: pulse 2s ease-in-out infinite;

@@ -170,18 +170,25 @@ builderReset.addEventListener('click', () => {
     showToast('Box cleared.');
 });
 
-// Quick Fill: staff picks
+// Quick Fill: staff picks (sequential)
 document.getElementById('btnQuickFill').addEventListener('click', () => {
     selectedCookies.length = 0;
-    const staffIds = ['double', 'caramel', 'classic', 'toffee', 'raspberry', 'matcha'];
-    staffIds.forEach(id => {
-        const item = builderPicker.querySelector(`[data-id="${id}"]`);
-        if (item) selectedCookies.push({
-            id, name: item.dataset.name, price: item.dataset.price
-        });
-    });
     updateBuilderBox();
-    showToast('Box filled with Staff Picks!');
+    const staffIds = ['double', 'caramel', 'classic', 'toffee', 'raspberry', 'matcha'];
+    staffIds.forEach((id, i) => {
+        setTimeout(() => {
+            const item = builderPicker.querySelector(`[data-id="${id}"]`);
+            if (item) {
+                selectedCookies.push({
+                    id, name: item.dataset.name, price: item.dataset.price
+                });
+                updateBuilderBox();
+                if (i === staffIds.length - 1) {
+                    showToast('Box filled with Staff Picks!');
+                }
+            }
+        }, i * 80);
+    });
 });
 
 // ── Scroll-reveal animations ──────────────
@@ -196,10 +203,11 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid').forEach(el => {
+document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transitionDelay = (i % 3) * 0.1 + 's';
     if (el.classList.contains('tilt-left')) {
         el.dataset.originalTransform = 'rotate(-2.5deg)';
     } else if (el.classList.contains('tilt-right')) {
