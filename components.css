@@ -554,8 +554,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     max-width: 600px; margin: 0 auto;
     background: #fff; border-radius: 1.5rem; padding: 3rem;
     border: 1px solid var(--soft); position: relative;
-    filter: blur(2px) grayscale(0.3);
-    pointer-events: none; user-select: none;
+    opacity: 0.55;
 }
 .order-form-wrap h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
 .form-group { margin-bottom: 1.25rem; }

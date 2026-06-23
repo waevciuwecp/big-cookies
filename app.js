@@ -1,5 +1,8 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
 
+// Check reduced-motion preference once
+var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // ── Hero word cycle ─────────────────────────
 (function() {
     var el = document.querySelector('.hero h1 .gold');
@@ -125,6 +128,7 @@ function initScrollReveal() {
     document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaroid, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach(function(el, i) {
         if (el.dataset.revealBound) return;
         el.dataset.revealBound = '1';
+        if (prefersReducedMotion) { el.style.opacity = '1'; return; }
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -157,6 +161,7 @@ window.addEventListener('data-ready', function() { setTimeout(initScrollReveal, 
 
 // ── Philosophy stat count-up ────────────────
 (function() {
+    if (prefersReducedMotion) return; // skip count-up animation
     const statObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
