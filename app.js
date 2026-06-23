@@ -445,9 +445,54 @@ function showToast(msg, icon) {
 
 // ── Footer year auto-update ──────────────
 (function() {
-    var el = document.getElementById('copyYear');
-    if (el) el.textContent = new Date().getFullYear();
+    function updateYear() {
+        var el = document.getElementById('copyYear');
+        if (el) { el.textContent = new Date().getFullYear(); return; }
+        setTimeout(updateYear, 500);
+    }
+    updateYear();
 })();
+
+
+// ── Re-bind after data-loader renders ────────
+window.addEventListener('data-ready', function() {
+    setTimeout(function() {
+        // Re-bind scroll-reveal for dynamically loaded cards
+        initScrollReveal();
+        
+        // Re-bind tap-to-flip for product cards
+        document.querySelectorAll('.product-card').forEach(function(card) {
+            if (card.hasAttribute('data-flip-bound')) return;
+            card.setAttribute('data-flip-bound', '1');
+            var flipTimer;
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.product-card-back') || window.innerWidth > 900) return;
+                var wasFlipped = card.classList.contains('flipped');
+                card.classList.toggle('flipped');
+                clearTimeout(flipTimer);
+                if (!wasFlipped) flipTimer = setTimeout(function() { card.classList.remove('flipped'); }, 3000);
+            });
+            card.addEventListener('mouseleave', function() {
+                card.classList.remove('flipped');
+                clearTimeout(flipTimer);
+            });
+        });
+
+        // Re-bind scroll-reveal observer
+        document.querySelectorAll('.product-card, .faculty-card, .award-card, .news-card, .about-block, .od-feature').forEach(function(el, i) {
+            if (el.style.opacity === '1') return; // already revealed
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transitionDelay = (i % 3) * 0.1 + 's';
+            if (el.classList.contains('tilt-left')) el.dataset.originalTransform = 'rotate(-2.5deg)';
+            else if (el.classList.contains('tilt-right')) el.dataset.originalTransform = 'rotate(3deg)';
+            else if (el.classList.contains('tilt-none')) el.dataset.originalTransform = 'rotate(0.5deg)';
+            observer.observe(el);
+        });
+    }, 200);
+}, {once: true});
+
 
 // ── Cookie click easter egg ──────────────
 (function() {
