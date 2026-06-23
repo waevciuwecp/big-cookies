@@ -1025,3 +1025,27 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 
 [data-theme="dark"] .mobile-menu { background: rgba(28,21,16,0.95); }
+
+/* ── ARCHIVE CARDS ────────────────────────── */
+.archive-card {
+    background: var(--paper); border-radius: 1.25rem; padding: 1.75rem;
+    border: 1px solid var(--soft); transition: transform 0.3s, box-shadow 0.3s;
+}
+.archive-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(60,36,21,0.08); }
+.archive-card.archive-returning { border-left: 3px solid #3A8C3F; }
+.archive-card.archive-retired { border-left: 3px solid #8B6F5C; opacity: 0.85; }
+.archive-season {
+    font-size: 0.6875rem; font-weight: 700; color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.archive-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.archive-desc { font-size: 0.875rem; color: #6B5444; line-height: 1.6; margin-bottom: 1rem; }
+.archive-footer { display: flex; justify-content: space-between; align-items: center; }
+.archive-price { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+.archive-note { font-size: 0.6875rem; color: #8B6F5C; font-style: italic; text-align: right; }
+[data-theme="dark"] .archive-card { background: var(--paper); border-color: var(--soft); }
+[data-theme="dark"] .archive-desc { color: #B8A898; }
+[data-theme="dark"] .archive-note { color: #9B8A78; }
+@media (max-width: 600px) {
+    [data-load="data/archive.json"] { grid-template-columns: 1fr !important; }
+}

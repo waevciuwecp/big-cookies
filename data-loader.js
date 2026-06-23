@@ -12,7 +12,11 @@
             if (item.year === '2024' && item.medal === 'gold') medalLabel = "'24";
             return '<div class="award-card"><div class="award-medal '+item.medal+'">'+medalLabel+'</div><div><span class="award-year">'+item.year+'</span><h3 class="award-title">'+item.title+'</h3><p class="award-desc">'+item.desc+'</p></div></div>';
         },
-                                'product-card': function(item) {
+                                        'archive-card': function(item) {
+            var statusClass = item.status === 'returning' ? 'archive-returning' : 'archive-retired';
+            return '<div class="archive-card ' + statusClass + '"><div class="archive-season">' + item.season + '</div><h3 class="archive-name">' + item.name + '</h3><p class="archive-desc">' + item.desc + '</p><div class="archive-footer"><span class="archive-price">$' + parseFloat(item.price).toFixed(2) + '</span><span class="archive-note">' + item.note + '</span></div></div>';
+        },
+        'product-card': function(item) {
             var tags = item.tags.map(function(t) { return '<span class="product-tag">' + t + '</span>'; }).join('');
             var ingredients = item.ingredients.map(function(i) { return '<li>' + i + '</li>'; }).join('');
             var allergens = item.allergens.map(function(a) { return '<span class="allergen-tag">' + a + '</span>'; }).join('');

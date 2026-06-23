@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Lemon Lavender",
+    "season": "Summer 2025",
+    "desc": "Meyer lemon zest meets culinary lavender in a brown-butter base. 47 test batches. Priya's personal favorite.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns Summer 2026"
+  },
+  {
+    "name": "Pumpkin Spice Chai",
+    "season": "Fall 2024",
+    "desc": "Real pumpkin pur\u00e9e, house-blended chai spices, and a maple glaze. Sold out in 4 days. We underestimated pumpkin people.",
+    "price": "5.50",
+    "status": "retired",
+    "note": "Replaced by Maple Pecan"
+  },
+  {
+    "name": "Peppermint Bark",
+    "season": "Winter 2024",
+    "desc": "Dark chocolate base with crushed candy cane and a white chocolate drizzle. Holiday-only. Came with a tiny candy cane taped to the box.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns December 2026"
+  },
+  {
+    "name": "Cherry Blossom",
+    "season": "Spring 2025",
+    "desc": "Sakura-infused dough with dried cherries and a matcha drizzle. Made in collaboration with Yuki's Tokyo patisserie. Our first international collab.",
+    "price": "6.00",
+    "status": "retired",
+    "note": "One-time collaboration"
+  },
+  {
+    "name": "Maple Pecan Crunch",
+    "season": "Fall 2025",
+    "desc": "Vermont maple syrup, candied pecans, and a brown butter base with flaky salt. Marcus's recipe. Won our internal blind taste test 11-1.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns Fall 2026"
+  },
+  {
+    "name": "Gingerbread Stout",
+    "season": "Winter 2025",
+    "desc": "Molasses, fresh ginger, and a splash of local stout beer in the dough. Finished with a stout glaze. Developed with a Portland brewery.",
+    "price": "6.00",
+    "status": "returning",
+    "note": "Returns Winter 2026"
+  },
+  {
+    "name": "Strawberry Basil",
+    "season": "Summer 2024",
+    "desc": "Freeze-dried strawberries and fresh basil in a vanilla bean dough. Our very first seasonal flavor. Sold out in 48 hours.",
+    "price": "5.50",
+    "status": "retired",
+    "note": "The one that started seasonals"
+  },
+  {
+    "name": "Hot Honey Cornbread",
+    "season": "Spring 2026",
+    "desc": "Cornmeal cookie with hot honey drizzle and a hint of lime zest. Sweet, spicy, and utterly unexpected. Diego's brainchild.",
+    "price": "5.50",
+    "status": "returning",
+    "note": "Returns Spring 2027"
+  }
+]
