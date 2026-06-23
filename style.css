@@ -14,6 +14,7 @@
 .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--honey));z-index:200;transition:width 0.1s linear;border-radius:0 2px 2px 0;}
 html { scroll-behavior: smooth; }
 
+body::before{content:"";position:fixed;inset:0;opacity:0.015;pointer-events:none;z-index:-1;background-image:radial-gradient(circle,var(--ink) 1px,transparent 1px);background-size:24px 24px;}
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
@@ -824,7 +825,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 
 /* ── TOAST ──────────────────────────────── */
-.toast {
+.toast { padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
     position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(120px);
     background: var(--ink); color: #fff; padding: 0.75rem 1.5rem;
     border-radius: 100px; font-weight: 500; font-size: 0.875rem;
@@ -945,3 +946,29 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 @media (max-width: 600px) {
     .theme-toggle { margin-left: auto; margin-right: 0.5rem; }
 }
+
+/* ── FOCUS-VISIBLE ───────────────────────── */
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn:focus-visible, .nav-cta:focus-visible { outline-offset: 3px; }
+/* ── AUTOFILL OVERRIDE ──────────────────── */
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover,
+[data-theme="dark"] input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px var(--vanilla) inset !important;
+    -webkit-text-fill-color: var(--ink) !important;
+}
+/* ── PRINT ───────────────────────────────── */
+@media print {
+    .nav, .mobile-menu, .batch-banner, .back-to-top, .toast, .scroll-progress,
+    .scroll-indicator, .dough-divider, .builder-box, .newsletter, .footer,
+    .theme-toggle, .nav-toggle { display: none !important; }
+    section { padding: 2rem 0; }
+    .hero { min-height: auto; padding: 2rem 0; }
+    body { font-size: 12pt; color: #000; background: #fff; }
+    .product-card-inner { transform: none !important; }
+    .product-card-back, .product-card-front { position: static; }
+    .product-card-back { display: block !important; }
+}
+/* ── NAV+BANNER COMPENSATION ────────────── */
+body.has-banner .nav { top: 0; }
+body.has-banner { padding-top: 40px; }

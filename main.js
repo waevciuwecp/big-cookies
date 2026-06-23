@@ -309,3 +309,23 @@ function showToast(msg, icon) {
         localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 })();
+
+// ── Cookie click easter egg ──────────────
+(function() {
+    let clicks = 0;
+    const cookie = document.getElementById('heroCookie');
+    if (cookie) {
+        cookie.style.cursor = 'pointer';
+        cookie.addEventListener('click', () => {
+            clicks++;
+            cookie.style.transition = 'transform 0.15s ease';
+            cookie.style.transform = cookie.style.transform.replace(/scale\([^)]+\)/, '') + ' scale(1.1)';
+            setTimeout(() => {
+                cookie.style.transform = cookie.style.transform.replace(/ scale\([^)]+\)/, '');
+            }, 150);
+            if (clicks === 5) showToast('You found the secret cookie stash!');
+            if (clicks === 10) showToast('Okay, that is a lot of cookies.');
+            if (clicks === 20) showToast('You have officially eaten too many cookies.');
+        });
+    }
+})();
