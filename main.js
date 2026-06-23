@@ -35,8 +35,8 @@ if (heroCookie) {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const scrollY = window.scrollY;
-                const rotate = scrollY * 0.08; // ~8deg per 100px scroll
-                const translateY = scrollY * 0.03; // subtle vertical shift
+                const rotate = scrollY * 0.08;
+                const translateY = scrollY * 0.03;
                 heroCookie.style.transform = `rotate(${rotate}deg) translateY(${translateY}px)`;
                 ticking = false;
             });
@@ -48,16 +48,9 @@ if (heroCookie) {
 // ── Batch countdown ───────────────────────
 function updateCountdown() {
     const now = new Date();
-    const day = now.getDay(); // 0=Sun, 5=Friday
+    const day = now.getDay();
     let daysUntilFriday = (5 - day + 7) % 7;
-    if (daysUntilFriday === 0) {
-        // If it's Friday, check if before noon
-        if (now.getHours() < 12) {
-            daysUntilFriday = 0;
-        } else {
-            daysUntilFriday = 7;
-        }
-    }
+    if (daysUntilFriday === 0 && now.getHours() >= 12) daysUntilFriday = 7;
 
     const el = document.getElementById('batchCountdown');
     if (!el) return;
@@ -71,7 +64,6 @@ function updateCountdown() {
     }
 }
 
-// Show banner after hero scrolls past
 const batchBanner = document.getElementById('batchBanner');
 let bannerShown = false;
 window.addEventListener('scroll', () => {
@@ -90,9 +82,9 @@ const builderSlots = document.getElementById('builderSlots');
 const builderCount = document.getElementById('builderCount');
 const builderTotal = document.getElementById('builderTotal');
 const builderSubmit = document.getElementById('builderSubmit');
+const builderReset = document.getElementById('builderReset');
 
 function updateBuilderBox() {
-    // Update slots
     const slots = builderSlots.querySelectorAll('.builder-slot');
     slots.forEach((slot, i) => {
         if (i < selectedCookies.length) {
@@ -107,14 +99,13 @@ function updateBuilderBox() {
         }
     });
 
-    // Update summary
     const count = selectedCookies.length;
     const total = selectedCookies.reduce((sum, c) => sum + parseFloat(c.price), 0);
     builderCount.textContent = count;
     builderTotal.textContent = '$' + total.toFixed(2);
     builderSubmit.disabled = count === 0;
+    builderReset.disabled = count === 0;
 
-    // Update picker selected states
     builderPicker.querySelectorAll('.builder-item').forEach(item => {
         const id = item.dataset.id;
         const isSelected = selectedCookies.some(c => c.id === id);
@@ -128,13 +119,12 @@ builderPicker.querySelectorAll('.builder-item').forEach(item => {
         const id = item.dataset.id;
         const name = item.dataset.name;
         const price = item.dataset.price;
-        const emoji = item.dataset.emoji;
 
         const existingIndex = selectedCookies.findIndex(c => c.id === id);
         if (existingIndex >= 0) {
             selectedCookies.splice(existingIndex, 1);
         } else if (selectedCookies.length < MAX_SLOTS) {
-            selectedCookies.push({ id, name, price, emoji });
+            selectedCookies.push({ id, name, price });
         } else {
             showToast('Box is full! Remove a cookie first.');
             return;
@@ -147,7 +137,13 @@ builderSubmit.addEventListener('click', () => {
     if (selectedCookies.length === 0) return;
     const names = selectedCookies.map(c => c.name).join(', ');
     const total = selectedCookies.reduce((sum, c) => sum + parseFloat(c.price), 0).toFixed(2);
-    showToast(`🍪 ${selectedCookies.length} cookies added: ${names} — $${total}`);
+    showToast(selectedCookies.length + ' cookies added: ' + names + ' — $' + total);
+});
+
+builderReset.addEventListener('click', () => {
+    selectedCookies.length = 0;
+    updateBuilderBox();
+    showToast('Box cleared.');
 });
 
 // ── Scroll-reveal animations ──────────────
@@ -155,7 +151,9 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transform = entry.target.dataset.originalTransform
+                ? entry.target.dataset.originalTransform
+                : 'translateY(0)';
         }
     });
 }, { threshold: 0.15 });
@@ -168,6 +166,8 @@ document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaro
         el.dataset.originalTransform = 'rotate(-2.5deg)';
     } else if (el.classList.contains('tilt-right')) {
         el.dataset.originalTransform = 'rotate(3deg)';
+    } else if (el.classList.contains('tilt-none')) {
+        el.dataset.originalTransform = 'rotate(0.5deg)';
     }
     observer.observe(el);
 });
