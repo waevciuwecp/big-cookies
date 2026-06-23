@@ -16,11 +16,6 @@
     '<li><a href="/#gifts">Gift Boxes</a></li>' +
     '<li><a href="/#build">Build a Box</a></li>' +
     '<li><a href="kitchen.html">The Kitchen</a></li>' +
-    '<li><a href="faculty.html">Faculty</a></li>' +
-    '<li><a href="awards.html">Awards</a></li>' +
-    '<li><a href="news.html">News</a></li>' +
-    '<li><a href="about.html">About</a></li>' +
-    '<li><a href="factory.html">Open Day</a></li>' +
     '<li><a href="faq.html">FAQ</a></li>' +
     '<li><a href="/#order" class="nav-cta">Order Now</a></li>' +
     '</ul>' +
@@ -28,7 +23,7 @@
     '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>' +
     '</div></nav>' +
     '<div class="mobile-menu" id="mobileMenu">' +
-    '<a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a><a href="kitchen.html">The Kitchen</a><a href="faculty.html">Faculty</a><a href="awards.html">Awards</a><a href="news.html">News</a><a href="about.html">About</a><a href="factory.html">Open Day</a><a href="faq.html">FAQ</a><a href="/#order" style="color:var(--gold)">Order Now</a>' +
+    '<a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a><a href="kitchen.html">The Kitchen</a><a href="faq.html">FAQ</a><a href="/#order" style="color:var(--gold)">Order Now</a>' +
     '</div>' +
     '<div class="batch-banner" id="batchBanner"><span class="batch-icon"><svg width="14" height="18" viewBox="0 0 16 20" aria-hidden="true"><path d="M8 0c-2 5-5 8-5 12a5 5 0 0010 0c0-4-3-7-5-12z" fill="#E8A850"/><path d="M8 8c-1.2 3-2.5 5-2.5 7a2.5 2.5 0 005 0c0-2-1.3-4-2.5-7z" fill="#F5C85A"/></svg></span><span class="batch-num">Batch #<span id="batchNum">47</span></span><span>&middot;</span><span>Next batch drops <strong id="batchCountdown">this Friday</strong></span><span class="batch-dot"></span></div>';
 
