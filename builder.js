@@ -32,6 +32,7 @@ function updateBuilderBox() {
     builderTotal.textContent = '$' + total.toFixed(2);
     builderSubmit.disabled = count === 0;
     builderReset.disabled = count === 0;
+    document.getElementById('builderBox').classList.toggle('has-cookies', count > 0);
 
     builderPicker.querySelectorAll('.builder-item').forEach(item => {
         const id = item.dataset.id;
