@@ -577,6 +577,8 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .tilt-left  { transform: rotate(-2.5deg); }
 .tilt-right { transform: rotate(3deg); }
 .tilt-none  { transform: rotate(0.5deg); }
+.polaroid-tall { grid-row: span 2; }
+.polaroid-tall .polaroid-frame { aspect-ratio: 3/4; }
 .polaroid-frame {
     aspect-ratio: 1; border-radius: 2px;
     display: flex; align-items: center; justify-content: center;
@@ -973,3 +975,21 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 /* ── NAV+BANNER COMPENSATION ────────────── */
 body.has-banner .nav { top: 0; }
 body.has-banner { padding-top: 40px; }
+
+/* ── HERO COOKIE WARM PULSE ───────────────── */
+.cookie-illustration .cookie-main {
+    animation: warmPulse 3s ease-in-out infinite;
+}
+@keyframes warmPulse {
+    0%, 100% { box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.15); }
+    50% { box-shadow: 0 20px 80px rgba(232,168,80,0.45), 0 0 120px rgba(232,168,80,0.15), inset 0 -4px 8px rgba(0,0,0,0.15); }
+}
+
+/* ── MOBILE STEP CONNECTOR ────────────────── */
+@media (max-width: 900px) {
+    .step { position: relative; }
+    .step:not(:last-child)::after {
+        content: ''; position: absolute; bottom: -1rem; left: 50%; transform: translateX(-50%);
+        width: 2px; height: 2rem; background: linear-gradient(to bottom, var(--gold), var(--soft));
+    }
+}

@@ -72,7 +72,7 @@ if (heroCookie) {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const scrollY = window.scrollY;
-                const rotate = scrollY * 0.08;
+                const rotate = Math.max(-15, Math.min(15, scrollY * 0.08));
                 const translateY = scrollY * 0.03;
                 heroCookie.style.transform = `rotate(${rotate}deg) translateY(${translateY}px)`;
                 ticking = false;
@@ -209,7 +209,7 @@ builderReset.addEventListener('click', () => {
 });
 
 const allIds=["classic","double","toffee","raspberry","caramel","matcha"];
-document.getElementById("btnSurprise").addEventListener("click",()=>{selectedCookies.length=0;updateBuilderBox();[...allIds].sort(()=>Math.random()-0.5).forEach((id,i)=>{setTimeout(()=>{const it=builderPicker.querySelector("[data-id="+id+"]");if(it){selectedCookies.push({id,name:it.dataset.name,price:it.dataset.price});updateBuilderBox();if(i===5)showToast("Surprise mix ready!");}},i*80);});});
+document.getElementById("btnSurprise").addEventListener("click",()=>{selectedCookies.length=0;updateBuilderBox();const ids=[...allIds];for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]];}ids.forEach((id,i)=>{setTimeout(()=>{const it=builderPicker.querySelector("[data-id="+id+"]");if(it){selectedCookies.push({id,name:it.dataset.name,price:it.dataset.price});updateBuilderBox();if(i===5)showToast("Surprise mix ready!");}},i*80);});});
 
 // Quick Fill: staff picks (sequential)
 document.getElementById('btnQuickFill').addEventListener('click', () => {
@@ -261,13 +261,22 @@ document.querySelectorAll('.product-card, .step, .phil-card, .gift-card, .polaro
 
 // ── FAQ accordion ─────────────────────────
 document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', () => {
         const item = btn.parentElement;
         const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(open => open.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
+        document.querySelectorAll('.faq-item.open').forEach(open => {
+            open.classList.remove('open');
+            open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!wasOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+        }
     });
 });
+// Set initial state for the default-open FAQ item
+document.querySelectorAll('.faq-item.open .faq-question').forEach(btn => btn.setAttribute('aria-expanded', 'true'));
 
 // ── Order form ────────────────────────────
 const orderForm = document.getElementById('orderForm');
@@ -291,6 +300,18 @@ if (newsletterForm) {
         showToast('You\'re on the list! We\'ll email you when the next batch drops.');
     });
 }
+
+// ── Scroll progress bar ───────────────────
+(function() {
+    const bar = document.getElementById('scrollProgress');
+    function updateProgress() {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = h > 0 ? Math.min(100, (window.scrollY / h) * 100) + '%' : '0%';
+    }
+    window.addEventListener('scroll', updateProgress, {passive: true});
+    window.addEventListener('resize', updateProgress, {passive: true});
+    updateProgress();
+})();
 
 // ── Back to top ──────────────────────────
 const backToTop = document.getElementById('backToTop');
