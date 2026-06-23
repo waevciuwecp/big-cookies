@@ -34,12 +34,7 @@
         <p class="section-subtitle text-center mx-auto" style="max-width:600px">
             Four bakers, one obsession. Each brings something unique to the kitchen.
         </p>
-        <div data-masonry style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;max-width:840px;margin-left:auto;margin-right:auto">
-            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Lena Kovač</h3><span class="faculty-role">Head Baker</span><p class="faculty-bio">14 years in pastry. Trained at Le Cordon Bleu Paris. Lena tastes every batch before it ships — she has never approved a cookie she wouldn't feed to her own children.</p></div>
-            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Marcus Chen</h3><span class="faculty-role">Dough Master</span><p class="faculty-bio">Former bread baker who switched to cookies and never looked back. Marcus manages the 48-hour cold fermentation schedule with the precision of a Swiss watchmaker.</p></div>
-            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Priya Sharma</h3><span class="faculty-role">Flavor Architect</span><p class="faculty-bio">Priya develops every new flavor. She's tested over 200 chocolate sources and keeps a notebook of rejected combinations. The Raspberry Dark was her idea.</p></div>
-            <div class="faculty-card"><div class="faculty-avatar"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">Diego Reyes</h3><span class="faculty-role">Pack & Ship Lead</span><p class="faculty-bio">The last pair of hands on every box. Diego inspects every cookie under a lamp, hand-stamps every box, and has been known to re-pack an order at 5pm because a corner looked off.</p></div>
-        </div>
+        <div data-load="data/faculty.json" data-template="faculty-card" data-section="current" data-masonry style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;max-width:840px;margin-left:auto;margin-right:auto"></div>
     </div>
 </section>
 <section style="padding-top:2rem">
@@ -49,29 +44,7 @@
         <p class="section-subtitle text-center mx-auto" style="max-width:500px;margin-bottom:2rem">
             They moved on, but their fingerprints are still on every recipe.
         </p>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:750px;margin:0 auto">
-            <div class="faculty-card alumni">
-                <div class="faculty-avatar" style="opacity:0.6"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div>
-                <h3 class="faculty-name">Yuki Tanaka</h3>
-                <span class="faculty-role">Founding Baker</span>
-                <p class="faculty-bio">Opened the kitchen with Lena in 2024. Developed the original Double Dark Chocolate recipe. Now runs her own patisserie in Tokyo.</p>
-                <span style="font-size:0.6875rem;color:#8B6F5C;font-weight:600">2024 – 2025</span>
-            </div>
-            <div class="faculty-card alumni">
-                <div class="faculty-avatar" style="opacity:0.6"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div>
-                <h3 class="faculty-name">Sam O'Brien</h3>
-                <span class="faculty-role">First Apprentice</span>
-                <p class="faculty-bio">Started as a dishwasher. Within 6 months was managing the morning bake. Left to study food science at Cornell.</p>
-                <span style="font-size:0.6875rem;color:#8B6F5C;font-weight:600">2024 – 2025</span>
-            </div>
-            <div class="faculty-card alumni">
-                <div class="faculty-avatar" style="opacity:0.6"><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div>
-                <h3 class="faculty-name">Claire Dupont</h3>
-                <span class="faculty-role">Packaging Designer</span>
-                <p class="faculty-bio">Designed the original hand-stamped kraft box. Now creative director at a sustainable packaging startup in Berlin.</p>
-                <span style="font-size:0.6875rem;color:#8B6F5C;font-weight:600">2024 – 2024</span>
-            </div>
-        </div>
+        <div data-load="data/faculty.json" data-template="faculty-card" data-section="past" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:750px;margin:0 auto"></div>
     </div>
 </section>
 
@@ -89,6 +62,7 @@
 <div class="toast" id="toast"></div>
 <script src="ui.js"></script>
 <script src="nav.js"></script>
+<script src="data-loader.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
