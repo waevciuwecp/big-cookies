@@ -30,22 +30,26 @@ const toggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
 const toggleSpans = toggle.querySelectorAll('span');
 
+function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggleSpans[0].style.transform = '';
+    toggleSpans[1].style.opacity = '';
+    toggleSpans[2].style.transform = '';
+    document.body.style.overflow = '';
+}
+
 toggle.addEventListener('click', () => {
     const open = mobileMenu.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open);
     toggleSpans[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
     toggleSpans[1].style.opacity = open ? '0' : '';
     toggleSpans[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+    document.body.style.overflow = open ? 'hidden' : '';
 });
 
 mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggleSpans[0].style.transform = '';
-        toggleSpans[1].style.opacity = '';
-        toggleSpans[2].style.transform = '';
-    });
+    a.addEventListener('click', closeMobileMenu);
 });
 
 // ── Cookie parallax ───────────────────────
@@ -164,6 +168,20 @@ builderReset.addEventListener('click', () => {
     selectedCookies.length = 0;
     updateBuilderBox();
     showToast('Box cleared.');
+});
+
+// Quick Fill: staff picks
+document.getElementById('btnQuickFill').addEventListener('click', () => {
+    selectedCookies.length = 0;
+    const staffIds = ['double', 'caramel', 'classic', 'toffee', 'raspberry', 'matcha'];
+    staffIds.forEach(id => {
+        const item = builderPicker.querySelector(`[data-id="${id}"]`);
+        if (item) selectedCookies.push({
+            id, name: item.dataset.name, price: item.dataset.price
+        });
+    });
+    updateBuilderBox();
+    showToast('Box filled with Staff Picks!');
 });
 
 // ── Scroll-reveal animations ──────────────
