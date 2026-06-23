@@ -7,372 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:      #FFF9F2;
-            --ink:     #3C2415;
-            --gold:    #C8853E;
-            --honey:   #E8A850;
-            --paper:   #F5EDE3;
-            --jam:     #B84444;
-            --vanilla: #FDF3E7;
-            --soft:    #E8D9C6;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--ink);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ── NAV ────────────────────────────── */
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 0 2rem;
-            background: rgba(255,249,242,0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--soft);
-            transition: box-shadow 0.3s;
-        }
-        .nav.scrolled { box-shadow: 0 1px 20px rgba(60,36,21,0.06); }
-        .nav-inner {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
-            height: 64px;
-        }
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem; font-weight: 900; color: var(--ink);
-            text-decoration: none; letter-spacing: -0.02em;
-        }
-        .nav-logo span { color: var(--gold); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: var(--ink);
-            font-size: 0.875rem; font-weight: 500;
-            transition: color 0.2s; letter-spacing: 0.01em;
-        }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-cta {
-            background: var(--gold); color: #fff !important;
-            padding: 0.5rem 1.25rem; border-radius: 100px;
-            font-weight: 600 !important; font-size: 0.8125rem !important;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .nav-cta:hover { background: var(--honey); transform: translateY(-1px); }
-        .nav-toggle {
-            display: none; flex-direction: column; gap: 5px;
-            background: none; border: none; cursor: pointer; padding: 4px;
-        }
-        .nav-toggle span {
-            display: block; width: 24px; height: 2px;
-            background: var(--ink); border-radius: 2px; transition: all 0.3s;
-        }
-
-        /* ── HERO ───────────────────────────── */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: -40%; right: -20%;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(232,168,80,0.12) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none;
-        }
-        .hero::after {
-            content: ''; position: absolute; bottom: -10%; left: -10%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(200,133,62,0.08) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none;
-        }
-        .hero-inner {
-            max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-        }
-        .hero-badge {
-            display: inline-block; background: var(--vanilla);
-            color: var(--gold); font-size: 0.8125rem; font-weight: 600;
-            padding: 0.375rem 1rem; border-radius: 100px;
-            letter-spacing: 0.06em; text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 900;
-            line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem;
-        }
-        .hero h1 .gold { color: var(--gold); }
-        .hero p {
-            font-size: 1.125rem; color: #6B5444; max-width: 460px;
-            margin-bottom: 2.5rem; line-height: 1.7;
-        }
-        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.875rem 2rem; border-radius: 100px;
-            font-size: 0.9375rem; font-weight: 600; text-decoration: none;
-            cursor: pointer; border: none; transition: all 0.25s;
-            letter-spacing: 0.01em;
-        }
-        .btn-primary { background: var(--gold); color: #fff; }
-        .btn-primary:hover { background: var(--honey); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,133,62,0.35); }
-        .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--soft); }
-        .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-        .hero-visual { display: flex; align-items: center; justify-content: center; }
-        .cookie-illustration { position: relative; width: 320px; height: 320px; }
-        .cookie-main {
-            width: 220px; height: 220px; border-radius: 50%;
-            background: radial-gradient(circle at 50% 40%, #D4954B 0%, #C1783A 60%, #A8612E 100%);
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            box-shadow: 0 20px 60px rgba(160,100,40,0.3), inset 0 -4px 8px rgba(0,0,0,0.15);
-            animation: float 6s ease-in-out infinite;
-        }
-        .cookie-chip {
-            position: absolute; width: 28px; height: 22px;
-            background: #3C1D0E; border-radius: 40%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .cookie-chip:nth-child(2) { top: 28%; left: 38%; transform: rotate(-20deg); }
-        .cookie-chip:nth-child(3) { top: 35%; left: 58%; transform: rotate(15deg); width: 22px; height: 18px; }
-        .cookie-chip:nth-child(4) { top: 55%; left: 32%; transform: rotate(-35deg); width: 24px; height: 20px; }
-        .cookie-chip:nth-child(5) { top: 50%; left: 62%; transform: rotate(25deg); }
-        .cookie-chip:nth-child(6) { top: 40%; left: 22%; transform: rotate(-10deg); width: 20px; height: 16px; }
-        .cookie-chip:nth-child(7) { top: 62%; left: 50%; transform: rotate(40deg); width: 18px; height: 14px; }
-        .cookie-crumb {
-            position: absolute; width: 8px; height: 8px; background: #C1783A;
-            border-radius: 50%; animation: crumble 4s ease-in-out infinite;
-        }
-        .cookie-crumb:nth-child(8)  { top: 20%; left: 75%; animation-delay: 0s; }
-        .cookie-crumb:nth-child(9)  { top: 80%; left: 20%; animation-delay: 1s; }
-        .cookie-crumb:nth-child(10) { top: 75%; left: 78%; animation-delay: 2s; }
-        .cookie-crumb:nth-child(11) { top: 15%; left: 30%; animation-delay: 3s; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(-50%,-50%) translateY(0); }
-            50% { transform: translate(-50%,-50%) translateY(-12px); }
-        }
-        @keyframes crumble {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-            20% { opacity: 1; }
-            50% { transform: translateY(-30px) translateX(15px) scale(1.2); opacity: 1; }
-            100% { opacity: 0; transform: translateY(-60px) translateX(30px) scale(0); }
-        }
-
-        /* ── SECTIONS ───────────────────────── */
-        section { padding: 6rem 2rem; }
-        .section-inner { max-width: 1200px; margin: 0 auto; }
-        .section-label {
-            font-size: 0.8125rem; font-weight: 600; color: var(--gold);
-            letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem;
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
-            letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.2;
-        }
-        .section-subtitle {
-            font-size: 1.0625rem; color: #6B5444; max-width: 540px; line-height: 1.7;
-        }
-
-        /* ── PRODUCTS ───────────────────────── */
-        .products-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        .product-card {
-            background: var(--paper); border-radius: 1.25rem; padding: 2rem;
-            position: relative; overflow: hidden;
-            transition: transform 0.35s, box-shadow 0.35s;
-            cursor: default;
-        }
-        .product-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(232,168,80,0.2) 0%, transparent 70%);
-            opacity: 0; transition: opacity 0.35s;
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 24px 50px rgba(200,133,62,0.2), 0 0 0 1px rgba(200,133,62,0.15);
-        }
-        .product-card:hover::before { opacity: 1; }
-        .product-icon {
-            font-size: 3.5rem; margin-bottom: 1.25rem; position: relative;
-            display: block; transition: transform 0.35s;
-        }
-        .product-card:hover .product-icon { transform: scale(1.1); }
-        .product-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.375rem; font-weight: 700; margin-bottom: 0.375rem;
-            position: relative;
-        }
-        .product-desc {
-            font-size: 0.875rem; color: #6B5444; line-height: 1.6;
-            margin-bottom: 1rem; position: relative;
-        }
-        .product-footer {
-            display: flex; align-items: center; justify-content: space-between;
-            position: relative;
-        }
-        .product-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem; font-weight: 700; color: var(--gold);
-        }
-        .product-tag {
-            font-size: 0.75rem; font-weight: 600; color: var(--jam);
-            background: #FEF0F0; padding: 0.25rem 0.75rem; border-radius: 100px;
-        }
-
-        /* ── PHILOSOPHY ─────────────────────── */
-        .philosophy-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-            align-items: center; margin-top: 3rem;
-        }
-        .philosophy-text p {
-            font-size: 1.0625rem; color: #5C4234; line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-        .philosophy-visual {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-        }
-        .phil-card {
-            background: var(--vanilla); border-radius: 1rem; padding: 1.75rem;
-            text-align: center; transition: transform 0.3s;
-        }
-        .phil-card:hover { transform: translateY(-4px); }
-        .phil-card .num {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem; font-weight: 900; color: var(--gold);
-            line-height: 1;
-        }
-        .phil-card .label {
-            font-size: 0.8125rem; font-weight: 600; color: var(--ink);
-            margin-top: 0.5rem;
-        }
-
-        /* ── HOW IT WORKS ───────────────────── */
-        .steps {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-            margin-top: 3rem;
-        }
-        .step {
-            text-align: center; padding: 2.5rem 1.5rem;
-            background: var(--paper); border-radius: 1.25rem;
-            position: relative; transition: transform 0.3s;
-        }
-        .step:hover { transform: translateY(-4px); }
-        .step-num {
-            width: 48px; height: 48px; border-radius: 50%;
-            background: var(--gold); color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem; font-weight: 700;
-            margin: 0 auto 1.25rem;
-        }
-        .step h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;
-        }
-        .step p { font-size: 0.875rem; color: #6B5444; line-height: 1.6; }
-
-        /* ── TESTIMONIAL ────────────────────── */
-        .testimonial {
-            background: var(--paper); border-radius: 1.5rem; padding: 3rem;
-            text-align: center; max-width: 800px; margin: 3rem auto 0;
-        }
-        .testimonial .stars { color: var(--honey); font-size: 1.25rem; margin-bottom: 1.25rem; }
-        .testimonial blockquote {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.375rem; font-weight: 700; line-height: 1.5;
-            font-style: italic; color: var(--ink);
-        }
-        .testimonial cite {
-            display: block; margin-top: 1.25rem; font-size: 0.875rem;
-            font-style: normal; color: #8B6F5C; font-family: 'Inter', sans-serif;
-        }
-
-        /* ── NEWSLETTER ─────────────────────── */
-        .newsletter {
-            text-align: center; margin-top: 3rem;
-            background: linear-gradient(135deg, #3C2415 0%, #5C3D2E 100%);
-            border-radius: 1.5rem; padding: 4rem 2rem; color: #fff;
-        }
-        .newsletter h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        .newsletter p { color: #CBB8A8; margin-bottom: 2rem; font-size: 0.9375rem; }
-        .newsletter-form {
-            display: flex; gap: 0.75rem; max-width: 440px; margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1; padding: 0.875rem 1.25rem; border-radius: 100px;
-            border: none; font-size: 0.9375rem; font-family: 'Inter', sans-serif;
-            background: rgba(255,255,255,0.12); color: #fff; outline: none;
-            transition: background 0.2s;
-        }
-        .newsletter-form input::placeholder { color: #A88C78; }
-        .newsletter-form input:focus { background: rgba(255,255,255,0.18); }
-        .newsletter-form .btn-primary { white-space: nowrap; }
-
-        /* ── FOOTER ─────────────────────────── */
-        .footer {
-            padding: 2rem; text-align: center;
-            border-top: 1px solid var(--soft);
-        }
-        .footer p { font-size: 0.8125rem; color: #8B6F5C; }
-        .footer a { color: var(--gold); text-decoration: none; font-weight: 500; }
-
-        /* ── MOBILE MENU ────────────────────── */
-        .mobile-menu {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg); z-index: 99;
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; gap: 2rem;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
-        .mobile-menu.open { opacity: 1; pointer-events: auto; }
-        .mobile-menu a {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem; color: var(--ink); text-decoration: none;
-            font-weight: 700; transition: color 0.2s;
-        }
-        .mobile-menu a:hover { color: var(--gold); }
-
-        /* ── RESPONSIVE ─────────────────────── */
-        @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .hero p { margin-left: auto; margin-right: auto; }
-            .hero-buttons { justify-content: center; }
-            .hero-visual { order: -1; }
-            .cookie-illustration { transform: scale(0.7); }
-            .products-grid { grid-template-columns: repeat(2, 1fr); }
-            .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .steps { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-        }
-
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .nav-toggle { display: flex; }
-            .products-grid { grid-template-columns: 1fr; }
-            .newsletter-form { flex-direction: column; }
-            section { padding: 4rem 1.5rem; }
-            .hero { padding: 5rem 1.5rem 3rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -382,8 +17,9 @@
         <a href="#" class="nav-logo">Big<span>.</span>Cookies</a>
         <ul class="nav-links">
             <li><a href="#products">Our Cookies</a></li>
-            <li><a href="#philosophy">Philosophy</a></li>
-            <li><a href="#how">How It Works</a></li>
+            <li><a href="#gifts">Gift Boxes</a></li>
+            <li><a href="#gallery">Kitchen</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#order" class="nav-cta">Order Now</a></li>
         </ul>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -394,8 +30,9 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="#products">Our Cookies</a>
-    <a href="#philosophy">Philosophy</a>
-    <a href="#how">How It Works</a>
+    <a href="#gifts">Gift Boxes</a>
+    <a href="#gallery">Kitchen</a>
+    <a href="#faq">FAQ</a>
     <a href="#order" style="color:var(--gold)">Order Now</a>
 </div>
 
@@ -411,7 +48,7 @@
                 takes time.
             </p>
             <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">Browse the Menu →</a>
+                <a href="#products" class="btn btn-primary btn-large">Browse the Menu →</a>
                 <a href="#philosophy" class="btn btn-outline">Our Story</a>
             </div>
         </div>
@@ -498,6 +135,48 @@
     </div>
 </section>
 
+<!-- GIFT BOXES -->
+<section id="gifts">
+    <div class="section-inner">
+        <div class="section-label">Gift Boxes</div>
+        <h2 class="section-title">Share the obsession</h2>
+        <p class="section-subtitle">
+            Curated collections in hand-stamped kraft boxes. Free handwritten note included —
+            because store-bought cards are boring.
+        </p>
+
+        <div class="gifts-grid">
+            <div class="gift-card">
+                <div class="gift-icon">🎁</div>
+                <h3 class="gift-name">The Sampler</h3>
+                <p class="gift-desc">One of each. The indecision cure. Six cookies, six flavors, zero regrets.</p>
+                <p class="gift-includes">6 cookies · 6 flavors</p>
+                <div class="gift-price">$28</div>
+                <a href="#order" class="btn btn-outline">Order →</a>
+            </div>
+
+            <div class="gift-card featured">
+                <div class="gift-badge">Most Popular</div>
+                <div class="gift-icon">📦</div>
+                <h3 class="gift-name">The Dozen</h3>
+                <p class="gift-desc">Baker's choice of 12 cookies. Our weekly lineup, curated. You pick chocolate ratio.</p>
+                <p class="gift-includes">12 cookies · free shipping</p>
+                <div class="gift-price">$52</div>
+                <a href="#order" class="btn btn-primary">Order →</a>
+            </div>
+
+            <div class="gift-card">
+                <div class="gift-icon">💝</div>
+                <h3 class="gift-name">The Celebration</h3>
+                <p class="gift-desc">Two dozen cookies in a wooden gift crate. Comes with a candle. Yes, a cookie crate.</p>
+                <p class="gift-includes">24 cookies · gift crate · candle</p>
+                <div class="gift-price">$98</div>
+                <a href="#order" class="btn btn-outline">Order →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- PHILOSOPHY -->
 <section id="philosophy">
     <div class="section-inner">
@@ -540,12 +219,59 @@
     </div>
 </section>
 
+<!-- GALLERY -->
+<section id="gallery">
+    <div class="section-inner">
+        <div class="section-label text-center">Behind the Scenes</div>
+        <h2 class="section-title text-center">From our kitchen to your door</h2>
+        <p class="section-subtitle text-center mx-auto">
+            Every cookie passes through four pairs of hands before it reaches you.
+            Here's what that looks like.
+        </p>
+
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <div class="gallery-emoji">⚖️</div>
+                <div class="gallery-label">Weigh & Measure</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">🥣</div>
+                <div class="gallery-label">Mix & Fold</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">❄️</div>
+                <div class="gallery-label">48h Cold Rest</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">🔥</div>
+                <div class="gallery-label">Bake to Order</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">📐</div>
+                <div class="gallery-label">Quality Check</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">🎀</div>
+                <div class="gallery-label">Wrap & Pack</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">📬</div>
+                <div class="gallery-label">Ship Same Day</div>
+            </div>
+            <div class="gallery-card">
+                <div class="gallery-emoji">😋</div>
+                <div class="gallery-label">You Enjoy</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- HOW IT WORKS -->
 <section id="how">
     <div class="section-inner">
-        <div class="section-label" style="text-align:center">How It Works</div>
-        <h2 class="section-title" style="text-align:center">Fresh cookies, straight to you</h2>
-        <p class="section-subtitle" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <div class="section-label text-center">How It Works</div>
+        <h2 class="section-title text-center">Fresh cookies, straight to you</h2>
+        <p class="section-subtitle text-center mx-auto">
             We bake to order and ship same day. No freezers, no shortcuts.
         </p>
 
@@ -576,15 +302,118 @@
             </blockquote>
             <cite>— A very happy customer</cite>
         </div>
+    </div>
+</section>
 
-        <!-- NEWSLETTER -->
-        <div class="newsletter" id="order">
+<!-- FAQ -->
+<section id="faq">
+    <div class="section-inner">
+        <div class="section-label text-center">FAQ</div>
+        <h2 class="section-title text-center">You asked, we answered</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">How long do the cookies stay fresh?</button>
+                <div class="faq-answer">
+                    <p>Five days at room temp in the sealed bag they arrive in. Two weeks refrigerated. Three months frozen — just reheat at 160°C for 5 minutes and they're 90% as good as fresh. Reheat instructions come in every box.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Do you ship internationally?</button>
+                <div class="faq-answer">
+                    <p>Currently we ship within the US and Canada. International shipping is in the works — customs forms for cookies are surprisingly complicated. Join the newsletter for updates.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Can I customize a gift box?</button>
+                <div class="faq-answer">
+                    <p>Absolutely. After you place an order, reply to your confirmation email with any preferences — extra chocolate, no nuts, all one flavor — and we'll make it work. Use the order form below and add notes in the special instructions field.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What if my cookies arrive damaged?</button>
+                <div class="faq-answer">
+                    <p>They shouldn't — we pack each cookie in its own sleeve inside a crush-proof box. But if anything goes wrong, email us with a photo and we'll rush a replacement. No questions asked.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Do you do corporate orders or events?</button>
+                <div class="faq-answer">
+                    <p>We do. Orders of 50+ cookies get custom packaging with your logo. Lead time is one week. Email us directly at hello@big-cookies.yaoyy.moe and we'll sort out the details.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ORDER FORM -->
+<section id="order">
+    <div class="section-inner">
+        <div class="section-label text-center">Place an Order</div>
+        <h2 class="section-title text-center">Ready to commit cookie crimes</h2>
+        <p class="section-subtitle text-center mx-auto">
+            Fill out the form below and we'll get baking. Orders ship within 24 hours.
+        </p>
+
+        <div class="order-section">
+            <!-- Sold Out Banner -->
+            <div class="sold-out-banner">
+                <div class="ribbon">Sold Out</div>
+            </div>
+
+            <!-- Blurred Form -->
+            <div class="order-form-wrap">
+                <h3>Your Order</h3>
+                <form id="orderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Jane Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="jane@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cookie">Cookie Selection</label>
+                        <select id="cookie" required>
+                            <option value="">Choose your cookies…</option>
+                            <option value="sampler">The Sampler — 6 cookies, 6 flavors ($28)</option>
+                            <option value="dozen">The Dozen — 12 cookies ($52)</option>
+                            <option value="celebration">The Celebration — 24 cookies ($98)</option>
+                            <option value="custom">Custom mix — tell us below</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Special Instructions</label>
+                        <textarea id="notes" placeholder="Allergic to nuts? Want extra Double Dark? Let us know."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large" style="width:100%;justify-content:center;">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+
+            <p class="sold-out-caption">
+                🍪 We're currently <strong>sold out</strong> — this week's batch went faster than expected.
+                <br>Drop your email <a href="#how">above ↑</a> to catch next Friday's drop.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- NEWSLETTER (compact, at bottom of order section already covered, skip dup) -->
+<section>
+    <div class="section-inner">
+        <div class="newsletter">
             <h2>Get first dibs on new flavors</h2>
             <p>We drop limited batches every Friday. Subscribers get early access + free shipping on first orders.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value = ''; alert('✨ You are on the list! We will email you when the next batch drops.');">
+            <form class="newsletter-form" id="newsletterForm">
                 <input type="email" placeholder="your@email.com" required>
                 <button type="submit" class="btn btn-primary">Notify Me</button>
             </form>
+            <div class="newsletter-success" id="newsletterSuccess">✨ You're on the list! We'll email you when the next batch drops.</div>
         </div>
     </div>
 </section>
@@ -594,52 +423,9 @@
     <p>© 2024 Big Cookies. Baked with love. &nbsp;·&nbsp; <a href="mailto:hello@big-cookies.yaoyy.moe">hello@big-cookies.yaoyy.moe</a></p>
 </footer>
 
-<script>
-    // ── Nav scroll shadow ──────────────────
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 10);
-    });
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-    // ── Mobile menu toggle ─────────────────
-    const toggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const toggleSpans = toggle.querySelectorAll('span');
-
-    toggle.addEventListener('click', () => {
-        const open = mobileMenu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open);
-        toggleSpans[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
-        toggleSpans[1].style.opacity = open ? '0' : '';
-        toggleSpans[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-            toggleSpans[0].style.transform = '';
-            toggleSpans[1].style.opacity = '';
-            toggleSpans[2].style.transform = '';
-        });
-    });
-
-    // ── Scroll-reveal animations ───────────
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.product-card, .step, .phil-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-</script>
+<script src="main.js"></script>
 </body>
 </html>
