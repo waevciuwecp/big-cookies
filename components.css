@@ -1267,3 +1267,10 @@ section { content-visibility: auto; contain-intrinsic-size: 500px; }
     background: rgba(200,133,62,0.3); pointer-events: none;
     animation: btnRipple 0.5s ease-out forwards;
 }
+
+.pdx-seal {
+    display: inline-block; font-size: 0.6875rem; font-weight: 600;
+    color: #3A8C3F; letter-spacing: 0.04em;
+    transition: color 0.2s;
+}
+.pdx-seal:hover { color: #4CAF50; }
