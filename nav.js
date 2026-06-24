@@ -167,3 +167,5 @@ window.addEventListener('cart-update', function(e) {
         badge.style.display = e.detail.count > 0 ? 'inline-flex' : 'none';
     }
 });
+
+})(); // close initNav IIFE
