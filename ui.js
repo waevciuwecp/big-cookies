@@ -34,7 +34,7 @@
     '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>' +
     '</div></nav>' +
     '<div class="mobile-menu" id="mobileMenu">' +
-    '<a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a><a href="kitchen.html" class="' + kitchenActive.trim() + '">The Kitchen</a><a href="faq.html" class="' + faqActive.trim() + '">FAQ</a><a href="/#order" style="color:var(--gold)">Order Now</a>' +
+    '<div class="mobile-menu-sheet"><div class="mobile-menu-kicker">Navigation / Big Cookies</div><div class="mobile-menu-current">' + (pageContext || 'Homepage') + '</div><div class="mobile-menu-group"><a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a></div><div class="mobile-menu-group"><a href="kitchen.html" class="' + kitchenActive.trim() + '">The Kitchen</a><a href="faq.html" class="' + faqActive.trim() + '">FAQ</a><a href="about.html">About Us</a></div><a href="/#order" class="mobile-menu-cta">Order Now</a></div>' +
     '</div>' +
     '<div class="batch-banner" id="batchBanner"><span class="batch-icon"><svg width="14" height="18" viewBox="0 0 16 20" aria-hidden="true"><path d="M8 0c-2 5-5 8-5 12a5 5 0 0010 0c0-4-3-7-5-12z" fill="#E8A850"/><path d="M8 8c-1.2 3-2.5 5-2.5 7a2.5 2.5 0 005 0c0-2-1.3-4-2.5-7z" fill="#F5C85A"/></svg></span><span class="batch-num">Batch #<span id="batchNum">47</span></span><span>&middot;</span><span>Next batch drops <strong id="batchCountdown">this Friday</strong></span><span class="batch-dot"></span><button class="batch-close" id="batchClose" aria-label="Close banner">&times;</button></div>';
 

@@ -166,7 +166,10 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .nav-links a.active { color: var(--gold); }
 [data-theme="dark"] .nav-toggle span { background: #D4C4B0; }
 [data-theme="dark"] .mobile-menu { background: var(--bg); }
+[data-theme="dark"] .mobile-menu-sheet { background: rgba(42,30,22,0.94); border-color: rgba(240,228,212,0.08); }
+[data-theme="dark"] .mobile-menu-current { color: var(--ink); }
 [data-theme="dark"] .mobile-menu a { color: #D4C4B0; }
+[data-theme="dark"] .mobile-menu a { background: rgba(255,255,255,0.03); border-color: rgba(240,228,212,0.06); }
 [data-theme="dark"] .hero-badge { background: var(--paper); }
 [data-theme="dark"] .hero p { color: #B8A898; }
 [data-theme="dark"] .section-subtitle { color: #B8A898; }

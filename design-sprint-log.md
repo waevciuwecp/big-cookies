@@ -51,3 +51,7 @@
 - Round 13
   2026-06-24 13:45:58 CST
   Reworked the homepage sold-out area into a clearer next-drop board so the blocked checkout state still gives visitors a plan.
+
+- Round 14
+  2026-06-24 13:49:50 CST
+  Redesigned the mobile navigation as a structured menu sheet with page context and grouped routes so secondary-page browsing feels curated on small screens too.
