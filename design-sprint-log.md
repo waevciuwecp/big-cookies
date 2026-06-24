@@ -31,3 +31,7 @@
 - Round 8
   2026-06-24 13:31:20 CST
   Reframed the FAQ page as a support surface with topic cards and a clearer service note above the accordion.
+
+- Round 9
+  2026-06-24 13:34:03 CST
+  Added an honor-roll summary board to the awards page so the recognition reads like a curated story, not just a count and list.

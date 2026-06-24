@@ -1189,6 +1189,64 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .faculty-bio { color: #B8A898; }
 
 /* ── AWARD CARDS ──────────────────────────── */
+.awards-summary-board {
+    margin: 2.5rem auto 0;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+    gap: 1.25rem;
+}
+.awards-summary-lead,
+.awards-summary-stats {
+    border-radius: 1.35rem;
+    border: 1px solid rgba(60,36,21,0.08);
+    background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(245,237,227,0.92));
+}
+.awards-summary-lead {
+    padding: 1.5rem;
+}
+.awards-summary-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.awards-summary-lead h2 {
+    margin-top: 0.8rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 0.98;
+}
+.awards-summary-lead p {
+    margin-top: 1rem;
+    color: #6B5444;
+    line-height: 1.75;
+}
+.awards-summary-stats {
+    padding: 1rem;
+    display: grid;
+    gap: 0.75rem;
+}
+.awards-summary-stat {
+    padding: 0.95rem 1rem;
+    border-radius: 1rem;
+    background: rgba(255,249,242,0.8);
+    border: 1px solid rgba(60,36,21,0.07);
+}
+.awards-summary-stat span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8B6F5C;
+}
+.awards-summary-stat strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
 .award-card {
     background: var(--paper); border-radius: 1.25rem; padding: 2rem;
     border: 1px solid var(--soft); display: flex; gap: 1.5rem; align-items: flex-start;
@@ -1208,6 +1266,11 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .award-year + .award-medal { margin-top: 0; }
 .award-title { font-family: var(--font-display); font-size: 1.375rem; font-weight: 700; margin: 0.25rem 0 0.5rem; }
 .award-desc { font-size: 0.9375rem; color: #6B5444; line-height: 1.6; }
+[data-theme="dark"] .awards-summary-lead,
+[data-theme="dark"] .awards-summary-stats,
+[data-theme="dark"] .awards-summary-stat { background: rgba(42,30,22,0.9); border-color: rgba(240,228,212,0.08); }
+[data-theme="dark"] .awards-summary-lead p,
+[data-theme="dark"] .awards-summary-stat span { color: #B8A898; }
 [data-theme="dark"] .award-card { background: var(--paper); border-color: var(--soft); }
 [data-theme="dark"] .award-desc { color: #B8A898; }
 
