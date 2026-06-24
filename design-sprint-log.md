@@ -39,3 +39,7 @@
 - Round 10
   2026-06-24 13:36:57 CST
   Upgraded the shared footer into a stronger studio sign-off with a Portland bench note and service board, so the whole site lands with more identity.
+
+- Round 11
+  2026-06-24 13:39:38 CST
+  Added a process overview board to the kitchen page so the long-form story starts with a clearer batch map and chapter entry points.

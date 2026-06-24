@@ -1114,6 +1114,71 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     animation: warmPulse 3s ease-in-out infinite; pointer-events: none; z-index: -1;
 }
 /* ── KITCHEN STORY ────────────────────────── */
+.kitchen-overview-board {
+    margin: 2.5rem auto 0;
+    max-width: 960px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 1.25rem;
+}
+.kitchen-overview-lead,
+.kitchen-overview-steps {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(60,36,21,0.08);
+    background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(245,237,227,0.92));
+}
+.kitchen-overview-lead {
+    padding: 1.5rem;
+}
+.kitchen-overview-kicker,
+.kitchen-overview-step span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.kitchen-overview-lead h2 {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 0.98;
+}
+.kitchen-overview-lead p {
+    margin-top: 1rem;
+    color: #6B5444;
+    line-height: 1.75;
+}
+.kitchen-overview-steps {
+    padding: 1rem;
+    display: grid;
+    gap: 0.75rem;
+}
+.kitchen-overview-step {
+    display: block;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255,249,242,0.8);
+    border: 1px solid rgba(60,36,21,0.07);
+    text-decoration: none;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.kitchen-overview-step:hover {
+    transform: translateX(6px);
+    border-color: rgba(200,133,62,0.55);
+}
+.kitchen-overview-step strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--ink);
+}
+.kitchen-overview-step p {
+    margin-top: 0.55rem;
+    color: #6B5444;
+    line-height: 1.7;
+}
 .kitchen-chapter { margin-top: 5rem; }
 .kitchen-chapter:first-child { margin-top: 3rem; }
 .chapter-header { text-align: center; max-width: 600px; margin: 0 auto 2.5rem; }
@@ -1130,6 +1195,14 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     font-size: 0.9375rem; color: #6B5444; line-height: 1.7;
 }
 [data-theme="dark"] .chapter-desc { color: #B8A898; }
+[data-theme="dark"] .kitchen-overview-lead,
+[data-theme="dark"] .kitchen-overview-steps,
+[data-theme="dark"] .kitchen-overview-step {
+    background: rgba(42,30,22,0.9);
+    border-color: rgba(240,228,212,0.08);
+}
+[data-theme="dark"] .kitchen-overview-lead p,
+[data-theme="dark"] .kitchen-overview-step p { color: #B8A898; }
 
 /* ── KITCHEN STATS BAR ────────────────────── */
 .kitchen-stats {
