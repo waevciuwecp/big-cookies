@@ -313,10 +313,16 @@
     builderReset.addEventListener('click', function() {
         var count = 0;
         for (var id in cart) count += cart[id].qty;
-        if (count > 0 && !confirm('Clear your cart of ' + count + ' cookie' + (count !== 1 ? 's' : '') + '?')) return;
-        cart = {};
-        updateCart();
-        window.showToast && showToast('Cart cleared.');
+        if (count === 0) return;
+        window.showConfirm(
+            'Clear your cart of ' + count + ' cookie' + (count !== 1 ? 's' : '') + '?',
+            'Clear cart',
+            function() {
+                cart = {};
+                updateCart();
+                window.showToast && showToast('Cart cleared.');
+            }
+        );
     });
 
     // Share box — copy cart as text

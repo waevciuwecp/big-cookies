@@ -821,6 +821,52 @@ function showToast(msg, icon) {
     toast._timeout = setTimeout(() => toast.classList.remove('visible'), 3000);
 }
 
+// ── Confirm dialog ────────────────────────
+function showConfirm(message, confirmLabel, onConfirm, onCancel) {
+    // Remove any existing confirm
+    var existing = document.querySelector('.confirm-backdrop');
+    if (existing) existing.remove();
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'confirm-backdrop';
+    var dialog = document.createElement('div');
+    dialog.className = 'confirm-dialog';
+    dialog.setAttribute('role', 'alertdialog');
+    dialog.innerHTML =
+        '<p class="confirm-message">' + message + '</p>' +
+        '<div class="confirm-actions">' +
+            '<button class="confirm-cancel">Cancel</button>' +
+            '<button class="confirm-ok">' + (confirmLabel || 'Confirm') + '</button>' +
+        '</div>';
+
+    function close(confirmed) {
+        dialog.classList.add('closing');
+        backdrop.classList.add('closing');
+        setTimeout(function() {
+            backdrop.remove();
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', onKey);
+            if (confirmed && onConfirm) onConfirm();
+            if (!confirmed && onCancel) onCancel();
+        }, 250);
+    }
+
+    function onKey(e) {
+        if (e.key === 'Escape') close(false);
+        if (e.key === 'Enter') close(true);
+    }
+
+    backdrop.addEventListener('click', function(e) { if (e.target === backdrop) close(false); });
+    dialog.querySelector('.confirm-cancel').addEventListener('click', function() { close(false); });
+    dialog.querySelector('.confirm-ok').addEventListener('click', function() { close(true); });
+    document.addEventListener('keydown', onKey);
+
+    backdrop.appendChild(dialog);
+    document.body.appendChild(backdrop);
+    document.body.style.overflow = 'hidden';
+    dialog.querySelector('.confirm-ok').focus();
+}
+
 
 // ── Baking tip rotator ──────────────────────
 (function() {
