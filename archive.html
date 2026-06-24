@@ -47,7 +47,7 @@
             <button class="archive-filter" data-filter="winter" type="button">Winter</button>
             <button class="archive-filter" data-filter="spring" type="button">Spring</button>
         </div>
-        <p class="archive-filter-note" id="archiveFilterNote">Showing all seasonal experiments.</p>
+        <p class="archive-filter-note" id="archiveFilterNote">Showing all <span class="dhc" data-of="archive">14</span> seasonal experiments.</p>
         <div id="archiveGrid" data-load="data/archive.json" data-template="archive-card" style="max-width:800px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem"></div>
     </div>
 </section>
@@ -116,13 +116,20 @@
 
     function applyFilter(filter) {
         var cards = document.querySelectorAll('#archiveGrid .archive-card');
+        var visible = 0;
         cards.forEach(function(card) {
             var matches = filter === 'all' ||
                 card.dataset.status === filter ||
                 card.dataset.season.indexOf(filter) !== -1;
             card.style.display = matches ? '' : 'none';
+            if (matches) visible++;
         });
-        note.textContent = labels[filter] || labels.all;
+        var total = cards.length;
+        if (filter === 'all' && visible === total) {
+            note.textContent = 'Showing all ' + total + ' seasonal experiments.';
+        } else {
+            note.textContent = (labels[filter] || labels.all).replace('Showing', 'Showing ' + visible + ' of ' + total + ' —');
+        }
     }
 
     function bindFilters() {

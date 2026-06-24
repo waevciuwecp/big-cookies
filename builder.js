@@ -55,8 +55,10 @@
                 var div = document.createElement('div');
                 div.className = 'cart-item';
                 div.setAttribute('data-id', id);
+                var iconSrc = item.type === 'gift' ? 'svg/cookies/gift.svg' : 'svg/cookies/' + id + '.svg';
+                var iconStyle = item.type === 'gift' ? 'flex-shrink:0;border-radius:8px' : 'flex-shrink:0;border-radius:50%';
                 div.innerHTML =
-                    '<img src="svg/cookies/' + id + '.svg" alt="' + item.name + '" width="32" height="32" style="flex-shrink:0;border-radius:50%">' +
+                    '<img src="' + iconSrc + '" alt="' + item.name + '" width="32" height="32" style="' + iconStyle + '">' +
                     '<span class="cart-item-name">' + item.name + '</span>' +
                     '<span class="cart-item-qty">' + item.qty + 'x</span>' +
                     '<span class="cart-item-subtotal">$' + subtotal.toFixed(2) + '</span>';
@@ -389,7 +391,7 @@ document.querySelectorAll('.gift-add-cart').forEach(function(btn) {
         var id = this.dataset.gift;
         var name = this.dataset.name;
         var price = this.dataset.price;
-        if (!cart[id]) cart[id] = {name: name, price: price, qty: 0};
+        if (!cart[id]) cart[id] = {name: name, price: price, qty: 0, type: 'gift'};
         cart[id].qty++;
         updateCart();
         window.showToast && showToast(name + ' added to cart!');

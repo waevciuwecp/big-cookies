@@ -1202,8 +1202,6 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
 // ── Footer year auto-update ──────────────
 (function() {
     function updateYear() {
-        var el = document.getElementById('copyYear');
-        if (el) { el.textContent = new Date().getFullYear(); }
         // Page baked timestamp
         var timeEl = document.getElementById('pageBakedTime');
         if (timeEl) {
@@ -1213,7 +1211,7 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             h = h % 12 || 12;
             timeEl.textContent = 'today at ' + h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
         }
-        if (!el && !timeEl) { setTimeout(updateYear, 500); return; }
+        if (!timeEl) { setTimeout(updateYear, 500); return; }
     }
     updateYear();
 })();
@@ -1224,6 +1222,186 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     if (el) {
         var m = new Date().getMonth() + 1;
         el.textContent = (m < 10 ? '0' : '') + m;
+    }
+})();
+
+// ── Dynamic hardcoded counts → live data ────
+(function() {
+    var FOUNDING = 2024;
+    var now = new Date();
+    var thisYear = now.getFullYear();
+    var yearsSince = thisYear - FOUNDING;
+    var jsonCache = {};
+
+    // Year-based replacements (available immediately, no data needed)
+    function injectYears() {
+        forEach('.dhc[data-of="current-year"]', function(el) { el.textContent = thisYear; });
+        forEach('.dhc[data-of="founding-year"]', function(el) { el.textContent = FOUNDING; });
+        forEach('.dhc[data-of="years-since"]', function(el) { el.textContent = yearsSince; });
+        forEach('.dhc[data-of="year-range"]', function(el) { el.textContent = FOUNDING + '–' + thisYear; });
+        // Update meta / og descriptions
+        updateMetaDesc();
+    }
+    injectYears();
+
+    // Count-based replacements (need DOM elements or JSON data)
+    function injectCounts() {
+        // Count from rendered DOM elements
+        var counts = {
+            'products': document.querySelectorAll('.product-card').length || 0,
+            'faqs': document.querySelectorAll('.faq-item').length || 0,
+            'awards': document.querySelectorAll('.award-card').length || 0,
+            'faculty-current': document.querySelectorAll('.faculty-card:not(.alumni)').length || 0,
+            'faculty-total': document.querySelectorAll('.faculty-card').length || 0,
+            'faculty-past': document.querySelectorAll('.faculty-card.alumni').length || 0,
+            'news': document.querySelectorAll('.news-card').length || 0,
+            'archive': document.querySelectorAll('.archive-card').length || 0,
+            'testimonials': document.querySelectorAll('.testimonial-slide').length || 0,
+            'kitchen-stories': document.querySelectorAll('.polaroid').length || 0,
+            'gift-tiers': document.querySelectorAll('.gift-card').length || 0
+        };
+
+        // Apply counts to all .dhc elements
+        forEach('.dhc[data-of]', function(el) {
+            var key = el.getAttribute('data-of');
+            if (key === 'current-year' || key === 'founding-year' || key === 'years-since' || key === 'year-range') return;
+            if (counts[key] !== undefined && counts[key] > 0) {
+                el.textContent = counts[key];
+            }
+        });
+
+        // Gold medal count
+        forEach('.dhc[data-of="awards-gold"]', function(el) {
+            var gold = 0;
+            document.querySelectorAll('.award-card').forEach(function(c) {
+                if (c.querySelector('.award-medal--gold') || (c.getAttribute('data-medal') === 'gold')) gold++;
+            });
+            if (gold > 0) el.textContent = gold;
+        });
+
+        // Distinct years for awards
+        forEach('.dhc[data-of="awards-years"]', function(el) {
+            var years = {};
+            document.querySelectorAll('.award-card').forEach(function(c) {
+                var yEl = c.querySelector('.award-year');
+                if (yEl) years[yEl.textContent.trim()] = true;
+            });
+            var yList = Object.keys(years);
+            if (yList.length > 0) el.textContent = yList.length;
+        });
+
+        // Kitchen chapters
+        forEach('.dhc[data-of="kitchen-chapters"]', function(el) {
+            var sections = document.querySelectorAll('[data-load*="kitchen-stories"]');
+            if (sections.length > 0) el.textContent = sections.length;
+        });
+
+        // Internship station count
+        forEach('.dhc[data-of="internship-stations"]', function(el) {
+            var card = document.querySelector('.internship-card, .faculty-hiring-card');
+            if (card) {
+                var m = card.textContent.match(/all\s+(\d+)\s+stations/);
+                if (m) el.textContent = m[1];
+            }
+        });
+
+        // For pages without rendered cards (about.html etc), try JSON fallback
+        fillFromJSON();
+    }
+
+    // JSON fallback for pages that don't render the data cards
+    function fillFromJSON() {
+        var hasDHCFaculty = document.querySelectorAll('.dhc[data-of="faculty-current"], .dhc[data-of="faculty-total"], .dhc[data-of="faculty-past"]').length > 0;
+        var hasDHCProducts = document.querySelectorAll('.dhc[data-of="products"]').length > 0;
+        var hasDHCFaqs = document.querySelectorAll('.dhc[data-of="faqs"]').length > 0;
+        var hasDHCAwards = document.querySelectorAll('.dhc[data-of="awards"], .dhc[data-of="awards-gold"], .dhc[data-of="awards-years"]').length > 0;
+
+        if (hasDHCFaculty && !document.querySelectorAll('.faculty-card').length) {
+            fetchJSON('data/faculty.json', function(data) {
+                if (!data) return;
+                var current = (data.current || []).length;
+                var past = (data.past || []).length;
+                forEach('.dhc[data-of="faculty-current"]', function(el) { el.textContent = current; });
+                forEach('.dhc[data-of="faculty-total"]', function(el) { el.textContent = current + past; });
+                forEach('.dhc[data-of="faculty-past"]', function(el) { el.textContent = past; });
+            });
+        }
+
+        if (hasDHCProducts && !document.querySelectorAll('.product-card').length) {
+            fetchJSON('data/products.json', function(data) {
+                if (!data) return;
+                forEach('.dhc[data-of="products"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
+            });
+        }
+
+        if (hasDHCFaqs && !document.querySelectorAll('.faq-item').length) {
+            fetchJSON('data/faq.json', function(data) {
+                if (!data) return;
+                forEach('.dhc[data-of="faqs"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
+            });
+        }
+
+        if (hasDHCAwards && !document.querySelectorAll('.award-card').length) {
+            fetchJSON('data/awards.json', function(data) {
+                if (!data) return;
+                var arr = Array.isArray(data) ? data : [];
+                forEach('.dhc[data-of="awards"]', function(el) { el.textContent = arr.length; });
+                var gold = arr.filter(function(a) { return a.medal === 'gold'; }).length;
+                forEach('.dhc[data-of="awards-gold"]', function(el) { if (gold > 0) el.textContent = gold; });
+            });
+        }
+    }
+
+    function fetchJSON(url, cb) {
+        if (jsonCache[url]) { cb(jsonCache[url]); return; }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try { jsonCache[url] = JSON.parse(xhr.responseText); } catch(e) { jsonCache[url] = null; }
+                cb(jsonCache[url]);
+            }
+        };
+        xhr.onerror = function() { cb(null); };
+        xhr.send();
+    }
+
+    // Update meta description tag to replace hardcoded numbers
+    function updateMetaDesc() {
+        var meta = document.querySelector('meta[name="description"]');
+        if (!meta) return;
+        var content = meta.getAttribute('content');
+        if (!content) return;
+        // Replace standalone year patterns with current year
+        content = content.replace(/\b2024\b/g, FOUNDING);
+        content = content.replace(/\b2025\b/g, String(thisYear));
+        content = content.replace(/\b2026\b/g, String(thisYear));
+        meta.setAttribute('content', content);
+        // Also update og:description
+        var og = document.querySelector('meta[property="og:description"]');
+        if (og) {
+            var ogContent = og.getAttribute('content');
+            if (ogContent) {
+                ogContent = ogContent.replace(/\b2024\b/g, FOUNDING);
+                ogContent = ogContent.replace(/\b2025\b/g, String(thisYear));
+                ogContent = ogContent.replace(/\b2026\b/g, String(thisYear));
+                og.setAttribute('content', ogContent);
+            }
+        }
+    }
+
+    // Run now
+    injectCounts();
+
+    // Run again after data-loader finishes
+    window.addEventListener('data-ready', function() {
+        setTimeout(injectCounts, 100);
+    });
+
+    // Helper
+    function forEach(selector, fn) {
+        var els = document.querySelectorAll(selector);
+        for (var i = 0; i < els.length; i++) fn(els[i]);
     }
 })();
 
