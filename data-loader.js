@@ -45,7 +45,7 @@
             var cls = isPast ? 'faculty-card alumni' : 'faculty-card';
             var avStyle = isPast ? ' style="opacity:0.6"' : '';
             var tenureHTML = isPast && member.tenure ? '<span style="font-size:0.6875rem;color:#8B6F5C;font-weight:600;display:block;margin-top:0.5rem">'+member.tenure+'</span>' : '';
-            return '<div class="'+cls+'"><div class="faculty-avatar"'+avStyle+'><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">'+member.name+'</h3><span class="faculty-role">'+member.role+'</span><p class="faculty-bio">'+member.bio+'</p>'+tenureHTML+'"' + (member.quote ? '<p class="faculty-quote">' + member.quote + '</p>' : '') + '</div>';
+            return '<div class="'+cls+'"><div class="faculty-avatar"'+avStyle+'><svg width="36" height="36" viewBox="0 0 32 32"><circle cx="16" cy="11" r="7" fill="#FFF9F2"/><path d="M5 28c0-7 5-11 11-11s11 4 11 11" fill="#FFF9F2"/></svg></div><h3 class="faculty-name">'+member.name+'</h3><span class="faculty-role">'+member.role+'</span><p class="faculty-bio">'+member.bio+'</p>'+tenureHTML + (member.quote ? '<p class="faculty-quote">' + member.quote + '</p>' : '') + '</div>';
         },
         'kitchen-card': function(item) {
             var tiltClass = item.tilt || 'tilt-none';

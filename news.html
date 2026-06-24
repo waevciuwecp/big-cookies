@@ -97,13 +97,13 @@
             var dateLabel = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
 
             lead.innerHTML =
-                '<div class="news-lead-kicker">Issue 06 / Bakery Dispatch</div>' +
+                '<div class="news-lead-kicker">Issue ' + (Array.isArray(items) ? String(items.length).padStart(2,'0') : '06') + ' / Bakery Dispatch</div>' +
                 '<div class="news-lead-meta"><span>' + dateLabel + '</span><span>' + (latest.tag || 'Dispatch') + '</span></div>' +
                 '<h2>' + latest.title + '</h2>' +
                 '<p>' + latest.excerpt + '</p>' +
                 '<div class="news-lead-footer"><span>' + (latest.readTime || '2 min read') + '</span><a href="#main-content">Read the full board</a></div>';
 
-            board.innerHTML = items.slice(0, 4).map(function(item, index) {
+            board.innerHTML = items.slice(1).map(function(item, index) {
                 return '<div class="news-issue-card">' +
                     '<span class="news-issue-index">0' + (index + 1) + '</span>' +
                     '<strong>' + item.tag + '</strong>' +

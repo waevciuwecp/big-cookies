@@ -89,7 +89,8 @@
     for (var s in seasons) {
         var ss = seasons[s].start, se = seasons[s].end;
         var startDate = new Date(now.getFullYear(), ss[0]-1, ss[1]);
-        var endDate = new Date(now.getFullYear(), se[0]-1, se[1]);
+        var endYear = (s === 'winter') ? now.getFullYear() + 1 : now.getFullYear();
+        var endDate = new Date(endYear, se[0]-1, se[1]);
         if (now >= startDate && now <= endDate) { current = seasons[s]; current.key = s; }
     }
     var el = document.getElementById('seasonalNote');

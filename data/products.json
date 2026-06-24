@@ -10,7 +10,9 @@
       "Organic wheat flour",
       "Muscovado sugar",
       "Free-range eggs",
-      "Madagascar vanilla bean"
+      "Madagascar vanilla bean",
+      "Maldon sea salt flakes",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",
@@ -32,7 +34,9 @@
       "European brown butter",
       "Organic wheat flour",
       "Muscovado sugar",
-      "Maldon sea salt flakes"
+      "Free-range eggs",
+      "Maldon sea salt flakes",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",
@@ -56,7 +60,8 @@
       "Organic wheat flour",
       "Demerara sugar",
       "Free-range eggs",
-      "Madagascar vanilla bean"
+      "Madagascar vanilla bean",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",
@@ -79,7 +84,9 @@
       "European brown butter",
       "Organic wheat flour",
       "Muscovado sugar",
-      "Madagascar vanilla bean"
+      "Free-range eggs",
+      "Madagascar vanilla bean",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",
@@ -99,11 +106,13 @@
     "price": "5.00",
     "ingredients": [
       "House-made liquid caramel",
-      "Vanilla bean dough",
       "European brown butter",
       "Organic wheat flour",
       "Demerara sugar",
-      "Flaky sea salt"
+      "Free-range eggs",
+      "Madagascar vanilla bean",
+      "Flaky sea salt",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",
@@ -125,7 +134,9 @@
       "European brown butter",
       "Organic wheat flour",
       "Muscovado sugar",
-      "Madagascar vanilla bean"
+      "Free-range eggs",
+      "Madagascar vanilla bean",
+      "Baking soda"
     ],
     "allergens": [
       "Dairy",

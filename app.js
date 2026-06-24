@@ -403,8 +403,8 @@ if (heroCookie) {
     if (!el) return;
 
     function getNextFridayNoon() {
-        const now = new Date();
-        const target = new Date(now);
+        var now = new Date();
+        var target = new Date(now);
         target.setDate(target.getDate() + ((5 - target.getDay() + 7) % 7));
         target.setHours(12, 0, 0, 0);
         if (target <= now) target.setDate(target.getDate() + 7);
@@ -412,10 +412,15 @@ if (heroCookie) {
     }
 
     function update() {
-        const diff = getNextFridayNoon() - new Date();
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
+        var now = new Date();
+        var target = getNextFridayNoon();
+        var diff = target - now;
+        // Calendar-day difference (not 24hr buckets) so "tomorrow" means the next calendar day
+        var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var targetMid = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+        var d = Math.round((targetMid - nowMid) / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
 
         if (d === 0 && h === 0) {
             el.textContent = `in ${m} min`;
@@ -1213,6 +1218,14 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     updateYear();
 })();
 
+// ── Bench Sheet month updater ──────────────
+(function() {
+    var el = document.getElementById('benchSheetMonth');
+    if (el) {
+        var m = new Date().getMonth() + 1;
+        el.textContent = (m < 10 ? '0' : '') + m;
+    }
+})();
 
 // ── Re-bind after data-loader renders ────────
 window.addEventListener('data-ready', function() {
