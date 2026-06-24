@@ -8,6 +8,9 @@
     --vanilla: #FDF3E7;
     --soft:    #E8D9C6;
     --mocha:   #5C3D2E;
+    --font-display: "Cormorant Garamond", serif;
+    --font-body: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,7 +20,7 @@ html { scroll-behavior: smooth; }
 
 body::before{content:"";position:fixed;inset:0;opacity:0.015;pointer-events:none;z-index:-1;background-image:radial-gradient(circle,var(--ink) 1px,transparent 1px);background-size:24px 24px;}
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-body);
     background: var(--bg);
     color: var(--ink);
     line-height: 1.6;
@@ -40,7 +43,7 @@ body {
     display: flex; align-items: center; justify-content: space-between; height: 64px;
 }
 .nav-logo {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-display);
     font-size: 1.5rem; font-weight: 900; color: var(--ink);
     text-decoration: none; letter-spacing: -0.02em;
     display: flex; align-items: center; gap: 0.5rem;
@@ -100,7 +103,7 @@ body {
 }
 .mobile-menu.open { opacity: 1; pointer-events: auto; }
 .mobile-menu a {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-display);
     font-size: 1.75rem; color: var(--ink); text-decoration: none;
     font-weight: 700; transition: color 0.2s;
 }
@@ -142,7 +145,7 @@ body {
 
 /* ── BATCH NUMBER ────────────────────────── */
 .batch-banner .batch-num {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-display);
     font-weight: 700; color: var(--honey); font-size: 0.9375rem;
 }
 .scroll-indicator {
