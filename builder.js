@@ -43,7 +43,26 @@
         }
         cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
         builderCount.textContent = count;
-        if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!'); setTimeout(function() { window._celebrated = false; }, 5000); }
+        if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!');
+            // Confetti burst
+            var colors = ['#E8A850','#D4954B','#C8853E','#F5D5A0','#B84444','#5BBA63','#8B6F5C'];
+            for (var ci = 0; ci < 30; ci++) {
+                var conf = document.createElement('div');
+                conf.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;' +
+                    'width:' + (4+Math.random()*8) + 'px;height:' + (4+Math.random()*8) + 'px;' +
+                    'background:' + colors[Math.floor(Math.random()*colors.length)] + ';' +
+                    'border-radius:' + (Math.random()>0.5?'50%':'2px') + ';' +
+                    'left:50%;top:40%;' +
+                    'transition: all ' + (1+Math.random()*1.5) + 's cubic-bezier(0.25,0,0.35,1);' +
+                    'opacity:1;';
+                document.body.appendChild(conf);
+                requestAnimationFrame(function(c) { return function() {
+                    c.style.transform = 'translate(' + ((Math.random()-0.5)*400) + 'px,' + (Math.random()*300+100) + 'px) rotate(' + (Math.random()*720) + 'deg)';
+                    c.style.opacity = '0';
+                };}(conf));
+                setTimeout(function(c) { return function() { if (c.parentNode) c.remove(); }; }(conf), 2000);
+            }
+            setTimeout(function() { window._celebrated = false; }, 5000); }
 
     // Sync with order form cart summary
     var orderSummary = document.getElementById('orderCartSummary');
