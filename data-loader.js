@@ -74,25 +74,60 @@
         // Use template-specific loading skeleton
         var loadingKey = 'loading-' + tpl;
         el.innerHTML = templates[loadingKey] || templates['loading'];
-        // Fetch with timeout
-        var controller = new AbortController();
-        var timeout = setTimeout(function() { controller.abort(); }, 15000);
-        fetch(src, {cache: 'no-cache', signal: controller.signal}).then(function(res) {
-            clearTimeout(timeout);
-            if (!res.ok) throw new Error('HTTP '+res.status);
-            return res.json();
-        }).then(function(data) {
+
+        function render(data) {
             var items = section ? data[section] : data;
             if (!Array.isArray(items)) items = [items];
             el.innerHTML = items.map(function(item) {
                 return templates[tpl](item, section==='past');
             }).join('');
             if (cb) cb();
-        }).catch(function(err) {
+        }
+
+        function onError(err) {
             console.warn('Data load failed: '+src, err);
-            el.innerHTML = templates['error'];
+            var isFileProtocol = window.location.protocol === 'file:';
+            var msg = isFileProtocol
+                ? '<p>Local preview: start a server for full experience.<br><code style="font-size:0.8rem;background:var(--vanilla);padding:0.25rem 0.5rem;border-radius:4px">python3 -m http.server 8080</code></p>'
+                : '<p>Could not load content. <button onclick="location.reload()" style="background:none;border:none;color:var(--gold);cursor:pointer;text-decoration:underline;font:inherit">Try again</button></p>';
+            el.innerHTML = '<div class="load-error" role="alert">' + msg + '</div>';
             if (cb) cb();
-        });
+        }
+
+        function tryFetch() {
+            var controller = new AbortController();
+            var timeout = setTimeout(function() { controller.abort(); }, 15000);
+            fetch(src, {cache: 'no-cache', signal: controller.signal}).then(function(res) {
+                clearTimeout(timeout);
+                if (!res.ok) throw new Error('HTTP '+res.status);
+                return res.json();
+            }).then(render).catch(function(err) {
+                clearTimeout(timeout);
+                // On file:// protocol, try XHR fallback
+                if (window.location.protocol === 'file:') {
+                    tryXHR();
+                } else {
+                    onError(err);
+                }
+            });
+        }
+
+        function tryXHR() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', src, true);
+            xhr.overrideMimeType('application/json');
+            xhr.onload = function() {
+                if (xhr.status === 200 || xhr.status === 0) {
+                    try { render(JSON.parse(xhr.responseText)); } catch(e) { onError(e); }
+                } else {
+                    onError(new Error('XHR status '+xhr.status));
+                }
+            };
+            xhr.onerror = function() { onError(new Error('XHR failed')); };
+            xhr.send();
+        }
+
+        tryFetch();
     }
 
     function init() {
