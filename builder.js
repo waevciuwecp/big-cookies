@@ -103,6 +103,15 @@
     picker.addEventListener('click', function(e) {
         var btn = e.target.closest('.qty-btn');
         if (!btn) return;
+        // Ripple effect
+        var ripple = document.createElement('span');
+        ripple.className = 'qty-ripple';
+        var rect = btn.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left - 10) + 'px';
+        ripple.style.top = (e.clientY - rect.top - 10) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function() { if (ripple.parentNode) ripple.remove(); }, 500);
+
         var item = btn.closest('.builder-item');
         var id = item.dataset.id;
         var name = item.dataset.name;

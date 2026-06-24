@@ -23,7 +23,11 @@
             var allergens = item.allergens.map(function(a) { return '<span class="allergen-tag">' + a + '</span>'; }).join('');
             var iconSrc = item.icon || ('svg/cookies/' + item.id + '.svg');
             var steamHTML = item.id === 'double' ? '<div class="steam-container"><div class="steam-wisp-card s1"></div><div class="steam-wisp-card s2"></div></div>' : '';
-            return '<div class="product-card"><div class="product-card-inner"><div class="product-card-front"><div class="cookie-icon"><img src="' + iconSrc + '" alt="' + item.name + '" width="56" height="56" loading="lazy"></div>' + steamHTML + '<h3 class="product-name">' + item.name + '</h3><p class="product-desc">' + item.desc + '</p><div class="product-footer"><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span>' + tags + '</div></div><div class="product-card-back"><h3 class="product-name">What\'s Inside</h3><ul class="ingredients-list">' + ingredients + '</ul><div class="allergen-tags">' + allergens + '</div><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span></div></div></div>';
+            // Cookie of the Day: deterministic daily pick
+            var today = new Date(); var doy = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
+            var dailyPick = item.id === window._productIds[doy % window._productIds.length];
+            var pickBadge = dailyPick ? '<span class="daily-pick-badge">Today\'s Pick — $' + (parseFloat(item.price) - 0.50).toFixed(2) + '</span>' : '';
+            return '<div class="product-card' + (dailyPick ? ' daily-pick' : '') + '"><div class="product-card-inner"><div class="product-card-front"><div class="cookie-icon"><img src="' + iconSrc + '" alt="' + item.name + '" width="56" height="56" loading="lazy"></div>' + steamHTML + '<h3 class="product-name">' + item.name + '</h3><p class="product-desc">' + item.desc + '</p><div class="product-footer"><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span>' + tags + '</div>' + pickBadge + '</div><div class="product-card-back"><h3 class="product-name">What\'s Inside</h3><ul class="ingredients-list">' + ingredients + '</ul><div class="allergen-tags">' + allergens + '</div><span class="product-price">$' + parseFloat(item.price).toFixed(2) + '</span></div></div></div>';
         },
         'testimonial-slide': function(item) {
             var stars = '';
@@ -131,6 +135,8 @@
     }
 
     function init() {
+        // Cookie of the Day: product IDs for daily pick rotation
+        window._productIds = ['classic','double','toffee','raspberry','caramel','matcha'];
         var els = document.querySelectorAll('[data-load]');
         var pending = els.length;
         if (pending === 0) { window.dispatchEvent(new CustomEvent('data-ready')); return; }

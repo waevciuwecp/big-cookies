@@ -331,6 +331,13 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem; font-weight: 700; color: var(--gold);
 }
+.daily-pick-badge {
+    display: inline-block; font-size: 0.75rem; font-weight: 600;
+    color: #fff; background: var(--gold);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-top: 0.5rem; animation: tagPulse 2s ease-in-out infinite;
+}
+.product-card.daily-pick { border: 2px solid var(--gold); }
 .product-tag{animation:tagPulse 2.5s ease-in-out infinite, tagWiggle 4s ease-in-out infinite;
     font-size: 0.75rem; font-weight: 600; color: var(--jam);
     background: #FEF0F0; padding: 0.25rem 0.75rem 0.25rem 1.5rem; border-radius: 100px;
@@ -1239,3 +1246,15 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 /* ── PERFORMANCE ───────────────────────────── */
 section { content-visibility: auto; contain-intrinsic-size: 500px; }
 .hero, #products, #site-nav, #site-footer { content-visibility: visible; }
+
+/* ── CART RIPPLE ───────────────────────────── */
+@keyframes btnRipple {
+    0% { transform: scale(0); opacity: 0.6; }
+    100% { transform: scale(4); opacity: 0; }
+}
+.qty-btn { position: relative; overflow: hidden; }
+.qty-ripple {
+    position: absolute; width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(200,133,62,0.3); pointer-events: none;
+    animation: btnRipple 0.5s ease-out forwards;
+}
