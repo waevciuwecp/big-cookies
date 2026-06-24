@@ -139,5 +139,62 @@
 <script src="nav.js"></script>
 <script src="data-loader.js"></script>
 <script src="app.js"></script>
+<script>
+// ── Kitchen story expand (inline, self-contained) ──
+(function(){
+  // Fetch the story data directly (same JSON loaded by data-loader)
+  fetch('data/kitchen-stories.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(data){
+    // Flatten all chapters into a single id→story lookup
+    var stories = {};
+    for(var ch in data){
+      data[ch].forEach(function(card){
+        if(card.id && card.story) stories[card.id] = card;
+      });
+    }
+    // Open story modal
+    function openStory(card){
+      var sid = card.getAttribute('data-story-id');
+      if(!sid) return;
+      var s = stories[sid];
+      if(!s) return;
+      var backdrop = document.createElement('div');
+      backdrop.className = 'story-backdrop';
+      var modal = document.createElement('div');
+      modal.className = 'story-modal';
+      modal.setAttribute('role','dialog');
+      modal.setAttribute('aria-label',s.title);
+      modal.innerHTML = '<div class="story-modal-header"><button class="story-modal-close" aria-label="Close story">&times;</button><img class="story-modal-icon" src="'+s.icon+'" alt="" aria-hidden="true"></div><div class="story-modal-body"><h3>'+s.title+'</h3><p>'+s.story+'</p></div>';
+      document.body.appendChild(backdrop);
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+      function close(){
+        backdrop.remove();modal.remove();document.body.style.overflow='';
+        document.removeEventListener('keydown',onKey);
+      }
+      function onKey(e){if(e.key==='Escape')close();}
+      backdrop.addEventListener('click',close);
+      modal.querySelector('.story-modal-close').addEventListener('click',close);
+      document.addEventListener('keydown',onKey);
+      modal.querySelector('.story-modal-close').focus();
+    }
+    // Click delegation on document
+    document.addEventListener('click',function(e){
+      if(document.querySelector('.story-backdrop')) return;
+      var card = e.target.closest('.polaroid');
+      if(!card || !card.hasAttribute('data-story-id')) return;
+      e.preventDefault();
+      openStory(card);
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Enter'&&e.key!==' ') return;
+      if(document.querySelector('.story-backdrop')) return;
+      var card = e.target.closest('.polaroid');
+      if(!card || !card.hasAttribute('data-story-id')) return;
+      e.preventDefault();
+      openStory(card);
+    });
+  }).catch(function(e){console.warn('Kitchen stories load failed',e);});
+})();
+</script>
 </body>
 </html>

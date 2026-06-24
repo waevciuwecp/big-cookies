@@ -296,11 +296,68 @@
                     <span class="quiz-step" data-step="2"></span>
                     <span class="quiz-step" data-step="3"></span>
                 </div>
-                <div class="quiz-body" id="quizBody"><p style="text-align:center;color:#8B6F5C;padding:2rem">Loading quiz…</p></div>
+                <div class="quiz-body" id="quizBody"></div>
             </div>
         </div>
     </div>
 </section>
+<script>
+// ── Cookie Quiz (inline, self-contained) ──
+(function(){
+var qBody = document.getElementById('quizBody');
+if(!qBody) return;
+var Q = [
+  {q:"What's your ideal afternoon?",o:[
+    {t:'Curled up with a book and a blanket',s:{classic:3,matcha:2,caramel:1}},
+    {t:'Hiking a trail with friends',s:{toffee:3,raspberry:2,double:1}},
+    {t:'Trying a new restaurant across town',s:{raspberry:3,matcha:2,caramel:1}},
+    {t:'Baking something from scratch',s:{double:3,classic:2,toffee:1}}
+  ]},
+  {q:"Pick a drink to go with it.",o:[
+    {t:'Black coffee, no sugar',s:{double:3,classic:2,toffee:1}},
+    {t:'Oat milk latte with a dash of cinnamon',s:{caramel:3,matcha:2,classic:1}},
+    {t:'Earl Grey tea with honey',s:{matcha:3,raspberry:2,caramel:1}},
+    {t:'Sparkling water with lemon',s:{raspberry:3,toffee:2,double:1}}
+  ]},
+  {q:"What do your friends say about you?",o:[
+    {t:'"The reliable one — you always show up"',s:{classic:3,caramel:2,toffee:1}},
+    {t:'"You\'re a little extra. In the best way."',s:{double:3,raspberry:2,matcha:1}},
+    {t:'"I never know what you\'re going to do next"',s:{toffee:3,matcha:2,raspberry:1}},
+    {t:'"You make everything feel special"',s:{caramel:3,classic:2,double:1}}
+  ]}
+];
+var R = {
+  classic:{n:'Classic Chocolate Chip',d:'You\'re timeless, dependable, and everyone\'s first call. You don\'t need to be flashy — your quality speaks for itself.',icon:'svg/cookies/classic.svg'},
+  double:{n:'Double Chocolate',d:'You go all in. Moderation isn\'t in your vocabulary and honestly? It\'s working. You\'re intense in the best way.',icon:'svg/cookies/double.svg'},
+  toffee:{n:'Toffee Crunch',d:'You\'ve got layers. People think they\'ve figured you out, then you surprise them. Complex, a little unexpected.',icon:'svg/cookies/toffee.svg'},
+  raspberry:{n:'Raspberry Dark Chocolate',d:'You\'re the creative one. You see combinations others miss and you\'re not afraid to try something different.',icon:'svg/cookies/raspberry.svg'},
+  caramel:{n:'Salted Caramel',d:'You\'ve mastered the balance everyone else is still chasing. Warm, sophisticated, with just enough edge.',icon:'svg/cookies/caramel.svg'},
+  matcha:{n:'Matcha White Chocolate',d:'You\'re refined, a little unexpected. People who get you REALLY get you. An acquired taste worth acquiring.',icon:'svg/cookies/matcha.svg'}
+};
+var scores={},cur=0,steps=document.querySelectorAll('.quiz-step');
+function reset(){scores={classic:0,double:0,toffee:0,raspberry:0,caramel:0,matcha:0};cur=0;steps.forEach(function(s){s.classList.remove('active','done')});if(steps[0])steps[0].classList.add('active')}
+function showQ(){
+  var q=Q[cur],h='<h3>'+q.q+'</h3><div class="quiz-options">';
+  q.o.forEach(function(o,i){h+='<button class="quiz-option" data-i="'+i+'">'+o.t+'</button>'});
+  h+='</div>';qBody.innerHTML=h;
+  qBody.querySelectorAll('.quiz-option').forEach(function(b){b.onclick=function(){
+    var sc=q.o[parseInt(this.getAttribute('data-i'))].s;
+    for(var k in sc)scores[k]=(scores[k]||0)+sc[k];
+    if(steps[cur])steps[cur].classList.add('done');cur++;
+    if(cur<Q.length){if(steps[cur])steps[cur].classList.add('active');showQ()}
+    else showR();
+  }});
+}
+function showR(){
+  var best=null,bs=0;
+  for(var k in scores){if(scores[k]>bs){bs=scores[k];best=k}}
+  var r=R[best]||R['classic'];
+  qBody.innerHTML='<div class="quiz-result"><div class="quiz-result-icon"><img src="'+r.icon+'" alt="" width="80" height="80" style="border-radius:50%"></div><div class="quiz-match">Your soul cookie is</div><h3>'+r.n+'</h3><p>'+r.d+'</p><a href="#build" class="btn btn-primary">Build a Box with '+r.n.split(' ')[0]+'</a><br><button class="quiz-retry" id="quizRetry">Take the quiz again →</button></div>';
+  document.getElementById('quizRetry').onclick=function(){reset();showQ()};
+}
+reset();showQ();
+})();
+</script>
 
   <!-- KITCHEN TEASER -->
 <section id="gallery">
