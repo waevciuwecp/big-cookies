@@ -94,6 +94,14 @@
         window.dispatchEvent(new CustomEvent('cart-update', {detail: {count: count}}));
         var oldTotal = builderTotal.textContent;
         var newTotal = '$' + total.toFixed(2);
+        // Update per-cookie average
+        var avgEl = document.getElementById('builderAvg');
+        if (avgEl && count > 0) {
+            avgEl.textContent = '$' + (total / count).toFixed(2) + '/cookie';
+            avgEl.style.display = '';
+        } else if (avgEl) {
+            avgEl.style.display = 'none';
+        }
         if (oldTotal !== newTotal && count > 0) {
             builderTotal.textContent = newTotal;
             builderTotal.classList.remove('pulse');
