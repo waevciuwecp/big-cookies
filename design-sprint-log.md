@@ -35,3 +35,7 @@
 - Round 9
   2026-06-24 13:34:03 CST
   Added an honor-roll summary board to the awards page so the recognition reads like a curated story, not just a count and list.
+
+- Round 10
+  2026-06-24 13:36:57 CST
+  Upgraded the shared footer into a stronger studio sign-off with a Portland bench note and service board, so the whole site lands with more identity.

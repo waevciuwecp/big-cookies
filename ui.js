@@ -29,7 +29,10 @@
 
     // ── Shared footer ──
     const footerHTML =
-    '<footer class="footer"><div class="footer-grid">' +
+    '<footer class="footer"><div class="footer-topline">' +
+    '<div class="footer-studio-note"><span class="footer-kicker">From The Portland Bench</span><h3>Slow dough, warm boxes, no shortcuts worth hiding.</h3><p>Big Cookies is still run like a small bakery with a loud set of standards. Every page on this site leads back to the same kitchen.</p></div>' +
+    '<div class="footer-service-board"><div class="footer-service-chip"><span>Dispatch rhythm</span><strong>Fresh batches every Friday</strong></div><div class="footer-service-chip"><span>Visit window</span><strong>Open Day every third Saturday</strong></div><div class="footer-service-chip"><span>Write to us</span><strong>Real replies, usually same day</strong></div></div>' +
+    '</div><div class="footer-grid">' +
     '<div class="footer-col"><h4>Shop</h4><ul><li><a href="/#products">Our Cookies</a></li><li><a href="/#gifts">Gift Boxes</a></li><li><a href="/#build">Build a Box</a></li><li><a href="/#order">Order Now</a></li><li><a href="kitchen.html">The Kitchen</a></li><li><a href="archive.html">Product Archive</a></li></ul></div>' +
     '<div class="footer-col"><h4>About</h4><ul><li><a href="about.html">About Us</a></li><li><a href="/#philosophy">Philosophy</a></li><li><a href="/#gallery">Our Kitchen</a></li><li><a href="faculty.html">Our Faculty</a></li><li><a href="awards.html">Awards</a></li><li><a href="news.html">News</a></li><li><a href="factory.html">Open Day</a></li><li><a href="faq.html">FAQ</a></li><li><a href="mailto:hello@big-cookies.yaoyy.moe">Contact</a></li></ul></div>' +
     '<div class="footer-col"><h4>Big Cookies</h4><ul><li><a href="#" onclick="document.getElementById(\'newsletterForm\')&&document.getElementById(\'newsletterForm\').querySelector(\'input\').focus();return false">Newsletter</a></li><li><a href="/#how">How It Works</a></li><li style="margin-top:0.5rem;color:#8B6F5C;font-size:0.6875rem">@bigcookies on Instagram</li><li style="margin-top:0.75rem;color:#C8853E;font-size:0.6875rem;font-style:italic;line-height:1.5;max-width:180px" id="bakingTip"></li></ul></div>' +
