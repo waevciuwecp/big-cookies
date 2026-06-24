@@ -118,7 +118,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
                 });
                 button.setAttribute('aria-selected', 'true');
                 var selected = items.find(function(item) { return item.id === button.getAttribute('data-id'); });
-                if (selected) renderPanel(selected);
+                if (selected) { renderPanel(selected); atlasSparkle(); }
             });
         });
     }
@@ -136,6 +136,35 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         .catch(function() {
             panel.innerHTML = '<p class="atlas-loading">Open the site through a local server or production host to load the tasting board.</p>';
         });
+
+    // Atlas sparkle burst on cookie switch
+    function atlasSparkle() {
+        var panel = document.getElementById('atlasPanel');
+        if (!panel) return;
+        var rect = panel.getBoundingClientRect();
+        var colors = ['#E8A850','#FFD700','#F5D5A0','#C8853E','#FFF5E9'];
+        var fragment = document.createDocumentFragment();
+        for (var i = 0; i < 14; i++) {
+            var spark = document.createElement('span');
+            var angle = Math.random() * Math.PI * 2;
+            var dist = 30 + Math.random() * 70;
+            var dx = Math.cos(angle) * dist;
+            var dy = Math.sin(angle) * dist - 20;
+            spark.style.cssText =
+                'position:fixed;z-index:500;pointer-events:none;' +
+                'left:' + (rect.left + rect.width/2) + 'px;top:' + (rect.top + rect.height/3) + 'px;' +
+                'width:' + (3 + Math.random() * 5) + 'px;height:' + (3 + Math.random() * 5) + 'px;' +
+                'background:' + colors[Math.floor(Math.random()*colors.length)] + ';' +
+                'border-radius:50%;' +
+                'animation: atlasSparkleAnim ' + (0.5 + Math.random()*0.6) + 's ease-out forwards;' +
+                '--dx:' + dx + 'px;--dy:' + dy + 'px;';
+            fragment.appendChild(spark);
+        }
+        document.body.appendChild(fragment);
+        setTimeout(function() {
+            document.querySelectorAll('[style*="atlasSparkleAnim"]').forEach(function(s) { s.remove(); });
+        }, 1300);
+    }
 })();
 
 
@@ -911,8 +940,39 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     ];
     var el = document.getElementById('bakingTip');
     if (!el) return;
-    var idx = new Date().getDate() % tips.length;
-    el.textContent = '💡 ' + tips[idx];
+    var tipIdx = new Date().getDate() % tips.length;
+    var charIdx = 0;
+    var currentTip = '';
+    var typeTimer;
+
+    function typeNextChar() {
+        if (charIdx === 0) {
+            currentTip = '💡 ' + tips[tipIdx];
+            el.textContent = '💡 ';
+        }
+        if (charIdx < currentTip.length) {
+            el.textContent = currentTip.substring(0, charIdx + 1);
+            charIdx++;
+            typeTimer = setTimeout(typeNextChar, 25 + Math.random() * 30);
+        } else {
+            // Pause after typing, then erase and go to next
+            typeTimer = setTimeout(eraseTip, 4000);
+        }
+    }
+
+    function eraseTip() {
+        if (charIdx > 2) { // keep the 💡
+            charIdx--;
+            el.textContent = currentTip.substring(0, charIdx);
+            typeTimer = setTimeout(eraseTip, 12 + Math.random() * 15);
+        } else {
+            tipIdx = (tipIdx + 1) % tips.length;
+            charIdx = 0;
+            typeTimer = setTimeout(typeNextChar, 500);
+        }
+    }
+
+    typeTimer = setTimeout(typeNextChar, 2000);
 })();
 
 // ── Theme toggle ──────────────────────────
