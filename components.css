@@ -563,6 +563,12 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .step { text-align: center; padding: 2.5rem 1.5rem; }
 .step:hover { transform: translateY(-4px); transition: transform 0.3s; }
 .step:hover .step-num { transform: scale(1.15); box-shadow: 0 0 24px rgba(200,133,62,0.4); transition: transform 0.3s, box-shadow 0.3s; }
+.step.revealed .step-num { animation: stepReveal 0.6s ease both; }
+@keyframes stepReveal {
+    0% { transform: scale(0); box-shadow: 0 0 0 0 rgba(200,133,62,0.6); }
+    60% { transform: scale(1.2); box-shadow: 0 0 24px rgba(200,133,62,0.4); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(200,133,62,0); }
+}
 .step-num {
     width: 48px; height: 48px; border-radius: 50%;
     background: var(--gold); color: #fff;
@@ -1276,3 +1282,5 @@ section { content-visibility: auto; contain-intrinsic-size: 500px; }
 .pdx-seal:hover { color: #4CAF50; }
 
 .product-origin{font-size:0.75rem;color:#8B6F5C;font-style:italic;line-height:1.5;margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid var(--soft);}
+
+.faculty-quote{font-size:0.8125rem;color:#C8853E;font-style:italic;line-height:1.5;margin-top:0.25rem;}
