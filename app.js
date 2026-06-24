@@ -1163,6 +1163,92 @@ window.addEventListener('data-ready', function() {
 })();
 
 // ═══════════════════════════════════════════
+// ⌨ KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════
+(function() {
+    var panel = null;
+
+    function showShortcuts() {
+        if (panel) return;
+        var backdrop = document.createElement('div');
+        backdrop.className = 'shortcuts-backdrop';
+        var content = document.createElement('div');
+        content.className = 'shortcuts-panel';
+        content.setAttribute('role', 'dialog');
+        content.setAttribute('aria-label', 'Keyboard shortcuts');
+        content.innerHTML =
+            '<h3>Keyboard Shortcuts</h3>' +
+            '<div class="shortcuts-grid">' +
+                '<kbd>?</kbd><span>Show / hide this panel</span>' +
+                '<kbd>R</kbd><span>Cookie rain</span>' +
+                '<kbd>T</kbd><span>Toggle dark mode</span>' +
+                '<kbd>B</kbd><span>Jump to Build a Box</span>' +
+                '<kbd>H</kbd><span>Go to homepage</span>' +
+                '<kbd>1–6</kbd><span>Jump to sections</span>' +
+                '<kbd>Esc</kbd><span>Close modals / menus</span>' +
+                '<kbd>↑↑↓↓←→←→BA</kbd><span>Secret menu</span>' +
+            '</div>' +
+            '<p class="shortcuts-hint">Press <kbd>?</kbd> again or click outside to close</p>';
+        backdrop.appendChild(content);
+        document.body.appendChild(backdrop);
+        document.body.style.overflow = 'hidden';
+        panel = backdrop;
+
+        function close() {
+            if (!panel) return;
+            backdrop.classList.add('closing');
+            content.classList.add('closing');
+            setTimeout(function() {
+                if (panel) panel.remove();
+                panel = null;
+                document.body.style.overflow = '';
+                document.removeEventListener('keydown', onKey);
+            }, 200);
+        }
+        function onKey(e) {
+            if (e.key === 'Escape' || e.key === '?') { close(); e.preventDefault(); }
+        }
+        backdrop.addEventListener('click', function(e) { if (e.target === backdrop) close(); });
+        document.addEventListener('keydown', onKey);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        if (e.key === '?' && !e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            if (panel) { panel.click(); } else { showShortcuts(); }
+        }
+        // Quick nav shortcuts
+        if (e.key === 'b' && !e.metaKey && !e.ctrlKey) {
+            var build = document.getElementById('build');
+            if (build) { build.scrollIntoView({behavior:'smooth'}); showToast('Jumped to Build a Box', '📦'); }
+        }
+        if (e.key === 'h' && !e.metaKey && !e.ctrlKey) {
+            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
+                window.location.href = '/';
+            } else {
+                window.scrollTo({top:0, behavior:'smooth'});
+                showToast('Home sweet home', '🏠');
+            }
+        }
+        if (e.key === 't' && !e.metaKey && !e.ctrlKey) {
+            var html = document.documentElement;
+            var isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            showToast(isDark ? '☀️ Light mode' : '🌙 Dark mode');
+        }
+        // Number keys jump to sections
+        if (e.key >= '1' && e.key <= '6' && !e.metaKey && !e.ctrlKey) {
+            var sections = ['hero','products','gifts','build','philosophy','how'];
+            var idx = parseInt(e.key) - 1;
+            var sec = document.getElementById(sections[idx]);
+            if (sec) { sec.scrollIntoView({behavior:'smooth'}); showToast('Section ' + e.key, '📍'); }
+        }
+    });
+})();
+
+// ═══════════════════════════════════════════
 // 🥠 EASTER EGGS
 // ═══════════════════════════════════════════
 
