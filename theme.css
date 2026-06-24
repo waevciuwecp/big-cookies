@@ -121,6 +121,15 @@
 }
 @keyframes tagWiggle{0%,100%{transform:rotate(0)}2%{transform:rotate(1.5deg)}4%{transform:rotate(-1.5deg)}6%{transform:rotate(0.5deg)}8%{transform:rotate(0)}}@keyframes tagPulse{0%,100%{opacity:1}50%{opacity:0.7}}.gift-savings{display:inline-block;font-size:0.6875rem;font-weight:600;color:#3A8C3F;background:#EDF7EE;padding:0.2rem 0.625rem;border-radius:100px;margin-top:0.5rem;}
 
+
+/* ── PAGE ENTRANCE ─────────────────────────── */
+@keyframes pageIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+main { animation: pageIn 0.5s ease both; }
+@media (prefers-reduced-motion: reduce) { main { animation: none; } }
+
 /* ── DARK MODE ───────────────────────────── */
 /* Smooth theme transition */
 html { transition: background-color 0.35s ease, color 0.35s ease; }
