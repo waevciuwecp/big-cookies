@@ -474,9 +474,10 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     perspective: 800px;
     background: transparent; border-radius: 1.25rem;
     overflow: visible;
+    box-sizing: border-box;
 }
 .product-card-inner {
-    position: relative; width: 100%; min-height: 340px;
+    position: relative; width: 100%; min-height: 400px;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
 }
@@ -512,17 +513,19 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 }
 .product-card-back {
     transform: rotateY(180deg);
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column; justify-content: flex-start;
     background: linear-gradient(135deg, #FFF9F2 0%, #F5EDE3 100%);
     border: 1px solid var(--soft);
     box-shadow: inset 0 2px 12px rgba(0,0,0,0.04);
+    gap: 0.75rem;
+    overflow: auto;
 }
 .product-card-back .product-name {
     font-family: var(--font-display);
-    font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 0;
 }
 .ingredients-list {
-    list-style: none; padding: 0; flex: 1;
+    list-style: none; padding: 0; margin: 0; flex: 1;
 }
 .ingredients-list li {
     font-size: 0.8125rem; color: #5C4234; padding: 0.3rem 0;
@@ -533,12 +536,6 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     content: ''; width: 5px; height: 5px; border-radius: 50%;
     background: var(--gold); flex-shrink: 0;
 }
-.product-card-back .product-price {
-    font-family: var(--font-display);
-    font-size: 1.25rem; font-weight: 700; color: var(--gold);
-    margin-top: 0.5rem;
-}
-
 .front-only .product-name,
 .front-only .product-desc,
 .front-only .product-footer {
@@ -565,7 +562,26 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     padding: 0.25rem 0.75rem; border-radius: 100px;
     margin-top: 0.5rem; animation: tagPulse 2s ease-in-out infinite;
 }
-.product-card.daily-pick { border: 2px solid var(--gold); }
+.product-card.daily-pick {
+    border-radius: 1.5rem;
+}
+.product-card.daily-pick .product-card-inner {
+    min-height: 400px;
+}
+.product-card.daily-pick .product-card-front,
+.product-card.daily-pick .product-card-back {
+    inset: 0.45rem;
+    border-radius: 1rem;
+}
+.product-card.daily-pick::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--gold);
+    border-radius: 1.5rem;
+    background: rgba(200,133,62,0.05);
+    pointer-events: none;
+}
 .product-tag{animation:tagPulse 2.5s ease-in-out infinite, tagWiggle 4s ease-in-out infinite;
     font-size: 0.75rem; font-weight: 600; color: var(--jam);
     background: #FEF0F0; padding: 0.25rem 0.75rem 0.25rem 1.5rem; border-radius: 100px;
@@ -2380,6 +2396,6 @@ section { content-visibility: auto; contain-intrinsic-size: 500px; }
 }
 .pdx-seal:hover { color: #4CAF50; }
 
-.product-origin{font-size:0.75rem;color:#8B6F5C;font-style:italic;line-height:1.5;margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid var(--soft);}
+.product-origin{font-size:0.75rem;color:#8B6F5C;font-style:italic;line-height:1.5;margin:0;padding-top:0.65rem;border-top:1px solid var(--soft);}
 
 .faculty-quote{font-size:0.8125rem;color:#C8853E;font-style:italic;line-height:1.5;margin-top:0.25rem;}
