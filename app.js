@@ -1,4 +1,15 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
+// ── Console easter egg ─────────────────────
+console.log(
+    '%c🥠 %cBig Cookies%c — Artisan Cookies, Baked Fresh Daily\n' +
+    '%cHandcrafted in small batches. European butter, single-origin chocolate, 48-hour cold fermentation.\n' +
+    '%cPoke around the source — there are secrets in the dough.',
+    'font-size:1.4em;',
+    'font-family:serif;font-size:2em;font-weight:900;color:#C8853E;',
+    '',
+    'color:#8B6F5C;font-style:italic;',
+    'color:#C8853E;font-size:0.8em;'
+);
 
 // Check reduced-motion preference once
 var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1131,4 +1142,124 @@ window.addEventListener('data-ready', function() {
         resetQuiz();
         showQuestion();
     }, 0);
+})();
+
+// ═══════════════════════════════════════════
+// 🥠 EASTER EGGS
+// ═══════════════════════════════════════════
+
+// ── Konami Code → Secret Cookie ────────────
+(function() {
+    var KONAMI = [38,38,40,40,37,39,37,39,66,65]; // ↑↑↓↓←→←→BA
+    var pos = 0;
+    var unlocked = false;
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        if (e.keyCode === KONAMI[pos]) {
+            pos++;
+            if (pos === KONAMI.length) {
+                pos = 0;
+                if (unlocked) return;
+                unlocked = true;
+                unlockSecretCookie();
+            }
+        } else {
+            pos = 0;
+        }
+    });
+
+    function unlockSecretCookie() {
+        var picker = document.getElementById('builderPicker');
+        if (!picker) return;
+
+        var secret = document.createElement('div');
+        secret.className = 'builder-item konami-cookie';
+        secret.setAttribute('tabindex', '0');
+        secret.dataset.id = 'secret';
+        secret.dataset.name = 'The Golden Crumb';
+        secret.dataset.emoji = 'secret';
+        secret.dataset.price = '9.99';
+        secret.innerHTML =
+            '<span style="width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#FFD700,#C8853E);box-shadow:0 0 16px rgba(255,215,0,0.5);">👑</span>' +
+            '<span class="builder-item-name">Golden Crumb</span>' +
+            '<span class="builder-item-price">$9.99</span>' +
+            '<div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>';
+        picker.appendChild(secret);
+
+        // Flash the picker
+        picker.style.transition = 'box-shadow 0.6s ease';
+        picker.style.boxShadow = '0 0 60px rgba(255,215,0,0.5), 0 0 120px rgba(200,133,62,0.3)';
+        setTimeout(function() { picker.style.boxShadow = ''; }, 1500);
+
+        showToast('👑 Secret menu unlocked! The Golden Crumb has joined the tray.', '🥠');
+    }
+})();
+
+// ── Cookie Rain (press 'R') ────────────────
+(function() {
+    var raining = false;
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        if (e.key === 'r' && !e.metaKey && !e.ctrlKey && !raining) {
+            raining = true;
+            cookieRain();
+            setTimeout(function() { raining = false; }, 4000);
+        }
+    });
+
+    function cookieRain() {
+        var emojis = ['🍪','🥠','🍫','🧈','✨','🍩'];
+        var count = 40;
+        var fragment = document.createDocumentFragment();
+
+        for (var i = 0; i < count; i++) {
+            var drop = document.createElement('span');
+            drop.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            drop.style.cssText =
+                'position:fixed;z-index:9990;pointer-events:none;' +
+                'font-size:' + (1 + Math.random() * 2.5) + 'rem;' +
+                'left:' + (Math.random() * 96) + 'vw;' +
+                'top:' + (-10 - Math.random() * 20) + 'vh;' +
+                'opacity:' + (0.5 + Math.random() * 0.5) + ';' +
+                'animation: cookieDrop ' + (1.5 + Math.random() * 2.5) + 's ease-in ' + (Math.random() * 1.5) + 's forwards;';
+            fragment.appendChild(drop);
+        }
+        document.body.appendChild(fragment);
+
+        setTimeout(function() {
+            document.querySelectorAll('[style*="cookieDrop"]').forEach(function(el) { el.remove(); });
+        }, 4500);
+    }
+})();
+
+// ── Secret type detector ───────────────────
+(function() {
+    var buffer = '';
+    var SECRETS = {
+        'cookie': '🍪 You found the cookie! There are more secrets hidden deeper...',
+        'recipe': '📜 The recipe is simple: patience. 48 hours of it. Also butter. Lots of butter.',
+        'croissant': '🥐 Wrong bakery. But we respect the choice.',
+        'priya': '🌸 Priya once invented three flavors in a single afternoon. Only two made the menu.',
+        'lena': '👩‍🍳 Lena still tastes every batch. She says batch #47 was the closest to perfection.',
+        'marcus': '🤚 Marcus can scoop a kilo of flour and be off by less than five grams.',
+        'portland': '🌲 PDX. Stumptown. Bridge City. The best cookies in the Pacific Northwest.',
+    };
+
+    document.addEventListener('keypress', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+        buffer += e.key.toLowerCase();
+        if (buffer.length > 20) buffer = buffer.slice(-20);
+
+        for (var word in SECRETS) {
+            if (buffer.indexOf(word) !== -1 && !window['_found_' + word]) {
+                window['_found_' + word] = true;
+                showToast(SECRETS[word]);
+                buffer = '';
+                // Allow re-trigger after 30s
+                setTimeout((function(w) { return function() { window['_found_' + w] = false; }; })(word), 30000);
+                break;
+            }
+        }
+    });
 })();

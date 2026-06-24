@@ -2420,3 +2420,30 @@ section { content-visibility: auto; contain-intrinsic-size: 500px; }
 .product-origin{font-size:0.75rem;color:#8B6F5C;font-style:italic;line-height:1.5;margin:0;padding-top:0.65rem;border-top:1px solid var(--soft);}
 
 .faculty-quote{font-size:0.8125rem;color:#C8853E;font-style:italic;line-height:1.5;margin-top:0.25rem;}
+
+/* ── COOKIE RAIN ──────────────────────────── */
+@keyframes cookieDrop {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    80%  { opacity: 0.7; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── KONAMI COOKIE ────────────────────────── */
+.konami-cookie {
+    border-color: #FFD700 !important;
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(200,133,62,0.04)) !important;
+    animation: konamiShimmer 2s ease-in-out infinite;
+}
+@keyframes konamiShimmer {
+    0%, 100% { box-shadow: 0 0 8px rgba(255,215,0,0.3); }
+    50%      { box-shadow: 0 0 20px rgba(255,215,0,0.6), 0 0 40px rgba(200,133,62,0.2); }
+}
+.konami-cookie.in-cart {
+    border-color: #FFD700 !important;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(200,133,62,0.08)) !important;
+    box-shadow: 0 0 24px rgba(255,215,0,0.4), 0 0 60px rgba(200,133,62,0.2);
+}
+[data-theme="dark"] .konami-cookie {
+    border-color: #FFD700 !important;
+    background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(200,133,62,0.06)) !important;
+}
