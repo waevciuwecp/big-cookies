@@ -21,6 +21,9 @@
     ],
     "tags": [],
     "icon": "svg/cookies/classic.svg",
+    "mood": "Comfort",
+    "intensity": "Medium",
+    "finish": "Roasty",
     "origin": "Born in Lena's home kitchen, 2023. The recipe that started it all."
   },
   {
@@ -47,6 +50,9 @@
       "Most Popular"
     ],
     "icon": "svg/cookies/double.svg",
+    "mood": "Late-night",
+    "intensity": "Bold",
+    "finish": "Bitter-salt",
     "origin": "Created for a chocolate-obsessed regular who said 'make it darker.' We did."
   },
   {
@@ -71,6 +77,9 @@
     ],
     "tags": [],
     "icon": "svg/cookies/toffee.svg",
+    "mood": "Cozy",
+    "intensity": "High",
+    "finish": "Crunchy",
     "origin": "Inspired by a trip to an English sweets shop. The crunch took 12 tries to perfect."
   },
   {
@@ -97,6 +106,9 @@
       "Limited"
     ],
     "icon": "svg/cookies/raspberry.svg",
+    "mood": "Bright",
+    "intensity": "High",
+    "finish": "Tart snap",
     "origin": "A happy accident \u2014 Marcus dropped freeze-dried raspberries into dark chocolate dough."
   },
   {
@@ -121,6 +133,9 @@
     ],
     "tags": [],
     "icon": "svg/cookies/caramel.svg",
+    "mood": "Golden hour",
+    "intensity": "Medium",
+    "finish": "Soft-salt",
     "origin": "Lena's grandmother's caramel recipe, adapted for cookies. The salt is French."
   },
   {
@@ -145,6 +160,90 @@
     ],
     "tags": [],
     "icon": "svg/cookies/matcha.svg",
+    "mood": "Quiet",
+    "intensity": "Layered",
+    "finish": "Earthy-sweet",
     "origin": "A collaboration with a tea master from Uji, Japan. The matcha is ceremonial grade."
+  },
+  {
+    "id": "chai-spice",
+    "name": "Chai Spice",
+    "desc": "Masala chai spices — cardamom, cinnamon, ginger, clove — steeped in brown butter. Like a warm mug in cookie form.",
+    "price": "5.00",
+    "ingredients": [
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Free-range eggs",
+      "Chai spice blend (cardamom, cinnamon, ginger, clove, black pepper)",
+      "Madagascar vanilla bean",
+      "Baking soda"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": [],
+    "icon": "svg/cookies/chai-spice.svg",
+    "mood": "Wanderlust",
+    "intensity": "Warming",
+    "finish": "Spiced",
+    "origin": "Priya's rainy-day experiment. The kitchen smelled like a Mumbai chai stall for a week."
+  },
+  {
+    "id": "maple-pecan",
+    "name": "Maple Pecan",
+    "desc": "Vermont maple syrup and toasted Georgia pecans in a brown-sugar dough. Breakfast-adjacent, dessert-approved.",
+    "price": "5.50",
+    "ingredients": [
+      "Grade A Vermont maple syrup",
+      "Toasted Georgia pecans",
+      "European brown butter",
+      "Organic wheat flour",
+      "Demerara sugar",
+      "Free-range eggs",
+      "Maldon sea salt flakes",
+      "Baking soda"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten",
+      "Nuts"
+    ],
+    "tags": ["New"],
+    "icon": "svg/cookies/maple-pecan.svg",
+    "mood": "Slow morning",
+    "intensity": "Medium",
+    "finish": "Nutty-sweet",
+    "origin": "Lena spent a weekend in Vermont and came back with a gallon of syrup and a mission."
+  },
+  {
+    "id": "summer-berry",
+    "name": "Summer Berry",
+    "desc": "Freeze-dried strawberries, blueberries, and raspberries folded into white chocolate dough. July in a cookie.",
+    "price": "5.50",
+    "ingredients": [
+      "Freeze-dried strawberries, blueberries, raspberries",
+      "White chocolate",
+      "European brown butter",
+      "Organic wheat flour",
+      "Muscovado sugar",
+      "Free-range eggs",
+      "Madagascar vanilla bean",
+      "Baking soda"
+    ],
+    "allergens": [
+      "Dairy",
+      "Eggs",
+      "Gluten"
+    ],
+    "tags": ["Limited"],
+    "icon": "svg/cookies/summer-berry.svg",
+    "mood": "Sunshine",
+    "intensity": "Bright",
+    "finish": "Fruity",
+    "origin": "A tribute to Oregon berry season. Marcus forages the berries himself when he can."
   }
 ]

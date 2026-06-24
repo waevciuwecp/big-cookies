@@ -94,152 +94,817 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 })();
 
 
-// ── Flavor atlas ───────────────────────────
+// ── Flavor atlas — minicard cloud ──────────
 (function() {
-    var rail = document.getElementById('atlasRail');
-    var panel = document.getElementById('atlasPanel');
-    if (!rail || !panel) return;
+    var cloud = document.getElementById('atlasCloud');
+    if (!cloud) return;
 
-    var profiles = {
-        classic: { mood: 'Comfort', intensity: 'Medium', finish: 'Roasty' },
-        double: { mood: 'Late-night', intensity: 'Bold', finish: 'Bitter-salt' },
-        toffee: { mood: 'Cozy', intensity: 'High', finish: 'Crunchy' },
-        raspberry: { mood: 'Bright', intensity: 'High', finish: 'Tart snap' },
-        caramel: { mood: 'Golden hour', intensity: 'Medium', finish: 'Soft-salt' },
-        matcha: { mood: 'Quiet', intensity: 'Layered', finish: 'Earthy-sweet' }
-    };
+    var items = [];
+    var activeId = null;
 
-    var pinned = null; // cookie pinned for comparison
-
-    function renderPanel(item) {
-        var profile = profiles[item.id] || { mood: 'House favorite', intensity: 'Balanced', finish: 'Long finish' };
-        var compareBtn = pinned && pinned.id !== item.id
-            ? '<button class="btn btn-outline atlas-compare-trigger" data-id="' + item.id + '" style="margin-left:0.5rem;font-size:0.75rem;padding:0.4rem 0.85rem">vs ' + pinned.name + '</button>'
-            : (!pinned ? '<button class="btn btn-outline atlas-pin-btn" data-id="' + item.id + '" style="margin-left:0.5rem;font-size:0.75rem;padding:0.4rem 0.85rem">📌 Pin to compare</button>' : '');
-        panel.innerHTML =
-            '<div class="atlas-topline">' +
-                '<div>' +
-                    '<div class="atlas-kicker">Tasting board / ' + profile.mood + '</div>' +
-                    '<h3>' + item.name + '</h3>' +
+    function renderCloud() {
+        cloud.innerHTML = items.map(function(item, i) {
+            return '<div class="atlas-card" id="atlasCard-' + item.id + '" data-id="' + item.id + '">' +
+                '<img src="' + item.icon + '" alt="' + item.name + '" width="40" height="40" class="atlas-card-icon">' +
+                '<h3 class="atlas-card-name">' + item.name + '</h3>' +
+                '<span class="atlas-card-mood">' + (item.mood || 'House') + '</span>' +
+                '<button class="atlas-card-close" aria-label="Close">&times;</button>' +
+                '<p class="atlas-card-desc">' + item.desc + '</p>' +
+                '<div class="atlas-card-stats">' +
+                    '<div class="atlas-card-stat"><span>Mood</span><strong>' + (item.mood || '—') + '</strong></div>' +
+                    '<div class="atlas-card-stat"><span>Intensity</span><strong>' + (item.intensity || '—') + '</strong></div>' +
+                    '<div class="atlas-card-stat"><span>Finish</span><strong>' + (item.finish || '—') + '</strong></div>' +
                 '</div>' +
-                '<div class="atlas-price">$' + parseFloat(item.price).toFixed(2) + '</div>' +
-            '</div>' +
-            '<p class="atlas-desc">' + item.desc + '</p>' +
-            '<div class="atlas-stat-grid">' +
-                '<div class="atlas-stat"><span class="atlas-stat-label">Mood</span><strong>' + profile.mood + '</strong></div>' +
-                '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + profile.intensity + '</strong></div>' +
-                '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + profile.finish + '</strong></div>' +
-            '</div>' +
-            '<div class="atlas-ingredients">' + item.ingredients.slice(0, 4).map(function(ingredient) {
-                return '<span>' + ingredient + '</span>';
-            }).join('') + '</div>' +
-            '<p class="atlas-origin">' + item.origin + '</p>' +
-            '<div class="atlas-cta" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap"><a class="btn btn-primary" href="#build">Build a box with this one</a>' + compareBtn + (pinned ? ' <button class="atlas-clear-pin" style="background:none;border:none;color:#8B6F5C;cursor:pointer;font-size:0.75rem;text-decoration:underline">Clear pin</button>' : '') + '</div>';
-
-        // Show comparison if pinned and different
-        if (pinned && pinned.id !== item.id) {
-            var pA = profiles[pinned.id] || {};
-            var pB = profile;
-            panel.innerHTML +=
-                '<div class="atlas-compare" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--soft)">' +
-                    '<div class="atlas-kicker" style="margin-bottom:0.75rem">Comparison / ' + pinned.name + ' ↔ ' + item.name + '</div>' +
-                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">' + pinned.name + ' · Mood</span><strong>' + (pA.mood||'—') + '</strong></div>' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">' + item.name + ' · Mood</span><strong>' + (pB.mood||'—') + '</strong></div>' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + (pA.intensity||'—') + '</strong></div>' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + (pB.intensity||'—') + '</strong></div>' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + (pA.finish||'—') + '</strong></div>' +
-                        '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + (pB.finish||'—') + '</strong></div>' +
-                    '</div>' +
-                '</div>';
-        }
-
-        // Bind pin button
-        setTimeout(function() {
-            var pinBtn = panel.querySelector('.atlas-pin-btn');
-            var clearBtn = panel.querySelector('.atlas-clear-pin');
-            if (pinBtn) pinBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                pinned = items.find(function(it) { return it.id === pinBtn.dataset.id; });
-                renderPanel(item);
-                // Highlight pinned chip
-                rail.querySelectorAll('.atlas-chip').forEach(function(chip) {
-                    chip.classList.toggle('pinned', chip.dataset.id === pinBtn.dataset.id);
-                });
-            });
-            if (clearBtn) clearBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                pinned = null;
-                rail.querySelectorAll('.atlas-chip').forEach(function(c) { c.classList.remove('pinned'); });
-                renderPanel(item);
-            });
-        }, 50);
-    }
-
-    function renderRail(items) {
-        rail.innerHTML = items.map(function(item, index) {
-            var profile = profiles[item.id] || {};
-            return '<button class="atlas-chip" role="tab" aria-selected="' + (index === 0 ? 'true' : 'false') + '" data-id="' + item.id + '">' +
-                '<span class="atlas-chip-name">' + item.name + '</span>' +
-                '<span class="atlas-chip-meta"><span>' + (profile.mood || 'House') + '</span><span>' + (profile.finish || 'Balanced') + '</span></span>' +
-                '<span class="atlas-chip-price">$' + parseFloat(item.price).toFixed(2) + '</span>' +
-            '</button>';
+                '<div class="atlas-card-ingredients">' + item.ingredients.slice(0, 4).map(function(i) { return '<span>' + i + '</span>'; }).join('') + '</div>' +
+                '<p class="atlas-card-origin">' + item.origin + '</p>' +
+                '<a class="btn btn-primary atlas-card-cta" href="#build">Build a box with this one</a>' +
+            '</div>';
         }).join('');
 
-        rail.querySelectorAll('.atlas-chip').forEach(function(button) {
-            button.addEventListener('click', function() {
-                rail.querySelectorAll('.atlas-chip').forEach(function(other) {
-                    other.setAttribute('aria-selected', 'false');
-                });
-                button.setAttribute('aria-selected', 'true');
-                var selected = items.find(function(item) { return item.id === button.getAttribute('data-id'); });
-                if (selected) { renderPanel(selected); atlasSparkle(); }
+        // Scatter cards organically — like cookies on a tray
+        scatterCards();
+        window.addEventListener('resize', scatterCards);
+
+        // Gentle float animation with staggered delays
+        cloud.querySelectorAll('.atlas-card').forEach(function(card, i) {
+            card.style.setProperty('--float-delay', (i * 0.7) + 's');
+            card.style.setProperty('--float-dur', (18 + i * 2.3) + 's');
+            card.style.setProperty('--sway-x', ((i % 3) - 1) * 8 + 'px');
+            card.style.setProperty('--sway-y', ((i % 2) * 6 - 3) + 'px');
+        });
+
+        // Click handlers
+        cloud.querySelectorAll('.atlas-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.atlas-card-close') || e.target.closest('.atlas-card-cta')) return;
+                var id = card.getAttribute('data-id');
+                if (activeId === id || closingId === id) { collapse(); } else { expand(id); }
             });
         });
+        cloud.querySelectorAll('.atlas-card-close').forEach(function(btn) {
+            btn.addEventListener('click', function(e) { e.stopPropagation(); collapse(); });
+        });
     }
+
+    // ═══════════════════════════════════════════
+    // ── Force-directed particle cloud ──
+    // ═══════════════════════════════════════════
+    var CONFIG = {
+        repulsionStrength: 9000,    // force multiplier for short-range push
+        repulsionRadius: 200,       // max distance (px) at which repulsion activates
+        attractStrength: 0.45,      // medium-range pull toward neighbors
+        collisionPadding: 36,       // extra px beyond card radius to guarantee no overlap
+        damping: 0.88,              // velocity damping per frame
+        maxSpeed: 4,                // px/frame speed cap
+        cohesion: 0.0008,           // pull toward cloud center
+        boundaryPad: 50,            // soft boundary padding
+        targetTemperature: 300.0,    // constant Langevin amplitude
+        noiseCorrelationTime: 3.0,    // seconds — OU correlation for smooth paths
+        simulationTimeScale: 0.075    // global slow-down (1.0 = real-time)
+    };
+
+    var simRunning = false, simRAF = null, simLastTime = 0;
+    var particles = [];       // { el, x, y, vx, vy, radius }
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── Init / scatter ──────────────────────
+    function scatterCards() {
+        var cards = cloud.querySelectorAll('.atlas-card');
+        var n = cards.length;
+        if (!n) return;
+        var w = cloud.offsetWidth;
+        var h = Math.max(520, w * 0.7);
+        cloud.style.minHeight = h + 'px';
+
+        // Preserve existing state across re-scatters
+        var existing = {};
+        particles.forEach(function(p) { existing[p.el.getAttribute('data-id')] = p; });
+        particles = [];
+
+        cards.forEach(function(card, i) {
+            if (card.classList.contains('zoomed')) return;
+            var id = card.getAttribute('data-id');
+            var old = existing[id];
+
+            // Measure rendered card size for radius
+            var rect = card.getBoundingClientRect();
+            var radius = Math.max(rect.width, rect.height) / 2 + 12;
+
+            // Seeded initial position (golden spiral) or keep existing
+            var cx = w / 2, cy = h / 2;
+            var angle = i * 2.39996; // golden angle
+            var r = 50 + (i / Math.max(n, 1)) * Math.min(w, h) * 0.30;
+            var x = cx + Math.cos(angle) * r + (seededRandom(i * 7) - 0.5) * r * 0.25;
+            var y = cy + Math.sin(angle) * r + (seededRandom(i * 13 + 5) - 0.5) * r * 0.25;
+            if (old) { x = old.x; y = old.y; }
+
+            particles.push({
+                el: card, id: id,
+                x: x, y: y,
+                vx: old ? old.vx : 0,
+                vy: old ? old.vy : 0,
+                radius: radius,
+                mass: 1
+            });
+        });
+
+        // Ensure cards are visible and upright
+        cards.forEach(function(c) {
+            if (c.classList.contains('zoomed')) return;
+            c.style.position = 'absolute';
+            c.style.transform = 'translate(-50%, -50%)';
+            c.style.margin = '0';
+        });
+
+        if (prefersReduced) {
+            // Static layout — single settle pass
+            settleOnce(w, h);
+        } else if (!simRunning) {
+            startSimulation();
+        }
+    }
+
+    // ── Reduced-motion: one-shot settle ─────
+    function settleOnce(w, h) {
+        for (var iter = 0; iter < 120; iter++) {
+            stepForces(w, h, 1);
+        }
+        renderParticles(w, h);
+    }
+
+    // ── Simulation loop (lifecycle-aware) ──
+    function startSimulation() {
+        if (prefersReduced) return;
+        simRunning = true;
+        simLastTime = 0;
+        function tick(ts) {
+            if (!simRunning) return;
+            if (!simLastTime) {
+                simLastTime = ts;
+                console.log('%c[Thermal] %csimulation started', 'color:#E8A850;font-weight:bold', 'color:#aaa');
+            }
+            var rawDt = (ts - simLastTime) / 16.667;
+            simLastTime = ts;
+            // Discard accumulated time (e.g. after tab resume) — never simulate a gap
+            rawDt = rawDt > 5 ? 0 : Math.min(rawDt, 3);
+            // Apply global time scale
+            var dt = rawDt * CONFIG.simulationTimeScale;
+
+            var w = cloud.offsetWidth;
+            var h = Math.max(520, w * 0.7);
+
+            stepForces(w, h, dt);
+            applyThermalForces(dt);
+            thermalUpdate(dt);
+            renderParticles(w, h);
+
+            // ── Watchdog: recover after tab resume ──
+            if (therm.resumed && !therm.recovered) {
+                var elapsed = performance.now() - therm.resumeTime;
+                if (elapsed > 600) {
+                    // Only restore if KE has genuinely collapsed (browser killed the sim)
+                    // A healthy sim at temp 300 has KE ≈ 0.05-0.5; below 0.005 means dead
+                    if (therm.smoothKE < 0.005 && therm.checkpoint && therm.checkpoint.velocities.length > 0) {
+                        console.log('%c[Thermal] %crecovery: KE collapsed (' + therm.smoothKE.toFixed(4) + '), restoring checkpoint',
+                            'color:#E8A850;font-weight:bold', 'color:#0ff');
+                        restoreCheckpoint();
+                    } else {
+                        console.log('%c[Thermal] %cwatchdog: KE healthy (' + therm.smoothKE.toFixed(4) + '), no restore needed',
+                            'color:#E8A850;font-weight:bold', 'color:#0f0');
+                    }
+                    therm.recovered = true;
+                    therm.resumed = false;
+                }
+            }
+
+            simRAF = requestAnimationFrame(tick);
+        }
+        simRAF = requestAnimationFrame(tick);
+    }
+
+    function restoreCheckpoint() {
+        var cp = therm.checkpoint;
+        if (!cp) return;
+        var vMap = {}, nMap = {};
+        cp.velocities.forEach(function(v) { vMap[v.id] = v; });
+        cp.noiseState.forEach(function(n) { nMap[n.id] = n; });
+
+        // Remove center-of-mass velocity from saved checkpoint
+        var sumVX = 0, sumVY = 0, count = 0;
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            var sv = vMap[p.id];
+            if (sv) { sumVX += sv.vx; sumVY += sv.vy; count++; }
+        }
+        var meanVX = count > 0 ? sumVX / count : 0;
+        var meanVY = count > 0 ? sumVY / count : 0;
+
+        // Restore velocities directly (already at target temperature — don't normalize upward)
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            var sv = vMap[p.id];
+            if (sv) {
+                p.vx = sv.vx - meanVX;
+                p.vy = sv.vy - meanVY;
+            }
+            var sn = nMap[p.id];
+            if (sn) { p._langevinX = sn.ox; p._langevinY = sn.oy; }
+        }
+
+        // Fallback for particles missing from checkpoint: give them zero-mean velocity
+        // at the current temperature so they blend in
+        var sigma = Math.sqrt(2 * (1 / CONFIG.noiseCorrelationTime) * CONFIG.targetTemperature) * 0.3;
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            if (!vMap[p.id]) {
+                p._langevinX = gaussianRandom() * sigma * 0.5;
+                p._langevinY = gaussianRandom() * sigma * 0.5;
+                p.vx += p._langevinX * 0.3;
+                p.vy += p._langevinY * 0.3;
+            }
+        }
+    }
+
+    // ── Force integration ──────────────────
+    // ═══════════════════════════════════════════
+    // ── Constant-temperature thermostat ──
+    // ═══════════════════════════════════════════
+    var therm = {
+        temperature: 0,          // current Langevin amplitude (smoothed toward target)
+        targetTemp: CONFIG.targetTemperature,
+        simTime: 0,             // simulation clock — only advances during active frames
+        // Checkpoint (saved periodically + on visibility hidden)
+        checkpoint: null,       // { simTime, velocities: [{id, vx, vy}], noiseState: [{id, ox, oy}] }
+        lastCheckpointTime: 0,
+        // Watchdog
+        resumed: false,         // true after a visibility resume, cleared after recovery
+        resumeTime: 0,
+        recovered: false,
+        // Diagnostics
+        debugEl: null,
+        smoothKE: 0
+    };
+
+    function saveCheckpoint() {
+        var cp = { simTime: therm.simTime, velocities: [], noiseState: [] };
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            cp.velocities.push({ id: p.id, vx: p.vx, vy: p.vy });
+            cp.noiseState.push({ id: p.id, ox: p._langevinX || 0, oy: p._langevinY || 0 });
+        }
+        therm.checkpoint = cp;
+        therm.lastCheckpointTime = performance.now();
+    }
+
+    function thermalUpdate(dt) {
+        var n = particles.length;
+        if (n === 0 || prefersReduced) { therm.temperature = 0; return; }
+
+        // One-time init
+        if (!therm._initLogged) {
+            therm._initLogged = true;
+            console.log('%c[Thermal] %cconstant %c| particles: ' + n + ' | target: ' + CONFIG.targetTemperature,
+                'color:#E8A850;font-weight:bold', 'color:#fff', 'color:#aaa');
+        }
+
+        // Advance simulation clock
+        therm.simTime += dt;
+
+        // Constant target temperature
+        therm.targetTemp = CONFIG.targetTemperature;
+
+        // Smooth temperature toward target
+        var tempAlpha = 1 - Math.exp(-dt / 1.5);
+        therm.temperature += tempAlpha * (therm.targetTemp - therm.temperature);
+
+        // Periodic checkpoint (every ~400ms)
+        var now = performance.now();
+        if (now - therm.lastCheckpointTime > 400) {
+            saveCheckpoint();
+        }
+
+        // Compute smoothed KE for diagnostics
+        var ke = 0, activeN = 0;
+        for (var i = 0; i < n; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            activeN++;
+            ke += 0.5 * (p.vx * p.vx + p.vy * p.vy);
+        }
+        if (activeN > 0) {
+            ke /= activeN;
+            var alpha = 1 - Math.exp(-dt / 0.5);
+            therm.smoothKE += alpha * (ke - therm.smoothKE);
+        }
+
+        updateDebugOverlay();
+    }
+
+    // ── Correlated Langevin force (OU process per particle) ──
+    function applyThermalForces(dt) {
+        if (prefersReduced) return;
+        if (therm.temperature < 0.5) return;
+        var n = particles.length;
+        var sumFX = 0, sumFY = 0, activeCount = 0;
+        var tau = CONFIG.noiseCorrelationTime;
+        var theta = 1 / Math.max(tau, 0.1);
+        // Scale noise so steady-state KE is proportional to temperature
+        var sigma = Math.sqrt(2 * theta * therm.temperature) * 0.3;
+
+        for (var i = 0; i < n; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            activeCount++;
+
+            // Init OU state
+            if (p._langevinX === undefined) { p._langevinX = 0; p._langevinY = 0; }
+
+            // Correlated noise: OU step
+            var sqrtDt = Math.sqrt(Math.min(dt, 0.5));
+            var g1 = gaussianRandom(), g2 = gaussianRandom();
+            p._langevinX += -theta * p._langevinX * dt + sigma * sqrtDt * g1;
+            p._langevinY += -theta * p._langevinY * dt + sigma * sqrtDt * g2;
+
+            sumFX += p._langevinX;
+            sumFY += p._langevinY;
+        }
+        if (activeCount === 0) return;
+
+        // Mean-subtract
+        var meanFX = sumFX / activeCount;
+        var meanFY = sumFY / activeCount;
+        var cap = CONFIG.targetTemperature * 0.3;
+        for (var i = 0; i < n; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            var fx = p._langevinX - meanFX;
+            var fy = p._langevinY - meanFY;
+            var m = Math.sqrt(fx * fx + fy * fy);
+            if (m > cap) { fx *= cap / m; fy *= cap / m; }
+            p.vx += fx * dt;
+            p.vy += fy * dt;
+        }
+    }
+
+    // Box-Muller Gaussian random
+    function gaussianRandom() {
+        var u1 = Math.random(), u2 = Math.random();
+        return Math.sqrt(-2 * Math.log(Math.max(u1, 0.0001))) * Math.cos(2 * Math.PI * u2);
+    }
+
+    // Dev diagnostic overlay (enabled via ?debug in URL)
+    function updateDebugOverlay() {
+        if (therm.debugEl === undefined) {
+            if (window.location.search.indexOf('debug') === -1) { therm.debugEl = null; return; }
+            therm.debugEl = document.createElement('div');
+            therm.debugEl.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:9999;background:rgba(0,0,0,0.82);color:#0f0;font:11px monospace;padding:10px 14px;border-radius:8px;pointer-events:none;line-height:1.6;max-width:240px';
+            document.body.appendChild(therm.debugEl);
+        }
+        if (!therm.debugEl) return;
+        therm.debugEl.innerHTML =
+            'temp: <b>' + therm.temperature.toFixed(0) + '</b> / ' + CONFIG.targetTemperature + '<br>' +
+            'KE: ' + therm.smoothKE.toFixed(3) + '<br>' +
+            'simTime: ' + therm.simTime.toFixed(1) + 's<br>' +
+            'ckpt: ' + (therm.checkpoint ? (performance.now() - therm.lastCheckpointTime).toFixed(0) + 'ms ago' : 'none') + '<br>' +
+            (therm.resumed ? 'watchdog: armed' : '');
+    }
+
+    function stepForces(w, h, dt) {
+        var n = particles.length;
+        var R_STR  = CONFIG.repulsionStrength;
+        var R_RAD  = CONFIG.repulsionRadius;
+        var A_STR  = CONFIG.attractStrength;
+        var CPAD   = CONFIG.collisionPadding;
+        var COH    = CONFIG.cohesion;
+        var DAMP   = Math.pow(CONFIG.damping, dt);
+        var VMAX   = CONFIG.maxSpeed * dt;
+        var cx = w / 2, cy = h / 2;
+        for (var i = 0; i < n; i++) {
+            var pi = particles[i];
+            if (pi.el.classList.contains('zoomed')) continue;
+            if (frozenSlot && pi.el === frozenSlot.el) continue; // frozen during close
+            var fx = 0, fy = 0;
+
+            // ── Pairwise forces (fixed equilibrium, no modulation) ──
+            for (var j = 0; j < n; j++) {
+                if (i === j) continue;
+                var pj = particles[j];
+                if (pj.el.classList.contains('zoomed')) continue;
+                var dx = pi.x - pj.x;
+                var dy = pi.y - pj.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 0.5) dist = 0.5;
+                var nx = dx / dist, ny = dy / dist;
+
+                var collisionDist = pi.radius + pj.radius + CPAD * 2;
+
+                if (dist < R_RAD) {
+                    var urgency = dist < collisionDist ? 3.0 : 1.0;
+                    var repelF = R_STR * urgency / (dist * dist + 400);
+                    fx += nx * repelF;
+                    fy += ny * repelF;
+                } else if (dist < R_RAD * 2.4) {
+                    var attractF = A_STR * (dist - R_RAD) / R_RAD;
+                    fx -= nx * attractF;
+                    fy -= ny * attractF;
+                }
+            }
+
+            // ── Cohesion toward cloud center ──
+            fx += (cx - pi.x) * COH;
+            fy += (cy - pi.y) * COH;
+
+            // ── Integrate ──
+            pi.vx = (pi.vx + fx * dt) * DAMP;
+            pi.vy = (pi.vy + fy * dt) * DAMP;
+            // Speed cap
+            var speed = Math.sqrt(pi.vx * pi.vx + pi.vy * pi.vy);
+            if (speed > VMAX) { pi.vx *= VMAX / speed; pi.vy *= VMAX / speed; }
+            pi.x += pi.vx;
+            pi.y += pi.vy;
+
+            // ── Soft boundary ──
+            var pad = CONFIG.boundaryPad;
+            if (pi.x < pad)          { pi.x = pad;          pi.vx *= -0.2; }
+            if (pi.x > w - pad)      { pi.x = w - pad;      pi.vx *= -0.2; }
+            if (pi.y < pad)          { pi.y = pad;          pi.vy *= -0.2; }
+            if (pi.y > h - pad)      { pi.y = h - pad;      pi.vy *= -0.2; }
+        }
+    }
+
+    // ── Render positions to DOM ─────────────
+    function renderParticles(w, h) {
+        // Freeze the closing card's destination slot
+        if (frozenSlot && frozenSlot.el) {
+            frozenSlot.el.style.left = (frozenSlot.x / w * 100) + '%';
+            frozenSlot.el.style.top = (frozenSlot.y / h * 100) + '%';
+        }
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            if (p.el.classList.contains('zoomed')) continue;
+            if (frozenSlot && p.el === frozenSlot.el) continue; // frozen
+            var px = Math.round(p.x * 10) / 10;
+            var py = Math.round(p.y * 10) / 10;
+            p.el.style.left = (px / w * 100) + '%';
+            p.el.style.top = (py / h * 100) + '%';
+        }
+    }
+
+    // ── Lifecycle: pause on hide, resume clean ──
+    function onHidden() {
+        saveCheckpoint();
+        simRunning = false;
+        if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
+        console.log('%c[Thermal] %cfrozen — checkpoint saved (simTime: ' + therm.simTime.toFixed(1) + 's)',
+            'color:#E8A850;font-weight:bold', 'color:#aaa');
+    }
+
+    function onVisible() {
+        if (prefersReduced || !particles.length) return;
+        if (simRunning) return; // already running
+        therm.resumed = true;
+        therm.resumeTime = performance.now();
+        therm.recovered = false;
+        simLastTime = 0; // force dt=0 on first frame
+        console.log('%c[Thermal] %cresumed — dt reset, watchdog armed',
+            'color:#E8A850;font-weight:bold', 'color:#0f0');
+        startSimulation();
+    }
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) onHidden();
+        else onVisible();
+    });
+    window.addEventListener('pagehide', onHidden);
+    window.addEventListener('pageshow', function() { if (!document.hidden) onVisible(); });
+    // Freeze/resume (supported in some browsers)
+    window.addEventListener('freeze', onHidden);
+    window.addEventListener('resume', function() { if (!document.hidden) onVisible(); });
+
+    // ── Resize ──────────────────────────────
+    window.addEventListener('resize', function() {
+        clearTimeout(window._scatterTid);
+        window._scatterTid = setTimeout(scatterCards, 200);
+        // If a card is zoomed, re-center it
+        if (transState === 'open' && !activeAnim) {
+            var card = document.getElementById('atlasCard-' + activeId);
+            if (card && card.classList.contains('zoomed')) {
+                var vc = viewportCenter();
+                var vw = window.innerWidth;
+                var pad = Math.min(vw * 0.06, 40);
+                var maxW = Math.min(vw - pad * 2, 780);
+                var toW = maxW;
+                var toH = Math.min(card.scrollHeight, vc.usableH - 32);
+                card.style.left = (vc.cx - toW / 2) + 'px';
+                card.style.top = Math.max(16, vc.cy - toH / 2) + 'px';
+                card.style.width = toW + 'px';
+                card.style.height = toH + 'px';
+            }
+        }
+    });
+
+    // ── Reduced motion listener ─────────────
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function(e) {
+        prefersReduced = e.matches;
+        if (prefersReduced) {
+            simRunning = false;
+            if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
+            var w = cloud.offsetWidth;
+            var h = Math.max(520, w * 0.7);
+            settleOnce(w, h);
+        } else {
+            scatterCards();
+        }
+    });
+
+    function stopSimulation() {
+        simRunning = false;
+        if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
+    }
+    window.addEventListener('beforeunload', stopSimulation);
+
+    // Deterministic seeded random
+    function seededRandom(seed) {
+        var x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+        return x - Math.floor(x);
+    }
+
+    // ── Backdrop (created once, reused) ──
+    // ═══════════════════════════════════════════
+    // ── Card transition state machine ──
+    // ═══════════════════════════════════════════
+    var transState = 'compact'; // compact | opening | open | closing
+    var backdrop = null;
+    var activeAnim = null;
+    var closingId = null;  // preserved across closing animation
+    var frozenSlot = null; // { x, y } — frozen particle position during close
+
+    function ensureBackdrop() {
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'atlas-backdrop';
+            backdrop.setAttribute('aria-hidden', 'true');
+            backdrop.addEventListener('click', function() { collapse(); });
+            document.body.appendChild(backdrop);
+        }
+        return backdrop;
+    }
+
+    function viewportCenter() {
+        var nav = document.getElementById('nav');
+        var navH = nav ? nav.getBoundingClientRect().height : 0;
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var safeTop = navH + 16;
+        var safeBot = 16;
+        return { cx: vw / 2, cy: (safeTop + vh - safeBot) / 2, usableH: vh - safeTop - safeBot };
+    }
+
+    // ── Complete style cleanup — leaves no detail trace ──
+    function cleanupCard(card) {
+        card.style.position = '';
+        card.style.left = '';
+        card.style.top = '';
+        card.style.right = '';
+        card.style.bottom = '';
+        card.style.width = '';
+        card.style.height = '';
+        card.style.minWidth = '';
+        card.style.maxWidth = '';
+        card.style.minHeight = '';
+        card.style.maxHeight = '';
+        card.style.transform = '';
+        card.style.transformOrigin = '';
+        card.style.margin = '';
+        card.style.zIndex = '';
+        card.style.animationPlayState = '';
+        card.style.transition = '';
+        card.style.borderRadius = '';
+        card.style.boxShadow = '';
+        card.style.overflow = '';
+        card.style.overflowY = '';
+        card.style.pointerEvents = '';
+        card.style.visibility = '';
+    }
+
+    function expand(id) {
+        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
+        if (transState === 'closing') { finishClose(); }
+
+        var card = document.getElementById('atlasCard-' + id);
+        if (!card) return;
+
+        // If a different card is open, close it first
+        if (activeId && activeId !== id) {
+            var prev = document.getElementById('atlasCard-' + activeId);
+            if (prev) { prev.classList.remove('zoomed'); prev.setAttribute('aria-expanded', 'false'); cleanupCard(prev); }
+        }
+        activeId = id;
+        closingId = null;
+        transState = 'opening';
+
+        // Measure current compact rectangle (viewport coords)
+        var fromRect = card.getBoundingClientRect();
+        var fromW = fromRect.width;
+        var fromH = fromRect.height;
+        var fromX = fromRect.left;
+        var fromY = fromRect.top;
+
+        // Compute detail destination
+        var vc = viewportCenter();
+        var vw = window.innerWidth;
+        var pad = Math.min(vw * 0.06, 40);
+        var maxW = Math.min(vw - pad * 2, 780);
+        var toW = maxW;
+
+        // Measure zoomed height off-screen
+        card.classList.add('zoomed');
+        card.style.position = 'fixed';
+        card.style.left = '-9999px';
+        card.style.top = '0';
+        card.style.width = toW + 'px';
+        card.style.height = 'auto';
+        card.style.visibility = 'hidden';
+        card.offsetHeight;
+        var toH = Math.min(card.getBoundingClientRect().height, vc.usableH - 32);
+        card.style.visibility = '';
+        card.classList.remove('zoomed');
+        card.offsetHeight;
+
+        var toX = vc.cx - toW / 2;
+        var toY = Math.max(16, vc.cy - toH / 2);
+
+        // Pin card at current compact position (fixed overlay)
+        card.style.animationPlayState = 'paused';
+        card.style.position = 'fixed';
+        card.style.left = fromX + 'px';
+        card.style.top = fromY + 'px';
+        card.style.width = fromW + 'px';
+        card.style.height = fromH + 'px';
+        card.style.margin = '0';
+        card.style.zIndex = '100';
+        card.style.transition = 'none';
+        card.style.transform = 'none';
+
+        // Dim cloud + lock scroll
+        cloud.querySelectorAll('.atlas-card').forEach(function(c) {
+            if (c !== card) c.classList.add('dimmed');
+        });
+        document.body.style.overflow = 'hidden';
+        ensureBackdrop().classList.add('visible');
+
+        // Animate geometry morph
+        var dur = prefersReduced ? 0 : 460;
+        activeAnim = card.animate([
+            { left: fromX + 'px', top: fromY + 'px', width: fromW + 'px', height: fromH + 'px' },
+            { left: toX + 'px', top: toY + 'px', width: toW + 'px', height: toH + 'px' }
+        ], {
+            duration: dur,
+            easing: 'cubic-bezier(0.2, 0.0, 0.0, 1.0)',
+            fill: 'forwards'
+        });
+
+        // Reveal detail content at ~35% of journey
+        setTimeout(function() {
+            if (transState !== 'opening' || activeId !== id) return;
+            card.classList.add('zoomed');
+            card.setAttribute('aria-expanded', 'true');
+        }, Math.round(dur * 0.35));
+
+        activeAnim.onfinish = function() {
+            activeAnim = null;
+            if (transState !== 'opening') return;
+            transState = 'open';
+            // Commit final values without fill:forwards
+            card.style.left = toX + 'px';
+            card.style.top = toY + 'px';
+            card.style.width = toW + 'px';
+            card.style.height = toH + 'px';
+            card.style.overflowY = 'auto';
+            card.setAttribute('tabindex', '-1');
+            card.focus({ preventScroll: true });
+        };
+    }
+
+    function collapse() {
+        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
+
+        if (!activeId) return;
+        var card = document.getElementById('atlasCard-' + activeId);
+        if (!card) { activeId = null; transState = 'compact'; return; }
+
+        closingId = activeId;
+        activeId = null;
+        transState = 'closing';
+
+        // Hide detail content
+        card.classList.remove('zoomed');
+        card.setAttribute('aria-expanded', 'false');
+        card.removeAttribute('tabindex');
+        card.style.overflowY = '';
+
+        var curRect = card.getBoundingClientRect();
+        card.style.height = curRect.height + 'px'; // freeze height
+        card.offsetHeight;
+
+        var fromW = curRect.width;
+        var fromH = curRect.height;
+        var fromX = curRect.left;
+        var fromY = curRect.top;
+
+        // Un-dim cloud
+        cloud.querySelectorAll('.atlas-card.dimmed').forEach(function(c) {
+            c.classList.remove('dimmed');
+        });
+        document.body.style.overflow = '';
+
+        // Measure destination and freeze the slot
+        card.style.visibility = 'hidden';
+        card.style.position = 'absolute';
+        card.style.left = '0'; card.style.top = '0';
+        card.style.width = ''; card.style.height = '';
+        scatterCards();
+        card.offsetHeight;
+        var targetCard = document.getElementById('atlasCard-' + closingId);
+        var toRect = targetCard ? targetCard.getBoundingClientRect() : curRect;
+        // Freeze the destination so it can't move during close
+        if (targetCard) {
+            frozenSlot = { el: targetCard, x: toRect.left + toRect.width/2, y: toRect.top + toRect.height/2,
+                           w: toRect.width, h: toRect.height };
+        }
+        card.style.visibility = '';
+        card.style.position = 'fixed';
+        card.style.left = fromX + 'px';
+        card.style.top = fromY + 'px';
+        card.style.width = fromW + 'px';
+        card.style.height = fromH + 'px';
+
+        var toW = toRect.width;
+        var toH = toRect.height;
+        var toX = toRect.left;
+        var toY = toRect.top;
+
+        var dur = prefersReduced ? 0 : 560;
+        activeAnim = card.animate([
+            { left: fromX + 'px', top: fromY + 'px', width: fromW + 'px', height: fromH + 'px' },
+            { left: toX + 'px', top: toY + 'px', width: toW + 'px', height: toH + 'px' }
+        ], {
+            duration: dur,
+            easing: 'cubic-bezier(0.4, 0.0, 0.6, 1.0)',
+            fill: 'forwards'
+        });
+
+        // Backdrop fades near end
+        var backdropTimer = setTimeout(function() {
+            if (backdrop) backdrop.classList.remove('visible');
+        }, Math.round(dur * 0.7));
+
+        activeAnim.onfinish = function() {
+            clearTimeout(backdropTimer);
+            finishClose();
+        };
+    }
+
+    // ── Atomic close completion — always runs, even via interrupt ──
+    function finishClose() {
+        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
+        if (backdrop) backdrop.classList.remove('visible');
+        frozenSlot = null;
+
+        var card = document.getElementById('atlasCard-' + closingId);
+        if (card) {
+            card.classList.remove('zoomed');
+            card.setAttribute('aria-expanded', 'false');
+            card.removeAttribute('tabindex');
+            cleanupCard(card);
+        }
+        closingId = null;
+        transState = 'compact';
+        scatterCards();
+    }
+
+    // ESC to collapse
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && (activeId || closingId)) { collapse(); }
+    });
 
     fetch('data/products.json', { cache: 'no-cache' })
         .then(function(response) {
             if (!response.ok) throw new Error('HTTP ' + response.status);
             return response.json();
         })
-        .then(function(items) {
-            if (!Array.isArray(items) || !items.length) throw new Error('No products');
-            renderRail(items);
-            renderPanel(items[0]);
+        .then(function(data) {
+            if (!Array.isArray(data) || !data.length) throw new Error('No products');
+            items = data;
+            renderCloud();
         })
         .catch(function() {
-            panel.innerHTML = '<p class="atlas-loading">Open the site through a local server or production host to load the tasting board.</p>';
+            cloud.innerHTML = '<p class="atlas-loading">Open the site through a local server or production host to load the tasting board.</p>';
         });
-
-    // Atlas sparkle burst on cookie switch
-    function atlasSparkle() {
-        var panel = document.getElementById('atlasPanel');
-        if (!panel) return;
-        var rect = panel.getBoundingClientRect();
-        var colors = ['#E8A850','#FFD700','#F5D5A0','#C8853E','#FFF5E9'];
-        var fragment = document.createDocumentFragment();
-        for (var i = 0; i < 14; i++) {
-            var spark = document.createElement('span');
-            var angle = Math.random() * Math.PI * 2;
-            var dist = 30 + Math.random() * 70;
-            var dx = Math.cos(angle) * dist;
-            var dy = Math.sin(angle) * dist - 20;
-            spark.style.cssText =
-                'position:fixed;z-index:500;pointer-events:none;' +
-                'left:' + (rect.left + rect.width/2) + 'px;top:' + (rect.top + rect.height/3) + 'px;' +
-                'width:' + (3 + Math.random() * 5) + 'px;height:' + (3 + Math.random() * 5) + 'px;' +
-                'background:' + colors[Math.floor(Math.random()*colors.length)] + ';' +
-                'border-radius:50%;' +
-                'animation: atlasSparkleAnim ' + (0.5 + Math.random()*0.6) + 's ease-out forwards;' +
-                '--dx:' + dx + 'px;--dy:' + dy + 'px;';
-            fragment.appendChild(spark);
-        }
-        document.body.appendChild(fragment);
-        setTimeout(function() {
-            document.querySelectorAll('[style*="atlasSparkleAnim"]').forEach(function(s) { s.remove(); });
-        }, 1300);
-    }
 })();
 
 

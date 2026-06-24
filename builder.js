@@ -12,6 +12,8 @@
     }
 
     var picker = document.getElementById('builderPicker');
+    if (!picker) return;
+
     var cartList = document.getElementById('cartList');
     var cartEmpty = document.getElementById('cartEmpty');
     var builderCount = document.getElementById('builderCount');
@@ -19,8 +21,6 @@
     var builderSubmit = document.getElementById('builderSubmit');
     var builderReset = document.getElementById('builderReset');
     var builderBox = document.getElementById('builderBox');
-
-    if (!picker) return;
 
     var MAX_PER_ITEM = 50;
     var MAX_TOTAL = 100;
@@ -290,7 +290,12 @@
     // Staff Picks: 1 of each
     var btnQuickFill = document.getElementById('btnQuickFill');
     if (btnQuickFill) btnQuickFill.addEventListener('click', function() {
-        var ids = ['double','caramel','classic','toffee','raspberry','matcha'];
+        var ids = (window._productIds && window._productIds.length) ? window._productIds : [];
+        if (!ids.length) {
+            // Fallback: collect from rendered builder items
+            picker.querySelectorAll('.builder-item[data-id]').forEach(function(el) { ids.push(el.getAttribute('data-id')); });
+        }
+        if (!ids.length) { window.showToast && showToast('No cookies available. Try reloading.'); return; }
         ids.forEach(function(id) {
             var item = picker.querySelector('[data-id="' + id + '"]');
             if (item) {
@@ -305,7 +310,11 @@
     // Surprise Me: random 1-2 of each
     var btnSurprise = document.getElementById('btnSurprise');
     if (btnSurprise) btnSurprise.addEventListener('click', function() {
-        var ids = ['classic','double','toffee','raspberry','caramel','matcha'];
+        var ids = (window._productIds && window._productIds.length) ? window._productIds.slice() : [];
+        if (!ids.length) {
+            picker.querySelectorAll('.builder-item[data-id]').forEach(function(el) { ids.push(el.getAttribute('data-id')); });
+        }
+        if (!ids.length) { window.showToast && showToast('No cookies available. Try reloading.'); return; }
         // Fisher-Yates shuffle then take random qty
         for (var i = ids.length-1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i+1));
@@ -383,7 +392,10 @@
         }
     });
 
-    updateCart();
+    // Re-sync cart once data-loader renders builder items
+    window.addEventListener('data-ready', function() {
+        if (picker.querySelectorAll('.builder-item').length > 0) updateCart();
+    });
 
 // Gift card "Add to Cart" buttons
 document.querySelectorAll('.gift-add-cart').forEach(function(btn) {

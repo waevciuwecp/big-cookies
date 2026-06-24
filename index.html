@@ -144,13 +144,10 @@
         <div class="section-label text-center">Flavor Atlas</div>
         <h2 class="section-title text-center">Choose by mood, not just by name</h2>
         <p class="section-subtitle text-center mx-auto" style="max-width:640px">
-            Some days call for deep chocolate. Some call for a sharp fruit edge or a nutty finish. The atlas lets you read the tray like a tasting menu.
+            Some days call for deep chocolate. Some call for a sharp fruit edge or a nutty finish. Tap a card to zoom in — tap anywhere to collapse.
         </p>
-        <div class="atlas-layout">
-            <div class="atlas-rail" id="atlasRail" role="tablist" aria-label="Flavor atlas"></div>
-            <article class="atlas-panel" id="atlasPanel" aria-live="polite">
-                <p class="atlas-loading">Loading today's tasting board…</p>
-            </article>
+        <div class="atlas-cloud" id="atlasCloud">
+            <p class="atlas-loading">Loading today's tasting board…</p>
         </div>
     </div>
 </section>
@@ -221,44 +218,7 @@
                 <button class="btn-quickfill" id="btnQuickFill">Staff Picks</button>
                 <button class="btn-quickfill" id="btnSurprise" style="margin-left:0.375rem">Surprise Me</button>
             </div>
-            <div class="builder-picker" id="builderPicker">
-                <div class="builder-item" tabindex="0" data-id="classic" data-name="Classic Chocolate Chunk" data-emoji="classic" data-price="4.50">
-                    <img src="svg/cookies/classic.svg" alt="Classic Chocolate Chunk" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Classic Chunk</span>
-                    <span class="builder-item-price">$4.50</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-                <div class="builder-item" tabindex="0" data-id="double" data-name="Double Dark Chocolate" data-emoji="double" data-price="5.00">
-                    <img src="svg/cookies/double.svg" alt="Double Dark Chocolate" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Double Dark</span>
-                    <span class="builder-item-price">$5.00</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-                <div class="builder-item" tabindex="0" data-id="toffee" data-name="Brown Butter Toffee" data-emoji="toffee" data-price="5.50">
-                    <img src="svg/cookies/toffee.svg" alt="Toffee Crunch" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Butter Toffee</span>
-                    <span class="builder-item-price">$5.50</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-                <div class="builder-item" tabindex="0" data-id="raspberry" data-name="Raspberry Dark" data-emoji="raspberry" data-price="5.50">
-                    <img src="svg/cookies/raspberry.svg" alt="Raspberry Dark Chocolate" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Raspberry Dark</span>
-                    <span class="builder-item-price">$5.50</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-                <div class="builder-item" tabindex="0" data-id="caramel" data-name="Sea Salt Caramel" data-emoji="caramel" data-price="5.00">
-                    <img src="svg/cookies/caramel.svg" alt="Salted Caramel" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Sea Salt Caramel</span>
-                    <span class="builder-item-price">$5.00</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-                <div class="builder-item" tabindex="0" data-id="matcha" data-name="Matcha White Chocolate" data-emoji="matcha" data-price="5.50">
-                    <img src="svg/cookies/matcha.svg" alt="Matcha White Chocolate" width="40" height="40" style="border-radius:50%;flex-shrink:0">
-                    <span class="builder-item-name">Matcha White</span>
-                    <span class="builder-item-price">$5.50</span>
-                    <div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>
-                </div>
-            </div>
+            <div class="builder-picker" id="builderPicker" data-load="data/products.json" data-template="builder-item"></div>
 
             <div class="builder-box" id="builderBox">
                 <div class="builder-box-inner">

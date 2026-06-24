@@ -17,6 +17,14 @@
             var iconSrc = item.icon || 'svg/cookies/classic.svg';
             return '<div class="archive-card ' + statusClass + '" data-status="' + item.status + '" data-season="' + item.season.toLowerCase() + '"><div class="archive-season">' + item.season + '</div><div class="archive-cookie-icon"><img src="' + iconSrc + '" alt="' + item.name + '" width="80" height="80" loading="lazy"></div><h3 class="archive-name">' + item.name + '</h3><p class="archive-desc">' + item.desc + '</p><div class="archive-footer"><span class="archive-price">$' + parseFloat(item.price).toFixed(2) + '</span><span class="archive-note">' + item.note + '</span></div></div>';
         },
+        'builder-item': function(item) {
+            return '<div class="builder-item" tabindex="0" data-id="' + item.id + '" data-name="' + item.name + '" data-price="' + item.price + '">' +
+                '<img src="' + item.icon + '" alt="' + item.name + '" width="40" height="40" style="border-radius:50%;flex-shrink:0">' +
+                '<span class="builder-item-name">' + item.name + '</span>' +
+                '<span class="builder-item-price">$' + parseFloat(item.price).toFixed(2) + '</span>' +
+                '<div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>' +
+            '</div>';
+        },
         'product-card': function(item) {
             var tags = item.tags.map(function(t) { return '<span class="product-tag">' + t + '</span>'; }).join('');
             var ingredients = item.ingredients.map(function(i) { return '<li>' + i + '</li>'; }).join('');
@@ -135,8 +143,16 @@
     }
 
     function init() {
-        // Cookie of the Day: product IDs for daily pick rotation
+        // Baseline product IDs (used by product-card template before data-ready)
         window._productIds = ['classic','double','toffee','raspberry','caramel','matcha'];
+        // Override with actual product IDs once builder items are rendered
+        window.addEventListener('data-ready', function() {
+            var ids = [];
+            document.querySelectorAll('.builder-item[data-id]').forEach(function(el) {
+                ids.push(el.getAttribute('data-id'));
+            });
+            if (ids.length) window._productIds = ids;
+        });
         var els = document.querySelectorAll('[data-load]');
         var pending = els.length;
         if (pending === 0) { window.dispatchEvent(new CustomEvent('data-ready')); return; }

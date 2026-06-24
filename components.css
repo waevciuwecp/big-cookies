@@ -363,141 +363,241 @@ main > section { counter-increment: sectionNum; }
 .flavor-atlas {
     padding-top: 2rem;
 }
-.atlas-layout {
-    margin-top: 3rem;
-    display: grid;
-    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
-    gap: 1.5rem;
+/* ── Flavor Atlas — Minicard Cloud ── */
+.atlas-cloud {
+    margin-top: 2rem;
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
 }
-.atlas-rail {
-    display: grid;
-    gap: 0.75rem;
-}
-.atlas-chip {
-    border: 1px solid rgba(60,36,21,0.1);
-    background: rgba(255,255,255,0.74);
-    border-radius: 1.2rem;
-    padding: 1rem 1.1rem;
-    text-align: left;
+.atlas-card {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(60,36,21,0.07);
+    border-radius: 2rem;
+    padding: 0.85rem 1.15rem;
     cursor: pointer;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    /* Gentle cloud drift */
+    animation: atlasFloat var(--float-dur, 20s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+    /* Smooth breathing between states */
+    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+                padding 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+                border-radius 0.5s ease,
+                border-color 0.5s ease,
+                box-shadow 0.5s ease,
+                background 0.5s ease,
+                opacity 0.5s ease;
+    will-change: transform;
 }
-.atlas-chip:hover,
-.atlas-chip[aria-selected="true"] {
-    transform: translateX(6px);
-    border-color: rgba(200,133,62,0.55);
-    box-shadow: 0 14px 30px rgba(60,36,21,0.08);
+@keyframes atlasFloat {
+    0%, 100% { translate: 0 0; }
+    25%  { translate: var(--sway-x, -5px) var(--sway-y, -3px); }
+    50%  { translate: calc(var(--sway-x, 5px) * -0.6) calc(var(--sway-y, 3px) * 0.4); }
+    75%  { translate: calc(var(--sway-x, -3px) * 0.3) calc(var(--sway-y, -2px) * -0.5); }
 }
-.atlas-chip.pinned {
+.atlas-card:hover {
+    border-color: rgba(200,133,62,0.5);
+    box-shadow: 0 20px 50px rgba(60,36,21,0.12);
+    z-index: 5;
+    animation-play-state: paused;
+}
+.atlas-card.dimmed {
+    opacity: 0.18;
+    pointer-events: none;
+}
+
+/* ── Zoomed: the same card, just breathing open ── */
+.atlas-card.zoomed {
+    position: relative !important;
+    left: 0 !important; top: 0 !important;
+    transform: none !important;
+    width: 100%;
+    padding: 2rem;
+    cursor: default;
     border-color: var(--gold);
-    background: rgba(200,133,62,0.08);
-    box-shadow: 0 0 0 2px rgba(200,133,62,0.15);
+    box-shadow: 0 28px 70px rgba(60,36,21,0.12);
+    background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,249,242,0.98));
+    z-index: 20;
+    margin-bottom: 1.5rem;
+    animation: none;
+    white-space: normal;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 2rem;
+    align-items: start;
+    text-align: left;
 }
-.atlas-chip-name {
-    display: block;
+/* Icon + name + mood stay as a group in the top-left */
+.atlas-card.zoomed .atlas-card-icon {
+    grid-row: 1;
+    grid-column: 1;
+}
+.atlas-card.zoomed .atlas-card-name {
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 1.6rem;
+    align-self: end;
+}
+.atlas-card.zoomed .atlas-card-mood {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 0.7rem;
+    opacity: 1;
+}
+
+/* ── Always-present elements ── */
+.atlas-card-icon {
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.atlas-card-name {
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    line-height: 1.05;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0;
 }
-.atlas-chip-meta {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 0.55rem;
-}
-.atlas-chip-meta span,
-.atlas-chip-price,
-.atlas-stat-label {
+.atlas-card-mood {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
 }
-.atlas-chip-meta span {
+
+/* ── Detail elements: hidden when compact, revealed when zoomed ── */
+.atlas-card-close,
+.atlas-card-desc,
+.atlas-card-stats,
+.atlas-card-ingredients,
+.atlas-card-origin,
+.atlas-card-cta {
+    display: none;
+}
+.atlas-card.zoomed .atlas-card-close,
+.atlas-card.zoomed .atlas-card-desc,
+.atlas-card.zoomed .atlas-card-stats,
+.atlas-card.zoomed .atlas-card-ingredients,
+.atlas-card.zoomed .atlas-card-origin,
+.atlas-card.zoomed .atlas-card-cta {
+    display: revert;
+}
+/* Detail elements fade in after card expands */
+.atlas-card.zoomed .atlas-card-desc,
+.atlas-card.zoomed .atlas-card-stats,
+.atlas-card.zoomed .atlas-card-ingredients,
+.atlas-card.zoomed .atlas-card-origin,
+.atlas-card.zoomed .atlas-card-cta {
+    animation: atlasReveal 0.4s 0.2s ease both;
+    grid-column: 1 / -1;
+}
+@keyframes atlasReveal {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.atlas-card-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid rgba(60,36,21,0.12);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
     color: #8B6F5C;
 }
-.atlas-chip-price {
+.atlas-card-close:hover { color: var(--ink); border-color: var(--gold); }
+.atlas-card-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #5C4033;
+    margin: 0.5rem 0 1rem;
+    max-width: 520px;
+}
+.atlas-card-stats {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    max-width: 400px;
+}
+.atlas-card.zoomed .atlas-card-stats { display: grid; }
+.atlas-card-stat {
+    background: rgba(200,133,62,0.05);
+    border-radius: 0.7rem;
+    padding: 0.6rem 0.85rem;
+}
+.atlas-card-stat span {
     display: block;
-    margin-top: 0.8rem;
-    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8B6F5C;
+    margin-bottom: 0.15rem;
 }
-.atlas-panel {
-    min-height: 100%;
-    border-radius: 1.8rem;
-    padding: 1.75rem;
-    background:
-        radial-gradient(circle at top right, rgba(232,168,80,0.18), transparent 34%),
-        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,237,227,0.96));
-    border: 1px solid rgba(60,36,21,0.1);
-    box-shadow: 0 26px 60px rgba(60,36,21,0.08);
+.atlas-card-stat strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--ink);
 }
+.atlas-card-ingredients {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+}
+.atlas-card.zoomed .atlas-card-ingredients { display: flex; }
+.atlas-card-ingredients span {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    background: rgba(60,36,21,0.03);
+    padding: 0.25rem 0.55rem;
+    border-radius: 100px;
+    color: #6B5444;
+}
+.atlas-card-origin {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #8B6F5C;
+    font-style: italic;
+    margin: 0 0 1rem;
+    max-width: 460px;
+}
+.atlas-card-cta { display: none; }
+.atlas-card.zoomed .atlas-card-cta { display: inline-flex; }
+/* ── Backdrop (behind zoomed card) ── */
+.atlas-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 18, 8, 0.35);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+}
+.atlas-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .atlas-loading {
     color: #8B6F5C;
-}
-.atlas-topline {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: start;
-}
-.atlas-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-}
-.atlas-panel h3 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 0.95;
-    margin-top: 0.3rem;
-}
-.atlas-price {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--gold);
-}
-.atlas-desc,
-.atlas-origin {
-    margin-top: 1rem;
-    color: #6B5444;
-    line-height: 1.8;
-    max-width: 48rem;
-}
-.atlas-stat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
-    margin-top: 1.4rem;
-}
-.atlas-stat {
-    background: rgba(255,249,242,0.84);
-    border: 1px solid rgba(60,36,21,0.08);
-    border-radius: 1rem;
-    padding: 0.9rem 1rem;
-}
-.atlas-stat strong {
-    display: block;
-    margin-top: 0.45rem;
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-}
-.atlas-ingredients {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1.4rem;
-}
-.atlas-ingredients span {
-    border-radius: 999px;
-    padding: 0.45rem 0.75rem;
-    background: rgba(200,133,62,0.1);
-    color: #6B5444;
-    font-size: 0.82rem;
-}
-.atlas-cta {
-    margin-top: 1.6rem;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 0;
 }
 .product-card {
     perspective: 800px;
