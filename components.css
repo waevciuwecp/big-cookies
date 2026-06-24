@@ -813,6 +813,48 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .crumb-dot:nth-child(2) { animation-delay: 0.3s; }
 .crumb-dot:nth-child(3) { animation-delay: 0.6s; }
 
+/* ── PROOF STRIP ─────────────────────────── */
+.proof-strip {
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) repeat(3, minmax(0, 0.8fr));
+    gap: 1rem;
+}
+.proof-card {
+    padding: 1.2rem;
+    border-radius: 1.2rem;
+    background: rgba(255,249,242,0.84);
+    border: 1px solid rgba(60,36,21,0.08);
+}
+.proof-card-main {
+    background:
+        linear-gradient(135deg, rgba(255,249,242,0.96), rgba(250,239,227,0.94)),
+        repeating-linear-gradient(180deg, transparent 0, transparent 30px, rgba(60,36,21,0.04) 30px, rgba(60,36,21,0.04) 31px);
+}
+.proof-kicker,
+.proof-index {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.proof-card strong {
+    display: block;
+    margin-top: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.15;
+    color: var(--ink);
+}
+.proof-card p {
+    margin-top: 0.7rem;
+    color: #6B5444;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
 /* ── FAQ ─────────────────────────────────── */
 .faq-list { max-width: 720px; margin: 3rem auto 0; }
 .faq-topic-board {
@@ -880,6 +922,16 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .faq-support-note { background: rgba(42,30,22,0.9); border-color: rgba(240,228,212,0.08); }
 [data-theme="dark"] .faq-topic-card p,
 [data-theme="dark"] .faq-support-note p { color: #B8A898; }
+[data-theme="dark"] .proof-card {
+    background: rgba(42,30,22,0.9);
+    border-color: rgba(240,228,212,0.08);
+}
+[data-theme="dark"] .proof-card-main {
+    background:
+        linear-gradient(180deg, rgba(42,30,22,0.96), rgba(38,26,18,0.98)),
+        repeating-linear-gradient(180deg, transparent 0, transparent 30px, rgba(240,228,212,0.05) 30px, rgba(240,228,212,0.05) 31px);
+}
+[data-theme="dark"] .proof-card p { color: #B8A898; }
 
 /* ── TESTIMONIAL ─────────────────────────── */
 .testimonial {

@@ -99,6 +99,7 @@
     .faculty-standards { grid-template-columns: 1fr; }
     .faq-topic-board { grid-template-columns: 1fr; }
     .awards-summary-board { grid-template-columns: 1fr; }
+    .proof-strip { grid-template-columns: 1fr; }
     .newsletter-layout,
     .newsletter-notes { grid-template-columns: 1fr; }
     .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
