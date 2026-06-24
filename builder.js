@@ -231,7 +231,24 @@
     builderSubmit.addEventListener('click', function() {
         var count = parseInt(builderCount.textContent);
         var total = builderTotal.textContent;
-        if (count > 0) window.showToast && showToast(count + ' cookies in cart — ' + total);
+        if (count === 0) return;
+
+        // Loading state
+        var originalHTML = builderSubmit.innerHTML;
+        builderSubmit.disabled = true;
+        builderSubmit.classList.add('loading');
+        builderSubmit.innerHTML = '<span class="btn-spinner"></span> Preparing your box…';
+
+        setTimeout(function() {
+            builderSubmit.classList.remove('loading');
+            builderSubmit.disabled = false;
+            builderSubmit.innerHTML = originalHTML;
+
+            // Scroll to order form
+            var orderSection = document.getElementById('order');
+            if (orderSection) orderSection.scrollIntoView({behavior: 'smooth'});
+            window.showToast && showToast(count + ' cookies ready — ' + total + '. Fill out the form below to finish!', '📦');
+        }, 1000);
     });
 
     // Clear cart with confirmation

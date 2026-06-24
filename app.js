@@ -389,26 +389,166 @@ if (document.readyState === 'loading') {
     setTimeout(initFAQ, 800);
 }
 
-// ── Order form ────────────────────────────
-const orderForm = document.getElementById('orderForm');
-if (orderForm) {
-    orderForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        showToast('Sorry, we\'re sold out! Next batch drops Friday.');
+// ── Form enhancement utilities ──────────────
+function validateField(field) {
+    var group = field.closest('.form-group');
+    if (!group) return true;
+
+    // Remove existing error
+    var existing = group.querySelector('.form-error');
+    if (existing) existing.remove();
+    group.classList.remove('error', 'valid');
+
+    var value = field.value.trim();
+
+    // Required check
+    if (field.hasAttribute('required') && !value) {
+        group.classList.add('error');
+        var err = document.createElement('span');
+        err.className = 'form-error';
+        err.textContent = 'This field is required';
+        group.appendChild(err);
+        return false;
+    }
+
+    // Email check
+    if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        group.classList.add('error');
+        var emailErr = document.createElement('span');
+        emailErr.className = 'form-error';
+        emailErr.textContent = 'Please enter a valid email address';
+        group.appendChild(emailErr);
+        return false;
+    }
+
+    if (value) group.classList.add('valid');
+    return true;
+}
+
+function getFormData(form) {
+    var data = {};
+    form.querySelectorAll('input, select, textarea').forEach(function(field) {
+        var key = field.name || field.id;
+        if (key) data[key] = field.value;
+    });
+    return data;
+}
+
+function setFormLoading(form, loading) {
+    var btn = form.querySelector('button[type="submit"]');
+    if (!btn) return;
+    if (loading) {
+        btn._originalHTML = btn.innerHTML;
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="btn-spinner"></span> Sending…';
+    } else {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        if (btn._originalHTML) btn.innerHTML = btn._originalHTML;
+    }
+}
+
+function clearFormErrors(form) {
+    form.querySelectorAll('.form-group.error, .form-group.valid').forEach(function(g) {
+        g.classList.remove('error', 'valid');
+        var err = g.querySelector('.form-error');
+        if (err) err.remove();
     });
 }
 
+// ── Order form ────────────────────────────
+(function() {
+    var form = document.getElementById('orderForm');
+    if (!form) return;
+
+    // Blur validation
+    form.querySelectorAll('input[required], textarea[required]').forEach(function(field) {
+        field.addEventListener('blur', function() { validateField(field); });
+        field.addEventListener('input', function() {
+            var group = field.closest('.form-group');
+            if (group && group.classList.contains('error')) validateField(field);
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearFormErrors(form);
+
+        var valid = true;
+        form.querySelectorAll('input[required], input[type="email"], textarea[required]').forEach(function(field) {
+            if (!validateField(field)) valid = false;
+        });
+
+        if (!valid) {
+            var firstError = form.querySelector('.form-group.error input, .form-group.error textarea');
+            if (firstError) { firstError.focus(); firstError.style.animation = 'none'; firstError.offsetHeight; firstError.style.animation = 'shake 0.4s ease'; }
+            return;
+        }
+
+        setFormLoading(form, true);
+        setTimeout(function() {
+            setFormLoading(form, false);
+            // Sold-out response — styled to match the brand
+            var container = form.closest('.order-section');
+            var existing = container.querySelector('.form-success-inline');
+            if (existing) existing.remove();
+            var msg = document.createElement('div');
+            msg.className = 'form-success-inline sold-out visible';
+            msg.style.maxWidth = '600px';
+            msg.style.margin = '1.5rem auto 0';
+            msg.textContent = 'We\'ve got your order — but we\'re sold out this week. You\'ll be first in line when the next batch drops Friday at noon.';
+            container.appendChild(msg);
+            showToast('Next batch drops Friday — we\'ll hold your spot.', '🥠');
+            setTimeout(function() { msg.classList.remove('visible'); setTimeout(function() { if (msg.parentNode) msg.remove(); }, 400); }, 6000);
+        }, 900);
+    });
+})();
 
 // ── Open Day form ───────────────────────────
 (function() {
-    const form = document.getElementById('openDayForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showToast('You\'re on the list! Check your email for confirmation.');
-            form.reset();
+    var form = document.getElementById('openDayForm');
+    if (!form) return;
+
+    form.querySelectorAll('input[required], select[required]').forEach(function(field) {
+        field.addEventListener('blur', function() { validateField(field); });
+        field.addEventListener('input', function() {
+            var group = field.closest('.form-group');
+            if (group && group.classList.contains('error')) validateField(field);
         });
-    }
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearFormErrors(form);
+
+        var valid = true;
+        form.querySelectorAll('input[required], select[required], input[type="email"]').forEach(function(field) {
+            if (!validateField(field)) valid = false;
+        });
+
+        if (!valid) {
+            var firstError = form.querySelector('.form-group.error input, .form-group.error select');
+            if (firstError) { firstError.focus(); firstError.style.animation = 'none'; firstError.offsetHeight; firstError.style.animation = 'shake 0.4s ease'; }
+            return;
+        }
+
+        setFormLoading(form, true);
+        setTimeout(function() {
+            setFormLoading(form, false);
+            form.reset();
+            form.querySelectorAll('.form-group.valid').forEach(function(g) { g.classList.remove('valid'); });
+
+            var existing = form.parentNode.querySelector('.form-success-inline');
+            if (existing) existing.remove();
+            var msg = document.createElement('div');
+            msg.className = 'form-success-inline visible';
+            msg.textContent = 'You\'re on the list! Check your email for confirmation. See you on Open Day.';
+            form.parentNode.appendChild(msg);
+            showToast('Reserved! Check your email for confirmation.', '📅');
+            setTimeout(function() { msg.classList.remove('visible'); setTimeout(function() { if (msg.parentNode) msg.remove(); }, 400); }, 5000);
+        }, 900);
+    });
 })();
 
 
@@ -452,32 +592,70 @@ if (orderForm) {
 })();
 
 // ── Newsletter form ───────────────────────
-const newsletterForm = document.getElementById('newsletterForm');
-if (newsletterForm) {
-    var newsletterInput = newsletterForm.querySelector('input');
-    newsletterForm.addEventListener('submit', function(e) {
+(function() {
+    var form = document.getElementById('newsletterForm');
+    if (!form) return;
+    var newsletterInput = form.querySelector('input');
+
+    newsletterInput.addEventListener('blur', function() {
+        var value = newsletterInput.value.trim();
+        if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            newsletterInput.style.borderColor = 'var(--jam)';
+            newsletterInput.style.background = 'rgba(184,68,68,0.08)';
+        } else if (value) {
+            newsletterInput.style.borderColor = '#3A8C3F';
+            newsletterInput.style.background = 'rgba(58,140,63,0.06)';
+        } else {
+            newsletterInput.style.borderColor = '';
+            newsletterInput.style.background = '';
+        }
+    });
+    newsletterInput.addEventListener('input', function() {
+        if (newsletterInput.style.borderColor === 'rgb(184, 68, 68)' || newsletterInput.style.borderColor === 'var(--jam)') {
+            newsletterInput.style.borderColor = '';
+            newsletterInput.style.background = '';
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         var email = newsletterInput.value.trim();
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             newsletterInput.style.borderColor = 'var(--jam)';
+            newsletterInput.style.background = 'rgba(184,68,68,0.08)';
             newsletterInput.style.animation = 'none';
-            newsletterInput.offsetHeight; // force reflow
+            newsletterInput.offsetHeight;
             newsletterInput.style.animation = 'shake 0.4s ease';
             showToast('Please enter a valid email address.');
-            setTimeout(function() { newsletterInput.style.borderColor = ''; }, 2000);
+            setTimeout(function() { newsletterInput.style.borderColor = ''; newsletterInput.style.background = ''; }, 2500);
             return;
         }
-        var success = document.getElementById('newsletterSuccess');
-        newsletterInput.value = '';
-        newsletterInput.style.borderColor = '#3A8C3F';
-        success.classList.add('visible');
+
+        var btn = form.querySelector('button[type="submit"]');
+        btn._originalHTML = btn.innerHTML;
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="btn-spinner"></span> Joining…';
+
         setTimeout(function() {
-            success.classList.remove('visible');
-            newsletterInput.style.borderColor = '';
-        }, 4000);
-        showToast('You\'re on the list! We\'ll email you when the next batch drops.');
+            btn.classList.remove('loading');
+            btn.disabled = false;
+            btn.innerHTML = btn._originalHTML;
+
+            var success = document.getElementById('newsletterSuccess');
+            newsletterInput.value = '';
+            newsletterInput.style.borderColor = '#3A8C3F';
+            newsletterInput.style.background = 'rgba(58,140,63,0.06)';
+            success.classList.add('visible');
+            showToast('You\'re on the list! See you Friday.', '📬');
+            setTimeout(function() {
+                success.classList.remove('visible');
+                newsletterInput.style.borderColor = '';
+                newsletterInput.style.background = '';
+            }, 5000);
+        }, 800);
     });
-}
+})();
 
 
 // ── Testimonial slider ──────────────────────
