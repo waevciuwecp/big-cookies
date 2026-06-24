@@ -115,6 +115,26 @@
         if (count > 0) builderBox.classList.add('has-cookies');
         else builderBox.classList.remove('has-cookies');
 
+        // Pairing suggestions
+        var pairEl = document.getElementById('builderPairing');
+        if (pairEl) {
+            var has = function(id) { return cart[id] && cart[id].qty > 0; };
+            var pairings = [
+                { ids: ['classic','double'], tip: '🍫 Chocolate lover\'s combo — classic meets double' },
+                { ids: ['toffee','caramel'], tip: '🧂 Sweet & salty perfection — toffee + caramel' },
+                { ids: ['raspberry','matcha'], tip: '🎨 The adventurous duo — raspberry + matcha' },
+                { ids: ['classic','caramel'], tip: '☕ Bakery favorite — classic with a caramel side' },
+                { ids: ['double','raspberry'], tip: '🍓 Bold & bright — dark chocolate meets raspberry' },
+            ];
+            var found = null;
+            for (var pi = 0; pi < pairings.length; pi++) {
+                var p = pairings[pi];
+                if (has(p.ids[0]) && has(p.ids[1])) { found = p; break; }
+            }
+            if (found) { pairEl.textContent = found.tip; pairEl.style.display = ''; }
+            else { pairEl.style.display = 'none'; }
+        }
+
         // Update qty displays in picker
         picker.querySelectorAll('.builder-item').forEach(function(item) {
             var id = item.dataset.id;
