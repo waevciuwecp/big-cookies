@@ -603,12 +603,8 @@ window.addEventListener('data-ready', function() {
 
 // ── Cookie Personality Quiz ──────────────────
 (function() {
-    function initQuiz() {
     var container = document.getElementById('quizBody');
     if (!container) return;
-    // Already initialized
-    if (container.dataset.quizReady) return;
-    container.dataset.quizReady = '1';
 
     var questions = [
         {
@@ -719,12 +715,6 @@ window.addEventListener('data-ready', function() {
 
     resetQuiz();
     showQuestion();
-    } // end initQuiz
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initQuiz);
-    } else {
-        initQuiz();
-    }
 })();
 
 // ── Kitchen story expand ────────────────────
