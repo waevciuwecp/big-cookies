@@ -1,19 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <line x1="34" y1="116" x2="166" y2="116" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
-  <line x1="48" y1="116" x2="48" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
-  <line x1="80" y1="116" x2="80" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
-  <line x1="112" y1="116" x2="112" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
-  <line x1="144" y1="116" x2="144" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
-  <rect x="44" y="126" width="10" height="16" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5" opacity="0.5"/>
-  <rect x="146" y="126" width="10" height="16" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5" opacity="0.5"/>
-  <circle cx="60" cy="112" r="14" fill="none" stroke="#E8A850" stroke-width="2.5"/>
-  <circle cx="60" cy="110" r="2" fill="#5C3D2E"/><circle cx="64" cy="115" r="2.2" fill="#5C3D2E"/><circle cx="56" cy="115" r="1.8" fill="#5C3D2E"/>
-  <circle cx="100" cy="110" r="16" fill="none" stroke="#E8A850" stroke-width="2.5"/>
-  <circle cx="100" cy="108" r="2.5" fill="#5C3D2E"/><circle cx="106" cy="112" r="2" fill="#5C3D2E"/><circle cx="96" cy="114" r="2.2" fill="#5C3D2E"/>
-  <circle cx="140" cy="112" r="14" fill="none" stroke="#E8A850" stroke-width="2.5"/>
-  <circle cx="140" cy="110" r="2" fill="#5C3D2E"/><circle cx="144" cy="115" r="2.2" fill="#5C3D2E"/><circle cx="136" cy="115" r="1.8" fill="#5C3D2E"/>
-  <path d="M60 94c-1-4 1-8 2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
-  <path d="M100 92c0-4 1-7 2-10" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
-  <path d="M140 94c1-4-1-8-2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <defs>
+    <radialGradient id="glow"><stop offset="0%" stop-color="#E8A850" stop-opacity="0.9"/><stop offset="50%" stop-color="#F5D5A0" stop-opacity="0.3"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cookie"><stop offset="0%" stop-color="#E8B860"/><stop offset="60%" stop-color="#C8843C"/><stop offset="100%" stop-color="#A86828"/></radialGradient>
+    <linearGradient id="wood"><stop offset="0%" stop-color="#6B3A20"/><stop offset="100%" stop-color="#4A2510"/></linearGradient>
+    <linearGradient id="metal"><stop offset="0%" stop-color="#D8D0C0"/><stop offset="100%" stop-color="#B0A898"/></linearGradient>
+    <radialGradient id="warm"><stop offset="0%" stop-color="#FDF3E2" stop-opacity="0.6"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect x="0" y="0" width="200" height="200" rx="100" fill="#FFF9F2"/>
+  <rect x="30" y="112" width="140" height="8" rx="4" fill="url(#metal)"/>
+  <line x1="46" y1="112" x2="46" y2="124" stroke="#B0A898" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="74" y1="112" x2="74" y2="124" stroke="#B0A898" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="102" y1="112" x2="102" y2="124" stroke="#B0A898" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="130" y1="112" x2="130" y2="124" stroke="#B0A898" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="158" y1="112" x2="158" y2="124" stroke="#B0A898" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="38" y="124" width="12" height="18" rx="3" fill="#888"/><rect x="150" y="124" width="12" height="18" rx="3" fill="#888"/>
+  <circle cx="62" cy="106" r="16" fill="url(#cookie)"/><circle cx="62" cy="104" rx="3" ry="4" fill="#3C2415" transform="rotate(-15 62 104)"/><circle cx="66" cy="108" rx="2.8" ry="4" fill="#3C2415" transform="rotate(10 66 108)"/>
+  <circle cx="104" cy="104" r="18" fill="#D4954B"/><circle cx="104" cy="102" rx="3.5" ry="4.5" fill="#3C2415" transform="rotate(-10 104 102)"/><circle cx="108" cy="107" rx="3" ry="4.5" fill="#3C2415" transform="rotate(15 108 107)"/><circle cx="100" cy="108" rx="3" ry="4" fill="#3C2415" transform="rotate(-5 100 108)"/>
+  <circle cx="142" cy="106" r="16" fill="url(#cookie)"/><circle cx="142" cy="104" rx="3" ry="4" fill="#3C2415" transform="rotate(-15 142 104)"/><circle cx="146" cy="108" rx="2.8" ry="4" fill="#3C2415" transform="rotate(10 146 108)"/>
+  <path d="M62 82c-1-6 2-12 4-16" fill="none" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+  <path d="M104 78c0-6 2-11 4-15" fill="none" stroke="#C8853E" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+  <path d="M142 82c1-6-2-12-4-16" fill="none" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
 </svg>

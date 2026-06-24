@@ -1,12 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <rect x="52" y="44" width="76" height="104" rx="6" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
-  <rect x="68" y="40" width="44" height="10" rx="3" fill="none" stroke="#C8853E" stroke-width="2"/>
-  <line x1="64" y1="64" x2="116" y2="64" stroke="#D4C4A8" stroke-width="1" opacity="0.6"/>
-  <line x1="64" y1="74" x2="116" y2="74" stroke="#D4C4A8" stroke-width="1" opacity="0.5"/>
-  <line x1="64" y1="84" x2="106" y2="84" stroke="#D4C4A8" stroke-width="1" opacity="0.6"/>
-  <circle cx="96" cy="106" r="16" fill="none" stroke="#E8A850" stroke-width="2.5"/>
-  <path d="M88 106l6 7 12-14" fill="none" stroke="#E8A850" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="146" cy="144" r="20" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
-  <line x1="132" y1="158" x2="120" y2="172" stroke="#5C3D2E" stroke-width="4.5" stroke-linecap="round"/>
+  <defs>
+    <radialGradient id="glow"><stop offset="0%" stop-color="#E8A850" stop-opacity="0.9"/><stop offset="50%" stop-color="#F5D5A0" stop-opacity="0.3"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cookie"><stop offset="0%" stop-color="#E8B860"/><stop offset="60%" stop-color="#C8843C"/><stop offset="100%" stop-color="#A86828"/></radialGradient>
+    <linearGradient id="wood"><stop offset="0%" stop-color="#6B3A20"/><stop offset="100%" stop-color="#4A2510"/></linearGradient>
+    <linearGradient id="metal"><stop offset="0%" stop-color="#D8D0C0"/><stop offset="100%" stop-color="#B0A898"/></linearGradient>
+    <radialGradient id="warm"><stop offset="0%" stop-color="#FDF3E2" stop-opacity="0.6"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect x="0" y="0" width="200" height="200" rx="100" fill="#FFF9F2"/>
+  <rect x="44" y="38" width="82" height="112" rx="6" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2.5"/>
+  <rect x="64" y="32" width="42" height="12" rx="3" fill="#B0B0B0" stroke="#888" stroke-width="1.5"/>
+  <circle cx="78" cy="38" r="2" fill="#666"/><circle cx="88" cy="38" r="2" fill="#666"/>
+  <line x1="56" y1="62" x2="114" y2="62" stroke="#E0D8C8" stroke-width="1.5"/>
+  <line x1="56" y1="74" x2="114" y2="74" stroke="#E0D8C8" stroke-width="1.2"/>
+  <line x1="56" y1="82" x2="108" y2="82" stroke="#E0D8C8" stroke-width="1.2"/>
+  <circle cx="92" cy="108" r="18" fill="none" stroke="#E8A850" stroke-width="2.5"/>
+  <path d="M82 108l8 9 14-18" fill="none" stroke="#E8A850" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="72" cy="98" r="12" fill="url(#cookie)"/><circle cx="72" cy="96" rx="2.5" ry="3" fill="#3C2415" transform="rotate(-15 72 96)"/><circle cx="76" cy="99" rx="2" ry="3" fill="#3C2415" transform="rotate(10 76 99)"/>
+  <circle cx="148" cy="144" r="24" fill="none" stroke="#5C3D2E" stroke-width="3"/>
+  <circle cx="148" cy="144" r="20" fill="url(#warm)" opacity="0.3"/>
+  <circle cx="150" cy="146" r="10" fill="url(#cookie)"/><circle cx="150" cy="144" rx="2" ry="2.5" fill="#3C2415"/><circle cx="153" cy="147" rx="1.8" ry="2.5" fill="#3C2415"/>
+  <line x1="130" y1="164" x2="116" y2="180" stroke="#5C3D2E" stroke-width="5" stroke-linecap="round"/>
 </svg>

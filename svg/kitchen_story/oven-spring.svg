@@ -1,15 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <rect x="44" y="72" width="112" height="90" rx="10" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
-  <rect x="56" y="88" width="88" height="56" rx="6" fill="none" stroke="#5C3D2E" stroke-width="2"/>
-  <rect x="58" y="90" width="84" height="52" rx="5" fill="#E8A850" opacity="0.06"/>
-  <circle cx="74" cy="118" r="10" fill="none" stroke="#E8A850" stroke-width="2"/>
-  <circle cx="100" cy="120" r="12" fill="none" stroke="#E8A850" stroke-width="2"/>
-  <circle cx="126" cy="118" r="10" fill="none" stroke="#E8A850" stroke-width="2"/>
-  <rect x="64" y="146" width="72" height="5" rx="2.5" fill="none" stroke="#5C3D2E" stroke-width="2"/>
-  <path d="M76 62c-1-4 0-9 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-  <path d="M100 56c0-5 1-10 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
-  <path d="M124 62c1-4 0-9-3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-  <circle cx="52" cy="82" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
-  <circle cx="148" cy="82" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
+  <defs>
+    <radialGradient id="glow"><stop offset="0%" stop-color="#E8A850" stop-opacity="0.9"/><stop offset="50%" stop-color="#F5D5A0" stop-opacity="0.3"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+    <radialGradient id="cookie"><stop offset="0%" stop-color="#E8B860"/><stop offset="60%" stop-color="#C8843C"/><stop offset="100%" stop-color="#A86828"/></radialGradient>
+    <linearGradient id="wood"><stop offset="0%" stop-color="#6B3A20"/><stop offset="100%" stop-color="#4A2510"/></linearGradient>
+    <linearGradient id="metal"><stop offset="0%" stop-color="#D8D0C0"/><stop offset="100%" stop-color="#B0A898"/></linearGradient>
+    <radialGradient id="warm"><stop offset="0%" stop-color="#FDF3E2" stop-opacity="0.6"/><stop offset="100%" stop-color="#FFF9F2" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect x="0" y="0" width="200" height="200" rx="100" fill="#FFF9F2"/>
+  <rect x="42" y="68" width="116" height="96" rx="10" fill="#4A4A4A" stroke="#2A2A2A" stroke-width="2"/>
+  <rect x="42" y="68" width="116" height="14" rx="6" fill="#3A3A3A"/>
+  <rect x="56" y="88" width="88" height="54" rx="6" fill="#1A0E06" stroke="#555" stroke-width="1.5"/>
+  <rect x="60" y="92" width="80" height="46" rx="4" fill="#E8A850" opacity="0.15"/>
+  <ellipse cx="76" cy="118" rx="12" ry="7.5" fill="#D4954B"/><ellipse cx="76" cy="116" rx="2.5" ry="3.5" fill="#3C2415" transform="rotate(-10 76 116)"/>
+  <ellipse cx="100" cy="120" rx="14" ry="9" fill="#E8A850"/><ellipse cx="100" cy="118" rx="3" ry="4" fill="#3C2415" transform="rotate(-15 100 118)"/><ellipse cx="100" cy="123" rx="2.5" ry="3.5" fill="#3C2415" transform="rotate(10 100 123)"/>
+  <ellipse cx="124" cy="118" rx="12" ry="7.5" fill="#D4954B"/><ellipse cx="124" cy="116" rx="2.5" ry="3.5" fill="#3C2415" transform="rotate(-10 124 116)"/>
+  <rect x="64" y="146" width="72" height="6" rx="3" fill="#888" stroke="#666" stroke-width="1"/>
+  <path d="M76 58c-2-5 0-11 4-14" fill="none" stroke="#E8A850" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M100 50c0-7 3-14 6-16" fill="none" stroke="#E8A850" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M124 58c2-5 0-11-4-14" fill="none" stroke="#E8A850" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <circle cx="50" cy="80" r="7" fill="#555" stroke="#444" stroke-width="1"/><line x1="50" y1="80" x2="46" y2="75" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="150" cy="80" r="7" fill="#555" stroke="#444" stroke-width="1"/><line x1="150" y1="80" x2="154" y2="75" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="100" y="176" text-anchor="middle" font-size="8" font-weight="700" fill="#E8A850" font-family="Inter,sans-serif">200°C</text>
 </svg>
