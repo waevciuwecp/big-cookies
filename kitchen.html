@@ -191,7 +191,7 @@
       modal.className = 'story-modal';
       modal.setAttribute('role','dialog');
       modal.setAttribute('aria-label',s.title);
-      modal.innerHTML = '<div class="story-modal-header"><button class="story-modal-close" aria-label="Close story">&times;</button><img class="story-modal-icon" src="'+s.icon+'" alt="" aria-hidden="true"></div><div class="story-modal-body"><h3>'+s.title+'</h3><p>'+s.story+'</p></div>';
+      modal.innerHTML = '<button class="story-modal-close" aria-label="Close story">&times;</button><div class="story-modal-header"><img class="story-modal-icon" src="'+s.icon+'" alt="" aria-hidden="true"><div class="story-modal-header-text"><div class="story-modal-chapter">Chapter ' + (s.chapter || '') + '</div><h3>'+s.title+'</h3></div></div><div class="story-modal-body"><p>'+s.story+'</p></div>';
       document.body.appendChild(backdrop);
       document.body.appendChild(modal);
       document.body.style.overflow = 'hidden';
