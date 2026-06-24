@@ -59,6 +59,54 @@ if (heroCookie) {
     });
 }
 
+// ── Hero cursor crumbs ──────────────────────
+(function() {
+    var cookie = document.getElementById('heroCookie');
+    if (!cookie) return;
+    var crumbs = [];
+    var maxCrumbs = 12;
+    var colors = ['#C8853E','#D4954B','#A8612E','#3C1D0E','#E8A850','#8B5A2E'];
+    var ticking = false;
+    var mx = 0, my = 0;
+
+    document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                var rect = cookie.getBoundingClientRect();
+                var cx = rect.left + rect.width/2;
+                var cy = rect.top + rect.height/2;
+                var dist = Math.sqrt((mx-cx)*(mx-cx) + (my-cy)*(my-cy));
+                if (dist < 200) {
+                    var crumb = document.createElement('div');
+                    crumb.style.cssText = 'position:fixed;z-index:9998;pointer-events:none;border-radius:50%;' +
+                        'width:' + (2+Math.random()*3) + 'px;height:' + (2+Math.random()*3) + 'px;' +
+                        'background:' + colors[Math.floor(Math.random()*colors.length)] + ';' +
+                        'left:' + mx + 'px;top:' + my + 'px;' +
+                        'transition: all ' + (0.6+Math.random()*0.5) + 's ease-out;opacity:0.7;';
+                    document.body.appendChild(crumb);
+                    crumbs.push(crumb);
+                    requestAnimationFrame(function(c) { return function() {
+                        c.style.transform = 'translate(' + ((Math.random()-0.5)*30) + 'px,' + ((Math.random()-0.5)*30-10) + 'px)';
+                        c.style.opacity = '0';
+                    };}(crumb));
+                    setTimeout(function(c) { return function() {
+                        var i = crumbs.indexOf(c);
+                        if (i >= 0) crumbs.splice(i,1);
+                        if (c.parentNode) c.remove();
+                    };}(crumb), 800);
+                    while (crumbs.length > maxCrumbs) {
+                        var old = crumbs.shift();
+                        if (old && old.parentNode) old.remove();
+                    }
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
+
 // ── Batch countdown (live) ────────────────
 (function() {
     const el = document.getElementById('batchCountdown');
