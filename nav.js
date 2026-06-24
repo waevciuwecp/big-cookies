@@ -67,43 +67,53 @@ window.addEventListener('scroll', () => {
 });
 
 // ── Mobile menu toggle ────────────────────
-const toggle = document.getElementById('navToggle');
-const mobileMenu = document.getElementById('mobileMenu');
-const toggleSpans = toggle.querySelectorAll('span');
-
-function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggleSpans[0].style.transform = '';
-    toggleSpans[1].style.opacity = '';
-    toggleSpans[2].style.transform = '';
-    document.body.style.overflow = '';
-}
-
-toggle.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open);
-    toggleSpans[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
-    toggleSpans[1].style.opacity = open ? '0' : '';
-    toggleSpans[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
-    document.body.style.overflow = open ? 'hidden' : '';
-});
-
-mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', closeMobileMenu);
-});
-
-// Close on backdrop click
-mobileMenu.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) closeMobileMenu();
-});
-
-// Close on Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-        closeMobileMenu();
+(function bindMobileMenu() {
+    var toggle = document.getElementById('navToggle');
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (!toggle || !mobileMenu) {
+        // DOM not ready yet — retry on next frame
+        requestAnimationFrame(bindMobileMenu);
+        return;
     }
-});
+    if (toggle.dataset.menuBound) return;
+    toggle.dataset.menuBound = '1';
+
+    var toggleSpans = toggle.querySelectorAll('span');
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggleSpans[0].style.transform = '';
+        toggleSpans[1].style.opacity = '';
+        toggleSpans[2].style.transform = '';
+        document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', function() {
+        var open = mobileMenu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+        toggleSpans[0].style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
+        toggleSpans[1].style.opacity = open ? '0' : '';
+        toggleSpans[2].style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+        document.body.style.overflow = open ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close on backdrop click
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target === mobileMenu) closeMobileMenu();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+            closeMobileMenu();
+        }
+    });
+})();
 
 // ── Scroll progress bar ───────────────────
 (function() {
