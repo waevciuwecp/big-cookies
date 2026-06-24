@@ -1,25 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
   <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <!-- Rack bar --><line x1="34" y1="114" x2="166" y2="114" stroke="#A89880" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Support legs --><line x1="48" y1="114" x2="48" y2="124" stroke="#A89880" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="80" y1="114" x2="80" y2="124" stroke="#A89880" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="112" y1="114" x2="112" y2="124" stroke="#A89880" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="144" y1="114" x2="144" y2="124" stroke="#A89880" stroke-width="1.8" stroke-linecap="round"/>
-  <!-- Table legs --><rect x="44" y="124" width="10" height="16" rx="2" fill="none" stroke="#A89880" stroke-width="1.5"/>
-  <rect x="146" y="124" width="10" height="16" rx="2" fill="none" stroke="#A89880" stroke-width="1.5"/>
-  <!-- Cookies --><circle cx="60" cy="110" r="14" fill="none" stroke="#C8853E" stroke-width="2.5"/>
-  <circle cx="60" cy="108" r="2" fill="#5C3D2E"/>
-  <circle cx="64" cy="113" r="2.2" fill="#5C3D2E"/>
-  <circle cx="56" cy="113" r="1.8" fill="#5C3D2E"/>
-  <circle cx="100" cy="108" r="16" fill="none" stroke="#C8853E" stroke-width="2.5"/>
-  <circle cx="100" cy="106" r="2.5" fill="#5C3D2E"/>
-  <circle cx="106" cy="110" r="2" fill="#5C3D2E"/>
-  <circle cx="96" cy="112" r="2.2" fill="#5C3D2E"/>
-  <circle cx="140" cy="110" r="14" fill="none" stroke="#C8853E" stroke-width="2.5"/>
-  <circle cx="140" cy="108" r="2" fill="#5C3D2E"/>
-  <circle cx="144" cy="113" r="2.2" fill="#5C3D2E"/>
-  <circle cx="136" cy="113" r="1.8" fill="#5C3D2E"/>
-  <!-- Steam --><path d="M60 92c-1-4 1-8 2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
-  <path d="M100 90c0-4 1-7 2-10" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
-  <path d="M140 92c1-4-1-8-2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+  <line x1="34" y1="116" x2="166" y2="116" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="48" y1="116" x2="48" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <line x1="80" y1="116" x2="80" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <line x1="112" y1="116" x2="112" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <line x1="144" y1="116" x2="144" y2="126" stroke="#5C3D2E" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+  <rect x="44" y="126" width="10" height="16" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5" opacity="0.5"/>
+  <rect x="146" y="126" width="10" height="16" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="60" cy="112" r="14" fill="none" stroke="#E8A850" stroke-width="2.5"/>
+  <circle cx="60" cy="110" r="2" fill="#5C3D2E"/><circle cx="64" cy="115" r="2.2" fill="#5C3D2E"/><circle cx="56" cy="115" r="1.8" fill="#5C3D2E"/>
+  <circle cx="100" cy="110" r="16" fill="none" stroke="#E8A850" stroke-width="2.5"/>
+  <circle cx="100" cy="108" r="2.5" fill="#5C3D2E"/><circle cx="106" cy="112" r="2" fill="#5C3D2E"/><circle cx="96" cy="114" r="2.2" fill="#5C3D2E"/>
+  <circle cx="140" cy="112" r="14" fill="none" stroke="#E8A850" stroke-width="2.5"/>
+  <circle cx="140" cy="110" r="2" fill="#5C3D2E"/><circle cx="144" cy="115" r="2.2" fill="#5C3D2E"/><circle cx="136" cy="115" r="1.8" fill="#5C3D2E"/>
+  <path d="M60 94c-1-4 1-8 2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <path d="M100 92c0-4 1-7 2-10" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+  <path d="M140 94c1-4-1-8-2-11" fill="none" stroke="#C8853E" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
 </svg>

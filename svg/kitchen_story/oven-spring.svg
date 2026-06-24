@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
   <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <!-- Oven body --><rect x="42" y="70" width="116" height="94" rx="10" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
-  <!-- Window --><rect x="56" y="86" width="88" height="56" rx="6" fill="none" stroke="#5C3D2E" stroke-width="2"/>
-  <!-- Warm glow hint --><rect x="58" y="88" width="84" height="52" rx="5" fill="#E8A850" opacity="0.08"/>
-  <!-- Cookies inside --><circle cx="74" cy="118" r="10" fill="none" stroke="#E8A850" stroke-width="2"/>
+  <rect x="44" y="72" width="112" height="90" rx="10" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
+  <rect x="56" y="88" width="88" height="56" rx="6" fill="none" stroke="#5C3D2E" stroke-width="2"/>
+  <rect x="58" y="90" width="84" height="52" rx="5" fill="#E8A850" opacity="0.06"/>
+  <circle cx="74" cy="118" r="10" fill="none" stroke="#E8A850" stroke-width="2"/>
   <circle cx="100" cy="120" r="12" fill="none" stroke="#E8A850" stroke-width="2"/>
   <circle cx="126" cy="118" r="10" fill="none" stroke="#E8A850" stroke-width="2"/>
-  <!-- Handle --><rect x="64" y="146" width="72" height="5" rx="2.5" fill="none" stroke="#5C3D2E" stroke-width="2"/>
-  <!-- Heat waves --><path d="M76 60c-1-4 0-9 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-  <path d="M100 54c0-5 1-10 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
-  <path d="M124 60c1-4 0-9-3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
-  <!-- Dials --><circle cx="50" cy="80" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
-  <circle cx="150" cy="80" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
+  <rect x="64" y="146" width="72" height="5" rx="2.5" fill="none" stroke="#5C3D2E" stroke-width="2"/>
+  <path d="M76 62c-1-4 0-9 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+  <path d="M100 56c0-5 1-10 3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+  <path d="M124 62c1-4 0-9-3-12" fill="none" stroke="#E8A850" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+  <circle cx="52" cy="82" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
+  <circle cx="148" cy="82" r="5" fill="none" stroke="#C8853E" stroke-width="1.5"/>
 </svg>
