@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# ── China mainland search engines ──
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: HaosouSpider
+Allow: /
+
+User-agent: Shenma
+Allow: /
+
+Sitemap: https://big-cookies.yaoyy.moe/sitemap.xml
