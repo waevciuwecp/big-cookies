@@ -23,3 +23,7 @@
 - Round 6
   2026-06-24 13:25:41 CST
   Strengthened the faculty page with studio standards and a more intentional internship brief so the team page reads like a culture surface, not only a roster.
+
+- Round 7
+  2026-06-24 13:29:24 CST
+  Reworked the factory open day page into more of an event program with a run-of-show and practical visitor notes.
