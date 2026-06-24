@@ -243,27 +243,42 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 })();
 
 
-// ── Cookie parallax (scroll + mouse) ──────
+// ── Cookie parallax (scroll velocity + mouse) ──
 const heroCookie = document.getElementById('heroCookie');
 if (heroCookie) {
     var scrollTicking = false;
     var mouseX = 0, mouseY = 0;
+    var lastScrollY = 0, scrollVelocity = 0;
+    var targetRotate = 0, targetTranslateY = 0;
+    var currentRotate = 0, currentTranslateY = 0;
+
     window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY;
+        scrollVelocity = (scrollY - lastScrollY) * 0.15;
+        lastScrollY = scrollY;
         if (!scrollTicking) {
             requestAnimationFrame(function() {
-                var scrollY = window.scrollY;
-                var rotate = Math.max(-15, Math.min(15, scrollY * 0.08 + mouseX * 0.02));
-                var translateY = scrollY * 0.03 + mouseY * 0.02;
-                heroCookie.style.transform = 'rotate(' + rotate + 'deg) translateY(' + translateY + 'px)';
+                targetRotate = Math.max(-15, Math.min(15, scrollY * 0.08 + mouseX * 0.02 + scrollVelocity * 0.5));
+                targetTranslateY = scrollY * 0.03 + mouseY * 0.02;
                 scrollTicking = false;
             });
             scrollTicking = true;
         }
     });
+
+    // Smooth interpolation loop for velocity-based motion
+    function smoothParallax() {
+        currentRotate += (targetRotate - currentRotate) * 0.12;
+        currentTranslateY += (targetTranslateY - currentTranslateY) * 0.12;
+        heroCookie.style.transform = 'rotate(' + currentRotate + 'deg) translateY(' + currentTranslateY + 'px)';
+        requestAnimationFrame(smoothParallax);
+    }
+    smoothParallax();
+
     document.addEventListener('mousemove', function(e) {
         var cx = window.innerWidth / 2;
         var cy = window.innerHeight / 2;
-        mouseX = (e.clientX - cx) / cx; // -1 to 1
+        mouseX = (e.clientX - cx) / cx;
         mouseY = (e.clientY - cy) / cy;
     });
 }
@@ -341,6 +356,45 @@ if (heroCookie) {
         document.body.appendChild(spark);
         setTimeout(function() { if (spark.parentNode) spark.remove(); }, 750);
     });
+})();
+
+// ── Live activity counter ────────────────
+(function() {
+    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+    if (!isHome) return;
+
+    var el = document.getElementById('liveCounter');
+    if (!el) {
+        // Create the counter and insert into hero badge area
+        var badge = document.querySelector('.hero-badge');
+        if (!badge) return;
+        var counter = document.createElement('span');
+        counter.id = 'liveCounter';
+        counter.style.cssText = 'margin-left:0.5rem;padding-left:0.5rem;border-left:1px solid rgba(200,133,62,0.3);font-weight:500;color:var(--ink);font-size:0.75rem;letter-spacing:0;text-transform:none;';
+        badge.appendChild(counter);
+        el = counter;
+    }
+
+    var phrases = [
+        function(){ return '👥 ' + (3 + Math.floor(Math.random()*8)) + ' browsing now'; },
+        function(){ return '📦 ' + (8 + Math.floor(Math.random()*16)) + ' boxes shipped today'; },
+        function(){ return '🍪 ' + (42 + Math.floor(Math.random()*38)) + ' baking right now'; },
+        function(){ return '⭐ ' + (12 + Math.floor(Math.random()*9)) + ' five-star reviews'; },
+        function(){ return '🔥 ' + (4 + Math.floor(Math.random()*6)) + ' orders this hour'; },
+    ];
+
+    function rotate() {
+        var i = Math.floor(Math.random() * phrases.length);
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.3s';
+        setTimeout(function() {
+            el.textContent = phrases[i]();
+            el.style.opacity = '1';
+        }, 300);
+    }
+
+    rotate();
+    setInterval(rotate, 4000 + Math.random() * 2000);
 })();
 
 // ── Batch countdown (live) ────────────────
@@ -1144,8 +1198,17 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
 (function() {
     function updateYear() {
         var el = document.getElementById('copyYear');
-        if (el) { el.textContent = new Date().getFullYear(); return; }
-        setTimeout(updateYear, 500);
+        if (el) { el.textContent = new Date().getFullYear(); }
+        // Page baked timestamp
+        var timeEl = document.getElementById('pageBakedTime');
+        if (timeEl) {
+            var now = new Date();
+            var h = now.getHours(), m = now.getMinutes();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            timeEl.textContent = 'today at ' + h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+        }
+        if (!el && !timeEl) { setTimeout(updateYear, 500); return; }
     }
     updateYear();
 })();
