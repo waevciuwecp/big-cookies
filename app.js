@@ -316,6 +316,33 @@ if (heroCookie) {
     });
 })();
 
+// ── Cursor sparkle trail ──────────────────
+(function() {
+    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+    if (!isHome) return;
+    var lastSparkle = 0;
+    var sparkleColors = ['#E8A850','#FFD700','#C8853E','#F5D5A0','#FFF5E9'];
+    document.addEventListener('mousemove', function(e) {
+        var now = Date.now();
+        if (now - lastSparkle < 180) return; // throttle
+        lastSparkle = now;
+        // Don't sparkle over nav or forms
+        if (e.target.closest('nav') || e.target.closest('form') || e.target.closest('button')) return;
+
+        var spark = document.createElement('span');
+        var size = 2 + Math.random() * 4;
+        spark.style.cssText =
+            'position:fixed;z-index:9990;pointer-events:none;' +
+            'left:' + (e.clientX - size/2) + 'px;top:' + (e.clientY - size/2) + 'px;' +
+            'width:' + size + 'px;height:' + size + 'px;' +
+            'background:' + sparkleColors[Math.floor(Math.random()*sparkleColors.length)] + ';' +
+            'border-radius:50%;' +
+            'animation: sparkleTrail 0.7s ease-out forwards;';
+        document.body.appendChild(spark);
+        setTimeout(function() { if (spark.parentNode) spark.remove(); }, 750);
+    });
+})();
+
 // ── Batch countdown (live) ────────────────
 (function() {
     const el = document.getElementById('batchCountdown');
@@ -477,17 +504,47 @@ window.addEventListener('data-ready', function() { setTimeout(initScrollReveal, 
     });
 })();
 
-// ── Kitchen chapter reveal ────────────────
+// ── Kitchen chapter reveal + progress dots ──
 (function() {
-    const chapterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-            }
+    var chapters = document.querySelectorAll('.kitchen-chapter');
+    if (!chapters.length) return;
+
+    // Create floating chapter dots (desktop only)
+    var dotsNav = document.createElement('nav');
+    dotsNav.className = 'chapter-dots';
+    dotsNav.setAttribute('aria-label', 'Chapter navigation');
+    chapters.forEach(function(_, i) {
+        var dot = document.createElement('span');
+        dot.className = 'chapter-dot';
+        dot.setAttribute('title', 'Chapter ' + (i + 1));
+        dotsNav.appendChild(dot);
+    });
+    document.body.appendChild(dotsNav);
+
+    var dots = dotsNav.querySelectorAll('.chapter-dot');
+    var chapterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) entry.target.classList.add('revealed');
         });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll('.kitchen-chapter, .kitchen-stats, .bakers-note').forEach(el => {
+    var dotObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var idx = Array.from(chapters).indexOf(entry.target);
+            dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+            // Fill previous dots
+            dots.forEach(function(d, i) { d.classList.toggle('seen', i <= idx); });
+        });
+    }, { threshold: 0.5 });
+
+    chapters.forEach(function(ch) {
+        chapterObserver.observe(ch);
+        dotObserver.observe(ch);
+    });
+
+    // Also observe stats and bakers note
+    document.querySelectorAll('.kitchen-stats, .bakers-note').forEach(function(el) {
         chapterObserver.observe(el);
     });
 })();
