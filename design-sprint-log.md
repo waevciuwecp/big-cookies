@@ -27,3 +27,7 @@
 - Round 7
   2026-06-24 13:29:24 CST
   Reworked the factory open day page into more of an event program with a run-of-show and practical visitor notes.
+
+- Round 8
+  2026-06-24 13:31:20 CST
+  Reframed the FAQ page as a support surface with topic cards and a clearer service note above the accordion.
