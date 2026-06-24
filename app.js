@@ -109,8 +109,13 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         matcha: { mood: 'Quiet', intensity: 'Layered', finish: 'Earthy-sweet' }
     };
 
+    var pinned = null; // cookie pinned for comparison
+
     function renderPanel(item) {
         var profile = profiles[item.id] || { mood: 'House favorite', intensity: 'Balanced', finish: 'Long finish' };
+        var compareBtn = pinned && pinned.id !== item.id
+            ? '<button class="btn btn-outline atlas-compare-trigger" data-id="' + item.id + '" style="margin-left:0.5rem;font-size:0.75rem;padding:0.4rem 0.85rem">vs ' + pinned.name + '</button>'
+            : (!pinned ? '<button class="btn btn-outline atlas-pin-btn" data-id="' + item.id + '" style="margin-left:0.5rem;font-size:0.75rem;padding:0.4rem 0.85rem">📌 Pin to compare</button>' : '');
         panel.innerHTML =
             '<div class="atlas-topline">' +
                 '<div>' +
@@ -129,7 +134,46 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
                 return '<span>' + ingredient + '</span>';
             }).join('') + '</div>' +
             '<p class="atlas-origin">' + item.origin + '</p>' +
-            '<div class="atlas-cta"><a class="btn btn-primary" href="#build">Build a box with this one</a></div>';
+            '<div class="atlas-cta" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap"><a class="btn btn-primary" href="#build">Build a box with this one</a>' + compareBtn + (pinned ? ' <button class="atlas-clear-pin" style="background:none;border:none;color:#8B6F5C;cursor:pointer;font-size:0.75rem;text-decoration:underline">Clear pin</button>' : '') + '</div>';
+
+        // Show comparison if pinned and different
+        if (pinned && pinned.id !== item.id) {
+            var pA = profiles[pinned.id] || {};
+            var pB = profile;
+            panel.innerHTML +=
+                '<div class="atlas-compare" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--soft)">' +
+                    '<div class="atlas-kicker" style="margin-bottom:0.75rem">Comparison / ' + pinned.name + ' ↔ ' + item.name + '</div>' +
+                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">' + pinned.name + ' · Mood</span><strong>' + (pA.mood||'—') + '</strong></div>' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">' + item.name + ' · Mood</span><strong>' + (pB.mood||'—') + '</strong></div>' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + (pA.intensity||'—') + '</strong></div>' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + (pB.intensity||'—') + '</strong></div>' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + (pA.finish||'—') + '</strong></div>' +
+                        '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + (pB.finish||'—') + '</strong></div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        // Bind pin button
+        setTimeout(function() {
+            var pinBtn = panel.querySelector('.atlas-pin-btn');
+            var clearBtn = panel.querySelector('.atlas-clear-pin');
+            if (pinBtn) pinBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                pinned = items.find(function(it) { return it.id === pinBtn.dataset.id; });
+                renderPanel(item);
+                // Highlight pinned chip
+                rail.querySelectorAll('.atlas-chip').forEach(function(chip) {
+                    chip.classList.toggle('pinned', chip.dataset.id === pinBtn.dataset.id);
+                });
+            });
+            if (clearBtn) clearBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                pinned = null;
+                rail.querySelectorAll('.atlas-chip').forEach(function(c) { c.classList.remove('pinned'); });
+                renderPanel(item);
+            });
+        }, 50);
     }
 
     function renderRail(items) {

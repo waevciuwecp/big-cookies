@@ -388,6 +388,11 @@ main > section { counter-increment: sectionNum; }
     border-color: rgba(200,133,62,0.55);
     box-shadow: 0 14px 30px rgba(60,36,21,0.08);
 }
+.atlas-chip.pinned {
+    border-color: var(--gold);
+    background: rgba(200,133,62,0.08);
+    box-shadow: 0 0 0 2px rgba(200,133,62,0.15);
+}
 .atlas-chip-name {
     display: block;
     font-family: var(--font-display);
