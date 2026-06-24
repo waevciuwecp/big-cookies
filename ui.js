@@ -49,12 +49,19 @@
     '<div class="footer-col"><h4>Big Cookies</h4><ul><li><a href="#" onclick="document.getElementById(\'newsletterForm\')&&document.getElementById(\'newsletterForm\').querySelector(\'input\').focus();return false">Newsletter</a></li><li><a href="/#how">How It Works</a></li><li style="margin-top:0.5rem;color:#8B6F5C;font-size:0.6875rem">@bigcookies on Instagram</li><li style="margin-top:0.75rem;color:#C8853E;font-size:0.6875rem;font-style:italic;line-height:1.5;max-width:180px" id="bakingTip"></li></ul></div>' +
     '</div><div class="footer-bottom"><p>&copy; 2024–<span id="copyYear">2026</span> Big Cookies. Baked with love in Portland, OR &nbsp;<span class="pdx-seal" title="Portland, Oregon — Est. 2024">🌲 PDX</span>&nbsp;&middot;&nbsp;<a href="mailto:hello@big-cookies.yaoyy.moe"><svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px" aria-hidden="true"><use href="#icon-mail"/></svg> hello@big-cookies.yaoyy.moe</a></p></div></footer>';
 
+    // ── Mobile floating action button ──
+    var fabHTML = '<a href="/#build" class="mobile-fab" aria-label="Build a Box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>Build a Box</a>';
+
     // ── Inject into page ──
     document.addEventListener('DOMContentLoaded', function() {
         var navEl = document.getElementById('site-nav');
         var footerEl = document.getElementById('site-footer');
         if (navEl) navEl.outerHTML = navHTML;
         if (footerEl) footerEl.outerHTML = footerHTML;
+        // Inject FAB
+        var temp = document.createElement('div');
+        temp.innerHTML = fabHTML;
+        document.body.appendChild(temp.firstElementChild);
 
         // Re-trigger nav.js initialization by dispatching a custom event
         window.dispatchEvent(new CustomEvent('ui-ready'));

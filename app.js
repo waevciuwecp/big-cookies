@@ -1,4 +1,35 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
+// ── Animated favicon (homepage only) ──────
+(function() {
+    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+    if (!isHome) return;
+    var favicon = document.querySelector('link[rel="icon"]');
+    if (!favicon) return;
+    var originalHref = favicon.href;
+    var canvas = document.createElement('canvas');
+    canvas.width = 32; canvas.height = 32;
+    var ctx = canvas.getContext('2d');
+    var frames = ['🍪','🥠','🍪','✨'];
+    var idx = 0;
+    var interval;
+
+    function drawFavicon() {
+        ctx.clearRect(0, 0, 32, 32);
+        ctx.font = '26px serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(frames[idx], 16, 17);
+        favicon.href = canvas.toDataURL('image/png');
+        idx = (idx + 1) % frames.length;
+    }
+
+    // Start after 3 seconds, so the SVG favicon shows first
+    setTimeout(function() {
+        drawFavicon();
+        interval = setInterval(drawFavicon, 3000);
+    }, 3000);
+})();
+
 // ── Seasonal accent ───────────────────────
 (function() {
     var month = new Date().getMonth(); // 0-11
