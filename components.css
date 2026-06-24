@@ -189,61 +189,20 @@
 /* ── COOKIE ICONS ────────────────────────── */
 .cookie-icon {
     width: 56px; height: 56px; border-radius: 50%; position: relative;
-    margin-bottom: 1.25rem; flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 -3px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.25rem; flex-shrink: 0; overflow: hidden;
 }
+.cookie-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .product-card-front .cookie-icon { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
 .product-card:hover .product-card-front .cookie-icon { transform: scale(1.15) rotate(5deg); }
 .builder-item.selected .cookie-icon { transform: scale(1.1); }
 
-.cookie-icon.flavor-classic {
-    background: radial-gradient(circle at 50% 38%, #E0A855 0%, #C8843C 60%, #B07030 100%);
-}
-.cookie-icon.flavor-classic::before {
-    content: ''; position: absolute; width: 12px; height: 9px; background: #3C1D0E;
-    border-radius: 40%; top: 28%; left: 30%; transform: rotate(-15deg);
-    box-shadow: 10px 8px 0 #3C1D0E, 16px -2px 0 #3C1D0E, 8px 16px 0 #3C1D0E;
-}
-.cookie-icon.flavor-double {
-    background: radial-gradient(circle at 50% 38%, #5C3622 0%, #3E2010 60%, #2A1409 100%);
-}
-.cookie-icon.flavor-double::before {
-    content: ''; position: absolute; width: 14px; height: 10px; background: #1A0C05;
-    border-radius: 40%; top: 30%; left: 28%; transform: rotate(-20deg);
-    box-shadow: 12px 6px 0 #1A0C05, 6px 14px 0 #1A0C05, 18px 14px 0 #1A0C05;
-}
-.cookie-icon.flavor-toffee {
-    background: radial-gradient(circle at 50% 38%, #E8B860 0%, #D4943A 60%, #B87828 100%);
-}
-.cookie-icon.flavor-toffee::before {
-    content: ''; position: absolute; width: 10px; height: 8px; background: #C0883A;
-    border-radius: 3px; top: 35%; left: 30%; transform: rotate(-30deg);
-    box-shadow: 10px -4px 0 #B87828, 16px 8px 0 #C0883A, 4px 14px 0 #A06020;
-}
-.cookie-icon.flavor-raspberry {
-    background: radial-gradient(circle at 50% 38%, #6B3838 0%, #3E1A1A 60%, #2A1010 100%);
-}
-.cookie-icon.flavor-raspberry::before {
-    content: ''; position: absolute; width: 6px; height: 6px; background: #D4556A;
-    border-radius: 50%; top: 28%; left: 35%;
-    box-shadow: 10px 4px 0 #C84A5E, 18px -2px 0 #D4556A, 6px 14px 0 #C84A5E, 14px 16px 0 #D4556A, 20px 12px 0 #B8445C;
-}
-.cookie-icon.flavor-caramel {
-    background: radial-gradient(circle at 50% 38%, #E8C870 0%, #D4A040 60%, #B8842C 100%);
-}
-.cookie-icon.flavor-caramel::before {
-    content: ''; position: absolute; width: 4px; height: 4px; background: #FFFEF9;
-    border-radius: 1px; top: 32%; left: 32%;
-    box-shadow: 8px 2px 0 #FFFEF9, 16px 4px 0 #FFFEF9, 4px 10px 0 #FFFEF9, 14px 12px 0 #FFFEF9, 10px 16px 0 #FFFEF9;
-}
-.cookie-icon.flavor-matcha {
-    background: radial-gradient(circle at 50% 38%, #9AB868 0%, #7A9A4B 60%, #5C7A34 100%);
-}
-.cookie-icon.flavor-matcha::before {
-    content: ''; position: absolute; width: 8px; height: 6px; background: #F5F0E0;
-    border-radius: 40%; top: 28%; left: 34%; transform: rotate(-10deg);
-    box-shadow: 10px 6px 0 #F5F0E0, 6px 14px 0 #F5F0E0, 16px 12px 0 #ECE4CC;
-}
+/* Flavor classes kept as fallback — now use standalone SVGs via img */
+.cookie-icon.flavor-classic { background: radial-gradient(circle at 50% 38%, #E0A855 0%, #C8843C 60%, #B07030 100%); }
+.cookie-icon.flavor-double { background: radial-gradient(circle at 50% 38%, #5C3622 0%, #3E2010 60%, #2A1409 100%); }
+.cookie-icon.flavor-toffee { background: radial-gradient(circle at 50% 38%, #E8B860 0%, #D4943A 60%, #B87828 100%); }
+.cookie-icon.flavor-raspberry { background: radial-gradient(circle at 50% 38%, #6B3838 0%, #3E1A1A 60%, #2A1010 100%); }
+.cookie-icon.flavor-caramel { background: radial-gradient(circle at 50% 38%, #E8C870 0%, #D4A040 60%, #B8842C 100%); }
+.cookie-icon.flavor-matcha { background: radial-gradient(circle at 50% 38%, #9AB868 0%, #7A9A4B 60%, #5C7A34 100%); }
 
 /* ── STAR RATING ─────────────────────────── */
 .stars { display: flex; gap: 4px; justify-content: center; margin-bottom: 1.25rem; }
@@ -1152,6 +1111,8 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     border: 1px solid var(--soft); transition: transform 0.3s, box-shadow 0.3s;
 }
 .archive-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(60,36,21,0.08); }
+.archive-cookie-icon { width: 80px; height: 80px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; }
+.archive-cookie-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .archive-card.archive-returning { border-left: 3px solid #3A8C3F; }
 .archive-card.archive-retired { border-left: 3px solid #8B6F5C; opacity: 0.85; }
 .archive-season {

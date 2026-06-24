@@ -5,7 +5,8 @@
     "desc": "Meyer lemon zest meets culinary lavender in a brown-butter base. Made with peak-summer lavender from an Oregon farm and year-round Meyer lemons. 47 test batches. Priya's personal favorite.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns Summer 2026"
+    "note": "Returns Summer 2026",
+    "icon": "svg/cookies/lemon-lavender.svg"
   },
   {
     "name": "Pumpkin Spice Chai",
@@ -13,7 +14,8 @@
     "desc": "Real pumpkin pur\u00e9e, house-blended chai spices, and a maple glaze. Sold out in 4 days. We underestimated pumpkin people.",
     "price": "5.50",
     "status": "retired",
-    "note": "Replaced by Maple Pecan"
+    "note": "Replaced by Maple Pecan",
+    "icon": "svg/cookies/pumpkin-spice.svg"
   },
   {
     "name": "Peppermint Bark",
@@ -21,7 +23,8 @@
     "desc": "Dark chocolate base with crushed candy cane and a white chocolate drizzle. Holiday-only. Came with a tiny candy cane taped to the box.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns December 2026"
+    "note": "Returns December 2026",
+    "icon": "svg/cookies/peppermint-bark.svg"
   },
   {
     "name": "Cherry Blossom",
@@ -29,7 +32,8 @@
     "desc": "Sakura-infused dough with dried cherries and a matcha drizzle. Made in collaboration with Yuki's Tokyo patisserie. Our first international collab.",
     "price": "6.00",
     "status": "retired",
-    "note": "One-time collaboration"
+    "note": "One-time collaboration",
+    "icon": "svg/cookies/cherry-blossom.svg"
   },
   {
     "name": "Maple Pecan Crunch",
@@ -37,7 +41,8 @@
     "desc": "Vermont maple syrup, candied pecans, and a brown butter base with flaky salt. Marcus's recipe. Won our internal blind taste test 11-1.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns Fall 2026"
+    "note": "Returns Fall 2026",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Gingerbread Stout",
@@ -45,7 +50,8 @@
     "desc": "Molasses, fresh ginger, and a splash of local stout beer in the dough. Finished with a stout glaze. Developed with a Portland brewery.",
     "price": "6.00",
     "status": "returning",
-    "note": "Returns Winter 2026"
+    "note": "Returns Winter 2026",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Strawberry Basil",
@@ -53,7 +59,8 @@
     "desc": "Freeze-dried strawberries and fresh basil in a vanilla bean dough. Our very first seasonal flavor. Sold out in 48 hours.",
     "price": "5.50",
     "status": "retired",
-    "note": "The one that started seasonals"
+    "note": "The one that started seasonals",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Hot Honey Cornbread",
@@ -61,7 +68,8 @@
     "desc": "Cornmeal cookie with hot honey drizzle and a hint of lime zest. Sweet, spicy, and utterly unexpected. Diego's brainchild.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns Summer 2027"
+    "note": "Returns Summer 2027",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Marionberry Crumble",
@@ -69,7 +77,8 @@
     "desc": "Oregon's own marionberries in a brown butter crumble cookie. Tart, sweet, and purple-stained. Made with berries picked 30 miles from the kitchen.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns August 2026"
+    "note": "Returns August 2026",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Apple Cider Donut",
@@ -77,7 +86,8 @@
     "desc": "Reduced apple cider from Hood River orchards, cinnamon sugar coating, and a cake-donut texture. Tastes like a Vermont orchard in October.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns October 2026"
+    "note": "Returns October 2026",
+    "icon": "svg/cookies/apple-cider.svg"
   },
   {
     "name": "Eggnog Rum",
@@ -85,7 +95,8 @@
     "desc": "Fresh-grated nutmeg, a splash of dark rum in the dough, and a rum glaze. Our holiday party cookie. Strictly 21+ recommended pairing.",
     "price": "6.00",
     "status": "returning",
-    "note": "Returns December 2026"
+    "note": "Returns December 2026",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Rhubarb Pistachio",
@@ -93,7 +104,8 @@
     "desc": "Tart rhubarb from a family farm in the Willamette Valley, roasted pistachios, and a hint of cardamom. Pink, green, and absolutely spring.",
     "price": "6.00",
     "status": "returning",
-    "note": "Returns May 2027"
+    "note": "Returns May 2027",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Blackberry Sage",
@@ -101,7 +113,8 @@
     "desc": "Wild-picked Oregon blackberries with fried sage leaves in brown butter. Savory-sweet and tasted like the Pacific Northwest in a cookie.",
     "price": "5.50",
     "status": "retired",
-    "note": "Sage crop failed in 2025"
+    "note": "Sage crop failed in 2025",
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "name": "Hazelnut Praline",
@@ -109,6 +122,7 @@
     "desc": "Oregon hazelnuts (99% of US crop) candied in-house with caramel and sea salt. Crunchy, buttery, and unmistakably local. A love letter to the Willamette Valley.",
     "price": "5.50",
     "status": "returning",
-    "note": "Returns Fall 2026"
+    "note": "Returns Fall 2026",
+    "icon": "svg/cookies/hazelnut-praline.svg"
   }
 ]

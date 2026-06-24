@@ -35,7 +35,7 @@
             var subtotal = item.qty * parseFloat(item.price);
             total += subtotal;
             html += '<div class="cart-item">' +
-                '<div class="cookie-icon flavor-' + id + '" style="width:32px;height:32px;margin:0;flex-shrink:0"></div>' +
+                '<img src="svg/cookies/' + id + '.svg" alt="' + item.name + '" width="32" height="32" style="flex-shrink:0;border-radius:50%">' +
                 '<span class="cart-item-name">' + item.name + '</span>' +
                 '<span class="cart-item-qty">' + item.qty + 'x</span>' +
                 '<span class="cart-item-subtotal">$' + subtotal.toFixed(2) + '</span>' +

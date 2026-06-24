@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="tc"><stop offset="0%" stop-color="#F0C870"/><stop offset="55%" stop-color="#DCA840"/><stop offset="100%" stop-color="#C08828"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#tc)"/><circle cx="100" cy="100" r="65" fill="none" stroke="#C89838" stroke-width="1.5" opacity="0.4"/>
+  <!-- toffee chunks (angular) --><rect x="70" y="74" width="12" height="14" rx="2" fill="#B87828" transform="rotate(-15 76 81)"/>
+  <rect x="125" y="68" width="10" height="12" rx="2" fill="#A06820" transform="rotate(20 130 74)"/>
+  <rect x="85" y="122" width="13" height="11" rx="2" fill="#C08030" transform="rotate(-5 91 127)"/>
+  <rect x="120" y="115" width="11" height="10" rx="2" fill="#B07028" transform="rotate(12 125 120)"/>
+  <rect x="62" y="105" width="9" height="10" rx="1.5" fill="#A86820" transform="rotate(-30 66 110)"/>
+  <!-- caramel drizzle --><path d="M60 90c5 3 12 0 15-5" fill="none" stroke="#D4A040" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <path d="M80 135c8-2 15-5 18-10" fill="none" stroke="#D4A040" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>

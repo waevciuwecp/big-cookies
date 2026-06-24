@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="mc"><stop offset="0%" stop-color="#A8C878"/><stop offset="55%" stop-color="#88A858"/><stop offset="100%" stop-color="#688838"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#mc)"/><circle cx="100" cy="100" r="65" fill="none" stroke="#78A048" stroke-width="1.5" opacity="0.4"/>
+  <!-- matcha powder texture --><circle cx="100" cy="100" r="62" fill="none" stroke="#90B868" stroke-width="0.5" opacity="0.3" stroke-dasharray="2 8"/>
+  <!-- white chocolate chunks --><rect x="68" y="76" width="13" height="11" rx="3" fill="#F5F0E0" transform="rotate(-15 74 81)"/>
+  <rect x="125" y="68" width="11" height="10" rx="2.5" fill="#F5F0E0" transform="rotate(20 130 73)"/>
+  <rect x="85" y="125" width="14" height="10" rx="3" fill="#ECE4CC" transform="rotate(-8 92 130)"/>
+  <rect x="118" y="115" width="10" height="9" rx="2.5" fill="#F5F0E0" transform="rotate(12 123 119)"/>
+  <rect x="60" y="105" width="9" height="8" rx="2" fill="#ECE4CC" transform="rotate(-25 64 109)"/>
+</svg>

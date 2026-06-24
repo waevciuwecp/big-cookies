@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="ac"><stop offset="0%" stop-color="#F5E0D0"/><stop offset="55%" stop-color="#E8C8B0"/><stop offset="100%" stop-color="#D4B098"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#ac)"/>
+  <circle cx="100" cy="100" r="65" fill="none" stroke="#D4B098" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="70" cy="75" r="3" fill="#E87888" transform="rotate(-15 70 75)" opacity="0.8"/><circle cx="82" cy="90" r="6" fill="#E87888" transform="rotate(15 82 90)" opacity="0.8"/><circle cx="94" cy="105" r="5" fill="#E87888" transform="rotate(45 94 105)" opacity="0.8"/><circle cx="106" cy="75" r="4" fill="#E87888" transform="rotate(75 106 75)" opacity="0.8"/><circle cx="118" cy="90" r="3" fill="#E87888" transform="rotate(105 118 90)" opacity="0.8"/><circle cx="130" cy="105" r="6" fill="#E87888" transform="rotate(135 130 105)" opacity="0.8"/><circle cx="100" cy="100" r="62" fill="none" stroke="#D4B098" stroke-width="0.4" opacity="0.2" stroke-dasharray="2 6"/>
+</svg>

@@ -17,7 +17,8 @@
       "Eggs",
       "Gluten"
     ],
-    "tags": []
+    "tags": [],
+    "icon": "svg/cookies/classic.svg"
   },
   {
     "id": "double",
@@ -39,7 +40,8 @@
     ],
     "tags": [
       "Most Popular"
-    ]
+    ],
+    "icon": "svg/cookies/double.svg"
   },
   {
     "id": "toffee",
@@ -60,7 +62,8 @@
       "Gluten",
       "Nuts"
     ],
-    "tags": []
+    "tags": [],
+    "icon": "svg/cookies/toffee.svg"
   },
   {
     "id": "raspberry",
@@ -82,7 +85,8 @@
     ],
     "tags": [
       "Limited"
-    ]
+    ],
+    "icon": "svg/cookies/raspberry.svg"
   },
   {
     "id": "caramel",
@@ -102,7 +106,8 @@
       "Eggs",
       "Gluten"
     ],
-    "tags": []
+    "tags": [],
+    "icon": "svg/cookies/caramel.svg"
   },
   {
     "id": "matcha",
@@ -122,6 +127,7 @@
       "Eggs",
       "Gluten"
     ],
-    "tags": []
+    "tags": [],
+    "icon": "svg/cookies/matcha.svg"
   }
 ]

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="cc"><stop offset="0%" stop-color="#E8B860"/><stop offset="55%" stop-color="#D4A040"/><stop offset="100%" stop-color="#B8842C"/></radialGradient>
+  </defs>
+  <!-- shadow --><ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <!-- cookie body --><circle cx="100" cy="100" r="65" fill="url(#cc)"/><circle cx="100" cy="100" r="65" fill="none" stroke="#C08A30" stroke-width="1.5" opacity="0.4"/>
+  <!-- cookie edge texture --><circle cx="100" cy="100" r="63" fill="none" stroke="#C09038" stroke-width="0.5" opacity="0.3" stroke-dasharray="3 5"/>
+  <!-- chips --><ellipse cx="72" cy="78" rx="7" ry="10" fill="#3C1D0E" transform="rotate(-15 72 78)"/>
+  <ellipse cx="130" cy="72" rx="6" ry="9" fill="#3C1D0E" transform="rotate(20 130 72)"/>
+  <ellipse cx="88" cy="125" rx="7.5" ry="10" fill="#3C1D0E" transform="rotate(-5 88 125)"/>
+  <ellipse cx="120" cy="118" rx="6" ry="8.5" fill="#3C1D0E" transform="rotate(12 120 118)"/>
+  <ellipse cx="65" cy="110" rx="5" ry="7" fill="#3C1D0E" transform="rotate(-25 65 110)"/>
+  <ellipse cx="140" cy="100" rx="5.5" ry="8" fill="#3C1D0E" transform="rotate(30 140 100)"/>
+  <!-- whole cookie, no bite -->
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="ac"><stop offset="0%" stop-color="#5C4230"/><stop offset="55%" stop-color="#3E2A18"/><stop offset="100%" stop-color="#2A1808"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#ac)"/>
+  <circle cx="100" cy="100" r="65" fill="none" stroke="#2A1808" stroke-width="1.5" opacity="0.3"/>
+  <rect x="68" y="76" width="5" height="3.5" rx="1.5" fill="#80D0A0" transform="rotate(0 70.5 77.75)" opacity="0.8"/><rect x="82" y="94" width="5" height="3.5" rx="1.5" fill="#80D0A0" transform="rotate(20 84.5 95.75)" opacity="0.8"/><rect x="96" y="112" width="5" height="3.5" rx="1.5" fill="#80D0A0" transform="rotate(40 98.5 113.75)" opacity="0.8"/><rect x="110" y="76" width="5" height="3.5" rx="1.5" fill="#80D0A0" transform="rotate(60 112.5 77.75)" opacity="0.8"/><rect x="124" y="94" width="5" height="3.5" rx="1.5" fill="#80D0A0" transform="rotate(80 126.5 95.75)" opacity="0.8"/><circle cx="100" cy="100" r="62" fill="none" stroke="#2A1808" stroke-width="0.4" opacity="0.2" stroke-dasharray="2 6"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="rc"><stop offset="0%" stop-color="#7A4040"/><stop offset="55%" stop-color="#4E1E1E"/><stop offset="100%" stop-color="#2E1010"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#rc)"/><circle cx="100" cy="100" r="65" fill="none" stroke="#3E1414" stroke-width="1.5" opacity="0.4"/>
+  <!-- raspberry bits (small dots) --><circle cx="68" cy="78" r="4.5" fill="#D4556A"/>
+  <circle cx="128" cy="70" r="4" fill="#C84A5E"/>
+  <circle cx="90" cy="128" r="5" fill="#D4556A"/>
+  <circle cx="122" cy="118" r="4.5" fill="#C84A5E"/>
+  <circle cx="60" cy="108" r="3.5" fill="#D46070"/>
+  <circle cx="138" cy="98" r="4" fill="#C84A5E"/>
+  <circle cx="78" cy="100" r="3" fill="#D4556A"/>
+  <circle cx="108" cy="85" r="3.5" fill="#C84A5E"/>
+  <!-- raspberry seed dots --><circle cx="67" cy="77" r="0.8" fill="#FFF" opacity="0.3"/><circle cx="89" cy="127" r="0.8" fill="#FFF" opacity="0.3"/><circle cx="121" cy="117" r="0.8" fill="#FFF" opacity="0.3"/>
+</svg>

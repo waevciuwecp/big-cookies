@@ -637,12 +637,12 @@ window.addEventListener('data-ready', function() {
     ];
 
     var results = {
-        classic: { name: 'Classic Chocolate Chip', desc: 'You\'re timeless, dependable, and everyone\'s first call. You don\'t need to be flashy — your quality speaks for itself. The original, and still the one people come back to.', icon: 'flavor-classic' },
-        double: { name: 'Double Chocolate', desc: 'You go all in. Moderation isn\'t in your vocabulary and honestly? It\'s working. You\'re intense in the best way, and people either keep up or get out of the way.', icon: 'flavor-double' },
-        toffee: { name: 'Toffee Crunch', desc: 'You\'ve got layers. People think they\'ve figured you out, then you surprise them. Complex, a little unexpected, and somehow everything comes together perfectly.', icon: 'flavor-toffee' },
-        raspberry: { name: 'Raspberry Dark Chocolate', desc: 'You\'re the creative one. You see combinations others miss and you\'re not afraid to try something different. Colorful, bold, and impossible to forget.', icon: 'flavor-raspberry' },
-        caramel: { name: 'Salted Caramel', desc: 'You\'ve mastered the balance everyone else is still chasing. Warm, sophisticated, with just enough edge to keep things interesting. The sweet-and-salty of the group.', icon: 'flavor-caramel' },
-        matcha: { name: 'Matcha White Chocolate', desc: 'You\'re refined, a little unexpected, and you definitely know something the rest of us don\'t. People who get you REALLY get you. An acquired taste worth acquiring.', icon: 'flavor-matcha' }
+        classic: { name: 'Classic Chocolate Chip', desc: 'You\'re timeless, dependable, and everyone\'s first call. You don\'t need to be flashy — your quality speaks for itself. The original, and still the one people come back to.', icon: 'svg/cookies/classic.svg' },
+        double: { name: 'Double Chocolate', desc: 'You go all in. Moderation isn\'t in your vocabulary and honestly? It\'s working. You\'re intense in the best way, and people either keep up or get out of the way.', icon: 'svg/cookies/double.svg' },
+        toffee: { name: 'Toffee Crunch', desc: 'You\'ve got layers. People think they\'ve figured you out, then you surprise them. Complex, a little unexpected, and somehow everything comes together perfectly.', icon: 'svg/cookies/toffee.svg' },
+        raspberry: { name: 'Raspberry Dark Chocolate', desc: 'You\'re the creative one. You see combinations others miss and you\'re not afraid to try something different. Colorful, bold, and impossible to forget.', icon: 'svg/cookies/raspberry.svg' },
+        caramel: { name: 'Salted Caramel', desc: 'You\'ve mastered the balance everyone else is still chasing. Warm, sophisticated, with just enough edge to keep things interesting. The sweet-and-salty of the group.', icon: 'svg/cookies/caramel.svg' },
+        matcha: { name: 'Matcha White Chocolate', desc: 'You\'re refined, a little unexpected, and you definitely know something the rest of us don\'t. People who get you REALLY get you. An acquired taste worth acquiring.', icon: 'svg/cookies/matcha.svg' }
     };
 
     var scores = {};
@@ -697,7 +697,7 @@ window.addEventListener('data-ready', function() {
         var result = results[best];
         if (!result) result = results['classic'];
 
-        var html = '<div class="quiz-result"><div class="quiz-result-icon"><div class="cookie-icon ' + result.icon + '"></div></div>';
+        var html = '<div class="quiz-result"><div class="quiz-result-icon"><img src="' + result.icon + '" alt="' + result.name + '" width="80" height="80" style="border-radius:50%"></div>';
         html += '<div class="quiz-match">Your soul cookie is</div>';
         html += '<h3>' + result.name + '</h3>';
         html += '<p>' + result.desc + '</p>';

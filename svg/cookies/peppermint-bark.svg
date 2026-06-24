@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="ac"><stop offset="0%" stop-color="#5C3D2E"/><stop offset="55%" stop-color="#3E2010"/><stop offset="100%" stop-color="#2A1409"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="175" rx="55" ry="10" fill="#00000015"/>
+  <circle cx="100" cy="100" r="65" fill="url(#ac)"/>
+  <circle cx="100" cy="100" r="65" fill="none" stroke="#2A1409" stroke-width="1.5" opacity="0.3"/>
+  <rect x="65" y="75" width="3" height="3" rx="1" fill="#F0F0F0" transform="rotate(0 66.5 76.5)" opacity="0.8"/><rect x="79" y="91" width="6" height="6" rx="1" fill="#F0F0F0" transform="rotate(25 82.0 94.0)" opacity="0.8"/><rect x="93" y="107" width="5" height="5" rx="1" fill="#F0F0F0" transform="rotate(50 95.5 109.5)" opacity="0.8"/><rect x="107" y="75" width="4" height="4" rx="1" fill="#F0F0F0" transform="rotate(75 109.0 77.0)" opacity="0.8"/><rect x="121" y="91" width="3" height="3" rx="1" fill="#F0F0F0" transform="rotate(100 122.5 92.5)" opacity="0.8"/><rect x="135" y="107" width="6" height="6" rx="1" fill="#F0F0F0" transform="rotate(125 138.0 110.0)" opacity="0.8"/><rect x="100" y="80" width="5" height="5" rx="1" fill="#E84040" transform="rotate(15 102 82)"/><rect x="75" y="120" width="5" height="5" rx="1" fill="#E84040" transform="rotate(-10 77 122)"/><circle cx="100" cy="100" r="62" fill="none" stroke="#2A1409" stroke-width="0.4" opacity="0.2" stroke-dasharray="2 6"/>
+</svg>
