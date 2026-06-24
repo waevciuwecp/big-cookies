@@ -1274,3 +1274,5 @@ section { content-visibility: auto; contain-intrinsic-size: 500px; }
     transition: color 0.2s;
 }
 .pdx-seal:hover { color: #4CAF50; }
+
+.product-origin{font-size:0.75rem;color:#8B6F5C;font-style:italic;line-height:1.5;margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid var(--soft);}

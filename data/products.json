@@ -18,7 +18,8 @@
       "Gluten"
     ],
     "tags": [],
-    "icon": "svg/cookies/classic.svg"
+    "icon": "svg/cookies/classic.svg",
+    "origin": "Born in Lena's home kitchen, 2023. The recipe that started it all."
   },
   {
     "id": "double",
@@ -41,7 +42,8 @@
     "tags": [
       "Most Popular"
     ],
-    "icon": "svg/cookies/double.svg"
+    "icon": "svg/cookies/double.svg",
+    "origin": "Created for a chocolate-obsessed regular who said 'make it darker.' We did."
   },
   {
     "id": "toffee",
@@ -63,7 +65,8 @@
       "Nuts"
     ],
     "tags": [],
-    "icon": "svg/cookies/toffee.svg"
+    "icon": "svg/cookies/toffee.svg",
+    "origin": "Inspired by a trip to an English sweets shop. The crunch took 12 tries to perfect."
   },
   {
     "id": "raspberry",
@@ -86,7 +89,8 @@
     "tags": [
       "Limited"
     ],
-    "icon": "svg/cookies/raspberry.svg"
+    "icon": "svg/cookies/raspberry.svg",
+    "origin": "A happy accident \u2014 Marcus dropped freeze-dried raspberries into dark chocolate dough."
   },
   {
     "id": "caramel",
@@ -107,7 +111,8 @@
       "Gluten"
     ],
     "tags": [],
-    "icon": "svg/cookies/caramel.svg"
+    "icon": "svg/cookies/caramel.svg",
+    "origin": "Lena's grandmother's caramel recipe, adapted for cookies. The salt is French."
   },
   {
     "id": "matcha",
@@ -128,6 +133,7 @@
       "Gluten"
     ],
     "tags": [],
-    "icon": "svg/cookies/matcha.svg"
+    "icon": "svg/cookies/matcha.svg",
+    "origin": "A collaboration with a tea master from Uji, Japan. The matcha is ceremonial grade."
   }
 ]
