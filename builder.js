@@ -26,22 +26,57 @@
     var MAX_TOTAL = 100;
 
     function updateCart() {
-        var html = '';
         var count = 0, total = 0;
+        var existingEls = {};
+        // Collect existing cart item elements keyed by data-id
+        cartList.querySelectorAll('.cart-item').forEach(function(el) {
+            existingEls[el.getAttribute('data-id')] = el;
+        });
+
+        var fragment = document.createDocumentFragment();
+        var seenIds = {};
+
         for (var id in cart) {
             var item = cart[id];
             if (item.qty <= 0) continue;
             count += item.qty;
             var subtotal = item.qty * parseFloat(item.price);
             total += subtotal;
-            html += '<div class="cart-item">' +
-                '<img src="svg/cookies/' + id + '.svg" alt="' + item.name + '" width="32" height="32" style="flex-shrink:0;border-radius:50%">' +
-                '<span class="cart-item-name">' + item.name + '</span>' +
-                '<span class="cart-item-qty">' + item.qty + 'x</span>' +
-                '<span class="cart-item-subtotal">$' + subtotal.toFixed(2) + '</span>' +
-                '</div>';
+            seenIds[id] = true;
+
+            var existing = existingEls[id];
+            if (existing) {
+                // Update in place — no flicker
+                existing.querySelector('.cart-item-qty').textContent = item.qty + 'x';
+                existing.querySelector('.cart-item-subtotal').textContent = '$' + subtotal.toFixed(2);
+                fragment.appendChild(existing);
+            } else {
+                // New item — create with entrance animation
+                var div = document.createElement('div');
+                div.className = 'cart-item';
+                div.setAttribute('data-id', id);
+                div.innerHTML =
+                    '<img src="svg/cookies/' + id + '.svg" alt="' + item.name + '" width="32" height="32" style="flex-shrink:0;border-radius:50%">' +
+                    '<span class="cart-item-name">' + item.name + '</span>' +
+                    '<span class="cart-item-qty">' + item.qty + 'x</span>' +
+                    '<span class="cart-item-subtotal">$' + subtotal.toFixed(2) + '</span>';
+                fragment.appendChild(div);
+            }
         }
-        cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
+
+        // Remove items that no longer exist in cart (qty went to 0)
+        for (var oldId in existingEls) {
+            if (!seenIds[oldId] && existingEls[oldId].parentNode) {
+                existingEls[oldId].remove();
+            }
+        }
+
+        if (fragment.childNodes.length > 0) {
+            cartList.innerHTML = '';
+            cartList.appendChild(fragment);
+        } else {
+            cartList.innerHTML = '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
+        }
         builderCount.textContent = count;
         if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!');
             // ── Firework burst ──
