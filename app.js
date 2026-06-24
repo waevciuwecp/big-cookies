@@ -34,21 +34,28 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 })();
 
 
-// ── Cookie parallax ───────────────────────
+// ── Cookie parallax (scroll + mouse) ──────
 const heroCookie = document.getElementById('heroCookie');
 if (heroCookie) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                const rotate = Math.max(-15, Math.min(15, scrollY * 0.08));
-                const translateY = scrollY * 0.03;
-                heroCookie.style.transform = `rotate(${rotate}deg) translateY(${translateY}px)`;
-                ticking = false;
+    var scrollTicking = false;
+    var mouseX = 0, mouseY = 0;
+    window.addEventListener('scroll', function() {
+        if (!scrollTicking) {
+            requestAnimationFrame(function() {
+                var scrollY = window.scrollY;
+                var rotate = Math.max(-15, Math.min(15, scrollY * 0.08 + mouseX * 0.02));
+                var translateY = scrollY * 0.03 + mouseY * 0.02;
+                heroCookie.style.transform = 'rotate(' + rotate + 'deg) translateY(' + translateY + 'px)';
+                scrollTicking = false;
             });
-            ticking = true;
+            scrollTicking = true;
         }
+    });
+    document.addEventListener('mousemove', function(e) {
+        var cx = window.innerWidth / 2;
+        var cy = window.innerHeight / 2;
+        mouseX = (e.clientX - cx) / cx; // -1 to 1
+        mouseY = (e.clientY - cy) / cy;
     });
 }
 

@@ -282,6 +282,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     display: flex; flex-direction: column; justify-content: space-between;
     background: linear-gradient(135deg, #FFF9F2 0%, #F5EDE3 100%);
     border: 1px solid var(--soft);
+    box-shadow: inset 0 2px 12px rgba(0,0,0,0.04);
 }
 .product-card-back .product-name {
     font-family: 'Playfair Display', serif;
