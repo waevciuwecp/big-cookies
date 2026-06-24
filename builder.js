@@ -216,6 +216,27 @@
         window.showToast && showToast('Cart cleared.');
     });
 
+    // Share box — copy cart as text
+    var builderShare = document.getElementById('builderShare');
+    if (builderShare) builderShare.addEventListener('click', function() {
+        var lines = ['🥠 My Big Cookies box:'];
+        var total = 0, count = 0;
+        for (var id in cart) {
+            if (cart[id].qty <= 0) continue;
+            lines.push(cart[id].qty + '× ' + cart[id].name);
+            count += cart[id].qty;
+            total += cart[id].qty * parseFloat(cart[id].price);
+        }
+        lines.push(count + ' cookies — $' + total.toFixed(2));
+        lines.push('big-cookies.yaoyy.moe');
+        var text = lines.join('\n');
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function() {
+                window.showToast && showToast('📋 Box copied! Share it with someone.');
+            });
+        }
+    });
+
     updateCart();
 
 // Gift card "Add to Cart" buttons
