@@ -1361,7 +1361,7 @@ window.addEventListener('data-ready', function() {
         secret.dataset.emoji = 'secret';
         secret.dataset.price = '9.99';
         secret.innerHTML =
-            '<span style="width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#FFD700,#C8853E);box-shadow:0 0 16px rgba(255,215,0,0.5);">👑</span>' +
+            '<img src="svg/cookies/secret.svg" alt="The Golden Crumb" width="40" height="40" style="border-radius:50%;flex-shrink:0;box-shadow:0 0 16px rgba(255,215,0,0.5);">' +
             '<span class="builder-item-name">Golden Crumb</span>' +
             '<span class="builder-item-price">$9.99</span>' +
             '<div class="builder-qty"><button class="qty-btn qty-minus" aria-label="Remove one" tabindex="0">−</button><span class="qty-num">0</span><button class="qty-btn qty-plus" aria-label="Add one" tabindex="0">+</button></div>';
