@@ -73,7 +73,16 @@
     }
 
         window.dispatchEvent(new CustomEvent('cart-update', {detail: {count: count}}));
-        builderTotal.textContent = '$' + total.toFixed(2);
+        var oldTotal = builderTotal.textContent;
+        var newTotal = '$' + total.toFixed(2);
+        if (oldTotal !== newTotal && count > 0) {
+            builderTotal.textContent = newTotal;
+            builderTotal.classList.remove('pulse');
+            void builderTotal.offsetWidth; // force reflow
+            builderTotal.classList.add('pulse');
+        } else {
+            builderTotal.textContent = newTotal;
+        }
         builderSubmit.disabled = count === 0;
         builderReset.disabled = count === 0;
         if (count > 0) builderBox.classList.add('has-cookies');
