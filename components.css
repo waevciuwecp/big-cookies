@@ -79,6 +79,11 @@
     letter-spacing: 0.01em; font-family: 'Inter', sans-serif;
 }
 .btn-primary { background: var(--gold); color: #fff; }
+@keyframes ctaGlow {
+    0%, 100% { box-shadow: 0 8px 30px rgba(200,133,62,0.35); }
+    50% { box-shadow: 0 8px 40px rgba(200,133,62,0.55), 0 0 0 4px rgba(200,133,62,0.08); }
+}
+.hero .btn-primary { animation: ctaGlow 3s ease-in-out infinite; }
 .btn-primary:hover { background: var(--honey); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,133,62,0.35); }
 .btn-primary:active { transform: translateY(0) scale(0.97); transition: transform 0.1s; }
 .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
@@ -1230,3 +1235,7 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     .quiz-card { padding: 1.5rem; }
     .quiz-body h3 { font-size: 1.25rem; }
 }
+
+/* ── PERFORMANCE ───────────────────────────── */
+section { content-visibility: auto; contain-intrinsic-size: 500px; }
+.hero, #products, #site-nav, #site-footer { content-visibility: visible; }
