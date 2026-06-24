@@ -664,7 +664,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
                 '<div><span>Finish</span><strong>' + (item.finish || '—') + '</strong></div>' +
             '</div>' +
             '<div class="atlas-detail-tags">' + item.ingredients.slice(0, 4).map(function(ing) { return '<span>' + ing + '</span>'; }).join('') + '</div>' +
-            '<p class="atlas-detail-origin">' + item.origin + '</p>' +
+            (item.origin ? '<p class="atlas-detail-origin">' + item.origin + '</p>' : '') +
             '<a class="btn btn-primary" href="#build">Build a box with this one</a>';
 
         document.body.appendChild(detailEl);
@@ -2295,7 +2295,8 @@ window.addEventListener('data-ready', function() {
                 '<kbd>T</kbd><span>Toggle dark mode</span>' +
                 '<kbd>B</kbd><span>Jump to Build a Box</span>' +
                 '<kbd>H</kbd><span>Go to homepage</span>' +
-                '<kbd>1–6</kbd><span>Jump to sections</span>' +
+                '<kbd>0–9</kbd><span>Jump to sections</span>' +
+                '<kbd>Enter</kbd><span>Place an order</span>' +
                 '<kbd>Esc</kbd><span>Close modals / menus</span>' +
                 '<kbd>↑↑↓↓←→←→BA</kbd><span>Secret menu</span>' +
             '</div>' +
@@ -2350,11 +2351,16 @@ window.addEventListener('data-ready', function() {
             showToast(isDark ? '☀️ Light mode' : '🌙 Dark mode');
         }
         // Number keys jump to sections
-        if (e.key >= '1' && e.key <= '6' && !e.metaKey && !e.ctrlKey) {
-            var sections = ['hero','products','gifts','build','philosophy','how'];
-            var idx = parseInt(e.key) - 1;
+        if (e.key >= '0' && e.key <= '9' && !e.metaKey && !e.ctrlKey) {
+            var sections = ['hero','bench-sheet','products','flavor-atlas','gifts','build','philosophy','quiz','gallery','how'];
+            var idx = parseInt(e.key);
             var sec = document.getElementById(sections[idx]);
             if (sec) { sec.scrollIntoView({behavior:'smooth'}); showToast('Section ' + e.key, '📍'); }
+        }
+        // Enter → Place an Order
+        if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) {
+            var order = document.getElementById('order');
+            if (order) { order.scrollIntoView({behavior:'smooth'}); showToast('Place your order', '📦'); }
         }
     });
 })();
