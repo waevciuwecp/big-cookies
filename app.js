@@ -1233,6 +1233,23 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     var yearsSince = thisYear - FOUNDING;
     var jsonCache = {};
 
+    // Number → English word (handles 0–99 for bakery-scale counts)
+    function toWord(n) {
+        var ones = ['zero','one','two','three','four','five','six','seven','eight','nine',
+                    'ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+        var tens = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+        n = parseInt(n, 10);
+        if (isNaN(n)) return n;
+        if (n < 20) return ones[n] || String(n);
+        if (n < 100) return tens[Math.floor(n/10)] + (n%10 ? '-' + ones[n%10] : '');
+        return String(n); // 100+ stays numeric
+    }
+
+    // Set text on a dhc element, converting to word form
+    function setDHC(el, value) {
+        el.textContent = toWord(value);
+    }
+
     // Year-based replacements (available immediately, no data needed)
     function injectYears() {
         forEach('.dhc[data-of="current-year"]', function(el) { el.textContent = thisYear; });
@@ -1261,12 +1278,12 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             'gift-tiers': document.querySelectorAll('.gift-card').length || 0
         };
 
-        // Apply counts to all .dhc elements
+        // Apply counts to all .dhc elements (word form for readability)
         forEach('.dhc[data-of]', function(el) {
             var key = el.getAttribute('data-of');
             if (key === 'current-year' || key === 'founding-year' || key === 'years-since' || key === 'year-range') return;
             if (counts[key] !== undefined && counts[key] > 0) {
-                el.textContent = counts[key];
+                setDHC(el, counts[key]);
             }
         });
 
@@ -1276,7 +1293,7 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             document.querySelectorAll('.award-card').forEach(function(c) {
                 if (c.querySelector('.award-medal--gold') || (c.getAttribute('data-medal') === 'gold')) gold++;
             });
-            if (gold > 0) el.textContent = gold;
+            if (gold > 0) setDHC(el, gold);
         });
 
         // Distinct years for awards
@@ -1287,13 +1304,13 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
                 if (yEl) years[yEl.textContent.trim()] = true;
             });
             var yList = Object.keys(years);
-            if (yList.length > 0) el.textContent = yList.length;
+            if (yList.length > 0) setDHC(el, yList.length);
         });
 
         // Kitchen chapters
         forEach('.dhc[data-of="kitchen-chapters"]', function(el) {
             var sections = document.querySelectorAll('[data-load*="kitchen-stories"]');
-            if (sections.length > 0) el.textContent = sections.length;
+            if (sections.length > 0) setDHC(el, sections.length);
         });
 
         // Internship station count
@@ -1301,7 +1318,7 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             var card = document.querySelector('.internship-card, .faculty-hiring-card');
             if (card) {
                 var m = card.textContent.match(/all\s+(\d+)\s+stations/);
-                if (m) el.textContent = m[1];
+                if (m) setDHC(el, parseInt(m[1], 10));
             }
         });
 
@@ -1321,7 +1338,7 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         if (hasDHCFaqs) {
             fetchJSON('data/faq.json', function(data) {
                 if (!data) return;
-                forEach('.dhc[data-of="faqs"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
+                forEach('.dhc[data-of="faqs"]', function(el) { setDHC(el, Array.isArray(data) ? data.length : 0); });
             });
         }
 
@@ -1330,23 +1347,16 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
                 if (!data) return;
                 var current = (data.current || []).length;
                 var past = (data.past || []).length;
-                forEach('.dhc[data-of="faculty-current"]', function(el) { el.textContent = current; });
-                forEach('.dhc[data-of="faculty-total"]', function(el) { el.textContent = current + past; });
-                forEach('.dhc[data-of="faculty-past"]', function(el) { el.textContent = past; });
+                forEach('.dhc[data-of="faculty-current"]', function(el) { setDHC(el, current); });
+                forEach('.dhc[data-of="faculty-total"]', function(el) { setDHC(el, current + past); });
+                forEach('.dhc[data-of="faculty-past"]', function(el) { setDHC(el, past); });
             });
         }
 
         if (hasDHCProducts && !document.querySelectorAll('.product-card').length) {
             fetchJSON('data/products.json', function(data) {
                 if (!data) return;
-                forEach('.dhc[data-of="products"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
-            });
-        }
-
-        if (hasDHCFaqs && !document.querySelectorAll('.faq-item').length) {
-            fetchJSON('data/faq.json', function(data) {
-                if (!data) return;
-                forEach('.dhc[data-of="faqs"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
+                forEach('.dhc[data-of="products"]', function(el) { setDHC(el, Array.isArray(data) ? data.length : 0); });
             });
         }
 
@@ -1354,9 +1364,9 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             fetchJSON('data/awards.json', function(data) {
                 if (!data) return;
                 var arr = Array.isArray(data) ? data : [];
-                forEach('.dhc[data-of="awards"]', function(el) { el.textContent = arr.length; });
+                forEach('.dhc[data-of="awards"]', function(el) { setDHC(el, arr.length); });
                 var gold = arr.filter(function(a) { return a.medal === 'gold'; }).length;
-                forEach('.dhc[data-of="awards-gold"]', function(el) { if (gold > 0) el.textContent = gold; });
+                forEach('.dhc[data-of="awards-gold"]', function(el) { if (gold > 0) setDHC(el, gold); });
             });
         }
     }
