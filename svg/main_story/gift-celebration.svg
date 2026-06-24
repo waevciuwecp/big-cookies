@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gift-box-svg" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+<rect x="2" y="16" width="52" height="38" rx="5" fill="#F5EDE3" stroke="#C8853E" stroke-width="2"/>
+<rect x="2" y="16" width="52" height="14" rx="3" fill="#C8853E"/>
+<path d="M28 16v38" stroke="#C8853E" stroke-width="2"/>
+<path d="M14 16c4-12 18-10 14-2" stroke="#C8853E" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M42 16c-4-12-18-10-14-2" stroke="#C8853E" stroke-width="2" fill="none" stroke-linecap="round"/>
+<rect x="18" y="32" width="20" height="14" rx="3" fill="#E8A850" opacity="0.5"/>
+<circle cx="28" cy="38" r="3" fill="#B84444"/>
+</svg>
