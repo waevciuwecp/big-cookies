@@ -95,6 +95,7 @@
     .gifts-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
     .gallery-wall { grid-template-columns: repeat(2, 1fr); }
     .kitchen-overview-board { grid-template-columns: 1fr; }
+    .sold-out-board { grid-template-columns: 1fr; }
     .faculty-standards { grid-template-columns: 1fr; }
     .faq-topic-board { grid-template-columns: 1fr; }
     .awards-summary-board { grid-template-columns: 1fr; }
@@ -222,6 +223,14 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .form-group select,
 [data-theme="dark"] .form-group textarea { background: var(--vanilla); color: var(--ink); border-color: var(--soft); }
 [data-theme="dark"] .sold-out-caption { color: #9B8A78; }
+[data-theme="dark"] .sold-out-board-lead,
+[data-theme="dark"] .sold-out-board-list,
+[data-theme="dark"] .sold-out-board-item {
+    background: rgba(42,30,22,0.9);
+    border-color: rgba(240,228,212,0.08);
+}
+[data-theme="dark"] .sold-out-board-lead p,
+[data-theme="dark"] .sold-out-board-item p { color: #B8A898; }
 [data-theme="dark"] .btn-outline { color: #D4C4B0; border-color: var(--soft); }
 [data-theme="dark"] .btn-outline:hover { color: var(--gold); border-color: var(--gold); }
 [data-theme="dark"] .footer-bottom p { color: #9B8A78; }

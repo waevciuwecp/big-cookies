@@ -47,3 +47,7 @@
 - Round 12
   2026-06-24 13:42:25 CST
   Added shared page context to the nav so secondary pages announce where you are instead of all routes feeling like the homepage chrome.
+
+- Round 13
+  2026-06-24 13:45:58 CST
+  Reworked the homepage sold-out area into a clearer next-drop board so the blocked checkout state still gives visitors a plan.
