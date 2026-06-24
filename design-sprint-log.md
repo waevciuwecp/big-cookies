@@ -15,3 +15,7 @@
 - Round 4
   2026-06-24 13:17:43 CST
   Turned the archive into a usable vault with status and season filters, plus supporting card metadata so visitors can browse old flavors intentionally.
+
+- Round 5
+  2026-06-24 13:22:57 CST
+  Reframed the news page as a bakery dispatch board with a lead story and an issue rail so updates feel curated rather than listed.

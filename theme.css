@@ -90,6 +90,7 @@
     .cookie-illustration { transform: scale(0.7); }
     .bench-sheet-inner { grid-template-columns: 1fr; }
     .atlas-layout { grid-template-columns: 1fr; }
+    .news-desk { grid-template-columns: 1fr; }
     .products-grid { grid-template-columns: repeat(2, 1fr); }
     .gifts-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
     .gallery-wall { grid-template-columns: repeat(2, 1fr); }

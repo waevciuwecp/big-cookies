@@ -36,6 +36,14 @@
         <p class="section-subtitle text-center mx-auto" style="max-width:560px">
             New flavors, events, and behind-the-scenes stories from the Big Cookies kitchen.
         </p>
+        <div class="news-desk" id="newsDesk">
+            <article class="news-lead" id="newsLead" aria-live="polite">
+                <p class="news-desk-loading">Loading the latest dispatch…</p>
+            </article>
+            <aside class="news-issue-board" id="newsIssueBoard">
+                <p class="news-desk-loading">Assembling the issue board…</p>
+            </aside>
+        </div>
 
         <div data-load="data/news.json" data-template="news-card" style="max-width:700px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.5rem"></div>
     </div>
@@ -61,5 +69,52 @@
 <script src="nav.js"></script>
 <script src="data-loader.js"></script>
 <script src="app.js"></script>
+<script>
+(function() {
+    var lead = document.getElementById('newsLead');
+    var board = document.getElementById('newsIssueBoard');
+    if (!lead || !board) return;
+
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var boardCopy = {
+        'New Flavor': 'Recipe desk: active',
+        'Awards': 'Judges impressed by depth',
+        'Events': 'Open-day attendance climbed again',
+        'Shipping': 'Operations desk expanded routes',
+        'Team': 'Studio notes from the bench'
+    };
+
+    fetch('data/news.json', { cache: 'no-cache' })
+        .then(function(response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+        })
+        .then(function(items) {
+            if (!Array.isArray(items) || !items.length) throw new Error('No stories');
+            var latest = items[0];
+            var date = new Date(latest.date);
+            var dateLabel = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+
+            lead.innerHTML =
+                '<div class="news-lead-kicker">Issue 06 / Bakery Dispatch</div>' +
+                '<div class="news-lead-meta"><span>' + dateLabel + '</span><span>' + (latest.tag || 'Dispatch') + '</span></div>' +
+                '<h2>' + latest.title + '</h2>' +
+                '<p>' + latest.excerpt + '</p>' +
+                '<div class="news-lead-footer"><span>' + (latest.readTime || '2 min read') + '</span><a href="#main-content">Read the full board</a></div>';
+
+            board.innerHTML = items.slice(0, 4).map(function(item, index) {
+                return '<div class="news-issue-card">' +
+                    '<span class="news-issue-index">0' + (index + 1) + '</span>' +
+                    '<strong>' + item.tag + '</strong>' +
+                    '<p>' + (boardCopy[item.tag] || item.excerpt.slice(0, 72) + '...') + '</p>' +
+                '</div>';
+            }).join('');
+        })
+        .catch(function() {
+            lead.innerHTML = '<p class="news-desk-loading">Open the site through a local server or production host to load the latest dispatch.</p>';
+            board.innerHTML = '';
+        });
+})();
+</script>
 </body>
 </html>
