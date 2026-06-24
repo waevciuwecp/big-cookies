@@ -35,7 +35,16 @@
 .hero-badge .badge-icon {
     width: 18px; height: 18px; border-radius: 50%;
     background: radial-gradient(circle at 50% 38%, #D4954B, #C1783A);
-    display: inline-block; vertical-align: -3px;
+    display: inline-block; vertical-align: -3px; position: relative;
+}
+.hero-badge .badge-icon::after {
+    content: ''; position: absolute; inset: -3px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 60%);
+    animation: sparkle 2s ease-in-out infinite;
+}
+@keyframes sparkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.8; transform: scale(1.3); }
 }
 .hero h1 {
     font-family: 'Playfair Display', serif;
