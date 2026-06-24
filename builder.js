@@ -44,25 +44,46 @@
         cartList.innerHTML = html || '<p class="cart-empty" id="cartEmpty">Your cart is empty. Add some cookies!</p>';
         builderCount.textContent = count;
         if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!');
-            // Confetti burst
-            var colors = ['#E8A850','#D4954B','#C8853E','#F5D5A0','#B84444','#5BBA63','#8B6F5C'];
-            for (var ci = 0; ci < 30; ci++) {
-                var conf = document.createElement('div');
-                conf.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;' +
-                    'width:' + (4+Math.random()*8) + 'px;height:' + (4+Math.random()*8) + 'px;' +
-                    'background:' + colors[Math.floor(Math.random()*colors.length)] + ';' +
-                    'border-radius:' + (Math.random()>0.5?'50%':'2px') + ';' +
-                    'left:50%;top:40%;' +
-                    'transition: all ' + (1+Math.random()*1.5) + 's cubic-bezier(0.25,0,0.35,1);' +
-                    'opacity:1;';
-                document.body.appendChild(conf);
-                requestAnimationFrame(function(c) { return function() {
-                    c.style.transform = 'translate(' + ((Math.random()-0.5)*400) + 'px,' + (Math.random()*300+100) + 'px) rotate(' + (Math.random()*720) + 'deg)';
-                    c.style.opacity = '0';
-                };}(conf));
-                setTimeout(function(c) { return function() { if (c.parentNode) c.remove(); }; }(conf), 2000);
+            // ── Confetti burst ──
+            var colors = ['#E8A850','#D4954B','#C8853E','#F5D5A0','#B84444','#5BBA63','#8B6F5C','#F0C28A','#FFF5E9'];
+            var PARTICLE_COUNT = 72;
+            var fragment = document.createDocumentFragment();
+            var originX = 50 + (Math.random() - 0.5) * 20; // 30-70% viewport width
+            var originY = 35 + Math.random() * 10;           // 35-45% viewport height
+
+            for (var ci = 0; ci < PARTICLE_COUNT; ci++) {
+                var el = document.createElement('span');
+                var size = 5 + Math.random() * 14;
+                var isCircle = Math.random() > 0.35;
+                var isSparkle = Math.random() > 0.85;
+                var angle = Math.random() * Math.PI * 2;
+                var distance = 120 + Math.random() * 380;
+                var dx = Math.cos(angle) * distance;
+                var dy = Math.sin(angle) * distance - 60 - Math.random() * 180; // bias upward
+                var rotation = (Math.random() - 0.5) * 900;
+                var duration = 1.2 + Math.random() * 1.6;
+                var delay = Math.random() * 0.35;
+
+                el.style.cssText =
+                    'position:fixed;z-index:9999;pointer-events:none;' +
+                    'left:' + originX + 'vw;top:' + originY + 'vh;' +
+                    'width:' + size + 'px;height:' + (isCircle ? size : size * 0.55) + 'px;' +
+                    'background:' + colors[Math.floor(Math.random() * colors.length)] + ';' +
+                    'border-radius:' + (isCircle ? '50%' : (isSparkle ? '1px' : '3px')) + ';' +
+                    'opacity:0;' +
+                    'animation: dozenBurst ' + duration + 's cubic-bezier(0.15, 0.65, 0.35, 1) ' + delay + 's forwards;' +
+                    '--dx:' + dx + 'px;--dy:' + dy + 'px;--rot:' + rotation + 'deg;' +
+                    (isSparkle ? 'box-shadow:0 0 6px ' + colors[Math.floor(Math.random()*4)] + ';' : '');
+                fragment.appendChild(el);
             }
-            setTimeout(function() { window._celebrated = false; }, 5000); }
+            document.body.appendChild(fragment);
+
+            // Cleanup after longest animation
+            setTimeout(function() {
+                document.querySelectorAll('[style*="dozenBurst"]').forEach(function(el) { el.remove(); });
+            }, 2500);
+            setTimeout(function() { window._celebrated = false; }, 5000);
+        }
 
     // Sync with order form cart summary
     var orderSummary = document.getElementById('orderCartSummary');
