@@ -55,7 +55,7 @@
                 var div = document.createElement('div');
                 div.className = 'cart-item';
                 div.setAttribute('data-id', id);
-                var iconSrc = item.type === 'gift' ? 'svg/cookies/gift.svg' : 'svg/cookies/' + id + '.svg';
+                var iconSrc = item.type === 'gift' ? 'svg/main_story/gift-' + id + '.svg' : 'svg/cookies/' + id + '.svg';
                 var iconStyle = item.type === 'gift' ? 'flex-shrink:0;border-radius:8px' : 'flex-shrink:0;border-radius:50%';
                 div.innerHTML =
                     '<img src="' + iconSrc + '" alt="' + item.name + '" width="32" height="32" style="' + iconStyle + '">' +
