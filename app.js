@@ -3,6 +3,19 @@
 // Check reduced-motion preference once
 var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// ── Hero entrance animation ──────────────────
+(function() {
+    if (prefersReducedMotion) return;
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    // Trigger entrance on next frame after paint
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            hero.classList.add('hero-entrance');
+        });
+    });
+})();
+
 // ── Hero word cycle ─────────────────────────
 (function() {
     var el = document.querySelector('.hero h1 .gold');
