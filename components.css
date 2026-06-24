@@ -336,6 +336,140 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .products-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
 }
+.flavor-atlas {
+    padding-top: 2rem;
+}
+.atlas-layout {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    gap: 1.5rem;
+}
+.atlas-rail {
+    display: grid;
+    gap: 0.75rem;
+}
+.atlas-chip {
+    border: 1px solid rgba(60,36,21,0.1);
+    background: rgba(255,255,255,0.74);
+    border-radius: 1.2rem;
+    padding: 1rem 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.atlas-chip:hover,
+.atlas-chip[aria-selected="true"] {
+    transform: translateX(6px);
+    border-color: rgba(200,133,62,0.55);
+    box-shadow: 0 14px 30px rgba(60,36,21,0.08);
+}
+.atlas-chip-name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.05;
+}
+.atlas-chip-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.55rem;
+}
+.atlas-chip-meta span,
+.atlas-chip-price,
+.atlas-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.atlas-chip-meta span {
+    color: #8B6F5C;
+}
+.atlas-chip-price {
+    display: block;
+    margin-top: 0.8rem;
+    color: var(--gold);
+}
+.atlas-panel {
+    min-height: 100%;
+    border-radius: 1.8rem;
+    padding: 1.75rem;
+    background:
+        radial-gradient(circle at top right, rgba(232,168,80,0.18), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,237,227,0.96));
+    border: 1px solid rgba(60,36,21,0.1);
+    box-shadow: 0 26px 60px rgba(60,36,21,0.08);
+}
+.atlas-loading {
+    color: #8B6F5C;
+}
+.atlas-topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+}
+.atlas-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.atlas-panel h3 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 0.95;
+    margin-top: 0.3rem;
+}
+.atlas-price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--gold);
+}
+.atlas-desc,
+.atlas-origin {
+    margin-top: 1rem;
+    color: #6B5444;
+    line-height: 1.8;
+    max-width: 48rem;
+}
+.atlas-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+}
+.atlas-stat {
+    background: rgba(255,249,242,0.84);
+    border: 1px solid rgba(60,36,21,0.08);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+}
+.atlas-stat strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+}
+.atlas-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+}
+.atlas-ingredients span {
+    border-radius: 999px;
+    padding: 0.45rem 0.75rem;
+    background: rgba(200,133,62,0.1);
+    color: #6B5444;
+    font-size: 0.82rem;
+}
+.atlas-cta {
+    margin-top: 1.6rem;
+}
 .product-card {
     perspective: 800px;
     background: transparent; border-radius: 1.25rem;

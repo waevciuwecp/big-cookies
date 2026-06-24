@@ -34,6 +34,82 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 })();
 
 
+// ── Flavor atlas ───────────────────────────
+(function() {
+    var rail = document.getElementById('atlasRail');
+    var panel = document.getElementById('atlasPanel');
+    if (!rail || !panel) return;
+
+    var profiles = {
+        classic: { mood: 'Comfort', intensity: 'Medium', finish: 'Roasty' },
+        double: { mood: 'Late-night', intensity: 'Bold', finish: 'Bitter-salt' },
+        toffee: { mood: 'Cozy', intensity: 'High', finish: 'Crunchy' },
+        raspberry: { mood: 'Bright', intensity: 'High', finish: 'Tart snap' },
+        caramel: { mood: 'Golden hour', intensity: 'Medium', finish: 'Soft-salt' },
+        matcha: { mood: 'Quiet', intensity: 'Layered', finish: 'Earthy-sweet' }
+    };
+
+    function renderPanel(item) {
+        var profile = profiles[item.id] || { mood: 'House favorite', intensity: 'Balanced', finish: 'Long finish' };
+        panel.innerHTML =
+            '<div class="atlas-topline">' +
+                '<div>' +
+                    '<div class="atlas-kicker">Tasting board / ' + profile.mood + '</div>' +
+                    '<h3>' + item.name + '</h3>' +
+                '</div>' +
+                '<div class="atlas-price">$' + parseFloat(item.price).toFixed(2) + '</div>' +
+            '</div>' +
+            '<p class="atlas-desc">' + item.desc + '</p>' +
+            '<div class="atlas-stat-grid">' +
+                '<div class="atlas-stat"><span class="atlas-stat-label">Mood</span><strong>' + profile.mood + '</strong></div>' +
+                '<div class="atlas-stat"><span class="atlas-stat-label">Intensity</span><strong>' + profile.intensity + '</strong></div>' +
+                '<div class="atlas-stat"><span class="atlas-stat-label">Finish</span><strong>' + profile.finish + '</strong></div>' +
+            '</div>' +
+            '<div class="atlas-ingredients">' + item.ingredients.slice(0, 4).map(function(ingredient) {
+                return '<span>' + ingredient + '</span>';
+            }).join('') + '</div>' +
+            '<p class="atlas-origin">' + item.origin + '</p>' +
+            '<div class="atlas-cta"><a class="btn btn-primary" href="#build">Build a box with this one</a></div>';
+    }
+
+    function renderRail(items) {
+        rail.innerHTML = items.map(function(item, index) {
+            var profile = profiles[item.id] || {};
+            return '<button class="atlas-chip" role="tab" aria-selected="' + (index === 0 ? 'true' : 'false') + '" data-id="' + item.id + '">' +
+                '<span class="atlas-chip-name">' + item.name + '</span>' +
+                '<span class="atlas-chip-meta"><span>' + (profile.mood || 'House') + '</span><span>' + (profile.finish || 'Balanced') + '</span></span>' +
+                '<span class="atlas-chip-price">$' + parseFloat(item.price).toFixed(2) + '</span>' +
+            '</button>';
+        }).join('');
+
+        rail.querySelectorAll('.atlas-chip').forEach(function(button) {
+            button.addEventListener('click', function() {
+                rail.querySelectorAll('.atlas-chip').forEach(function(other) {
+                    other.setAttribute('aria-selected', 'false');
+                });
+                button.setAttribute('aria-selected', 'true');
+                var selected = items.find(function(item) { return item.id === button.getAttribute('data-id'); });
+                if (selected) renderPanel(selected);
+            });
+        });
+    }
+
+    fetch('data/products.json', { cache: 'no-cache' })
+        .then(function(response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+        })
+        .then(function(items) {
+            if (!Array.isArray(items) || !items.length) throw new Error('No products');
+            renderRail(items);
+            renderPanel(items[0]);
+        })
+        .catch(function() {
+            panel.innerHTML = '<p class="atlas-loading">Open the site through a local server or production host to load the tasting board.</p>';
+        });
+})();
+
+
 // ── Cookie parallax (scroll + mouse) ──────
 const heroCookie = document.getElementById('heroCookie');
 if (heroCookie) {
@@ -832,4 +908,3 @@ window.addEventListener('data-ready', function() {
         showQuestion();
     }, 0);
 })();
-
