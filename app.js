@@ -1,4 +1,22 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
+// ── Seasonal accent ───────────────────────
+(function() {
+    var month = new Date().getMonth(); // 0-11
+    var seasons = {
+        winter: { months: [11,0,1], gold: '#C89050', honey: '#D4A860', name: 'winter' },
+        spring: { months: [2,3,4],  gold: '#C8A53E', honey: '#D4B860', name: 'spring' },
+        summer: { months: [5,6,7],  gold: '#D4952E', honey: '#E8B840', name: 'summer' },
+        fall:   { months: [8,9,10], gold: '#C87820', honey: '#D49030', name: 'fall' }
+    };
+    var current = seasons.fall;
+    for (var s in seasons) {
+        if (seasons[s].months.indexOf(month) !== -1) current = seasons[s];
+    }
+    document.documentElement.style.setProperty('--gold', current.gold);
+    document.documentElement.style.setProperty('--honey', current.honey);
+    document.documentElement.dataset.season = current.name;
+})();
+
 // ── Console easter egg ─────────────────────
 console.log(
     '%c🥠 %cBig Cookies%c — Artisan Cookies, Baked Fresh Daily\n' +
