@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="88" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
-  <rect x="56" y="38" width="88" height="126" rx="8" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
-  <line x1="56" y1="82" x2="144" y2="82" stroke="#5C3D2E" stroke-width="2"/>
-  <line x1="60" y1="58" x2="140" y2="58" stroke="#D4C4A8" stroke-width="1" opacity="0.6"/>
-  <path d="M70 68c0-6 14-10 30-10s30 4 30 10" fill="none" stroke="#C8853E" stroke-width="2"/>
-  <ellipse cx="100" cy="68" rx="24" ry="4.5" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5"/>
-  <circle cx="100" cy="112" r="18" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2"/>
-  <line x1="100" y1="112" x2="100" y2="98" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="100" y1="112" x2="112" y2="114" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round"/>
-  <text x="100" y="126" text-anchor="middle" font-size="10" font-weight="900" fill="#E8A850" font-family="Inter,sans-serif">48</text>
-  <line x1="140" y1="48" x2="145" y2="48" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="142.5" y1="45.5" x2="142.5" y2="50.5" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round"/>
-  <rect x="68" y="164" width="8" height="6" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5"/>
-  <rect x="124" y="164" width="8" height="6" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5"/>
+  <circle cx="100" cy="100" r="86" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
+  <!-- Fridge --><rect x="54" y="36" width="92" height="128" rx="8" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
+  <!-- Divider --><line x1="54" y1="82" x2="146" y2="82" stroke="#5C3D2E" stroke-width="2"/>
+  <!-- Shelf --><line x1="58" y1="58" x2="142" y2="58" stroke="#D4C4A8" stroke-width="1" opacity="0.5"/>
+  <!-- Bowl --><path d="M70 70c0-5 14-8 30-8s30 3 30 8" fill="none" stroke="#C8853E" stroke-width="2"/>
+  <ellipse cx="100" cy="70" rx="24" ry="4" fill="#FFF9F2" stroke="#C8853E" stroke-width="1.5"/>
+  <!-- Clock --><circle cx="100" cy="114" r="17" fill="#FFF9F2" stroke="#5C3D2E" stroke-width="2"/>
+  <line x1="100" y1="114" x2="100" y2="100" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="100" y1="114" x2="112" y2="116" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="100" y="128" text-anchor="middle" font-size="9" font-weight="900" fill="#E8A850" font-family="Inter,sans-serif">48</text>
+  <!-- Snowflake --><line x1="142" y1="46" x2="147" y2="46" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="144.5" y1="43.5" x2="144.5" y2="48.5" stroke="#C8853E" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Feet --><rect x="66" y="164" width="8" height="5" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5"/>
+  <rect x="126" y="164" width="8" height="5" rx="2" fill="none" stroke="#5C3D2E" stroke-width="1.5"/>
 </svg>
