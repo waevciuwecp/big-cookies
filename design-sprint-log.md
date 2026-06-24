@@ -11,3 +11,7 @@
 - Round 3
   2026-06-24 13:14:42 CST
   Reshaped the about page with a chronological growth strip and a principles ribbon so the brand story reads like a designed narrative, not only a text block.
+
+- Round 4
+  2026-06-24 13:17:43 CST
+  Turned the archive into a usable vault with status and season filters, plus supporting card metadata so visitors can browse old flavors intentionally.
