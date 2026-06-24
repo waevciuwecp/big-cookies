@@ -713,8 +713,11 @@ window.addEventListener('data-ready', function() {
         });
     }
 
-    resetQuiz();
-    showQuestion();
+    // Defer to next tick for safe DOM access
+    setTimeout(function() {
+        resetQuiz();
+        showQuestion();
+    }, 0);
 })();
 
 // ── Kitchen story expand ────────────────────
@@ -778,10 +781,10 @@ window.addEventListener('data-ready', function() {
 
     // Event delegation — cards can be dynamically loaded
     document.addEventListener('click', function(e) {
+        if (document.querySelector('.story-backdrop')) return; // already open
         var card = e.target.closest('.polaroid');
         if (!card) return;
         if (!card.hasAttribute('data-story-id')) return;
-        if (e.target.closest('.story-modal')) return;
         e.preventDefault();
         openStory(card);
     });
@@ -789,9 +792,9 @@ window.addEventListener('data-ready', function() {
     // Keyboard support
     document.addEventListener('keydown', function(e) {
         if (e.key !== 'Enter' && e.key !== ' ') return;
+        if (document.querySelector('.story-backdrop')) return;
         var card = e.target.closest('.polaroid');
         if (!card || !card.hasAttribute('data-story-id')) return;
-        if (e.target.closest('.story-modal')) return;
         e.preventDefault();
         openStory(card);
     });
