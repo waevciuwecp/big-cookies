@@ -567,6 +567,25 @@ function showToast(msg, icon) {
     toast._timeout = setTimeout(() => toast.classList.remove('visible'), 3000);
 }
 
+
+// ── Baking tip rotator ──────────────────────
+(function() {
+    var tips = [
+        "Brown your butter until it smells nutty. That's when the magic starts.",
+        "Chill your dough. 48 hours. No shortcuts. The flour needs time to hydrate.",
+        "Maldon salt on top. Not table salt. The flakes matter.",
+        "Room temperature eggs. Cold eggs shock the butter. Nobody wants that.",
+        "Underbake by one minute. The residual heat finishes the job on the rack.",
+        "Measure by weight, not volume. A cup of flour can vary by 30 grams.",
+        "Vanilla is not optional. Use the real stuff. Madagascar if you can.",
+        "The best cookie is the one you share. But we won't judge if you don't."
+    ];
+    var el = document.getElementById('bakingTip');
+    if (!el) return;
+    var idx = new Date().getDate() % tips.length;
+    el.textContent = '💡 ' + tips[idx];
+})();
+
 // ── Theme toggle ──────────────────────────
 (function() {
     var html = document.documentElement;

@@ -328,8 +328,13 @@ function showR(){
   var best=null,bs=0;
   for(var k in scores){if(scores[k]>bs){bs=scores[k];best=k}}
   var r=R[best]||R['classic'];
-  qBody.innerHTML='<div class="quiz-result"><div class="quiz-result-icon"><img src="'+r.icon+'" alt="" width="80" height="80" style="border-radius:50%"></div><div class="quiz-match">Your soul cookie is</div><h3>'+r.n+'</h3><p>'+r.d+'</p><a href="#build" class="btn btn-primary">Build a Box with '+r.n.split(' ')[0]+'</a><br><button class="quiz-retry" id="quizRetry">Take the quiz again →</button></div>';
+  qBody.innerHTML='<div class="quiz-result"><div class="quiz-result-icon"><img src="'+r.icon+'" alt="" width="80" height="80" style="border-radius:50%"></div><div class="quiz-match">Your soul cookie is</div><h3>'+r.n+'</h3><p>'+r.d+'</p><a href="#build" class="btn btn-primary">Build a Box</a> <button class="quiz-retry" id="quizShare" style="background:none;border:1px solid var(--soft);border-radius:100px;padding:0.5rem 1rem;cursor:pointer;font-size:0.8125rem;color:var(--ink);transition:all 0.2s">📋 Share Result</button><br><button class="quiz-retry" id="quizRetry">Take the quiz again →</button></div>';
   document.getElementById('quizRetry').onclick=function(){reset();showQ()};
+  var shareBtn = document.getElementById('quizShare');
+  if(shareBtn) shareBtn.onclick=function(){
+    var text = '🥠 I got ' + r.n + ' on the Big Cookies quiz! What cookie are you? big-cookies.yaoyy.moe';
+    if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){showToast&&showToast('📋 Result copied! Share with a friend.');});}
+  };
 }
 reset();showQ();
 })();
