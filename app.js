@@ -444,11 +444,19 @@ if (newsletterForm) {
 })();
 
 
-// ── Back to top ──────────────────────────
+// ── Back to top with progress ring ────────
 var backToTop = document.getElementById('backToTop');
+var backToTopRing = document.getElementById('backToTopRing');
 if (backToTop) {
+    var ringLen = 125.6; // 2*PI*20
     window.addEventListener('scroll', function() {
-        backToTop.classList.toggle('visible', window.scrollY > 600);
+        var visible = window.scrollY > 600;
+        backToTop.classList.toggle('visible', visible);
+        if (backToTopRing && visible) {
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = h > 0 ? Math.min(1, window.scrollY / h) : 0;
+            backToTopRing.setAttribute('stroke-dashoffset', ringLen * (1 - pct));
+        }
     }, {passive: true});
     backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });

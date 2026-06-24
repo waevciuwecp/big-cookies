@@ -132,7 +132,9 @@ body {
     box-shadow: 0 4px 20px rgba(200,133,62,0.35);
     opacity: 0; transform: translateY(20px); pointer-events: none;
     transition: opacity 0.3s, transform 0.3s;
+    padding: 2px;
 }
+.back-to-top svg { display: block; }
 .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .back-to-top:hover { background: var(--honey); transform: translateY(-4px) scale(1.08); box-shadow: 0 8px 28px rgba(200,133,62,0.5); }
 .back-to-top:active { transform: translateY(-1px) scale(0.95); }
