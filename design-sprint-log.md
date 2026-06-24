@@ -55,3 +55,7 @@
 - Round 14
   2026-06-24 13:49:50 CST
   Redesigned the mobile navigation as a structured menu sheet with page context and grouped routes so secondary-page browsing feels curated on small screens too.
+
+- Round 15
+  2026-06-24 13:52:39 CST
+  Rebuilt the homepage newsletter into a Friday drop bulletin with conversion copy, service notes, and a stronger sign-up panel so the final CTA feels like part of the brand system.

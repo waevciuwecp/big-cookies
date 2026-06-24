@@ -618,14 +618,40 @@ reset();showQ();
 <section style="background: linear-gradient(135deg, #3C2415 0%, #5C3D2E 100%); padding-top: 2rem;">
     <div class="section-inner">
         <div class="newsletter">
-            <h2>Get first dibs on new flavors</h2>
-            <p>We drop limited batches every Friday. Subscribers get early access + free shipping on first orders.</p>
-            <form class="newsletter-form" id="newsletterForm" action="#" method="post">
-                <label for="newsletterEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
-                <input type="email" id="newsletterEmail" name="email" placeholder="your@email.com" required>
-                <button type="submit" class="btn btn-primary">Notify Me</button>
-            </form>
-            <div class="newsletter-success" id="newsletterSuccess">You're on the list! We'll email you when the next batch drops.</div>
+            <div class="newsletter-layout">
+                <div class="newsletter-copy">
+                    <div class="newsletter-kicker">Friday Drop Bulletin</div>
+                    <h2>Get the batch note before the tray goes live</h2>
+                    <p>We send one useful email a week: what baked, what changed, and when the next release opens. No coupon fog, no filler.</p>
+                    <div class="newsletter-notes">
+                        <div class="newsletter-note-card">
+                            <span>Dispatch</span>
+                            <strong>Friday noon, Portland time</strong>
+                        </div>
+                        <div class="newsletter-note-card">
+                            <span>Inside the note</span>
+                            <strong>Flavor lineup, sell-out risk, gift guidance</strong>
+                        </div>
+                        <div class="newsletter-note-card">
+                            <span>For first orders</span>
+                            <strong>Free shipping when your first box finally lands</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter-panel">
+                    <div class="newsletter-panel-head">
+                        <span class="newsletter-panel-label">This week's list</span>
+                        <strong>Early access goes out first</strong>
+                    </div>
+                    <form class="newsletter-form" id="newsletterForm" action="#" method="post">
+                        <label for="newsletterEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Email address</label>
+                        <input type="email" id="newsletterEmail" name="email" placeholder="your@email.com" required>
+                        <button type="submit" class="btn btn-primary">Join the list</button>
+                    </form>
+                    <p class="newsletter-microcopy">Expect one note a week, plus the occasional extra release when the oven has a generous day.</p>
+                    <div class="newsletter-success" id="newsletterSuccess">You're on the list! We'll email you when the next batch drops.</div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

@@ -99,6 +99,8 @@
     .faculty-standards { grid-template-columns: 1fr; }
     .faq-topic-board { grid-template-columns: 1fr; }
     .awards-summary-board { grid-template-columns: 1fr; }
+    .newsletter-layout,
+    .newsletter-notes { grid-template-columns: 1fr; }
     .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
     .principles-ribbon { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
@@ -119,6 +121,9 @@
     .products-grid { grid-template-columns: 1fr; }
     .gallery-wall { grid-template-columns: 1fr; }
     .builder-picker { grid-template-columns: 1fr; }
+    .newsletter { padding: 2rem 1.25rem; }
+    .newsletter-copy,
+    .newsletter-panel { text-align: center; }
     .newsletter-form { flex-direction: column; }
     .order-form-wrap { padding: 2rem 1.5rem; }
     section { padding: 4rem 1.5rem; }
