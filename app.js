@@ -117,12 +117,22 @@ if (heroCookie) {
 
 var batchBanner = document.getElementById('batchBanner');
 var bannerShown = false;
+// Check if user previously closed the banner
+try { if (localStorage.getItem('batchBannerClosed')) bannerShown = true; } catch(e) {}
 window.addEventListener('scroll', function() {
     if (!bannerShown && window.scrollY > window.innerHeight * 0.6) {
         if (!batchBanner) batchBanner = document.getElementById('batchBanner');
         if (batchBanner) { batchBanner.classList.add('visible'); bannerShown = true; }
     }
 }, {passive: true});
+// Close button handler (delegated since banner injected by ui.js)
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.batch-close');
+    if (!btn) return;
+    var banner = document.getElementById('batchBanner');
+    if (banner) { banner.classList.remove('visible'); bannerShown = true; }
+    try { localStorage.setItem('batchBannerClosed', '1'); } catch(e) {}
+});
 
 // ── Scroll-reveal animations ──────────────
 const observer = new IntersectionObserver((entries) => {

@@ -233,8 +233,7 @@ body { transition: background-color 0.35s ease; }
     .product-card-back { display: none !important; }
 }
 /* ── NAV+BANNER COMPENSATION ────────────── */
-body.has-banner .nav { top: 0; }
-body.has-banner { padding-top: 40px; }
+/* batch banner is position:fixed — no body push needed */
 
 @keyframes warmPulse {
     0%, 100% { opacity: 0.6; }

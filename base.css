@@ -117,6 +117,12 @@ body {
 }
 .batch-banner.visible { transform: translateY(0); opacity: 1; }
 .batch-banner .batch-icon { display: inline-block; animation: flameFlicker 1.5s ease-in-out infinite; }
+.batch-close {
+    background: none; border: none; color: #9B8A78; font-size: 1.25rem;
+    cursor: pointer; padding: 0 0.25rem; line-height: 1; margin-left: 0.5rem;
+    transition: color 0.2s; flex-shrink: 0;
+}
+.batch-close:hover { color: #FCEBD9; }
 /* ── BACK TO TOP ─────────────────────────── */
 .back-to-top {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 150;
