@@ -138,11 +138,11 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             card.addEventListener('click', function(e) {
                 if (e.target.closest('.atlas-card-close') || e.target.closest('.atlas-card-cta')) return;
                 var id = card.getAttribute('data-id');
-                if (activeId === id || closingId === id) { collapse(); } else { expand(id); }
+                if (activeId === id) { closeDetail(); } else { openDetail(id); }
             });
         });
         cloud.querySelectorAll('.atlas-card-close').forEach(function(btn) {
-            btn.addEventListener('click', function(e) { e.stopPropagation(); collapse(); });
+            btn.addEventListener('click', function(e) { e.stopPropagation(); closeDetail(); });
         });
     }
 
@@ -633,15 +633,72 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         return x - Math.floor(x);
     }
 
-    // ── Backdrop (created once, reused) ──
-    // ═══════════════════════════════════════════
-    // ── Card transition state machine ──
-    // ═══════════════════════════════════════════
-    var transState = 'compact'; // compact | opening | open | closing
+    // ── Detail overlay ──────────────────────
+    var detailEl = null;
+
+    function openDetail(id) {
+        closeDetail();
+        var item = items.find(function(it) { return it.id === id; });
+        if (!item) return;
+        activeId = id;
+
+        cloud.querySelectorAll('.atlas-card').forEach(function(c) {
+            if (c.getAttribute('data-id') !== id) c.classList.add('dimmed');
+        });
+        document.body.style.overflow = 'hidden';
+
+        detailEl = document.createElement('div');
+        detailEl.className = 'atlas-detail';
+        detailEl.setAttribute('role', 'dialog');
+        detailEl.setAttribute('aria-label', item.name);
+        detailEl.innerHTML =
+            '<button class="atlas-detail-close" aria-label="Close">&times;</button>' +
+            '<div class="atlas-detail-header">' +
+                '<img src="' + item.icon + '" alt="" width="48" height="48">' +
+                '<div><h3>' + item.name + '</h3><span class="atlas-detail-mood">' + (item.mood || 'House') + '</span></div>' +
+            '</div>' +
+            '<p class="atlas-detail-desc">' + item.desc + '</p>' +
+            '<div class="atlas-detail-stats">' +
+                '<div><span>Mood</span><strong>' + (item.mood || '—') + '</strong></div>' +
+                '<div><span>Intensity</span><strong>' + (item.intensity || '—') + '</strong></div>' +
+                '<div><span>Finish</span><strong>' + (item.finish || '—') + '</strong></div>' +
+            '</div>' +
+            '<div class="atlas-detail-tags">' + item.ingredients.slice(0, 4).map(function(ing) { return '<span>' + ing + '</span>'; }).join('') + '</div>' +
+            '<p class="atlas-detail-origin">' + item.origin + '</p>' +
+            '<a class="btn btn-primary" href="#build">Build a box with this one</a>';
+
+        document.body.appendChild(detailEl);
+        detailEl.querySelector('.atlas-detail-close').addEventListener('click', closeDetail);
+        detailEl.setAttribute('tabindex', '-1');
+        detailEl.focus({ preventScroll: true });
+    }
+
+    function closeDetail() {
+        if (!detailEl) return;
+        if (detailEl.parentNode) detailEl.parentNode.removeChild(detailEl);
+        detailEl = null;
+        activeId = null;
+        cloud.querySelectorAll('.atlas-card.dimmed').forEach(function(c) { c.classList.remove('dimmed'); });
+        document.body.style.overflow = '';
+    }
+
+    // ESC / click-outside
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && detailEl) closeDetail();
+    });
+    document.addEventListener('pointerdown', function(e) {
+        if (!detailEl) return;
+        var path = e.composedPath();
+        for (var i = 0; i < path.length; i++) { if (path[i] === detailEl) return; }
+        closeDetail();
+    });
+
+    // ── (legacy code preserved below, unreachable via new handlers) ──
+    var transState = 'compact';
     var backdrop = null;
     var activeAnim = null;
-    var closingId = null;  // preserved across closing animation
-    var frozenSlot = null; // { x, y } — frozen particle position during close
+    var closingId = null;
+    var frozenSlot = null;
 
     function ensureBackdrop() {
         if (!backdrop) {
