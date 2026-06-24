@@ -1366,6 +1366,67 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .principle-card p { color: #B8A898; }
 
 /* ── FACULTY ALUMNI ───────────────────────── */
+.faculty-standards {
+    margin: 2rem auto 0;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+.faculty-standard {
+    padding: 1.2rem;
+    border-radius: 1.25rem;
+    background: rgba(255,249,242,0.84);
+    border: 1px solid rgba(60,36,21,0.08);
+    text-align: left;
+}
+.faculty-standard-index,
+.faculty-hiring-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+.faculty-standard strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+}
+.faculty-standard p {
+    margin-top: 0.7rem;
+    color: #6B5444;
+    line-height: 1.7;
+}
+.faculty-hiring-card {
+    position: relative;
+    overflow: hidden;
+}
+.faculty-hiring-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at top right, rgba(232,168,80,0.16), transparent 34%);
+}
+.faculty-hiring-kicker {
+    margin-bottom: 1rem;
+}
+.faculty-hiring-notes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+}
+.faculty-hiring-notes span {
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(200,133,62,0.1);
+    color: #6B5444;
+    font-size: 0.8rem;
+}
 .faculty-card.alumni { opacity: 0.7; }
 .faculty-card.alumni:hover { opacity: 0.9; }
 .faculty-card.alumni .faculty-avatar { filter: grayscale(0.3); }
@@ -1409,6 +1470,11 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 [data-theme="dark"] .cart-item-name { color: var(--ink); }
 
 [data-theme="dark"] .faculty-card.alumni .faculty-avatar { filter: grayscale(0.3) brightness(0.8); }
+[data-theme="dark"] .faculty-standard,
+[data-theme="dark"] .faculty-hiring-card { background: rgba(42,30,22,0.9); border-color: rgba(240,228,212,0.08); }
+[data-theme="dark"] .faculty-standard p,
+[data-theme="dark"] .faculty-hiring-notes span { color: #B8A898; }
+[data-theme="dark"] .faculty-hiring-notes span { background: rgba(200,133,62,0.14); }
 
 .gift-add-cart { cursor: pointer; font-family: var(--font-body); }
 

@@ -19,3 +19,7 @@
 - Round 5
   2026-06-24 13:22:57 CST
   Reframed the news page as a bakery dispatch board with a lead story and an issue rail so updates feel curated rather than listed.
+
+- Round 6
+  2026-06-24 13:25:41 CST
+  Strengthened the faculty page with studio standards and a more intentional internship brief so the team page reads like a culture surface, not only a roster.

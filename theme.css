@@ -94,6 +94,7 @@
     .products-grid { grid-template-columns: repeat(2, 1fr); }
     .gifts-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
     .gallery-wall { grid-template-columns: repeat(2, 1fr); }
+    .faculty-standards { grid-template-columns: 1fr; }
     .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
     .principles-ribbon { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
