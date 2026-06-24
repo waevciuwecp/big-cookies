@@ -6,24 +6,35 @@
     // ── Determine current page for active link ──
     const path = window.location.pathname;
     const isPage = (name) => path.includes(name);
+    const pageContext = isPage('about.html') ? 'About Us' :
+        isPage('archive.html') ? 'Archive' :
+        isPage('awards.html') ? 'Awards' :
+        isPage('factory.html') ? 'Open Day' :
+        isPage('faculty.html') ? 'Faculty' :
+        isPage('faq.html') ? 'FAQ' :
+        isPage('kitchen.html') ? 'The Kitchen' :
+        isPage('news.html') ? 'News' : '';
+    const kitchenActive = isPage('kitchen.html') ? ' active' : '';
+    const faqActive = isPage('faq.html') ? ' active' : '';
+    const pageChip = pageContext ? '<span class="nav-page-chip" aria-label="Current page">' + pageContext + '</span>' : '';
 
     // ── Shared nav ──
     const navHTML = svgDefs + '\n' +
     '<nav class="nav" id="nav"><div class="nav-inner">' +
-    '<a href="/" class="nav-logo"><span class="logo-icon" aria-hidden="true"></span>Big<span>.</span>Cookies</a>' +
+    '<div class="nav-brand-group"><a href="/" class="nav-logo"><span class="logo-icon" aria-hidden="true"></span>Big<span>.</span>Cookies</a>' + pageChip + '</div>' +
     '<ul class="nav-links">' +
     '<li><a href="/#products">Our Cookies</a></li>' +
     '<li><a href="/#gifts">Gift Boxes</a></li>' +
     '<li><a href="/#build">Build a Box <span class="cart-badge" id="cartBadge" style="display:none">0</span></a></li>' +
-    '<li><a href="kitchen.html">The Kitchen</a></li>' +
-    '<li><a href="faq.html">FAQ</a></li>' +
+    '<li><a href="kitchen.html" class="' + kitchenActive.trim() + '">The Kitchen</a></li>' +
+    '<li><a href="faq.html" class="' + faqActive.trim() + '">FAQ</a></li>' +
     '<li><a href="/#order" class="nav-cta">Order Now</a></li>' +
     '</ul>' +
     '<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg></button>' +
     '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>' +
     '</div></nav>' +
     '<div class="mobile-menu" id="mobileMenu">' +
-    '<a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a><a href="kitchen.html">The Kitchen</a><a href="faq.html">FAQ</a><a href="/#order" style="color:var(--gold)">Order Now</a>' +
+    '<a href="/#products">Our Cookies</a><a href="/#gifts">Gift Boxes</a><a href="/#build">Build a Box</a><a href="kitchen.html" class="' + kitchenActive.trim() + '">The Kitchen</a><a href="faq.html" class="' + faqActive.trim() + '">FAQ</a><a href="/#order" style="color:var(--gold)">Order Now</a>' +
     '</div>' +
     '<div class="batch-banner" id="batchBanner"><span class="batch-icon"><svg width="14" height="18" viewBox="0 0 16 20" aria-hidden="true"><path d="M8 0c-2 5-5 8-5 12a5 5 0 0010 0c0-4-3-7-5-12z" fill="#E8A850"/><path d="M8 8c-1.2 3-2.5 5-2.5 7a2.5 2.5 0 005 0c0-2-1.3-4-2.5-7z" fill="#F5C85A"/></svg></span><span class="batch-num">Batch #<span id="batchNum">47</span></span><span>&middot;</span><span>Next batch drops <strong id="batchCountdown">this Friday</strong></span><span class="batch-dot"></span><button class="batch-close" id="batchClose" aria-label="Close banner">&times;</button></div>';
 

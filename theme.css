@@ -110,6 +110,7 @@
 @media (max-width: 600px) {
     .nav-links { display: none; }
     .nav-toggle { display: flex; }
+    .nav-page-chip { display: none; }
     .bench-sheet-ledger,
     .ledger-grid { grid-template-columns: 1fr; }
     .ledger-card { margin-left: 0.75rem; }
@@ -158,6 +159,7 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] body { background: var(--bg); color: var(--ink); }
 [data-theme="dark"] .nav { background: rgba(28,21,16,0.9); border-color: var(--soft); }
 [data-theme="dark"] .nav-logo { color: var(--ink); }
+[data-theme="dark"] .nav-page-chip { background: rgba(200,133,62,0.16); color: var(--honey); }
 [data-theme="dark"] .nav-links a { color: #D4C4B0; }
 [data-theme="dark"] .nav-links a:hover,
 [data-theme="dark"] .nav-links a.active { color: var(--gold); }

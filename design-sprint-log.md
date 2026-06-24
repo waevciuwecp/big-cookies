@@ -43,3 +43,7 @@
 - Round 11
   2026-06-24 13:39:38 CST
   Added a process overview board to the kitchen page so the long-form story starts with a clearer batch map and chapter entry points.
+
+- Round 12
+  2026-06-24 13:42:25 CST
+  Added shared page context to the nav so secondary pages announce where you are instead of all routes feeling like the homepage chrome.
