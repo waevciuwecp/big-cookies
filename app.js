@@ -1250,6 +1250,14 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         el.textContent = toWord(value);
     }
 
+    // Check if a faculty role is a hands-on baking role
+    function isBakerRole(role) {
+        if (!role) return false;
+        var r = role.toLowerCase();
+        return r.indexOf('baker') !== -1 || r.indexOf('chef') !== -1 ||
+               r.indexOf('master') !== -1 || r.indexOf('architect') !== -1;
+    }
+
     // Year-based replacements (available immediately, no data needed)
     function injectYears() {
         forEach('.dhc[data-of="current-year"]', function(el) { el.textContent = thisYear; });
@@ -1307,6 +1315,15 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             if (yList.length > 0) setDHC(el, yList.length);
         });
 
+        // Bakers count — only hands-on baking roles (not pack/ship/logistics/customer)
+        forEach('.dhc[data-of="bakers"]', function(el) {
+            var count = 0;
+            document.querySelectorAll('.faculty-card:not(.alumni) .faculty-role').forEach(function(roleEl) {
+                if (isBakerRole(roleEl.textContent)) count++;
+            });
+            if (count > 0) setDHC(el, count);
+        });
+
         // Kitchen chapters
         forEach('.dhc[data-of="kitchen-chapters"]', function(el) {
             var sections = document.querySelectorAll('[data-load*="kitchen-stories"]');
@@ -1329,7 +1346,7 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     // JSON fallback — always fetch for faqs (DOM may be a teaser subset),
     // and for pages without rendered cards (about.html etc)
     function fillFromJSON() {
-        var hasDHCFaculty = document.querySelectorAll('.dhc[data-of="faculty-current"], .dhc[data-of="faculty-total"], .dhc[data-of="faculty-past"]').length > 0;
+        var hasDHCFaculty = document.querySelectorAll('.dhc[data-of="faculty-current"], .dhc[data-of="faculty-total"], .dhc[data-of="faculty-past"], .dhc[data-of="bakers"]').length > 0;
         var hasDHCProducts = document.querySelectorAll('.dhc[data-of="products"]').length > 0;
         var hasDHCFaqs = document.querySelectorAll('.dhc[data-of="faqs"]').length > 0;
         var hasDHCAwards = document.querySelectorAll('.dhc[data-of="awards"], .dhc[data-of="awards-gold"], .dhc[data-of="awards-years"]').length > 0;
@@ -1345,11 +1362,15 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         if (hasDHCFaculty && !document.querySelectorAll('.faculty-card').length) {
             fetchJSON('data/faculty.json', function(data) {
                 if (!data) return;
-                var current = (data.current || []).length;
+                var current = (data.current || []);
                 var past = (data.past || []).length;
-                forEach('.dhc[data-of="faculty-current"]', function(el) { setDHC(el, current); });
-                forEach('.dhc[data-of="faculty-total"]', function(el) { setDHC(el, current + past); });
+                var currentCount = current.length;
+                var bakerCount = 0;
+                current.forEach(function(m) { if (isBakerRole(m.role)) bakerCount++; });
+                forEach('.dhc[data-of="faculty-current"]', function(el) { setDHC(el, currentCount); });
+                forEach('.dhc[data-of="faculty-total"]', function(el) { setDHC(el, currentCount + past); });
                 forEach('.dhc[data-of="faculty-past"]', function(el) { setDHC(el, past); });
+                forEach('.dhc[data-of="bakers"]', function(el) { setDHC(el, bakerCount); });
             });
         }
 
