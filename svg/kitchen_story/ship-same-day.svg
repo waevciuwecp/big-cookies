@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="88" fill="#FFF9F2" stroke="#E8DCC8" stroke-width="1.5"/>
+  <rect x="42" y="82" width="116" height="80" rx="6" fill="none" stroke="#5C3D2E" stroke-width="2.5"/>
+  <path d="M42 82l26-18h64l26 18" fill="none" stroke="#5C3D2E" stroke-width="2"/>
+  <rect x="58" y="72" width="58" height="6" rx="2" fill="none" stroke="#D4C4A8" stroke-width="1" opacity="0.6"/>
+  <rect x="56" y="102" width="50" height="36" rx="2" fill="none" stroke="#C8853E" stroke-width="1.5"/>
+  <line x1="62" y1="110" x2="100" y2="110" stroke="#C8853E" stroke-width="0.8" opacity="0.6"/>
+  <line x1="62" y1="116" x2="98" y2="116" stroke="#C8853E" stroke-width="0.6" opacity="0.5"/>
+  <line x1="62" y1="122" x2="96" y2="122" stroke="#C8853E" stroke-width="0.8" opacity="0.6"/>
+  <line x1="62" y1="128" x2="100" y2="128" stroke="#C8853E" stroke-width="0.6" opacity="0.5"/>
+  <rect x="116" y="104" width="34" height="20" rx="3" fill="none" stroke="#E8A850" stroke-width="1.8"/>
+  <text x="133" y="117" text-anchor="middle" font-size="7" font-weight="800" fill="#E8A850" font-family="Inter,sans-serif">SAME</text>
+  <text x="133" y="125" text-anchor="middle" font-size="5.5" font-weight="700" fill="#C8853E" font-family="Inter,sans-serif">DAY</text>
+  <circle cx="150" cy="148" r="16" fill="none" stroke="#5C3D2E" stroke-width="1.8"/>
+  <line x1="150" y1="148" x2="150" y2="138" stroke="#5C3D2E" stroke-width="2" stroke-linecap="round"/>
+  <line x1="150" y1="148" x2="158" y2="150" stroke="#5C3D2E" stroke-width="2" stroke-linecap="round"/>
+</svg>
