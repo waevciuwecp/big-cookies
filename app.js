@@ -1547,6 +1547,11 @@ window.addEventListener('data-ready', function() {
     function unlockSecretCookie() {
         var picker = document.getElementById('builderPicker');
         if (!picker) return;
+        // Guard: already unlocked
+        if (picker.querySelector('.konami-cookie')) {
+            showToast('👑 The Golden Crumb is already on the tray!', '🥠');
+            return;
+        }
 
         var secret = document.createElement('div');
         secret.className = 'builder-item konami-cookie';

@@ -7,7 +7,41 @@
         return;
     }
 
-    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    // Detect homepage
+    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+
+    // Intercept nav links with leading /# to avoid page reload on homepage
+    document.querySelectorAll('.nav-links a[href^="/#"]').forEach(function(a) {
+        if (a.hasAttribute('data-nav-bound')) return;
+        a.setAttribute('data-nav-bound', '1');
+        a.addEventListener('click', function(e) {
+            if (!isHome) return; // let normal navigation happen on secondary pages
+            e.preventDefault();
+            var hash = a.getAttribute('href').split('#')[1];
+            var target = document.getElementById(hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                history.replaceState(null, '', '#' + hash);
+            }
+        });
+    });
+    // Also intercept mobile menu links
+    document.querySelectorAll('.mobile-menu a[href^="/#"]').forEach(function(a) {
+        if (a.hasAttribute('data-nav-bound')) return;
+        a.setAttribute('data-nav-bound', '1');
+        a.addEventListener('click', function(e) {
+            if (!isHome) return;
+            e.preventDefault();
+            var hash = a.getAttribute('href').split('#')[1];
+            var target = document.getElementById(hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                history.replaceState(null, '', '#' + hash);
+            }
+        });
+    });
+
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
 function updateActiveNav() {
