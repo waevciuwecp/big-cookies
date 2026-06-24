@@ -1309,12 +1309,21 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         fillFromJSON();
     }
 
-    // JSON fallback for pages that don't render the data cards
+    // JSON fallback — always fetch for faqs (DOM may be a teaser subset),
+    // and for pages without rendered cards (about.html etc)
     function fillFromJSON() {
         var hasDHCFaculty = document.querySelectorAll('.dhc[data-of="faculty-current"], .dhc[data-of="faculty-total"], .dhc[data-of="faculty-past"]').length > 0;
         var hasDHCProducts = document.querySelectorAll('.dhc[data-of="products"]').length > 0;
         var hasDHCFaqs = document.querySelectorAll('.dhc[data-of="faqs"]').length > 0;
         var hasDHCAwards = document.querySelectorAll('.dhc[data-of="awards"], .dhc[data-of="awards-gold"], .dhc[data-of="awards-years"]').length > 0;
+
+        // Always fetch faqs from JSON — DOM may be a teaser subset (e.g. index shows 3 of 11)
+        if (hasDHCFaqs) {
+            fetchJSON('data/faq.json', function(data) {
+                if (!data) return;
+                forEach('.dhc[data-of="faqs"]', function(el) { el.textContent = Array.isArray(data) ? data.length : 0; });
+            });
+        }
 
         if (hasDHCFaculty && !document.querySelectorAll('.faculty-card').length) {
             fetchJSON('data/faculty.json', function(data) {
