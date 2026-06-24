@@ -990,6 +990,22 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         });
     }
     bindToggle();
+
+    // Auto-switch to dark mode after 8pm if user hasn't set a manual preference
+    var savedTheme = localStorage.getItem('theme');
+    if (!savedTheme) {
+        function autoTheme() {
+            var hour = new Date().getHours();
+            var shouldBeDark = hour >= 20 || hour < 6;
+            var isDark = html.getAttribute('data-theme') === 'dark';
+            if (shouldBeDark !== isDark) {
+                html.setAttribute('data-theme', shouldBeDark ? 'dark' : 'light');
+            }
+        }
+        autoTheme();
+        // Re-check every 30 minutes
+        setInterval(autoTheme, 1800000);
+    }
 })();
 
 // ── Footer year auto-update ──────────────
