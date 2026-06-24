@@ -403,7 +403,22 @@ if (newsletterForm) {
 
         // Pause on hover
         container.addEventListener('mouseenter', function() { clearInterval(timer); });
-        container.addEventListener('mouseleave', function() { timer = setInterval(next, 5000); });
+        container.addEventListener('mouseleave', function() {
+            if (container.dataset.paused) return;
+            timer = setInterval(next, 5000);
+        });
+
+        // Pause when scrolled out of view
+        var sliderObserver = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                container.dataset.paused = '';
+                timer = setInterval(next, 5000);
+            } else {
+                container.dataset.paused = '1';
+                clearInterval(timer);
+            }
+        }, { threshold: 0.1 });
+        sliderObserver.observe(container);
 
         // Touch swipe support
         var touchX = 0;
