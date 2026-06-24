@@ -491,13 +491,19 @@ function showToast(msg, icon) {
 
 // ── Theme toggle ──────────────────────────
 (function() {
-    const toggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    toggle.addEventListener('click', () => {
-        const isDark = html.getAttribute('data-theme') === 'dark';
-        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    });
+    var html = document.documentElement;
+    function bindToggle() {
+        var toggle = document.getElementById('themeToggle');
+        if (!toggle) { setTimeout(bindToggle, 100); return; }
+        if (toggle.dataset.bound) return;
+        toggle.dataset.bound = '1';
+        toggle.addEventListener('click', function() {
+            var isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        });
+    }
+    bindToggle();
 })();
 
 // ── Footer year auto-update ──────────────
