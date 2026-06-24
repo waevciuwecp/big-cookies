@@ -1245,9 +1245,15 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         return String(n); // 100+ stays numeric
     }
 
-    // Set text on a dhc element, converting to word form
+    // Set text on a dhc element, converting to word form.
+    // Capitalizes if it's the head of a sentence (first child or follows only whitespace).
     function setDHC(el, value) {
-        el.textContent = toWord(value);
+        var word = toWord(value);
+        // Check if this dhc span starts the sentence/heading
+        var prev = el.previousSibling;
+        var isHead = !prev || (prev.nodeType === 3 && /^\s*$/.test(prev.textContent));
+        if (isHead) word = word.charAt(0).toUpperCase() + word.slice(1);
+        el.textContent = word;
     }
 
     // Check if a faculty role is a hands-on baking role
