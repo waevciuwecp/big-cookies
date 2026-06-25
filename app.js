@@ -1,8 +1,8 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
 // ── Animated favicon (homepage only) ──────
 (function() {
-    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
-    if (!isHome) return;
+    var isHomePath = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
+    if (!isHomePath) return;
     var favicon = document.querySelector('link[rel="icon"]');
     if (!favicon) return;
     var originalHref = favicon.href;
@@ -1055,8 +1055,8 @@ if (heroCookie) {
 
 // ── Cursor sparkle trail ──────────────────
 (function() {
-    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
-    if (!isHome) return;
+    var isHomePath2 = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
+    if (!isHomePath2) return;
     var lastSparkle = 0;
     var sparkleColors = ['#E8A850','#FFD700','#C8853E','#F5D5A0','#FFF5E9'];
     document.addEventListener('mousemove', function(e) {
@@ -1082,8 +1082,8 @@ if (heroCookie) {
 
 // ── Live activity counter ────────────────
 (function() {
-    var isHome = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
-    if (!isHome) return;
+    var isHomePath3 = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
+    if (!isHomePath3) return;
 
     var el = document.getElementById('liveCounter');
     if (!el) {
@@ -2340,8 +2340,10 @@ window.addEventListener('data-ready', function() {
             if (build) { build.scrollIntoView({behavior:'smooth'}); showToast('Jumped to Build a Box', '📦'); }
         }
         if (e.key === 'h' && !e.metaKey && !e.ctrlKey) {
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                window.location.href = '/';
+            var isHomePage = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
+            if (!isHomePage) {
+                var homeURL = window.BigCookiesURL ? window.BigCookiesURL.home() : '/';
+                window.location.href = homeURL;
             } else {
                 window.scrollTo({top:0, behavior:'smooth'});
                 showToast('Home sweet home', '🏠');

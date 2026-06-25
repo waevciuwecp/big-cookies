@@ -2,7 +2,7 @@
     "name": "Big Cookies — Artisan Bakery",
     "short_name": "Big Cookies",
     "description": "Handcrafted artisan cookies in small batches. European butter, single-origin chocolate, 48-hour cold fermentation.",
-    "start_url": "/",
+    "start_url": "./",
     "display": "standalone",
     "background_color": "#FFF9F2",
     "theme_color": "#C8853E",
