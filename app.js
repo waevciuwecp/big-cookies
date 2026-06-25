@@ -2295,7 +2295,7 @@ window.addEventListener('data-ready', function() {
                 '<kbd>T</kbd><span>Toggle dark mode</span>' +
                 '<kbd>B</kbd><span>Jump to Build a Box</span>' +
                 '<kbd>H</kbd><span>Go to homepage</span>' +
-                '<kbd>1–9</kbd><span>Jump to sections</span>' +
+                '<kbd>0–9</kbd><span>Jump to sections</span>' +
                 '<kbd>Enter</kbd><span>Place an order</span>' +
                 '<kbd>Esc</kbd><span>Close modals / menus</span>' +
                 '<kbd>↑↑↓↓←→←→BA</kbd><span>Secret menu</span>' +
@@ -2350,10 +2350,10 @@ window.addEventListener('data-ready', function() {
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
             showToast(isDark ? '☀️ Light mode' : '🌙 Dark mode');
         }
-        // Number keys jump to sections (1–9, hero is unlabeled)
-        if (e.key >= '1' && e.key <= '9' && !e.metaKey && !e.ctrlKey) {
-            var sections = ['bench-sheet','products','flavor-atlas','gifts','build','philosophy','quiz','gallery','how'];
-            var idx = parseInt(e.key) - 1;
+        // Number keys jump to sections (0 = hero unlabeled, 1–9 = bench-sheet…how)
+        if (e.key >= '0' && e.key <= '9' && !e.metaKey && !e.ctrlKey) {
+            var sections = ['hero','bench-sheet','products','flavor-atlas','gifts','build','philosophy','quiz','gallery','how'];
+            var idx = parseInt(e.key);
             var sec = document.getElementById(sections[idx]);
             if (sec) { sec.scrollIntoView({behavior:'smooth'}); showToast('Section ' + e.key, '📍'); }
         }
