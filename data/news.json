@@ -1,22 +1,99 @@
 [
   {
-    "date": "2025-06-15",
-    "title": "New Summer Flavor: Lemon Lavender drops July 1",
-    "excerpt": "After 47 test batches (Olivia's relentless R&D), Priya has finally signed off on our summer seasonal flavor of 2025. Meyer lemon zest meets culinary lavender in a brown-butter base. \"It tastes like a summer garden smells,\" she says. Available for a limited 8-week run.",
+    "date": "2024-03-12",
+    "title": "Big Cookies opens its doors in southeast Portland",
+    "excerpt": "Lena Kovač and Yuki Tanaka opened the bakery this morning at 6am in a 400-square-foot commercial kitchen with one oven and one mixer. By 10am, the first batch of Classic Chocolate Chunk sold out. By Friday, the waiting list hit 200. \"We didn't expect this,\" Lena said. \"We just wanted to make cookies the slow way.\"",
+    "tag": "Milestone",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-04-05",
+    "title": "First month: 1,200 cookies, one broken mixer, and a waitlist that won't quit",
+    "excerpt": "The numbers from our first 30 days are in. We shipped to 14 states, burned out one hand mixer (replaced with a proper Hobart), and hired our first employee — Sam O'Brien, who started as a dishwasher and within weeks was portioning dough alongside Lena. The waitlist now sits at 340. We're working through it as fast as quality allows.",
+    "tag": "Milestone",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-05-18",
+    "title": "Introducing the Sea Salt Caramel — Lena's grandmother's recipe, 70 years in the making",
+    "excerpt": "Our first new flavor since opening is a family heirloom. Lena adapted her grandmother's caramel recipe — originally from Brittany — into a brown-butter cookie base with fleur de sel de Guérande. \"She'd be delighted and probably a little critical,\" Lena says. Available starting this weekend.",
     "tag": "New Flavor",
     "readTime": "2 min read"
   },
   {
-    "date": "2025-05-28",
-    "title": "We won Best Artisan Cookie at the National Bakery Awards",
-    "excerpt": "The Classic Chocolate Chunk took top honors in a blind tasting against 200+ entries. The judges' comment: \"Unprecedented depth of flavor. The 48-hour cold fermentation produces a complexity we've never encountered in a chocolate chip cookie.\"",
+    "date": "2024-06-12",
+    "title": "Marcus Chen joins as Dough Master — the fermentation schedule just got serious",
+    "excerpt": "Marcus comes to us from a 10-year career in artisan bread bakeries, where he managed sourdough schedules across three shifts. He's now applying that same rigor to our 48-hour cold fermentation. \"Bread and cookies are cousins,\" he says. \"Flour, water, time. The difference is butter, and a lot of it.\"",
+    "tag": "Team",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-07-22",
+    "title": "Double Dark Chocolate launches — because a regular asked us to 'make it darker'",
+    "excerpt": "One of our earliest regulars kept asking for a darker chocolate cookie. Priya Sharma, who joined as Flavor Architect in May, took the challenge personally. After 19 iterations blending three different cocoa percentages, the Double Dark Chocolate is here. 72% Valrhona, extra-bitter finish, and already our second bestseller.",
+    "tag": "New Flavor",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-08-08",
+    "title": "Portland Monthly calls us 'the best cookie you'll wait 48 hours for'",
+    "excerpt": "Our first major press feature dropped today. Portland Monthly sent a writer who spent a full day in the kitchen — from dough mixing at 5am to the final QC check at 4pm. The headline says it all. Web traffic tripled overnight. Sofia is answering emails at midnight.",
+    "tag": "Press",
+    "readTime": "1 min read"
+  },
+  {
+    "date": "2024-09-15",
+    "title": "Matcha White Chocolate: a Tokyo transplant and an intern's final project",
+    "excerpt": "Emma Larsson, our first pastry intern, developed this cookie as her capstone project — a collaboration with a ceremonial-grade matcha producer in Uji, Japan, arranged by Yuki. The result is an earthy-sweet cookie with a vivid green hue that's almost too pretty to eat. Emma graduated last week and has accepted a position at a Michelin-starred restaurant in Copenhagen.",
+    "tag": "New Flavor",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-10-07",
+    "title": "Raspberry Dark: a happy accident becomes a permanent menu item",
+    "excerpt": "Marcus was experimenting with freeze-dried fruit additions when he dropped a tray of raspberries into the dark chocolate dough. Rather than discard it, he baked it. The result — tart raspberry bursts against deep dark chocolate — was so good that Priya fast-tracked it to the permanent menu. Sometimes the best flavors come from a spill.",
+    "tag": "New Flavor",
+    "readTime": "1 min read"
+  },
+  {
+    "date": "2024-10-28",
+    "title": "We won Small Business of the Year from the Regional Chamber of Commerce",
+    "excerpt": "From 2 employees to 12 in under a year, while maintaining a 4.9-star average across 2,400+ reviews. The Chamber cited our commitment to fair-trade sourcing, living-wage employment, and the fact that we've never shipped a cookie we wouldn't eat ourselves. The plaque is hanging above the mixer.",
     "tag": "Awards",
     "readTime": "2 min read"
   },
   {
-    "date": "2025-04-19",
-    "title": "Factory Open Day: 40 visitors, 300 cookies, zero leftovers",
-    "excerpt": "Our April Open Day was the busiest yet. Marcus ran three sold-out baking demos. Diego's packaging station was the surprise hit. Next one on the Open Day page.",
+    "date": "2024-11-15",
+    "title": "Holiday ordering is open — and we've learned from last year's chaos",
+    "excerpt": "Last year we didn't exist yet, so this is our first holiday season. We've tripled our butter order, added a second shipping day, and James has designed a festive gift box that survived his signature drop-test from six feet. Order by December 18 for Christmas delivery. Early access for newsletter subscribers starts today.",
+    "tag": "Events",
+    "readTime": "1 min read"
+  },
+  {
+    "date": "2024-12-20",
+    "title": "Sea Salt Caramel voted 'Dessert of the Year' by City Food Magazine readers",
+    "excerpt": "12,000+ readers voted in City Food Magazine's annual poll, and our Sea Salt Caramel took the top dessert spot. The editors noted: \"A 70-year-old family recipe from Brittany, made in a Portland kitchen by a Le Cordon Bleu-trained baker — it doesn't get more authentic than this.\" We also earned a Sustainability Star from the Green Kitchen Alliance for 100% compostable packaging.",
+    "tag": "Awards",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2024-12-31",
+    "title": "2024 by the numbers: 18,000 cookies, 9 flavors, and one very tired mixer",
+    "excerpt": "Our first (partial) year in business is in the books. We shipped to 42 states, launched 5 new flavors, grew the team from 2 to 12, and set a single-day record of 340 cookies (Carlos's night shift, November 14). The Hobart mixer is getting a well-deserved maintenance check on January 2. Thank you, Portland. See you in 2025.",
+    "tag": "Milestone",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2025-01-20",
+    "title": "Meet Diego: our new Pack & Ship Lead",
+    "excerpt": "Diego joins us from a ceramics studio, where he developed an almost unreasonable attention to detail. Every box now gets a hand-stamped logo and a personal QC check.",
+    "tag": "Team",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2025-02-10",
+    "title": "Valentine's Day gift boxes sell out in 6 hours",
+    "excerpt": "Our limited-edition Valentine's box — 6 Classic Chocolate Chunks, 6 Double Dark Chocolates, in a hand-stamped red kraft box with a handwritten note — sold all 200 units before noon. Sofia personally called everyone who missed out and offered a rain check with free shipping. \"Next year we'll make more,\" she promises.",
     "tag": "Events",
     "readTime": "1 min read"
   },
@@ -28,10 +105,38 @@
     "readTime": "1 min read"
   },
   {
-    "date": "2025-01-20",
-    "title": "Meet Diego: our new Pack & Ship Lead",
-    "excerpt": "Diego joins us from a ceramics studio, where he developed an almost unreasonable attention to detail. Every box now gets a hand-stamped logo and a personal QC check.",
-    "tag": "Team",
+    "date": "2025-04-19",
+    "title": "Factory Open Day: 40 visitors, 300 cookies, zero leftovers",
+    "excerpt": "Our April Open Day was the busiest yet. Marcus ran three sold-out baking demos. Diego's packaging station was the surprise hit. Next one on the Open Day page.",
+    "tag": "Events",
+    "readTime": "1 min read"
+  },
+  {
+    "date": "2025-05-08",
+    "title": "English Toffee Crunch joins the permanent menu after a year of testing",
+    "excerpt": "Priya has been iterating on this one since April 2024 — 12 attempts to get the toffee crunch just right without shattering during shipping. Inspired by an English sweets shop, the cookie combines homemade almond toffee with a brown-butter dough. \"It took 12 tries,\" Priya says, \"but the 13th was perfect.\"",
+    "tag": "New Flavor",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2025-05-28",
+    "title": "We won Best Artisan Cookie at the National Bakery Awards",
+    "excerpt": "The Classic Chocolate Chunk took top honors in a blind tasting against 200+ entries. The judges' comment: \"Unprecedented depth of flavor. The 48-hour cold fermentation produces a complexity we've never encountered in a chocolate chip cookie.\"",
+    "tag": "Awards",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2025-06-01",
+    "title": "Masala Chai cookie launched — the kitchen smelled like Mumbai for a week",
+    "excerpt": "Priya's rainy-day experiment is finally on the menu. She steeped chai spices directly into brown butter, then folded the infused butter into the dough. Cardamom, ginger, cinnamon, black pepper, and a hint of clove. Thomas said the kitchen smelled so good he almost didn't want to go home. Available year-round.",
+    "tag": "New Flavor",
+    "readTime": "2 min read"
+  },
+  {
+    "date": "2025-06-15",
+    "title": "New Summer Flavor: Lemon Lavender drops July 1",
+    "excerpt": "After 47 test batches (Olivia's relentless R&D), Priya has finally signed off on our summer seasonal flavor of 2025. Meyer lemon zest meets culinary lavender in a brown-butter base. \"It tastes like a summer garden smells,\" she says. Available for a limited 8-week run.",
+    "tag": "New Flavor",
     "readTime": "2 min read"
   }
 ]
