@@ -100,7 +100,7 @@
     },
     {
       "id": "toffee",
-      "name": "English Toffee Crunch",
+      "name": "Brown Butter Toffee",
       "desc": "Nutty brown butter meets house-made almond toffee. Sweet, salty, crunch, chew.",
       "price": "5.50",
       "ingredients": [
@@ -294,7 +294,7 @@
     },
     {
       "id": "chai-spice",
-      "name": "Masala Chai",
+      "name": "Chai Spice",
       "desc": "Masala chai spices — cardamom, cinnamon, ginger, clove — steeped in brown butter. Like a warm mug in cookie form.",
       "price": "5.00",
       "ingredients": [
@@ -392,15 +392,15 @@
     },
     {
       "id": "summer-berry",
-      "name": "Berry Cobbler",
-      "desc": "Whole marionberries and blueberries folded into vanilla-brown-butter dough with a crumble topping. July in a cookie.",
+      "name": "Summer Berry",
+      "desc": "Freeze-dried strawberries, blueberries, and raspberries folded into white chocolate dough. July in a cookie.",
       "price": "5.50",
       "ingredients": [
-        "Vanilla brown-butter dough",
-        "Fresh marionberries",
-        "Blueberries",
-        "Oat crumble topping",
-        "Cinnamon"
+        "White chocolate dough",
+        "Freeze-dried strawberries",
+        "Freeze-dried blueberries",
+        "Freeze-dried raspberries",
+        "Vanilla"
       ],
       "allergens": [
         "Dairy",
