@@ -2269,7 +2269,8 @@ window.addEventListener('data-ready', function() {
             69: 'Nice.',
             100: 'You have way too much free time.'
         };
-        if (messages[clicks]) setTimeout(function() { showToast(messages[clicks]); }, 300);
+        var n = clicks;
+        if (messages[n]) setTimeout(function() { showToast(messages[n]); }, 300);
     });
 })();
 
