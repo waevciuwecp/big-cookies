@@ -335,6 +335,8 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 /* ── SECTION COUNTERS ────────────────────── */
 main { counter-reset: sectionNum; }
 main > section { counter-increment: sectionNum; }
+#hero { counter-increment: none; }
+#hero .section-inner::before { content: none; }
 .section-inner {
     position: relative;
 }
