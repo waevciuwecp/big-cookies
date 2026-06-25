@@ -111,7 +111,6 @@
     .atlas-cloud { min-height: 420px; }
     .atlas-card.zoomed { flex-direction: column !important; gap: 1.25rem; }
     .atlas-card.zoomed .atlas-card-front { width: auto; align-items: center; text-align: center; }
-    .news-desk { grid-template-columns: 1fr; }
     .products-grid { grid-template-columns: repeat(2, 1fr); }
     .gifts-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
     .gallery-wall { grid-template-columns: repeat(2, 1fr); }
