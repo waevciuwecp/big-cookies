@@ -1063,13 +1063,28 @@ if (heroCookie) {
     });
 
     // Smooth interpolation loop for velocity-based motion
+    var heroVisible = true;
+    var heroParallaxRunning = true;
     function smoothParallax() {
+        if (!heroVisible) { heroParallaxRunning = false; return; }
         currentRotate += (targetRotate - currentRotate) * 0.12;
         currentTranslateY += (targetTranslateY - currentTranslateY) * 0.12;
         heroCookie.style.transform = 'rotate(' + currentRotate + 'deg) translateY(' + currentTranslateY + 'px)';
         requestAnimationFrame(smoothParallax);
     }
     smoothParallax();
+
+    // Pause parallax when hero scrolls off-screen
+    if (window.IntersectionObserver) {
+        var heroViewportObserver = new IntersectionObserver(function(entries) {
+            heroVisible = entries[0].isIntersecting;
+            if (heroVisible && !heroParallaxRunning) {
+                heroParallaxRunning = true;
+                smoothParallax();
+            }
+        }, { threshold: 0 });
+        heroViewportObserver.observe(heroCookie);
+    }
 
     document.addEventListener('mousemove', function(e) {
         var cx = window.innerWidth / 2;
