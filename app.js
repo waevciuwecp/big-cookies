@@ -1753,7 +1753,9 @@ function clearFormErrors(form) {
         function prev() { goTo((current - 1 + slides.length) % slides.length); }
         function resetTimer() { clearInterval(timer); timer = setInterval(next, 5000); }
 
-        
+        // Show first slide immediately
+        slides[0].classList.add('active');
+
         // Click left 1/3 → prev, right 1/3 → next, middle → no-op
         container.addEventListener('click', function(e) {
             var rect = container.getBoundingClientRect();
