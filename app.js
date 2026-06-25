@@ -614,6 +614,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
     // ── Lifecycle: pause on hide, resume clean ──
     function onHidden() {
+        if (!simRunning) return; // already stopped (viewport + tab both inactive)
         saveCheckpoint();
         simRunning = false;
         if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
@@ -624,6 +625,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     function onVisible() {
         if (prefersReduced || !particles.length) return;
         if (simRunning) return; // already running
+        if (!simInViewport) return; // scrolled off-screen — don't waste cycles
         therm.resumed = true;
         therm.resumeTime = performance.now();
         therm.recovered = false;
@@ -642,6 +644,20 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     // Freeze/resume (supported in some browsers)
     window.addEventListener('freeze', onHidden);
     window.addEventListener('resume', function() { if (!document.hidden) onVisible(); });
+
+    // ── Viewport-aware pause: freeze simulation when scrolled off-screen ──
+    var simInViewport = true; // optimistic default — observer corrects on init
+    if (window.IntersectionObserver) {
+        var simViewportObserver = new IntersectionObserver(function(entries) {
+            simInViewport = entries[0].isIntersecting;
+            if (simInViewport) {
+                if (!document.hidden) onVisible();
+            } else {
+                onHidden();
+            }
+        }, { threshold: 0 });
+        simViewportObserver.observe(cloud);
+    }
 
     // ── Resize ──────────────────────────────
     window.addEventListener('resize', function() {
