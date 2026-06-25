@@ -87,7 +87,8 @@
     .hero p { margin-left: auto; margin-right: auto; }
     .hero-buttons { justify-content: center; }
     .hero-visual { order: -1; }
-    .cookie-illustration { transform: scale(0.7); }
+    .cookie-illustration { width: clamp(200px, 30vw, 320px); height: clamp(200px, 30vw, 320px); }
+    .cookie-illustration .cookie-main { width: clamp(140px, 20vw, 220px); height: clamp(140px, 20vw, 220px); }
     .bench-sheet-inner { grid-template-columns: 1fr; }
     .atlas-cloud { min-height: 420px; }
     .atlas-card.zoomed { flex-direction: column !important; gap: 1.25rem; }
@@ -113,9 +114,19 @@
     .builder-box { position: static; }
 }
 
-@media (max-width: 600px) {
+/* Tablet + Phone: collapse nav into mobile menu */
+@media (max-width: 1099px) {
     .nav-links { display: none; }
     .nav-toggle { display: flex; }
+}
+
+/* Desktop: explicit full nav */
+@media (min-width: 1100px) {
+    .nav-links { display: flex; }
+    .nav-toggle { display: none; }
+}
+
+@media (max-width: 600px) {
     .nav-page-chip { display: none; }
     .bench-sheet-ledger,
     .ledger-grid { grid-template-columns: 1fr; }
@@ -281,7 +292,7 @@ body { transition: background-color 0.35s ease; }
 .sun { display: none; }
 .moon { display: block; }
 
-@media (max-width: 600px) {
+@media (max-width: 1099px) {
     .theme-toggle { margin-left: auto; margin-right: 0.5rem; }
 }
 

@@ -14,6 +14,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-tap-highlight-color: transparent; }
+a, button, .atlas-card, .product-card, .gift-card, .builder-item, .chapter-dot { touch-action: manipulation; }
 .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--honey),var(--gold));background-size:200% 100%;z-index:200;transition:width 0.1s linear;border-radius:0 2px 2px 0;animation:progressShimmer 2s linear infinite;}
 @keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 html { scroll-behavior: smooth; }
@@ -32,6 +34,7 @@ body {
 .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 0 2rem;
+    padding-inline: max(2rem, env(safe-area-inset-left)) max(2rem, env(safe-area-inset-right));
     background: rgba(255,249,242,0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -76,8 +79,12 @@ body {
     text-decoration: none; color: var(--ink);
     font-size: 0.875rem; font-weight: 500;
     transition: color 0.2s; letter-spacing: 0.01em;
+    white-space: nowrap;
+    min-height: 44px; display: flex; align-items: center;
 }
-.nav-links a:hover { color: var(--gold); }
+@media (hover: hover) {
+    .nav-links a:hover { color: var(--gold); }
+}
 .nav-links a.active { color: var(--gold); position: relative; }
 .nav-links a.active::after {
     content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
@@ -94,7 +101,9 @@ body {
     font-weight: 600 !important; font-size: 0.8125rem !important;
     transition: background 0.2s, transform 0.2s;
 }
-.nav-cta:hover { background: var(--honey); transform: translateY(-1px); }
+@media (hover: hover) {
+    .nav-cta:hover { background: var(--honey); transform: translateY(-1px); }
+}
 .nav-toggle {
     display: none; flex-direction: column; gap: 5px;
     background: none; border: none; cursor: pointer; padding: 4px;
