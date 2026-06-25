@@ -92,6 +92,10 @@
         function render(data) {
             var items = section ? data[section] : data;
             if (!Array.isArray(items)) items = [items];
+            // Dynamically set product IDs from the actual data (Today's Pick, etc.)
+            if (items.length && items[0].id) {
+                window._productIds = items.map(function(it) { return it.id; });
+            }
             el.innerHTML = items.map(function(item) {
                 return templates[tpl](item, section==='past');
             }).join('');
@@ -145,16 +149,6 @@
     }
 
     function init() {
-        // Baseline product IDs (used by product-card template before data-ready)
-        window._productIds = ['classic','double','toffee','raspberry','caramel','matcha'];
-        // Override with actual product IDs once builder items are rendered
-        window.addEventListener('data-ready', function() {
-            var ids = [];
-            document.querySelectorAll('.builder-item[data-id]').forEach(function(el) {
-                ids.push(el.getAttribute('data-id'));
-            });
-            if (ids.length) window._productIds = ids;
-        });
         var els = document.querySelectorAll('[data-load]');
         var pending = els.length;
         if (pending === 0) { window.dispatchEvent(new CustomEvent('data-ready')); return; }
