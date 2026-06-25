@@ -41,10 +41,19 @@
         },
         'testimonial-slide': function(item) {
             var stars = '';
-            for (var i = 0; i < 5; i++) {
+            var rating = item.stars || 5;
+            var fullStars = Math.floor(rating);
+            var hasHalf = rating - fullStars >= 0.25;
+            for (var i = 0; i < fullStars; i++) {
                 stars += '<span class="star"><svg viewBox="0 0 24 24"><use href="#icon-star"/></svg></span>';
             }
-            return '<div class="testimonial"><div class="stars" aria-label="' + item.stars + ' out of 5 stars">' + stars + '</div><blockquote>"' + item.quote + '"</blockquote><cite>— ' + item.author + '</cite></div>';
+            if (hasHalf) {
+                stars += '<span class="star star-half"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-star-empty"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="star-half-fill"><use href="#icon-star"/></svg></span>';
+            }
+            for (var i = fullStars + (hasHalf ? 1 : 0); i < 5; i++) {
+                stars += '<span class="star star-empty"><svg viewBox="0 0 24 24"><use href="#icon-star-empty"/></svg></span>';
+            }
+            return '<div class="testimonial"><div class="stars" aria-label="' + rating + ' out of 5 stars">' + stars + '</div><blockquote>"' + item.quote + '"</blockquote><cite>— ' + item.author + '</cite></div>';
         },
         'faq-item': function(item, _unused, index) {
             var openAttr = index === 0 ? ' open' : '';
