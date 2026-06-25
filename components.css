@@ -151,9 +151,9 @@
     /* Bite mark: single transparent circle centered OUTSIDE right edge.
        Only the inner arc overlaps the cookie = natural arched cutout.
        Zero compositing — works identically in all browsers. */
-    /* bite cutout — % of gradient-box diagonal so it scales with the cookie */
-    -webkit-mask-image: radial-gradient(circle at 103% 50%, transparent 39.8%, black 40.5%);
-    mask-image: radial-gradient(circle at 103% 50%, transparent 39.8%, black 40.5%);
+    /* bite cutout — % of cookie-main side so it scales (62px / 220px = 28.2%) */
+    -webkit-mask-image: radial-gradient(circle at 103% 50%, transparent 28.2%, black 28.6%);
+    mask-image: radial-gradient(circle at 103% 50%, transparent 28.2%, black 28.6%);
 }
 /* Surface cracks — subtle darker lines */
 .cookie-illustration .cookie-main::after {
