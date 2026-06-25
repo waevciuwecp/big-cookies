@@ -5,29 +5,87 @@
     if (!isHomePath) return;
     var favicon = document.querySelector('link[rel="icon"]');
     if (!favicon) return;
-    var originalHref = favicon.href;
-    var canvas = document.createElement('canvas');
-    canvas.width = 32; canvas.height = 32;
-    var ctx = canvas.getContext('2d');
-    var frames = ['🍪','🥠','🍪','✨'];
+    var favicons = [];
     var idx = 0;
-    var interval;
+    var timer = null;
 
-    function drawFavicon() {
-        ctx.clearRect(0, 0, 32, 32);
-        ctx.font = '26px serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(frames[idx], 16, 17);
-        favicon.href = canvas.toDataURL('image/png');
-        idx = (idx + 1) % frames.length;
+    // Hidden sandbox for getBBox() — must be in DOM to measure
+    var sandbox = document.createElement('div');
+    sandbox.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;visibility:hidden;pointer-events:none;';
+    document.body.appendChild(sandbox);
+
+    // Parse SVG text, find bounding box of all visible elements, return tight-cropped data URL
+    function tightenSVG(svgText) {
+        try {
+            // Render SVG into sandbox so getBBox() works
+            sandbox.innerHTML = svgText;
+            var svg = sandbox.querySelector('svg');
+            if (!svg) return null;
+
+            var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            var els = svg.querySelectorAll('circle, ellipse, rect, path, polygon, polyline, line');
+            els.forEach(function(el) {
+                var bbox;
+                try { bbox = el.getBBox(); } catch(e) { return; }
+                if (bbox.width === 0 && bbox.height === 0) return;
+                minX = Math.min(minX, bbox.x);
+                minY = Math.min(minY, bbox.y);
+                maxX = Math.max(maxX, bbox.x + bbox.width);
+                maxY = Math.max(maxY, bbox.y + bbox.height);
+            });
+
+            if (!isFinite(minX)) { sandbox.innerHTML = ''; return null; }
+
+            // Tight crop with 4px padding, square aspect ratio
+            var pad = 4;
+            var vbw = maxX - minX + pad * 2;
+            var vbh = maxY - minY + pad * 2;
+            if (vbw > vbh) vbh = vbw; else vbw = vbh;
+            var vbx = minX - pad - (vbw - (maxX - minX + pad * 2)) / 2;
+            var vby = minY - pad - (vbh - (maxY - minY + pad * 2)) / 2;
+
+            svg.setAttribute('viewBox', [vbx, vby, vbw, vbh].join(' '));
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+            var dataURL = 'data:image/svg+xml,' + encodeURIComponent(svg.outerHTML);
+            sandbox.innerHTML = '';
+            return dataURL;
+        } catch(e) {
+            sandbox.innerHTML = '';
+            return null;
+        }
     }
 
-    // Start after 3 seconds, so the SVG favicon shows first
-    setTimeout(function() {
-        drawFavicon();
-        interval = setInterval(drawFavicon, 3000);
-    }, 3000);
+    function cycleFavicon() {
+        if (!favicons.length) return;
+        favicon.href = favicons[idx];
+        idx = (idx + 1) % favicons.length;
+    }
+
+    // Fetch products, then fetch+process each SVG
+    fetch('data/products.json', { cache: 'no-cache' })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            var list = data.products || data;
+            if (!Array.isArray(list) || !list.length) return;
+            var jobs = list.map(function(p) {
+                return fetch(p.icon, { cache: 'no-cache' })
+                    .then(function(r) { return r.text(); })
+                    .then(function(svg) { return tightenSVG(svg); })
+                    .catch(function() { return null; });
+            });
+            return Promise.all(jobs);
+        })
+        .then(function(results) {
+            sandbox.remove();
+            favicons = results.filter(Boolean);
+            if (!favicons.length) return;
+            setTimeout(function() {
+                cycleFavicon();
+                timer = setInterval(cycleFavicon, 2500);
+            }, 3000);
+        })
+        .catch(function() { /* silent — keep static favicon */ });
 })();
 
 // ── Seasonal accent ───────────────────────
