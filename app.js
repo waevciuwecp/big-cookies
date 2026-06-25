@@ -36,8 +36,8 @@
 
             if (!isFinite(minX)) { sandbox.innerHTML = ''; return null; }
 
-            // Tight crop with 4px padding, square aspect ratio
-            var pad = 4;
+            // Tight crop — no padding, cookie fills the entire favicon
+            var pad = 0;
             var vbw = maxX - minX + pad * 2;
             var vbh = maxY - minY + pad * 2;
             if (vbw > vbh) vbh = vbw; else vbw = vbh;
@@ -45,8 +45,8 @@
             var vby = minY - pad - (vbh - (maxY - minY + pad * 2)) / 2;
 
             svg.setAttribute('viewBox', [vbx, vby, vbw, vbh].join(' '));
-            svg.removeAttribute('width');
-            svg.removeAttribute('height');
+            svg.setAttribute('width', '64');
+            svg.setAttribute('height', '64');
             var dataURL = 'data:image/svg+xml,' + encodeURIComponent(svg.outerHTML);
             sandbox.innerHTML = '';
             return dataURL;
