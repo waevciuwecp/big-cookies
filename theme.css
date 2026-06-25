@@ -4,6 +4,24 @@
     50% { transform: scale(0.9, 1.1); opacity: 0.8; }
     75% { transform: scale(1.1, 0.9); opacity: 1; }
 }
+/* ── TOAST ────────────────────────────────── */
+[data-theme="dark"] .toast { background: #2A1E16; color: #DDD6CC; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+
+/* ── QUIZ ────────────────────────────────── */
+[data-theme="dark"] .quiz-option:hover { background: #2E241A; }
+[data-theme="dark"] .quiz-step.done { background: #6B5A4A; }
+[data-theme="dark"] .quiz-retry { color: #D4C4B0; }
+
+/* ── NEWSLETTER ──────────────────────────── */
+[data-theme="dark"] .newsletter { background: rgba(42,30,22,0.6); border-color: rgba(240,228,212,0.06); }
+
+/* ── BATCH BANNER ────────────────────────── */
+[data-theme="dark"] .batch-close { color: #8B7A6A; }
+[data-theme="dark"] .batch-close:hover { color: #D4C4B0; }
+
+/* ── BACK TO TOP ─────────────────────────── */
+[data-theme="dark"] .back-to-top { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
 .batch-dot {
     width: 8px; height: 8px; border-radius: 50%; background: #4CAF50;
     animation: pulse 2s ease-in-out infinite;
@@ -275,7 +293,6 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .news-read-time { color: #9B8A78; }
 [data-theme="dark"] .order-cart-item span:nth-child(2) { color: #9B8A78; }
 [data-theme="dark"] .internship-check { color: #5BBA63; }
-[data-theme="dark"] .dough-divider svg path:first-child { fill: var(--bg); }
 [data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #1F1610 0%, #18120D 100%) !important; }
 
 /* ── DARK MODE TOGGLE ────────────────────── */
