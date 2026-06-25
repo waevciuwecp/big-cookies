@@ -1,14 +1,28 @@
 {
+  "speciesTemplate": "All {n} cookie species accounted for. The full collection!",
   "messages": {
+    "1": "First click. You found me.",
+    "2": "Okay, you're testing the waters.",
     "3": "That tickles.",
     "5": "You found the secret cookie stash!",
     "7": "Seven clicks. Lucky number.",
+    "8": "Eight clicks. Almost a baker's dozen.",
     "10": "Okay, that is a lot of cookies.",
+    "12": "A dozen clicks. One for each cookie in a box.",
     "15": "You really like cookies, huh?",
+    "18": "Eighteen. You're in deep now.",
     "20": "You have officially eaten too many cookies.",
     "25": "The cookie is getting tired.",
+    "30": "Thirty. The cookie is starting to worry.",
     "42": "The answer to life, the universe, and cookies.",
+    "50": "Halfway to the century mark. Commitment.",
     "69": "Nice.",
-    "100": "You have way too much free time."
+    "75": "You might need a glass of milk at this point.",
+    "100": "You have way too much free time.",
+    "120": "120. You're past the record.",
+    "150": "Okay, now you're just showing off.",
+    "200": "Two hundred. Here's an imaginary cookie. 🍪",
+    "300": "Three hundred. The crumbs are everywhere.",
+    "500": "You win. The cookie surrenders."
   }
 }

@@ -2262,10 +2262,19 @@ window.addEventListener('data-ready', function() {
     });
 
     var messages = {};
-    fetch('data/easter-superhero.json', { cache: 'no-cache' })
-        .then(function(res) { return res.json(); })
-        .then(function(data) { messages = data.messages || {}; })
-        .catch(function() { /* silent — no toast if JSON unavailable */ });
+    Promise.all([
+        fetch('data/easter-superhero.json', { cache: 'no-cache' }).then(function(r) { return r.json(); }),
+        fetch('data/products.json', { cache: 'no-cache' }).then(function(r) { return r.json(); })
+    ]).then(function(results) {
+        var easter = results[0];
+        var products = results[1];
+        messages = easter.messages || {};
+        var prodList = products.products || products;
+        if (Array.isArray(prodList) && prodList.length && easter.speciesTemplate) {
+            var n = prodList.length;
+            messages[n] = easter.speciesTemplate.replace('{n}', n);
+        }
+    }).catch(function() { /* silent — no toast if JSON unavailable */ });
 })();
 
 // ═══════════════════════════════════════════
