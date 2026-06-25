@@ -151,8 +151,9 @@
     /* Bite mark: single transparent circle centered OUTSIDE right edge.
        Only the inner arc overlaps the cookie = natural arched cutout.
        Zero compositing — works identically in all browsers. */
-    -webkit-mask-image: radial-gradient(circle at 103% 50%, transparent 62px, black 63px);
-    mask-image: radial-gradient(circle at 103% 50%, transparent 62px, black 63px);
+    /* bite cutout — % of gradient-box diagonal so it scales with the cookie */
+    -webkit-mask-image: radial-gradient(circle at 103% 50%, transparent 39.8%, black 40.5%);
+    mask-image: radial-gradient(circle at 103% 50%, transparent 39.8%, black 40.5%);
 }
 /* Surface cracks — subtle darker lines */
 .cookie-illustration .cookie-main::after {
@@ -165,30 +166,29 @@
 }
 .cookie-illustration .cookie-chip {
     position: absolute;
-    width: 28px; height: 22px;
+    width: 8.75%; height: 6.875%;  /* relative to cookie-illustration (320px → 28px/22px) */
     background:
         radial-gradient(circle at 40% 35%, #5C3020 0%, #3C1D0E 50%, #1A0A04 100%);
     border-radius: 40%;
     box-shadow:
         0 2px 4px rgba(0,0,0,0.4),
         0 0 0 1px rgba(160,120,80,0.2);
-    /* Highlight on top edge makes chips look embedded */
 }
-.cookie-illustration .cookie-chip:nth-child(2) { top: 25%; left: 35%; transform: rotate(-18deg); width: 30px; height: 24px; }
-.cookie-illustration .cookie-chip:nth-child(3) { top: 32%; left: 56%; transform: rotate(22deg); width: 24px; height: 19px; }
-.cookie-illustration .cookie-chip:nth-child(4) { top: 48%; left: 28%; transform: rotate(-40deg); width: 26px; height: 21px; }
-.cookie-illustration .cookie-chip:nth-child(5) { top: 45%; left: 60%; transform: rotate(30deg); width: 22px; height: 18px; }
-.cookie-illustration .cookie-chip:nth-child(6) { top: 60%; left: 38%; transform: rotate(-12deg); width: 20px; height: 16px; }
-.cookie-illustration .cookie-chip:nth-child(7) { top: 58%; left: 20%; transform: rotate(45deg); width: 18px; height: 14px; }
+.cookie-illustration .cookie-chip:nth-child(2) { top: 25%; left: 35%; transform: rotate(-18deg); width: 9.375%; height: 7.5%; }
+.cookie-illustration .cookie-chip:nth-child(3) { top: 32%; left: 56%; transform: rotate(22deg); width: 7.5%; height: 5.9375%; }
+.cookie-illustration .cookie-chip:nth-child(4) { top: 48%; left: 28%; transform: rotate(-40deg); width: 8.125%; height: 6.5625%; }
+.cookie-illustration .cookie-chip:nth-child(5) { top: 45%; left: 60%; transform: rotate(30deg); width: 6.875%; height: 5.625%; }
+.cookie-illustration .cookie-chip:nth-child(6) { top: 60%; left: 38%; transform: rotate(-12deg); width: 6.25%; height: 5%; }
+.cookie-illustration .cookie-chip:nth-child(7) { top: 58%; left: 20%; transform: rotate(45deg); width: 5.625%; height: 4.375%; }
 .cookie-illustration .cookie-crumb {
-    position: absolute; width: 7px; height: 7px;
+    position: absolute; width: 2.1875%; height: 2.1875%;  /* 7px / 320px */
     background: #B87832; border-radius: 50%;
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 .cookie-illustration .cookie-crumb:nth-child(8)  { top: 18%; left: 72%; }
-.cookie-illustration .cookie-crumb:nth-child(9)  { top: 78%; left: 22%; width: 5px; height: 5px; }
-.cookie-illustration .cookie-crumb:nth-child(10) { top: 73%; left: 74%; width: 6px; height: 6px; }
-.cookie-illustration .cookie-crumb:nth-child(11) { top: 15%; left: 28%; width: 5px; height: 5px; }
+.cookie-illustration .cookie-crumb:nth-child(9)  { top: 78%; left: 22%; width: 1.5625%; height: 1.5625%; }
+.cookie-illustration .cookie-crumb:nth-child(10) { top: 73%; left: 74%; width: 1.875%; height: 1.875%; }
+.cookie-illustration .cookie-crumb:nth-child(11) { top: 15%; left: 28%; width: 1.5625%; height: 1.5625%; }
 
 /* ── STEAM WISPS (hero cookie) ───────────── */
 .steam-wisp {
