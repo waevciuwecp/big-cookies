@@ -955,8 +955,8 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             return response.json();
         })
         .then(function(data) {
-            if (!Array.isArray(data) || !data.length) throw new Error('No products');
-            items = data;
+            if (!data.products || !Array.isArray(data.products) || !data.products.length) throw new Error('No products');
+            items = data.products;
             renderCloud();
         })
         .catch(function() {

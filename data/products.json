@@ -1,249 +1,499 @@
-[
-  {
-    "id": "classic",
-    "name": "Classic Chocolate Chunk",
-    "desc": "72% Valrhona dark chocolate folded into brown-butter dough. The one that started it all.",
-    "price": "4.50",
-    "ingredients": [
-      "Valrhona 72% dark chocolate",
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Maldon sea salt flakes",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [],
-    "icon": "svg/cookies/classic.svg",
-    "mood": "Comfort",
-    "intensity": "Medium",
-    "finish": "Roasty",
-    "origin": "Born in Lena's home kitchen, 2023. The recipe that started it all."
-  },
-  {
-    "id": "double",
-    "name": "Double Dark Chocolate",
-    "desc": "Dutch cocoa base loaded with bittersweet chunks. Dusted with Maldon salt.",
-    "price": "5.00",
-    "ingredients": [
-      "Dutch-process cocoa",
-      "Bittersweet chocolate chunks",
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Maldon sea salt flakes",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [
-      "Most Popular"
-    ],
-    "icon": "svg/cookies/double.svg",
-    "mood": "Late-night",
-    "intensity": "Bold",
-    "finish": "Bitter-salt",
-    "origin": "Created for a chocolate-obsessed regular who said 'make it darker.' We did."
-  },
-  {
-    "id": "toffee",
-    "name": "Brown Butter Toffee",
-    "desc": "Nutty brown butter meets house-made almond toffee. Sweet, salty, crunch, chew.",
-    "price": "5.50",
-    "ingredients": [
-      "European brown butter",
-      "House-made almond toffee",
-      "Organic wheat flour",
-      "Demerara sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten",
-      "Nuts"
-    ],
-    "tags": [],
-    "icon": "svg/cookies/toffee.svg",
-    "mood": "Cozy",
-    "intensity": "High",
-    "finish": "Crunchy",
-    "origin": "Inspired by a trip to an English sweets shop. The crunch took 12 tries to perfect."
-  },
-  {
-    "id": "raspberry",
-    "name": "Raspberry Dark",
-    "desc": "Tart freeze-dried raspberries woven through dark chocolate dough. Pink-flecked and punchy.",
-    "price": "5.50",
-    "ingredients": [
-      "Freeze-dried raspberries",
-      "72% dark chocolate",
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [
-      "Limited"
-    ],
-    "icon": "svg/cookies/raspberry.svg",
-    "mood": "Bright",
-    "intensity": "High",
-    "finish": "Tart snap",
-    "origin": "A happy accident \u2014 Marcus dropped freeze-dried raspberries into dark chocolate dough."
-  },
-  {
-    "id": "caramel",
-    "name": "Sea Salt Caramel",
-    "desc": "Gooey caramel core wrapped in vanilla bean dough. Finished with flaky sea salt.",
-    "price": "5.00",
-    "ingredients": [
-      "House-made liquid caramel",
-      "European brown butter",
-      "Organic wheat flour",
-      "Demerara sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Flaky sea salt",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [],
-    "icon": "svg/cookies/caramel.svg",
-    "mood": "Golden hour",
-    "intensity": "Medium",
-    "finish": "Soft-salt",
-    "origin": "Lena's grandmother's caramel recipe, adapted for cookies. The salt is French."
-  },
-  {
-    "id": "matcha",
-    "name": "Matcha White Chocolate",
-    "desc": "Ceremonial-grade matcha and creamy white chocolate. Earthy, sweet, and vibrant green.",
-    "price": "5.50",
-    "ingredients": [
-      "Ceremonial-grade matcha",
-      "White chocolate",
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [],
-    "icon": "svg/cookies/matcha.svg",
-    "mood": "Quiet",
-    "intensity": "Layered",
-    "finish": "Earthy-sweet",
-    "origin": "A collaboration with a tea master from Uji, Japan. The matcha is ceremonial grade."
-  },
-  {
-    "id": "chai-spice",
-    "name": "Chai Spice",
-    "desc": "Masala chai spices — cardamom, cinnamon, ginger, clove — steeped in brown butter. Like a warm mug in cookie form.",
-    "price": "5.00",
-    "ingredients": [
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Chai spice blend (cardamom, cinnamon, ginger, clove, black pepper)",
-      "Madagascar vanilla bean",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": [],
-    "icon": "svg/cookies/chai-spice.svg",
-    "mood": "Wanderlust",
-    "intensity": "Warming",
-    "finish": "Spiced",
-    "origin": "Priya's rainy-day experiment. The kitchen smelled like a Mumbai chai stall for a week."
-  },
-  {
-    "id": "maple-pecan",
-    "name": "Maple Pecan",
-    "desc": "Vermont maple syrup and toasted Georgia pecans in a brown-sugar dough. Breakfast-adjacent, dessert-approved.",
-    "price": "5.50",
-    "ingredients": [
-      "Grade A Vermont maple syrup",
-      "Toasted Georgia pecans",
-      "European brown butter",
-      "Organic wheat flour",
-      "Demerara sugar",
-      "Free-range eggs",
-      "Maldon sea salt flakes",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten",
-      "Nuts"
-    ],
-    "tags": ["New"],
-    "icon": "svg/cookies/maple-pecan.svg",
-    "mood": "Slow morning",
-    "intensity": "Medium",
-    "finish": "Nutty-sweet",
-    "origin": "Lena spent a weekend in Vermont and came back with a gallon of syrup and a mission."
-  },
-  {
-    "id": "summer-berry",
-    "name": "Summer Berry",
-    "desc": "Freeze-dried strawberries, blueberries, and raspberries folded into white chocolate dough. July in a cookie.",
-    "price": "5.50",
-    "ingredients": [
-      "Freeze-dried strawberries, blueberries, raspberries",
-      "White chocolate",
-      "European brown butter",
-      "Organic wheat flour",
-      "Muscovado sugar",
-      "Free-range eggs",
-      "Madagascar vanilla bean",
-      "Baking soda"
-    ],
-    "allergens": [
-      "Dairy",
-      "Eggs",
-      "Gluten"
-    ],
-    "tags": ["Limited"],
-    "icon": "svg/cookies/summer-berry.svg",
-    "mood": "Sunshine",
-    "intensity": "Bright",
-    "finish": "Fruity",
-    "origin": "A tribute to Oregon berry season. Marcus forages the berries himself when he can."
+{
+  "products": [
+    {
+      "id": "classic",
+      "name": "Classic Chocolate Chunk",
+      "desc": "72% Valrhona dark chocolate folded into brown-butter dough. The one that started it all.",
+      "price": "4.50",
+      "ingredients": [
+        "Valrhona 72% dark chocolate",
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Maldon sea salt flakes",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [],
+      "icon": "svg/cookies/classic.svg",
+      "mood": "Comfort",
+      "intensity": "Medium",
+      "finish": "Roasty",
+      "origin": "Born in Lena's home kitchen, 2023. The recipe that started it all.",
+      "resultDesc": "You're timeless, dependable, and everyone's first call. You don't need to be flashy \u2014 your quality speaks for itself. The original, and still the one people come back to.",
+      "quiz": {
+        "q1": [
+          3,
+          0,
+          0,
+          2
+        ],
+        "q2": [
+          2,
+          1,
+          0,
+          0
+        ],
+        "q3": [
+          3,
+          0,
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "double",
+      "name": "Double Dark Chocolate",
+      "desc": "Dutch cocoa base loaded with bittersweet chunks. Dusted with Maldon salt.",
+      "price": "5.00",
+      "ingredients": [
+        "Dutch-process cocoa",
+        "Bittersweet chocolate chunks",
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Maldon sea salt flakes",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [
+        "Most Popular"
+      ],
+      "icon": "svg/cookies/double.svg",
+      "mood": "Late-night",
+      "intensity": "Bold",
+      "finish": "Bitter-salt",
+      "origin": "Created for a chocolate-obsessed regular who said 'make it darker.' We did.",
+      "resultDesc": "You go all in. Moderation isn't in your vocabulary and honestly? It's working. You're intense in the best way, and people either keep up or get out of the way.",
+      "quiz": {
+        "q1": [
+          0,
+          1,
+          0,
+          3
+        ],
+        "q2": [
+          3,
+          0,
+          0,
+          1
+        ],
+        "q3": [
+          0,
+          3,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "toffee",
+      "name": "Brown Butter Toffee",
+      "desc": "Nutty brown butter meets house-made almond toffee. Sweet, salty, crunch, chew.",
+      "price": "5.50",
+      "ingredients": [
+        "European brown butter",
+        "House-made almond toffee",
+        "Organic wheat flour",
+        "Demerara sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten",
+        "Nuts"
+      ],
+      "tags": [],
+      "icon": "svg/cookies/toffee.svg",
+      "mood": "Cozy",
+      "intensity": "High",
+      "finish": "Crunchy",
+      "origin": "Inspired by a trip to an English sweets shop. The crunch took 12 tries to perfect.",
+      "resultDesc": "You've got layers. People think they've figured you out, then you surprise them. Complex, a little unexpected, and somehow everything comes together perfectly.",
+      "quiz": {
+        "q1": [
+          0,
+          3,
+          0,
+          1
+        ],
+        "q2": [
+          1,
+          0,
+          0,
+          2
+        ],
+        "q3": [
+          1,
+          0,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "id": "raspberry",
+      "name": "Raspberry Dark",
+      "desc": "Tart freeze-dried raspberries woven through dark chocolate dough. Pink-flecked and punchy.",
+      "price": "5.50",
+      "ingredients": [
+        "Freeze-dried raspberries",
+        "72% dark chocolate",
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [
+        "Limited"
+      ],
+      "icon": "svg/cookies/raspberry.svg",
+      "mood": "Bright",
+      "intensity": "High",
+      "finish": "Tart snap",
+      "origin": "A happy accident \u2014 Marcus dropped freeze-dried raspberries into dark chocolate dough.",
+      "resultDesc": "You're the creative one. You see combinations others miss and you're not afraid to try something different. Colorful, bold, and impossible to forget.",
+      "quiz": {
+        "q1": [
+          0,
+          2,
+          3,
+          0
+        ],
+        "q2": [
+          0,
+          0,
+          2,
+          3
+        ],
+        "q3": [
+          0,
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "caramel",
+      "name": "Sea Salt Caramel",
+      "desc": "Gooey caramel core wrapped in vanilla bean dough. Finished with flaky sea salt.",
+      "price": "5.00",
+      "ingredients": [
+        "House-made liquid caramel",
+        "European brown butter",
+        "Organic wheat flour",
+        "Demerara sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Flaky sea salt",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [],
+      "icon": "svg/cookies/caramel.svg",
+      "mood": "Golden hour",
+      "intensity": "Medium",
+      "finish": "Soft-salt",
+      "origin": "Lena's grandmother's caramel recipe, adapted for cookies. The salt is French.",
+      "resultDesc": "You've mastered the balance everyone else is still chasing. Warm, sophisticated, with just enough edge to keep things interesting. The sweet-and-salty of the group.",
+      "quiz": {
+        "q1": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "q2": [
+          0,
+          3,
+          1,
+          0
+        ],
+        "q3": [
+          2,
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "matcha",
+      "name": "Matcha White Chocolate",
+      "desc": "Ceremonial-grade matcha and creamy white chocolate. Earthy, sweet, and vibrant green.",
+      "price": "5.50",
+      "ingredients": [
+        "Ceremonial-grade matcha",
+        "White chocolate",
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [],
+      "icon": "svg/cookies/matcha.svg",
+      "mood": "Quiet",
+      "intensity": "Layered",
+      "finish": "Earthy-sweet",
+      "origin": "A collaboration with a tea master from Uji, Japan. The matcha is ceremonial grade.",
+      "resultDesc": "You're refined, a little unexpected, and you definitely know something the rest of us don't. People who get you REALLY get you. An acquired taste worth acquiring.",
+      "quiz": {
+        "q1": [
+          2,
+          0,
+          2,
+          0
+        ],
+        "q2": [
+          0,
+          2,
+          3,
+          0
+        ],
+        "q3": [
+          0,
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "id": "chai-spice",
+      "name": "Chai Spice",
+      "desc": "Masala chai spices \u2014 cardamom, cinnamon, ginger, clove \u2014 steeped in brown butter. Like a warm mug in cookie form.",
+      "price": "5.00",
+      "ingredients": [
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Chai spice blend (cardamom, cinnamon, ginger, clove, black pepper)",
+        "Madagascar vanilla bean",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [],
+      "icon": "svg/cookies/chai-spice.svg",
+      "mood": "Wanderlust",
+      "intensity": "Warming",
+      "finish": "Spiced",
+      "origin": "Priya's rainy-day experiment. The kitchen smelled like a Mumbai chai stall for a week.",
+      "quiz": {
+        "q1": [
+          1,
+          0,
+          3,
+          1
+        ],
+        "q2": [
+          0,
+          3,
+          1,
+          0
+        ],
+        "q3": [
+          0,
+          0,
+          2,
+          3
+        ]
+      },
+      "resultDesc": "You're curious, adventurous, and always chasing a new flavor \u2014 even if it's just through a cookbook. You bring warmth everywhere you go, and people feel at home around you."
+    },
+    {
+      "id": "maple-pecan",
+      "name": "Maple Pecan",
+      "desc": "Vermont maple syrup and toasted Georgia pecans in a brown-sugar dough. Breakfast-adjacent, dessert-approved.",
+      "price": "5.50",
+      "ingredients": [
+        "Grade A Vermont maple syrup",
+        "Toasted Georgia pecans",
+        "European brown butter",
+        "Organic wheat flour",
+        "Demerara sugar",
+        "Free-range eggs",
+        "Maldon sea salt flakes",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten",
+        "Nuts"
+      ],
+      "tags": [
+        "New"
+      ],
+      "icon": "svg/cookies/maple-pecan.svg",
+      "mood": "Slow morning",
+      "intensity": "Medium",
+      "finish": "Nutty-sweet",
+      "origin": "Lena spent a weekend in Vermont and came back with a gallon of syrup and a mission.",
+      "quiz": {
+        "q1": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "q2": [
+          2,
+          0,
+          1,
+          0
+        ],
+        "q3": [
+          3,
+          0,
+          0,
+          1
+        ]
+      },
+      "resultDesc": "You believe mornings are for savoring, not rushing. You're steady, genuine, and quietly luxurious \u2014 the one who reminds everyone to slow down and enjoy the moment."
+    },
+    {
+      "id": "summer-berry",
+      "name": "Summer Berry",
+      "desc": "Freeze-dried strawberries, blueberries, and raspberries folded into white chocolate dough. July in a cookie.",
+      "price": "5.50",
+      "ingredients": [
+        "Freeze-dried strawberries, blueberries, raspberries",
+        "White chocolate",
+        "European brown butter",
+        "Organic wheat flour",
+        "Muscovado sugar",
+        "Free-range eggs",
+        "Madagascar vanilla bean",
+        "Baking soda"
+      ],
+      "allergens": [
+        "Dairy",
+        "Eggs",
+        "Gluten"
+      ],
+      "tags": [
+        "Limited"
+      ],
+      "icon": "svg/cookies/summer-berry.svg",
+      "mood": "Sunshine",
+      "intensity": "Bright",
+      "finish": "Fruity",
+      "origin": "A tribute to Oregon berry season. Marcus forages the berries himself when he can.",
+      "quiz": {
+        "q1": [
+          0,
+          3,
+          1,
+          1
+        ],
+        "q2": [
+          0,
+          0,
+          1,
+          3
+        ],
+        "q3": [
+          0,
+          2,
+          1,
+          1
+        ]
+      },
+      "resultDesc": "You're the life of the picnic \u2014 bright, playful, and a little bit unexpected. You don't wait for summer; you bring it with you. Colorful, joyful, and impossible to ignore."
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "q": "What's your ideal afternoon?",
+        "options": [
+          {
+            "text": "Curled up with a book and a blanket"
+          },
+          {
+            "text": "Hiking a trail with friends"
+          },
+          {
+            "text": "Trying a new restaurant across town"
+          },
+          {
+            "text": "Baking something from scratch"
+          }
+        ]
+      },
+      {
+        "q": "Pick a drink to go with it.",
+        "options": [
+          {
+            "text": "Black coffee, no sugar"
+          },
+          {
+            "text": "Oat milk latte with a dash of cinnamon"
+          },
+          {
+            "text": "Earl Grey tea with honey"
+          },
+          {
+            "text": "Sparkling water with lemon"
+          }
+        ]
+      },
+      {
+        "q": "What do your friends say about you?",
+        "options": [
+          {
+            "text": "\"The reliable one \u2014 you always show up\""
+          },
+          {
+            "text": "\"You're a little extra. In the best way.\""
+          },
+          {
+            "text": "\"I never know what you're going to do next\""
+          },
+          {
+            "text": "\"You make everything feel special\""
+          }
+        ]
+      }
+    ]
   }
-]
+}
