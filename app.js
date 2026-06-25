@@ -2257,21 +2257,15 @@ window.addEventListener('data-ready', function() {
         setTimeout(function() { cookie.style.transform = base + ' scale(1.05)'; }, 100);
         setTimeout(function() { cookie.style.transform = base; }, 250);
 
-        var messages = {
-            3: 'That tickles.',
-            5: 'You found the secret cookie stash!',
-            7: 'Seven clicks. Lucky number.',
-            10: 'Okay, that is a lot of cookies.',
-            15: 'You really like cookies, huh?',
-            20: 'You have officially eaten too many cookies.',
-            25: 'The cookie is getting tired.',
-            42: 'The answer to life, the universe, and cookies.',
-            69: 'Nice.',
-            100: 'You have way too much free time.'
-        };
         var n = clicks;
         if (messages[n]) setTimeout(function() { showToast(messages[n]); }, 300);
     });
+
+    var messages = {};
+    fetch('data/easter-superhero.json', { cache: 'no-cache' })
+        .then(function(res) { return res.json(); })
+        .then(function(data) { messages = data.messages || {}; })
+        .catch(function() { /* silent — no toast if JSON unavailable */ });
 })();
 
 // ═══════════════════════════════════════════
