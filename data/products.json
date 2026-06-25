@@ -26,7 +26,7 @@
       "intensity": "Medium",
       "finish": "Roasty",
       "origin": "Born in Lena's home kitchen, 2023. The recipe that started it all.",
-      "resultDesc": "You're timeless, dependable, and everyone's first call. You don't need to be flashy \u2014 your quality speaks for itself. The original, and still the one people come back to.",
+      "resultDesc": "You're timeless, dependable, and everyone's first call. You don't need to be flashy — your quality speaks for itself. The original, and still the one people come back to.",
       "quiz": {
         "q1": [
           3,
@@ -100,7 +100,7 @@
     },
     {
       "id": "toffee",
-      "name": "Brown Butter Toffee",
+      "name": "English Toffee Crunch",
       "desc": "Nutty brown butter meets house-made almond toffee. Sweet, salty, crunch, chew.",
       "price": "5.50",
       "ingredients": [
@@ -173,7 +173,7 @@
       "mood": "Bright",
       "intensity": "High",
       "finish": "Tart snap",
-      "origin": "A happy accident \u2014 Marcus dropped freeze-dried raspberries into dark chocolate dough.",
+      "origin": "A happy accident — Marcus dropped freeze-dried raspberries into dark chocolate dough.",
       "resultDesc": "You're the creative one. You see combinations others miss and you're not afraid to try something different. Colorful, bold, and impossible to forget.",
       "quiz": {
         "q1": [
@@ -294,8 +294,8 @@
     },
     {
       "id": "chai-spice",
-      "name": "Chai Spice",
-      "desc": "Masala chai spices \u2014 cardamom, cinnamon, ginger, clove \u2014 steeped in brown butter. Like a warm mug in cookie form.",
+      "name": "Masala Chai",
+      "desc": "Masala chai spices — cardamom, cinnamon, ginger, clove — steeped in brown butter. Like a warm mug in cookie form.",
       "price": "5.00",
       "ingredients": [
         "European brown butter",
@@ -337,7 +337,7 @@
           3
         ]
       },
-      "resultDesc": "You're curious, adventurous, and always chasing a new flavor \u2014 even if it's just through a cookbook. You bring warmth everywhere you go, and people feel at home around you."
+      "resultDesc": "You're curious, adventurous, and always chasing a new flavor — even if it's just through a cookbook. You bring warmth everywhere you go, and people feel at home around you."
     },
     {
       "id": "maple-pecan",
@@ -388,22 +388,19 @@
           1
         ]
       },
-      "resultDesc": "You believe mornings are for savoring, not rushing. You're steady, genuine, and quietly luxurious \u2014 the one who reminds everyone to slow down and enjoy the moment."
+      "resultDesc": "You believe mornings are for savoring, not rushing. You're steady, genuine, and quietly luxurious — the one who reminds everyone to slow down and enjoy the moment."
     },
     {
       "id": "summer-berry",
-      "name": "Summer Berry",
-      "desc": "Freeze-dried strawberries, blueberries, and raspberries folded into white chocolate dough. July in a cookie.",
+      "name": "Berry Cobbler",
+      "desc": "Whole marionberries and blueberries folded into vanilla-brown-butter dough with a crumble topping. July in a cookie.",
       "price": "5.50",
       "ingredients": [
-        "Freeze-dried strawberries, blueberries, raspberries",
-        "White chocolate",
-        "European brown butter",
-        "Organic wheat flour",
-        "Muscovado sugar",
-        "Free-range eggs",
-        "Madagascar vanilla bean",
-        "Baking soda"
+        "Vanilla brown-butter dough",
+        "Fresh marionberries",
+        "Blueberries",
+        "Oat crumble topping",
+        "Cinnamon"
       ],
       "allergens": [
         "Dairy",
@@ -438,7 +435,7 @@
           1
         ]
       },
-      "resultDesc": "You're the life of the picnic \u2014 bright, playful, and a little bit unexpected. You don't wait for summer; you bring it with you. Colorful, joyful, and impossible to ignore."
+      "resultDesc": "You're the life of the picnic — bright, playful, and a little bit unexpected. You don't wait for summer; you bring it with you. Colorful, joyful, and impossible to ignore."
     }
   ],
   "quiz": {
@@ -481,7 +478,7 @@
         "q": "What do your friends say about you?",
         "options": [
           {
-            "text": "\"The reliable one \u2014 you always show up\""
+            "text": "\"The reliable one — you always show up\""
           },
           {
             "text": "\"You're a little extra. In the best way.\""
