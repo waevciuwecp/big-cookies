@@ -2,6 +2,7 @@
 .hero {
     min-height: 100vh; min-height: 100dvh; display: flex; align-items: center;
     padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+    contain: layout paint; /* hero is a self-contained paint region */
 }
 .hero::before {
     content: ''; position: absolute; top: -40%; right: -20%;
@@ -253,6 +254,9 @@
 
 /* ── SECTIONS ────────────────────────────── */
 section { padding: 6rem 2rem; scroll-margin-top: 100px; }
+/* Below-the-fold sections get content-visibility for lazy rendering */
+#products, #flavor-atlas, #gifts, #build, #quiz, #gallery,
+#how, #faq, #order { content-visibility: auto; contain-intrinsic-size: 500px; }
 .section-inner { max-width: 1200px; margin: 0 auto; }
 .section-label {
     font-size: 0.8125rem; font-weight: 600; color: var(--gold);
@@ -440,15 +444,11 @@ main > section { counter-increment: sectionNum; }
     /* Gentle cloud drift */
     animation: atlasFloat var(--float-dur, 20s) ease-in-out infinite;
     animation-delay: var(--float-delay, 0s);
-    /* Smooth breathing between states */
-    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
-                padding 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
-                border-radius 0.5s ease,
-                border-color 0.5s ease,
+    /* Smooth breathing between states — animate only compositor-safe props */
+    transition: border-color 0.5s ease,
                 box-shadow 0.5s ease,
                 background 0.5s ease,
                 opacity 0.5s ease;
-    will-change: transform;
 }
 @keyframes atlasFloat {
     0%, 100% { translate: 0 0; }
@@ -728,6 +728,7 @@ main > section { counter-increment: sectionNum; }
     background: transparent; border-radius: 1.25rem;
     overflow: visible;
     box-sizing: border-box;
+    contain: layout paint; /* card is a self-contained paint region */
 }
 .product-card-inner {
     position: relative; width: 100%; min-height: 400px;

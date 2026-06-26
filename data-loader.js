@@ -122,14 +122,15 @@
         }
 
         function tryFetch() {
-            var controller = new AbortController();
-            var timeout = setTimeout(function() { controller.abort(); }, 15000);
-            fetch(src, {cache: 'no-cache', signal: controller.signal}).then(function(res) {
-                clearTimeout(timeout);
-                if (!res.ok) throw new Error('HTTP '+res.status);
-                return res.json();
-            }).then(render).catch(function(err) {
-                clearTimeout(timeout);
+            var BCD = window.BigCookiesData;
+            // Use shared cache when available; fall back to direct fetch
+            var fetcher = BCD ? BCD.fetchJSON : function(url) {
+                return fetch(url).then(function(r) {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                });
+            };
+            fetcher(src).then(render).catch(function(err) {
                 // On file:// protocol, try XHR fallback
                 if (window.location.protocol === 'file:') {
                     tryXHR();

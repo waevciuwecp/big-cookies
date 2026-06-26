@@ -81,10 +81,13 @@
         }
         builderCount.textContent = count;
         if (count === 12 && !window._celebrated) { window._celebrated = true; window.showToast && showToast('🎉 A full dozen! You qualify for free shipping!');
-            // ── Firework burst ──
+            // ── Firework burst (capped on mobile / reduced-motion) ──
+            var P = window.BigCookiesPerf;
+            if (P && P.reducedMotion) return; // skip entirely
+            var isLight = P && (P.mobile || P.lowPower);
             var colors = ['#E8A850','#D4954B','#C8853E','#F5D5A0','#B84444','#5BBA63','#8B6F5C','#F0C28A','#FFF5E9','#FFD700','#FFA940'];
-            var TRAIL_COUNT = 48;
-            var MAIN_COUNT = 80;
+            var TRAIL_COUNT = isLight ? 12 : 48;
+            var MAIN_COUNT = isLight ? 20 : 80;
             var fragment = document.createDocumentFragment();
 
             // Central flash
@@ -151,10 +154,12 @@
             }
 
             document.body.appendChild(fragment);
-
-            // Cleanup
+            // Retain reference to the fragment's parent for direct cleanup
+            var fireworksContainer = fragment;
+            // Cleanup — remove the appended fragment directly
             setTimeout(function() {
-                document.querySelectorAll('[style*="dozenFirework"], [style*="dozenTrail"], [style*="dozenFlash"]').forEach(function(el) { el.remove(); });
+                var children = document.body.querySelectorAll('[style*="dozenFirework"], [style*="dozenTrail"], [style*="dozenFlash"]');
+                for (var ci = 0; ci < children.length; ci++) children[ci].remove();
             }, 3200);
             setTimeout(function() { window._celebrated = false; }, 5000);
         }

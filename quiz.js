@@ -76,6 +76,7 @@
         html += '<h3>' + name + '</h3>';
         html += '<p>' + desc + '</p>';
         html += '<a href="#build" class="btn btn-primary">Build a Box with ' + firstWord + '</a>';
+        html += ' <button class="quiz-retry" id="quizShare" style="background:none;border:1px solid var(--soft);border-radius:100px;padding:0.5rem 1rem;cursor:pointer;font-size:0.8125rem;color:var(--ink);transition:all 0.2s">📋 Share Result</button>';
         html += '<br><button class="quiz-retry" id="quizRetry">Take the quiz again →</button>';
         html += '</div>';
         container.innerHTML = html;
@@ -84,6 +85,15 @@
         document.getElementById('quizRetry').addEventListener('click', function() {
             resetQuiz();
             showQuestion();
+        });
+        var shareBtn = document.getElementById('quizShare');
+        if (shareBtn) shareBtn.addEventListener('click', function() {
+            var text = '🥠 I got ' + name + ' on the Big Cookies quiz! What cookie are you? big-cookies.yaoyy.moe';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    window.showToast && showToast('📋 Result copied! Share with a friend.');
+                });
+            }
         });
     }
 
@@ -99,13 +109,16 @@
     }
 
     function loadQuiz() {
-        fetch('data/products.json', { cache: 'no-cache' })
-            .then(function(res) {
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                return res.json();
-            })
+        var BCD = window.BigCookiesData;
+        var fetcher = BCD ? BCD.fetchJSON : function(url) {
+            return fetch(url).then(function(r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            });
+        };
+        fetcher('data/products.json')
             .then(function(data) {
-                if (data.quiz && data.products) {
+                if (data && data.quiz && data.products) {
                     init(data);
                 }
             })

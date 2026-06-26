@@ -1,91 +1,125 @@
 // ── Big Cookies — Animations, Forms & Easter Eggs ─
-// ── Animated favicon (homepage only) ──────
+
+// ── Performance gate ──────────────────────────
+// Centralized checks so every effect can gate itself cheaply.
+// Updated reactively for visibility, pointer, and motion preference changes.
+(function() {
+    var G = {
+        reducedMotion: false,
+        finePointer: true,      // mouse/trackpad; false = coarse (touch)
+        mobile: false,          // coarse pointer + small screen
+        saveData: false,        // Save-Data header
+        isHidden: false,        // document.hidden
+        lowPower: false,        // low-core or mobile-like device
+        heroVisible: true
+    };
+
+    // Init once
+    var mqReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var mqCoarse  = window.matchMedia('(pointer: coarse)');
+    var mqFine    = window.matchMedia('(pointer: fine)');
+    var mqData    = window.matchMedia('(prefers-reduced-data: reduce)');
+    // Low-power heuristic: coarse pointer OR hardwareConcurrency <= 4
+    var cores = navigator.hardwareConcurrency || 8;
+
+    function update() {
+        G.reducedMotion = mqReduced.matches;
+        G.finePointer   = mqFine.matches && !mqCoarse.matches;
+        G.mobile        = mqCoarse.matches && window.innerWidth < 1024;
+        G.saveData      = !!(navigator.connection && navigator.connection.saveData) || mqData.matches;
+        G.isHidden      = document.hidden;
+        G.lowPower      = G.mobile || cores <= 4;
+    }
+    update();
+
+    mqReduced.addEventListener('change', update);
+    mqCoarse.addEventListener('change', update);
+    mqFine.addEventListener('change', update);
+    if (navigator.connection) {
+        navigator.connection.addEventListener('change', update);
+    }
+
+    document.addEventListener('visibilitychange', function() {
+        G.isHidden = document.hidden;
+    });
+
+    // Expose read-only via getter so other code can check atomically
+    window.BigCookiesPerf = {
+        get reducedMotion() { return G.reducedMotion; },
+        get finePointer()   { return G.finePointer; },
+        get mobile()        { return G.mobile; },
+        get saveData()      { return G.saveData; },
+        get isHidden()      { return G.isHidden; },
+        get lowPower()       { return G.lowPower; },
+        get heroVisible()    { return G.heroVisible; },
+        set heroVisible(v)   { G.heroVisible = v; },
+        // Re-evaluate (called after resize, etc.)
+        refresh: update
+    };
+})();
+
+// ── Animated favicon (homepage only, deferred) ─
+// Gated: skipped entirely on reduced-motion, save-data, low-power, or hidden tab.
+// Deferred to idle time via requestIdleCallback (or 4s fallback) to not block critical path.
+// Uses shared BigCookiesData cache when available.
 (function() {
     var isHomePath = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
     if (!isHomePath) return;
+    var P = window.BigCookiesPerf;
+    if (P && (P.reducedMotion || P.saveData || P.lowPower)) return;
     var favicon = document.querySelector('link[rel="icon"]');
     if (!favicon) return;
     var favicons = [];
     var idx = 0;
     var timer = null;
 
-    // Hidden sandbox for getBBox() — must be in DOM to measure
-    var sandbox = document.createElement('div');
-    sandbox.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;visibility:hidden;pointer-events:none;';
-    document.body.appendChild(sandbox);
-
-    // Parse SVG text, find bounding box of all visible elements, return tight-cropped data URL
-    function tightenSVG(svgText) {
-        try {
-            // Render SVG into sandbox so getBBox() works
-            sandbox.innerHTML = svgText;
-            var svg = sandbox.querySelector('svg');
-            if (!svg) return null;
-
-            var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-            var els = svg.querySelectorAll('circle, ellipse, rect, path, polygon, polyline, line');
-            els.forEach(function(el) {
-                var bbox;
-                try { bbox = el.getBBox(); } catch(e) { return; }
-                if (bbox.width === 0 && bbox.height === 0) return;
-                minX = Math.min(minX, bbox.x);
-                minY = Math.min(minY, bbox.y);
-                maxX = Math.max(maxX, bbox.x + bbox.width);
-                maxY = Math.max(maxY, bbox.y + bbox.height);
-            });
-
-            if (!isFinite(minX)) { sandbox.innerHTML = ''; return null; }
-
-            // Tight crop — no padding, cookie fills the entire favicon
-            var pad = 0;
-            var vbw = maxX - minX + pad * 2;
-            var vbh = maxY - minY + pad * 2;
-            if (vbw > vbh) vbh = vbw; else vbw = vbh;
-            var vbx = minX - pad - (vbw - (maxX - minX + pad * 2)) / 2;
-            var vby = minY - pad - (vbh - (maxY - minY + pad * 2)) / 2;
-
-            svg.setAttribute('viewBox', [vbx, vby, vbw, vbh].join(' '));
-            svg.setAttribute('width', '64');
-            svg.setAttribute('height', '64');
-            var dataURL = 'data:image/svg+xml,' + encodeURIComponent(svg.outerHTML);
-            sandbox.innerHTML = '';
-            return dataURL;
-        } catch(e) {
-            sandbox.innerHTML = '';
-            return null;
-        }
-    }
-
     function cycleFavicon() {
-        if (!favicons.length) return;
+        if (!favicons.length || (P && P.isHidden)) return;
         favicon.href = favicons[idx];
         idx = (idx + 1) % favicons.length;
     }
 
-    // Fetch products, then fetch+process each SVG
-    fetch('data/products.json', { cache: 'no-cache' })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
+    function startFavicons() {
+        // Use shared cache for products.json
+        var BCD = window.BigCookiesData;
+        var productsPromise = BCD ? BCD.fetchJSON('data/products.json') :
+            fetch('data/products.json').then(function(r) { return r.json(); });
+
+        productsPromise.then(function(data) {
             var list = data.products || data;
             if (!Array.isArray(list) || !list.length) return;
-            var jobs = list.map(function(p) {
-                return fetch(p.icon, { cache: 'no-cache' })
+            // Only preload first 4 icons to keep cost low
+            var subset = list.slice(0, 4);
+            var jobs = subset.map(function(p) {
+                return fetch(p.icon)
                     .then(function(r) { return r.text(); })
-                    .then(function(svg) { return tightenSVG(svg); })
+                    .then(function(svg) {
+                        // Minimal tighten: just set viewBox on first <svg>
+                        var m = svg.match(/viewBox="([^"]*)"/);
+                        if (m) {
+                            return 'data:image/svg+xml,' + encodeURIComponent(
+                                svg.replace(/<svg/, '<svg width="64" height="64"')
+                            );
+                        }
+                        return 'data:image/svg+xml,' + encodeURIComponent(svg);
+                    })
                     .catch(function() { return null; });
             });
             return Promise.all(jobs);
-        })
-        .then(function(results) {
-            sandbox.remove();
+        }).then(function(results) {
             favicons = results.filter(Boolean);
             if (!favicons.length) return;
-            setTimeout(function() {
-                cycleFavicon();
-                timer = setInterval(cycleFavicon, 2500);
-            }, 3000);
-        })
-        .catch(function() { /* silent — keep static favicon */ });
+            cycleFavicon();
+            timer = setInterval(cycleFavicon, 2500);
+        }).catch(function() { /* silent */ });
+    }
+
+    // Defer to idle time or 4s fallback
+    if (window.requestIdleCallback) {
+        var idleId = requestIdleCallback(startFavicons, { timeout: 4000 });
+    } else {
+        setTimeout(startFavicons, 4000);
+    }
 })();
 
 // ── Seasonal accent ───────────────────────
@@ -183,12 +217,12 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         scatterCards();
         window.addEventListener('resize', scatterCards);
 
-        // Gentle float animation with staggered delays
-        cloud.querySelectorAll('.atlas-card').forEach(function(card, i) {
-            card.style.setProperty('--float-delay', (i * 0.7) + 's');
-            card.style.setProperty('--float-dur', (18 + i * 2.3) + 's');
-            card.style.setProperty('--sway-x', ((i % 3) - 1) * 8 + 'px');
-            card.style.setProperty('--sway-y', ((i % 2) * 6 - 3) + 'px');
+        // Set static positioning (JS physics will move via transform, not left/top)
+        // Remove CSS float animation — JS handles all motion
+        cloud.querySelectorAll('.atlas-card').forEach(function(card) {
+            card.style.setProperty('--float-dur', '0s'); // disable CSS float animation
+            card.style.animationPlayState = 'paused';
+            card.style.animation = 'none';
         });
 
         // Click handlers
@@ -222,17 +256,32 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     };
 
     var simRunning = false, simRAF = null, simLastTime = 0;
-    var particles = [];       // { el, x, y, vx, vy, radius }
+    var particles = [];       // { el, x, y, vx, vy, radius, active }
     var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cloudW = 0, cloudH = 0; // cached bounds (updated by ResizeObserver or scatterCards)
+
+    function cacheCloudBounds() {
+        cloudW = cloud.offsetWidth;
+        cloudH = Math.max(520, cloudW * 0.7);
+        cloud.style.minHeight = cloudH + 'px';
+    }
+
+    // ResizeObserver for layout-stable bound updates (no offsetWidth in rAF)
+    if (window.ResizeObserver) {
+        var cloudResizeObs = new ResizeObserver(function() {
+            cacheCloudBounds();
+            if (!simRunning) scatterCards();
+        });
+        cloudResizeObs.observe(cloud);
+    }
 
     // ── Init / scatter ──────────────────────
     function scatterCards() {
         var cards = cloud.querySelectorAll('.atlas-card');
         var n = cards.length;
         if (!n) return;
-        var w = cloud.offsetWidth;
-        var h = Math.max(520, w * 0.7);
-        cloud.style.minHeight = h + 'px';
+        cacheCloudBounds();
+        var w = cloudW, h = cloudH;
 
         // Preserve existing state across re-scatters
         var existing = {};
@@ -262,16 +311,19 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
                 vx: old ? old.vx : 0,
                 vy: old ? old.vy : 0,
                 radius: radius,
-                mass: 1
+                mass: 1,
+                active: true  // pre-computed; avoids classList.contains in inner loop
             });
         });
 
-        // Ensure cards are visible and upright
+        // Static positioning — all motion via transform: translate3d()
         cards.forEach(function(c) {
             if (c.classList.contains('zoomed')) return;
             c.style.position = 'absolute';
-            c.style.transform = 'translate(-50%, -50%)';
+            c.style.left = '0';
+            c.style.top = '0';
             c.style.margin = '0';
+            c.style.willChange = 'transform'; // scoped to active animation only
         });
 
         if (prefersReduced) {
@@ -283,11 +335,12 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     }
 
     // ── Reduced-motion: one-shot settle ─────
-    function settleOnce(w, h) {
+    function settleOnce() {
+        var w = cloudW, h = cloudH;
         for (var iter = 0; iter < 120; iter++) {
             stepForces(w, h, 1);
         }
-        renderParticles(w, h);
+        renderParticles();
     }
 
     // ── Simulation loop (lifecycle-aware) ──
@@ -299,7 +352,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             if (!simRunning) return;
             if (!simLastTime) {
                 simLastTime = ts;
-                console.log('%c[Thermal] %csimulation started', 'color:#E8A850;font-weight:bold', 'color:#aaa');
             }
             var rawDt = (ts - simLastTime) / 16.667;
             simLastTime = ts;
@@ -308,13 +360,16 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             // Apply global time scale
             var dt = rawDt * CONFIG.simulationTimeScale;
 
-            var w = cloud.offsetWidth;
-            var h = Math.max(520, w * 0.7);
+            // Use cached bounds (updated by ResizeObserver) — no offsetWidth in rAF
+            var w = cloudW, h = cloudH;
 
             stepForces(w, h, dt);
             applyThermalForces(dt);
             thermalUpdate(dt);
-            renderParticles(w, h);
+            renderParticles();
+
+            // Adaptive quality guard
+            checkFrameBudget(ts);
 
             // ── Watchdog: recover after tab resume ──
             if (therm.resumed && !therm.recovered) {
@@ -449,7 +504,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         var ke = 0, activeN = 0;
         for (var i = 0; i < n; i++) {
             var p = particles[i];
-            if (p.el.classList.contains('zoomed')) continue;
+            if (!p.active) continue;
             activeN++;
             ke += 0.5 * (p.vx * p.vx + p.vy * p.vy);
         }
@@ -475,7 +530,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
         for (var i = 0; i < n; i++) {
             var p = particles[i];
-            if (p.el.classList.contains('zoomed')) continue;
+            if (!p.active) continue;
             activeCount++;
 
             // Init OU state
@@ -498,7 +553,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         var cap = CONFIG.targetTemperature * 0.3;
         for (var i = 0; i < n; i++) {
             var p = particles[i];
-            if (p.el.classList.contains('zoomed')) continue;
+            if (!p.active) continue;
             var fx = p._langevinX - meanFX;
             var fy = p._langevinY - meanFY;
             var m = Math.sqrt(fx * fx + fy * fy);
@@ -541,16 +596,17 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         var DAMP   = Math.pow(CONFIG.damping, dt);
         var VMAX   = CONFIG.maxSpeed * dt;
         var cx = w / 2, cy = h / 2;
+
+        // ── Single i < j pair loop with equal-and-opposite forces ──
+        // Cuts pair evaluations in half vs double for-loop.
         for (var i = 0; i < n; i++) {
             var pi = particles[i];
-            if (pi.el.classList.contains('zoomed')) continue;
+            if (!pi.active) continue;
             var fx = 0, fy = 0;
 
-            // ── Pairwise forces (fixed equilibrium, no modulation) ──
-            for (var j = 0; j < n; j++) {
-                if (i === j) continue;
+            for (var j = i + 1; j < n; j++) {
                 var pj = particles[j];
-                if (pj.el.classList.contains('zoomed')) continue;
+                if (!pj.active) continue;
                 var dx = pi.x - pj.x;
                 var dy = pi.y - pj.y;
                 var dist = Math.sqrt(dx * dx + dy * dy);
@@ -559,26 +615,33 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
                 var collisionDist = pi.radius + pj.radius + CPAD * 2;
 
+                var force = 0;
                 if (dist < R_RAD) {
                     var urgency = dist < collisionDist ? 3.0 : 1.0;
-                    var repelF = R_STR * urgency / (dist * dist + 400);
-                    fx += nx * repelF;
-                    fy += ny * repelF;
+                    force = R_STR * urgency / (dist * dist + 400);
                 } else if (dist < R_RAD * 2.4) {
-                    var attractF = A_STR * (dist - R_RAD) / R_RAD;
-                    fx -= nx * attractF;
-                    fy -= ny * attractF;
+                    force = -A_STR * (dist - R_RAD) / R_RAD; // negative = attractive
                 }
+
+                // Apply equal and opposite
+                fx += nx * force;
+                fy += ny * force;
+                pj._fx = (pj._fx || 0) - nx * force;
+                pj._fy = (pj._fy || 0) - ny * force;
             }
 
             // ── Cohesion toward cloud center ──
             fx += (cx - pi.x) * COH;
             fy += (cy - pi.y) * COH;
 
+            // Accumulate j-side forces
+            fx += (pi._fx || 0);
+            fy += (pi._fy || 0);
+            pi._fx = 0; pi._fy = 0;
+
             // ── Integrate ──
             pi.vx = (pi.vx + fx * dt) * DAMP;
             pi.vy = (pi.vy + fy * dt) * DAMP;
-            // Speed cap
             var speed = Math.sqrt(pi.vx * pi.vx + pi.vy * pi.vy);
             if (speed > VMAX) { pi.vx *= VMAX / speed; pi.vy *= VMAX / speed; }
             pi.x += pi.vx;
@@ -586,22 +649,21 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
             // ── Soft boundary ──
             var pad = CONFIG.boundaryPad;
-            if (pi.x < pad)          { pi.x = pad;          pi.vx *= -0.2; }
-            if (pi.x > w - pad)      { pi.x = w - pad;      pi.vx *= -0.2; }
-            if (pi.y < pad)          { pi.y = pad;          pi.vy *= -0.2; }
-            if (pi.y > h - pad)      { pi.y = h - pad;      pi.vy *= -0.2; }
+            if (pi.x < pad)      { pi.x = pad;      pi.vx *= -0.2; }
+            if (pi.x > w - pad)  { pi.x = w - pad;  pi.vx *= -0.2; }
+            if (pi.y < pad)      { pi.y = pad;      pi.vy *= -0.2; }
+            if (pi.y > h - pad)  { pi.y = h - pad;  pi.vy *= -0.2; }
         }
     }
 
     // ── Render positions to DOM ─────────────
-    function renderParticles(w, h) {
+    // Uses transform: translate3d() — no layout-triggering left/top writes.
+    function renderParticles() {
         for (var i = 0; i < particles.length; i++) {
             var p = particles[i];
-            if (p.el.classList.contains('zoomed')) continue;
-            var px = Math.round(p.x * 10) / 10;
-            var py = Math.round(p.y * 10) / 10;
-            p.el.style.left = (px / w * 100) + '%';
-            p.el.style.top = (py / h * 100) + '%';
+            if (!p.active) continue;
+            // translate3d promotes to GPU layer; avoids layout recalculation
+            p.el.style.transform = 'translate3d(' + Math.round(p.x) + 'px,' + Math.round(p.y) + 'px,0)';
         }
     }
 
@@ -664,9 +726,8 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         if (prefersReduced) {
             simRunning = false;
             if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
-            var w = cloud.offsetWidth;
-            var h = Math.max(520, w * 0.7);
-            settleOnce(w, h);
+            cacheCloudBounds();
+            settleOnce();
         } else {
             scatterCards();
         }
@@ -677,6 +738,36 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         if (simRAF) { cancelAnimationFrame(simRAF); simRAF = null; }
     }
     window.addEventListener('beforeunload', stopSimulation);
+
+    // Sync particle.active with DOM zoom state (called after zoom/unzoom)
+    function syncActiveFlags() {
+        for (var i = 0; i < particles.length; i++) {
+            particles[i].active = !particles[i].el.classList.contains('zoomed');
+        }
+    }
+
+    // ── Adaptive quality: if frame budget is tight, reduce simulation frequency ──
+    var _slowFrameCount = 0;
+    var _lastQualityCheck = 0;
+    var _qualityReduced = false;
+    function checkFrameBudget(ts) {
+        if (!_lastQualityCheck) { _lastQualityCheck = ts; return; }
+        var elapsed = ts - _lastQualityCheck;
+        _lastQualityCheck = ts;
+        // If frame took >33ms (under 30fps), increment slow counter
+        if (elapsed > 33) {
+            _slowFrameCount++;
+        } else {
+            _slowFrameCount = Math.max(0, _slowFrameCount - 0.5);
+        }
+        // After 3 consecutive slow seconds, switch to half-rate physics
+        if (_slowFrameCount > 90 && !_qualityReduced) {
+            _qualityReduced = true;
+            CONFIG.simulationTimeScale = CONFIG.simulationTimeScale * 0.5;
+            CONFIG.maxSpeed = CONFIG.maxSpeed * 0.6;
+            if (window._debugPerf) console.log('[Atlas] Low-motion fallback engaged');
+        }
+    }
 
     // Deterministic seeded random
     function seededRandom(seed) {
@@ -696,6 +787,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         cloud.querySelectorAll('.atlas-card').forEach(function(c) {
             if (c.getAttribute('data-id') !== id) c.classList.add('dimmed');
         });
+        syncActiveFlags(); // mark zoomed card inactive in simulation
         document.body.style.overflow = 'hidden';
 
         detailEl = document.createElement('div');
@@ -730,6 +822,7 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         detailEl = null;
         activeId = null;
         cloud.querySelectorAll('.atlas-card.dimmed').forEach(function(c) { c.classList.remove('dimmed'); });
+        syncActiveFlags(); // restore all particles to active
         document.body.style.overflow = '';
     }
 
@@ -745,11 +838,11 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     });
 
 
-    fetch('data/products.json', { cache: 'no-cache' })
-        .then(function(response) {
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            return response.json();
-        })
+    // Use shared cache for products.json
+    var BCD_atlas = window.BigCookiesData;
+    var atlasFetch = BCD_atlas ? BCD_atlas.fetchJSON('data/products.json') :
+        fetch('data/products.json').then(function(r) { return r.json(); });
+    atlasFetch
         .then(function(data) {
             if (!data.products || !Array.isArray(data.products) || !data.products.length) throw new Error('No products');
             items = data.products;
@@ -792,19 +885,35 @@ if (heroCookie) {
             requestAnimationFrame(function() {
                 targetRotate = Math.max(-15, Math.min(15, scrollY * 0.08 + mouseX * 0.02 + scrollVelocity * 0.5));
                 targetTranslateY = scrollY * 0.03 + mouseY * 0.02;
+                // Restart the interpolation loop if it had stopped (converged)
+                if (!heroParallaxRunning && heroVisible) {
+                    heroParallaxRunning = true;
+                    smoothParallax();
+                }
                 scrollTicking = false;
             });
             scrollTicking = true;
         }
-    });
+    }, {passive: true});
 
     // Smooth interpolation loop for velocity-based motion
     var heroVisible = true;
     var heroParallaxRunning = true;
+    var PARALLAX_EPSILON = 0.005; // below this threshold, values are "converged"
     function smoothParallax() {
         if (!heroVisible) { heroParallaxRunning = false; return; }
-        currentRotate += (targetRotate - currentRotate) * 0.12;
-        currentTranslateY += (targetTranslateY - currentTranslateY) * 0.12;
+        var dr = targetRotate - currentRotate;
+        var dy = targetTranslateY - currentTranslateY;
+        // Stop the loop when fully converged — saves GPU when page is idle
+        if (Math.abs(dr) < PARALLAX_EPSILON && Math.abs(dy) < PARALLAX_EPSILON &&
+            heroParallaxRunning && targetRotate === 0 && targetTranslateY === 0) {
+            // Values are at rest — keep transform but stop looping
+            heroParallaxRunning = false;
+            return;
+        }
+        heroParallaxRunning = true;
+        currentRotate += dr * 0.12;
+        currentTranslateY += dy * 0.12;
         heroCookie.style.transform = 'rotate(' + currentRotate + 'deg) translateY(' + currentTranslateY + 'px)';
         requestAnimationFrame(smoothParallax);
     }
@@ -814,6 +923,7 @@ if (heroCookie) {
     if (window.IntersectionObserver) {
         var heroViewportObserver = new IntersectionObserver(function(entries) {
             heroVisible = entries[0].isIntersecting;
+            if (window.BigCookiesPerf) window.BigCookiesPerf.heroVisible = heroVisible;
             if (heroVisible && !heroParallaxRunning) {
                 heroParallaxRunning = true;
                 smoothParallax();
@@ -831,16 +941,24 @@ if (heroCookie) {
 }
 
 // ── Hero cursor crumbs ──────────────────────
+// Gated: fine-pointer only, hero visible, reduced-motion off. Max 6 live DOM nodes. 80ms throttle.
 (function() {
+    var P = window.BigCookiesPerf;
+    if (P && (P.reducedMotion || !P.finePointer || P.mobile)) return;
     var cookie = document.getElementById('heroCookie');
     if (!cookie) return;
     var crumbs = [];
-    var maxCrumbs = 12;
+    var maxCrumbs = 6;
     var colors = ['#C8853E','#D4954B','#A8612E','#3C1D0E','#E8A850','#8B5A2E'];
     var ticking = false;
     var mx = 0, my = 0;
+    var lastTime = 0;
 
     document.addEventListener('mousemove', function(e) {
+        if (P && !P.heroVisible) return;
+        var now = Date.now();
+        if (now - lastTime < 80) return; // ~12 fps max
+        lastTime = now;
         mx = e.clientX; my = e.clientY;
         if (!ticking) {
             requestAnimationFrame(function() {
@@ -879,18 +997,25 @@ if (heroCookie) {
 })();
 
 // ── Cursor sparkle trail ──────────────────
+// Gated: fine-pointer only, not on mobile, reduced-motion off. Max 8 live DOM nodes. 200ms throttle.
 (function() {
+    var P = window.BigCookiesPerf;
+    if (P && (P.reducedMotion || !P.finePointer || P.mobile)) return;
     var isHomePath2 = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
     if (!isHomePath2) return;
     var lastSparkle = 0;
+    var liveCount = 0;
+    var MAX_LIVE = 8;
     var sparkleColors = ['#E8A850','#FFD700','#C8853E','#F5D5A0','#FFF5E9'];
     document.addEventListener('mousemove', function(e) {
+        if (liveCount >= MAX_LIVE) return;
         var now = Date.now();
         if (now - lastSparkle < 180) return; // throttle
         lastSparkle = now;
         // Don't sparkle over nav or forms
         if (e.target.closest('nav') || e.target.closest('form') || e.target.closest('button')) return;
 
+        liveCount++;
         var spark = document.createElement('span');
         var size = 2 + Math.random() * 4;
         spark.style.cssText =
@@ -901,7 +1026,10 @@ if (heroCookie) {
             'border-radius:50%;' +
             'animation: sparkleTrail 0.7s ease-out forwards;';
         document.body.appendChild(spark);
-        setTimeout(function() { if (spark.parentNode) spark.remove(); }, 750);
+        setTimeout(function() {
+            if (spark.parentNode) spark.remove();
+            liveCount--;
+        }, 750);
     });
 })();
 
@@ -1750,6 +1878,57 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
     }
 })();
 
+// ── Performance debug overlay (?debug or ?perf) ──
+(function() {
+    var qs = window.location.search;
+    var enabled = qs.indexOf('debug') !== -1 || qs.indexOf('perf') !== -1;
+    if (!enabled) return;
+    window._debugPerf = true;
+    var panel = document.createElement('div');
+    panel.id = 'perfDebug';
+    panel.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:99999;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.6 monospace;padding:10px 14px;border-radius:8px;pointer-events:none;max-width:260px;white-space:pre-line';
+    document.body.appendChild(panel);
+
+    var fpsFrames = 0, fpsLast = performance.now(), fpsCurrent = 0;
+    var longTaskCount = 0;
+
+    // Long-task observer
+    if (window.PerformanceObserver) {
+        try {
+            var lo = new PerformanceObserver(function(list) {
+                var entries = list.getEntries();
+                for (var i = 0; i < entries.length; i++) {
+                    if (entries[i].duration > 50) longTaskCount++;
+                }
+            });
+            lo.observe({ entryTypes: ['longtask'] });
+        } catch(e) { /* longtask not supported */ }
+    }
+
+    function updateDebug() {
+        fpsFrames++;
+        var now = performance.now();
+        if (now - fpsLast >= 1000) {
+            fpsCurrent = Math.round(fpsFrames / ((now - fpsLast) / 1000));
+            fpsFrames = 0; fpsLast = now;
+        }
+        // Gather atlas state from the existing simulation
+        var simActive = (typeof simRunning !== 'undefined') ? simRunning : false;
+        var simParticle = (typeof particles !== 'undefined') ? particles.length : 0;
+        var qualityInfo = (typeof _qualityReduced !== 'undefined' && _qualityReduced) ? ' (low-motion)' : '';
+
+        panel.textContent =
+            'FPS: ' + fpsCurrent + qualityInfo + '\n' +
+            'Atlas: ' + (simActive ? 'running' : 'paused') + ' | ' + simParticle + ' particles\n' +
+            'Long tasks: ' + longTaskCount + ' (>50ms)\n' +
+            'Reduced motion: ' + (window.BigCookiesPerf && window.BigCookiesPerf.reducedMotion ? 'yes' : 'no') + '\n' +
+            'Fine pointer: ' + (window.BigCookiesPerf && window.BigCookiesPerf.finePointer ? 'yes' : 'no');
+
+        requestAnimationFrame(updateDebug);
+    }
+    requestAnimationFrame(updateDebug);
+})();
+
 // ── Theme toggle ──────────────────────────
 (function() {
     var html = document.documentElement;
@@ -1984,6 +2163,15 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
 
     function fetchJSON(url, cb) {
         if (jsonCache[url]) { cb(jsonCache[url]); return; }
+        // Try shared cache first (Promise-based), fall back to XHR
+        var BCD = window.BigCookiesData;
+        if (BCD) {
+            BCD.fetchJSON(url).then(function(data) {
+                jsonCache[url] = data;
+                cb(data);
+            }).catch(function() { cb(null); });
+            return;
+        }
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.onload = function() {
@@ -2125,8 +2313,8 @@ window.addEventListener('data-ready', function() {
 
     var messages = {};
     Promise.all([
-        fetch('data/easter-superhero.json', { cache: 'no-cache' }).then(function(r) { return r.json(); }),
-        fetch('data/products.json', { cache: 'no-cache' }).then(function(r) { return r.json(); })
+        (window.BigCookiesData ? window.BigCookiesData.fetchJSON('data/easter-superhero.json') : fetch('data/easter-superhero.json').then(function(r) { return r.json(); })),
+        (window.BigCookiesData ? window.BigCookiesData.fetchJSON('data/products.json') : fetch('data/products.json').then(function(r) { return r.json(); }))
     ]).then(function(results) {
         var easter = results[0];
         var products = results[1];
