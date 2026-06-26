@@ -271,7 +271,8 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (window.ResizeObserver) {
         var cloudResizeObs = new ResizeObserver(function() {
             cacheCloudBounds();
-            if (!simRunning) scatterCards();
+            // Only re-scatter if simulation is paused AND cloud has valid dimensions
+            if (!simRunning && cloudW > 0) scatterCards();
         });
         cloudResizeObs.observe(cloud);
     }
@@ -282,6 +283,11 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         var n = cards.length;
         if (!n) return;
         cacheCloudBounds();
+        // If cloud has no width yet (e.g. not laid out), retry on next frame
+        if (!cloudW) {
+            requestAnimationFrame(scatterCards);
+            return;
+        }
         var w = cloudW, h = cloudH;
 
         // Preserve existing state across re-scatters
@@ -328,9 +334,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             c.style.margin = '0';
         });
 
-        // Set initial positions immediately — no waiting for first sim frame
-        renderParticles();
-
         if (prefersReduced) {
             // Static layout — single settle pass
             settleOnce();
@@ -372,9 +375,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             applyThermalForces(dt);
             thermalUpdate(dt);
             renderParticles();
-
-            // Adaptive quality guard
-            checkFrameBudget(ts);
 
             // ── Watchdog: recover after tab resume ──
             if (therm.resumed && !therm.recovered) {
