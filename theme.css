@@ -208,6 +208,8 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .mobile-menu a { background: rgba(255,255,255,0.03); border-color: rgba(240,228,212,0.06); }
 [data-theme="dark"] .hero-badge { background: var(--paper); }
 [data-theme="dark"] .hero p { color: #B8A898; }
+[data-theme="dark"] .hero::before { background: radial-gradient(circle, rgba(232,168,80,0.06) 0%, transparent 70%); }
+[data-theme="dark"] .hero::after { background: radial-gradient(circle, rgba(200,133,62,0.04) 0%, transparent 70%); }
 [data-theme="dark"] .section-subtitle { color: #B8A898; }
 [data-theme="dark"] .bench-sheet-ledger {
     background:
