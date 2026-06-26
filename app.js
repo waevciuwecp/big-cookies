@@ -601,15 +601,16 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         var DAMP   = Math.pow(CONFIG.damping, dt);
         var VMAX   = CONFIG.maxSpeed * dt;
         var cx = w / 2, cy = h / 2;
-
-        // ── Single i < j pair loop with equal-and-opposite forces ──
-        // Cuts pair evaluations in half vs double for-loop.
+        // Proven double-loop: each pair is evaluated twice (equal-and-opposite
+        // emerges naturally). Kept pre-computed .active flag to avoid classList
+        // in the inner loop.
         for (var i = 0; i < n; i++) {
             var pi = particles[i];
             if (!pi.active) continue;
             var fx = 0, fy = 0;
 
-            for (var j = i + 1; j < n; j++) {
+            for (var j = 0; j < n; j++) {
+                if (i === j) continue;
                 var pj = particles[j];
                 if (!pj.active) continue;
                 var dx = pi.x - pj.x;
@@ -620,29 +621,21 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
                 var collisionDist = pi.radius + pj.radius + CPAD * 2;
 
-                var force = 0;
                 if (dist < R_RAD) {
                     var urgency = dist < collisionDist ? 3.0 : 1.0;
-                    force = R_STR * urgency / (dist * dist + 400);
+                    var repelF = R_STR * urgency / (dist * dist + 400);
+                    fx += nx * repelF;
+                    fy += ny * repelF;
                 } else if (dist < R_RAD * 2.4) {
-                    force = -A_STR * (dist - R_RAD) / R_RAD; // negative = attractive
+                    var attractF = A_STR * (dist - R_RAD) / R_RAD;
+                    fx -= nx * attractF;
+                    fy -= ny * attractF;
                 }
-
-                // Apply equal and opposite
-                fx += nx * force;
-                fy += ny * force;
-                pj._fx = (pj._fx || 0) - nx * force;
-                pj._fy = (pj._fy || 0) - ny * force;
             }
 
             // ── Cohesion toward cloud center ──
             fx += (cx - pi.x) * COH;
             fy += (cy - pi.y) * COH;
-
-            // Accumulate j-side forces
-            fx += (pi._fx || 0);
-            fy += (pi._fy || 0);
-            pi._fx = 0; pi._fy = 0;
 
             // ── Integrate ──
             pi.vx = (pi.vx + fx * dt) * DAMP;
@@ -654,10 +647,10 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
             // ── Soft boundary ──
             var pad = CONFIG.boundaryPad;
-            if (pi.x < pad)      { pi.x = pad;      pi.vx *= -0.2; }
-            if (pi.x > w - pad)  { pi.x = w - pad;  pi.vx *= -0.2; }
-            if (pi.y < pad)      { pi.y = pad;      pi.vy *= -0.2; }
-            if (pi.y > h - pad)  { pi.y = h - pad;  pi.vy *= -0.2; }
+            if (pi.x < pad)          { pi.x = pad;          pi.vx *= -0.2; }
+            if (pi.x > w - pad)      { pi.x = w - pad;      pi.vx *= -0.2; }
+            if (pi.y < pad)          { pi.y = pad;          pi.vy *= -0.2; }
+            if (pi.y > h - pad)      { pi.y = h - pad;      pi.vy *= -0.2; }
         }
     }
 
