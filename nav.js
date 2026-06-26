@@ -179,8 +179,11 @@
 
     // ── Scroll progress bar ───────────────────
     (function() {
-        var bar = document.getElementById('scrollProgress');
-        if (!bar) return;
+        var bar = document.createElement('div');
+        bar.id = 'scrollProgress';
+        bar.className = 'scroll-progress';
+        bar.setAttribute('aria-hidden', 'true');
+        document.body.prepend(bar);
         function updateProgress() {
             var h = document.documentElement.scrollHeight - window.innerHeight;
             bar.style.width = h > 0 ? Math.min(100, (window.scrollY / h) * 100) + '%' : '0%';

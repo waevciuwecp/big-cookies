@@ -544,7 +544,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         for (var i = 0; i < n; i++) {
             var pi = particles[i];
             if (pi.el.classList.contains('zoomed')) continue;
-            if (frozenSlot && pi.el === frozenSlot.el) continue; // frozen during close
             var fx = 0, fy = 0;
 
             // ── Pairwise forces (fixed equilibrium, no modulation) ──
@@ -596,15 +595,9 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
     // ── Render positions to DOM ─────────────
     function renderParticles(w, h) {
-        // Freeze the closing card's destination slot
-        if (frozenSlot && frozenSlot.el) {
-            frozenSlot.el.style.left = (frozenSlot.x / w * 100) + '%';
-            frozenSlot.el.style.top = (frozenSlot.y / h * 100) + '%';
-        }
         for (var i = 0; i < particles.length; i++) {
             var p = particles[i];
             if (p.el.classList.contains('zoomed')) continue;
-            if (frozenSlot && p.el === frozenSlot.el) continue; // frozen
             var px = Math.round(p.x * 10) / 10;
             var py = Math.round(p.y * 10) / 10;
             p.el.style.left = (px / w * 100) + '%';
@@ -663,22 +656,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     window.addEventListener('resize', function() {
         clearTimeout(window._scatterTid);
         window._scatterTid = setTimeout(scatterCards, 200);
-        // If a card is zoomed, re-center it
-        if (transState === 'open' && !activeAnim) {
-            var card = document.getElementById('atlasCard-' + activeId);
-            if (card && card.classList.contains('zoomed')) {
-                var vc = viewportCenter();
-                var vw = window.innerWidth;
-                var pad = Math.min(vw * 0.06, 40);
-                var maxW = Math.min(vw - pad * 2, 780);
-                var toW = maxW;
-                var toH = Math.min(card.scrollHeight, vc.usableH - 32);
-                card.style.left = (vc.cx - toW / 2) + 'px';
-                card.style.top = Math.max(16, vc.cy - toH / 2) + 'px';
-                card.style.width = toW + 'px';
-                card.style.height = toH + 'px';
-            }
-        }
     });
 
     // ── Reduced motion listener ─────────────
@@ -767,261 +744,6 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         closeDetail();
     });
 
-    // ── (legacy code preserved below, unreachable via new handlers) ──
-    var transState = 'compact';
-    var backdrop = null;
-    var activeAnim = null;
-    var closingId = null;
-    var frozenSlot = null;
-
-    function ensureBackdrop() {
-        if (!backdrop) {
-            backdrop = document.createElement('div');
-            backdrop.className = 'atlas-backdrop';
-            backdrop.setAttribute('aria-hidden', 'true');
-            backdrop.addEventListener('click', function() { collapse(); });
-            document.body.appendChild(backdrop);
-        }
-        return backdrop;
-    }
-
-    function viewportCenter() {
-        var nav = document.getElementById('nav');
-        var navH = nav ? nav.getBoundingClientRect().height : 0;
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var safeTop = navH + 16;
-        var safeBot = 16;
-        return { cx: vw / 2, cy: (safeTop + vh - safeBot) / 2, usableH: vh - safeTop - safeBot };
-    }
-
-    // ── Complete style cleanup — leaves no detail trace ──
-    function cleanupCard(card) {
-        card.style.position = '';
-        card.style.left = '';
-        card.style.top = '';
-        card.style.right = '';
-        card.style.bottom = '';
-        card.style.width = '';
-        card.style.height = '';
-        card.style.minWidth = '';
-        card.style.maxWidth = '';
-        card.style.minHeight = '';
-        card.style.maxHeight = '';
-        card.style.transform = '';
-        card.style.transformOrigin = '';
-        card.style.margin = '';
-        card.style.zIndex = '';
-        card.style.animationPlayState = '';
-        card.style.transition = '';
-        card.style.borderRadius = '';
-        card.style.boxShadow = '';
-        card.style.overflow = '';
-        card.style.overflowY = '';
-        card.style.pointerEvents = '';
-        card.style.visibility = '';
-    }
-
-    function expand(id) {
-        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
-        if (transState === 'closing') { finishClose(); }
-
-        var card = document.getElementById('atlasCard-' + id);
-        if (!card) return;
-
-        // If a different card is open, close it first
-        if (activeId && activeId !== id) {
-            var prev = document.getElementById('atlasCard-' + activeId);
-            if (prev) { prev.classList.remove('zoomed'); prev.setAttribute('aria-expanded', 'false'); cleanupCard(prev); }
-        }
-        activeId = id;
-        closingId = null;
-        transState = 'opening';
-
-        // Measure current compact rectangle (viewport coords)
-        var fromRect = card.getBoundingClientRect();
-        var fromW = fromRect.width;
-        var fromH = fromRect.height;
-        var fromX = fromRect.left;
-        var fromY = fromRect.top;
-
-        // Compute detail destination
-        var vc = viewportCenter();
-        var vw = window.innerWidth;
-        var pad = Math.min(vw * 0.06, 40);
-        var maxW = Math.min(vw - pad * 2, 780);
-        var toW = maxW;
-
-        // Measure zoomed height off-screen
-        card.classList.add('zoomed');
-        card.style.position = 'fixed';
-        card.style.left = '-9999px';
-        card.style.top = '0';
-        card.style.width = toW + 'px';
-        card.style.height = 'auto';
-        card.style.visibility = 'hidden';
-        card.offsetHeight;
-        var toH = Math.min(card.getBoundingClientRect().height, vc.usableH - 32);
-        card.style.visibility = '';
-        card.classList.remove('zoomed');
-        card.offsetHeight;
-
-        var toX = vc.cx - toW / 2;
-        var toY = Math.max(16, vc.cy - toH / 2);
-
-        // Pin card at current compact position (fixed overlay)
-        card.style.animationPlayState = 'paused';
-        card.style.position = 'fixed';
-        card.style.left = fromX + 'px';
-        card.style.top = fromY + 'px';
-        card.style.width = fromW + 'px';
-        card.style.height = fromH + 'px';
-        card.style.margin = '0';
-        card.style.zIndex = '100';
-        card.style.transition = 'none';
-        card.style.transform = 'none';
-
-        // Dim cloud + lock scroll
-        cloud.querySelectorAll('.atlas-card').forEach(function(c) {
-            if (c !== card) c.classList.add('dimmed');
-        });
-        document.body.style.overflow = 'hidden';
-        ensureBackdrop().classList.add('visible');
-
-        // Animate geometry morph
-        var dur = prefersReduced ? 0 : 460;
-        activeAnim = card.animate([
-            { left: fromX + 'px', top: fromY + 'px', width: fromW + 'px', height: fromH + 'px' },
-            { left: toX + 'px', top: toY + 'px', width: toW + 'px', height: toH + 'px' }
-        ], {
-            duration: dur,
-            easing: 'cubic-bezier(0.2, 0.0, 0.0, 1.0)',
-            fill: 'forwards'
-        });
-
-        // Reveal detail content at ~35% of journey
-        setTimeout(function() {
-            if (transState !== 'opening' || activeId !== id) return;
-            card.classList.add('zoomed');
-            card.setAttribute('aria-expanded', 'true');
-        }, Math.round(dur * 0.35));
-
-        activeAnim.onfinish = function() {
-            activeAnim = null;
-            if (transState !== 'opening') return;
-            transState = 'open';
-            // Commit final values without fill:forwards
-            card.style.left = toX + 'px';
-            card.style.top = toY + 'px';
-            card.style.width = toW + 'px';
-            card.style.height = toH + 'px';
-            card.style.overflowY = 'auto';
-            card.setAttribute('tabindex', '-1');
-            card.focus({ preventScroll: true });
-        };
-    }
-
-    function collapse() {
-        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
-
-        if (!activeId) return;
-        var card = document.getElementById('atlasCard-' + activeId);
-        if (!card) { activeId = null; transState = 'compact'; return; }
-
-        closingId = activeId;
-        activeId = null;
-        transState = 'closing';
-
-        // Hide detail content
-        card.classList.remove('zoomed');
-        card.setAttribute('aria-expanded', 'false');
-        card.removeAttribute('tabindex');
-        card.style.overflowY = '';
-
-        var curRect = card.getBoundingClientRect();
-        card.style.height = curRect.height + 'px'; // freeze height
-        card.offsetHeight;
-
-        var fromW = curRect.width;
-        var fromH = curRect.height;
-        var fromX = curRect.left;
-        var fromY = curRect.top;
-
-        // Un-dim cloud
-        cloud.querySelectorAll('.atlas-card.dimmed').forEach(function(c) {
-            c.classList.remove('dimmed');
-        });
-        document.body.style.overflow = '';
-
-        // Measure destination and freeze the slot
-        card.style.visibility = 'hidden';
-        card.style.position = 'absolute';
-        card.style.left = '0'; card.style.top = '0';
-        card.style.width = ''; card.style.height = '';
-        scatterCards();
-        card.offsetHeight;
-        var targetCard = document.getElementById('atlasCard-' + closingId);
-        var toRect = targetCard ? targetCard.getBoundingClientRect() : curRect;
-        // Freeze the destination so it can't move during close
-        if (targetCard) {
-            frozenSlot = { el: targetCard, x: toRect.left + toRect.width/2, y: toRect.top + toRect.height/2,
-                           w: toRect.width, h: toRect.height };
-        }
-        card.style.visibility = '';
-        card.style.position = 'fixed';
-        card.style.left = fromX + 'px';
-        card.style.top = fromY + 'px';
-        card.style.width = fromW + 'px';
-        card.style.height = fromH + 'px';
-
-        var toW = toRect.width;
-        var toH = toRect.height;
-        var toX = toRect.left;
-        var toY = toRect.top;
-
-        var dur = prefersReduced ? 0 : 560;
-        activeAnim = card.animate([
-            { left: fromX + 'px', top: fromY + 'px', width: fromW + 'px', height: fromH + 'px' },
-            { left: toX + 'px', top: toY + 'px', width: toW + 'px', height: toH + 'px' }
-        ], {
-            duration: dur,
-            easing: 'cubic-bezier(0.4, 0.0, 0.6, 1.0)',
-            fill: 'forwards'
-        });
-
-        // Backdrop fades near end
-        var backdropTimer = setTimeout(function() {
-            if (backdrop) backdrop.classList.remove('visible');
-        }, Math.round(dur * 0.7));
-
-        activeAnim.onfinish = function() {
-            clearTimeout(backdropTimer);
-            finishClose();
-        };
-    }
-
-    // ── Atomic close completion — always runs, even via interrupt ──
-    function finishClose() {
-        if (activeAnim) { activeAnim.cancel(); activeAnim = null; }
-        if (backdrop) backdrop.classList.remove('visible');
-        frozenSlot = null;
-
-        var card = document.getElementById('atlasCard-' + closingId);
-        if (card) {
-            card.classList.remove('zoomed');
-            card.setAttribute('aria-expanded', 'false');
-            card.removeAttribute('tabindex');
-            cleanupCard(card);
-        }
-        closingId = null;
-        transState = 'compact';
-        scatterCards();
-    }
-
-    // ESC to collapse
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && (activeId || closingId)) { collapse(); }
-    });
 
     fetch('data/products.json', { cache: 'no-cache' })
         .then(function(response) {
@@ -1038,6 +760,20 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         });
 })();
 
+
+// ── Scroll indicator fade ────────────────────
+(function() {
+    var indicator = document.getElementById('scrollIndicator');
+    if (!indicator) return;
+    var faded = false;
+    window.addEventListener('scroll', function() {
+        var shouldFade = window.scrollY > 200;
+        if (shouldFade !== faded) {
+            faded = shouldFade;
+            indicator.classList.toggle('faded', faded);
+        }
+    }, {passive: true});
+})();
 
 // ── Cookie parallax (scroll velocity + mouse) ──
 const heroCookie = document.getElementById('heroCookie');
@@ -1842,18 +1578,33 @@ if (backToTop) {
     });
 }
 
-// ── Product card tap-to-flip (mobile) ─────
+// ── Product card tap-to-flip (mobile + a11y) ──
 document.querySelectorAll('.product-card').forEach(card => {
     if (card.hasAttribute('data-flip-bound')) return;
     card.setAttribute('data-flip-bound', '1');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', card.querySelector('.product-name')?.textContent + ' — click to see ingredients');
     let flipTimer;
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('.product-card-back') || window.innerWidth > 900) return;
+    function toggleFlip() {
         const wasFlipped = card.classList.contains('flipped');
         card.classList.toggle('flipped');
         clearTimeout(flipTimer);
         if (!wasFlipped) {
             flipTimer = setTimeout(() => card.classList.remove('flipped'), 3000);
+        }
+    }
+    card.addEventListener('click', (e) => {
+        // Don't flip when clicking links/buttons on the back side
+        if (e.target.closest('a, button')) return;
+        // Desktop: hovering already flips via CSS; click is for keyboard/extra
+        if (window.innerWidth > 900) return;
+        toggleFlip();
+    });
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleFlip();
         }
     });
     card.addEventListener('mouseleave', () => {

@@ -243,8 +243,11 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .product-card-front,
 [data-theme="dark"] .product-card-back { background: var(--paper); }
 [data-theme="dark"] .product-desc { color: #B8A898; }
+[data-theme="dark"] .product-origin { color: #9B8A78; border-top-color: rgba(240,228,212,0.1); }
 [data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #2A1E16 0%, #1F1610 100%); border-color: var(--soft); }
 [data-theme="dark"] .ingredients-list li { color: #C8B8A5; border-color: rgba(200,133,62,0.08); }
+[data-theme="dark"] .back-tasting { color: #9B8A78; border-bottom-color: rgba(200,133,62,0.12); }
+[data-theme="dark"] .back-origin { color: #9B8A78; border-top-color: rgba(200,133,62,0.08); }
 [data-theme="dark"] .gift-card { background: var(--paper); border-color: var(--soft); }
 [data-theme="dark"] .gift-desc { color: #B8A898; }
 [data-theme="dark"] .gift-includes { color: #9B8A78; }

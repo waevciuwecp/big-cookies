@@ -773,6 +773,20 @@ main > section { counter-increment: sectionNum; }
     font-family: var(--font-display);
     font-size: 1.25rem; font-weight: 700; margin-bottom: 0;
 }
+.back-tasting {
+    font-size: 0.75rem; color: #8B6F5C;
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid rgba(200,133,62,0.15);
+}
+.back-tasting-label {
+    font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+}
+.back-origin {
+    font-size: 0.72rem; color: #8B6F5C; font-style: italic;
+    line-height: 1.5; margin: 0;
+    padding-top: 0.4rem; border-top: 1px solid rgba(200,133,62,0.12);
+}
 .ingredients-list {
     list-style: none; padding: 0; margin: 0; flex: 1;
 }
