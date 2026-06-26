@@ -293,6 +293,8 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .archive-card.archive-returning { border-left-color: #5BBA63; }
 [data-theme="dark"] .archive-card.archive-retired { border-left-color: #6B5A4A; }
 [data-theme="dark"] .news-read-time { color: #9B8A78; }
+[data-theme="dark"] .news-tag { background: rgba(200,133,62,0.16); }
+[data-theme="dark"] .news-date { color: #C8A060; }
 [data-theme="dark"] .order-cart-item span:nth-child(2) { color: #9B8A78; }
 [data-theme="dark"] .internship-check { color: #5BBA63; }
 [data-theme="dark"] .product-card-back { background: linear-gradient(135deg, #1F1610 0%, #18120D 100%) !important; }

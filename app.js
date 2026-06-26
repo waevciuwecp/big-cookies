@@ -1683,6 +1683,8 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
 
 // ── Baking tip rotator ──────────────────────
 (function() {
+    var isHome = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
+    if (!isHome) return;
     var tips = [
         "Brown your butter until it smells nutty. That's when the magic starts.",
         "Chill your dough. 48 hours. No shortcuts. The flour needs time to hydrate.",
@@ -1693,8 +1695,26 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         "Vanilla is not optional. Use the real stuff. Madagascar if you can.",
         "The best cookie is the one you share. But we won't judge if you don't."
     ];
-    var el = document.getElementById('bakingTip');
-    if (!el) return;
+    // Create the element dynamically — insert into footer
+    var el = document.createElement('div');
+    el.id = 'bakingTip';
+    el.style.cssText = 'text-align:center;padding:1rem 1.5rem;font-size:0.8125rem;color:#8B6F5C;font-style:italic;line-height:1.6;min-height:2.5rem;';
+    var footer = document.getElementById('site-footer');
+    if (!footer) return;
+    // Insert before footer content
+    var footerObserver = new MutationObserver(function() {
+        if (footer.children.length > 0 && !document.getElementById('bakingTip')?.parentNode) {
+            footer.insertBefore(el, footer.firstChild);
+            footerObserver.disconnect();
+            startRotator();
+        }
+    });
+    footerObserver.observe(footer, { childList: true });
+    // Fallback: insert after 2 seconds if footer hasn't rendered
+    setTimeout(function() {
+        if (!el.parentNode && footer) { footer.insertBefore(el, footer.firstChild); startRotator(); }
+    }, 2000);
+
     var tipIdx = new Date().getDate() % tips.length;
     var charIdx = 0;
     var currentTip = '';
@@ -1715,6 +1735,10 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
         }
     }
 
+    function startRotator() {
+        typeTimer = setTimeout(typeNextChar, 2000);
+    }
+
     function eraseTip() {
         if (charIdx > 2) { // keep the 💡
             charIdx--;
@@ -1726,8 +1750,6 @@ function showConfirm(message, confirmLabel, onConfirm, onCancel) {
             typeTimer = setTimeout(typeNextChar, 500);
         }
     }
-
-    typeTimer = setTimeout(typeNextChar, 2000);
 })();
 
 // ── Theme toggle ──────────────────────────
