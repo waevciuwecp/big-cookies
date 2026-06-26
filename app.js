@@ -1595,10 +1595,8 @@ document.querySelectorAll('.product-card').forEach(card => {
         }
     }
     card.addEventListener('click', (e) => {
-        // Don't flip when clicking links/buttons on the back side
+        // Don't flip when clicking links/buttons
         if (e.target.closest('a, button')) return;
-        // Desktop: hovering already flips via CSS; click is for keyboard/extra
-        if (window.innerWidth > 900) return;
         toggleFlip();
     });
     card.addEventListener('keydown', (e) => {
