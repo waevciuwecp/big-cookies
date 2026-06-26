@@ -217,12 +217,13 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
         scatterCards();
         window.addEventListener('resize', scatterCards);
 
-        // Set static positioning (JS physics will move via transform, not left/top)
-        // Remove CSS float animation — JS handles all motion
-        cloud.querySelectorAll('.atlas-card').forEach(function(card) {
-            card.style.setProperty('--float-dur', '0s'); // disable CSS float animation
-            card.style.animationPlayState = 'paused';
-            card.style.animation = 'none';
+        // CSS float animation provides the gentle base drift (compositor-only, cheap).
+        // JS physics adds organic repulsion/attraction on top via left/top.
+        cloud.querySelectorAll('.atlas-card').forEach(function(card, i) {
+            card.style.setProperty('--float-delay', (i * 0.7) + 's');
+            card.style.setProperty('--float-dur', (18 + i * 2.3) + 's');
+            card.style.setProperty('--sway-x', ((i % 3) - 1) * 8 + 'px');
+            card.style.setProperty('--sway-y', ((i % 2) * 6 - 3) + 'px');
         });
 
         // Click handlers
@@ -316,19 +317,23 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
             });
         });
 
-        // Static positioning — all motion via transform: translate3d()
+        // Absolute positioning with centering transform.
+        // left/top are written by JS physics (percentage-based);
+        // CSS atlasFloat runs on the transform property for gentle drift.
+        // The translate(-50%,-50%) centers each card at its left/top point.
         cards.forEach(function(c) {
             if (c.classList.contains('zoomed')) return;
             c.style.position = 'absolute';
-            c.style.left = '0';
-            c.style.top = '0';
+            c.style.transform = 'translate(-50%, -50%)';
             c.style.margin = '0';
-            c.style.willChange = 'transform'; // scoped to active animation only
         });
+
+        // Set initial positions immediately — no waiting for first sim frame
+        renderParticles();
 
         if (prefersReduced) {
             // Static layout — single settle pass
-            settleOnce(w, h);
+            settleOnce();
         } else if (!simRunning) {
             startSimulation();
         }
@@ -657,13 +662,17 @@ var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     }
 
     // ── Render positions to DOM ─────────────
-    // Uses transform: translate3d() — no layout-triggering left/top writes.
+    // Uses left/top percentages with translate(-50%,-50%) centering.
+    // CSS atlasFloat animation runs on transform — using separate properties
+    // avoids fighting between the two motion systems.
     function renderParticles() {
+        var w = cloudW, h = cloudH;
+        if (!w || !h) return;
         for (var i = 0; i < particles.length; i++) {
             var p = particles[i];
             if (!p.active) continue;
-            // translate3d promotes to GPU layer; avoids layout recalculation
-            p.el.style.transform = 'translate3d(' + Math.round(p.x) + 'px,' + Math.round(p.y) + 'px,0)';
+            p.el.style.left = (p.x / w * 100) + '%';
+            p.el.style.top  = (p.y / h * 100) + '%';
         }
     }
 
