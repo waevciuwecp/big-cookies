@@ -107,7 +107,10 @@
     .hero-visual { order: -1; }
     .cookie-illustration { width: clamp(200px, 30vw, 320px); height: clamp(200px, 30vw, 320px); }
     .cookie-illustration .cookie-main { width: clamp(140px, 20vw, 220px); height: clamp(140px, 20vw, 220px); }
-    .bench-sheet-inner { grid-template-columns: 1fr; }
+    .bench-sheet-ledger { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* When 3 process cards flow into a 2-column grid, the last orphan spans full width */
+    .bench-sheet-ledger > .ledger-card:not(.ledger-card-main):last-child:nth-child(4) { grid-column: 1 / -1; }
+    .ledger-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .atlas-cloud { min-height: 420px; }
     .atlas-card.zoomed { flex-direction: column !important; gap: 1.25rem; }
     .atlas-card.zoomed .atlas-card-front { width: auto; align-items: center; text-align: center; }
@@ -145,9 +148,9 @@
 
 @media (max-width: 600px) {
     .nav-page-chip { display: none; }
-    .bench-sheet-ledger,
+    .bench-sheet-ledger { grid-template-columns: 1fr; padding: 1.25rem 1.25rem 1.25rem 2rem; }
     .ledger-grid { grid-template-columns: 1fr; }
-    .ledger-card { margin-left: 0.75rem; }
+    .ledger-card { margin-left: 0; }
     .atlas-cloud { gap: 0.75rem; padding: 1rem 0; }
     .products-grid { grid-template-columns: 1fr; }
     .gallery-wall { grid-template-columns: 1fr; }
@@ -217,6 +220,7 @@ body { transition: background-color 0.35s ease; }
         repeating-linear-gradient(180deg, transparent 0, transparent 42px, rgba(240,228,212,0.05) 42px, rgba(240,228,212,0.05) 43px);
     border-color: rgba(240,228,212,0.08);
 }
+[data-theme="dark"] .bench-sheet-ledger::before { background: linear-gradient(180deg, rgba(200,133,62,0.18), rgba(200,133,62,0.06) 60%, rgba(200,133,62,0.02)); }
 [data-theme="dark"] .ledger-card {
     background: rgba(28,21,16,0.84);
     border-color: rgba(240,228,212,0.08);
@@ -224,6 +228,7 @@ body { transition: background-color 0.35s ease; }
 [data-theme="dark"] .ledger-note,
 [data-theme="dark"] .ledger-card p,
 [data-theme="dark"] .ledger-eyebrow { color: #B8A898; }
+[data-theme="dark"] .ledger-eyebrow::before { border-color: rgba(200,133,62,0.2); }
 [data-theme="dark"] .atlas-card {
     background: rgba(42,30,22,0.9);
     border-color: rgba(240,228,212,0.08);

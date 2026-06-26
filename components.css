@@ -267,50 +267,68 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
 .section-subtitle {
     font-size: 1.0625rem; color: #6B5444; max-width: 540px; line-height: 1.7;
 }
+/* ── BENCH SHEET ──────────────────────────── */
 .bench-sheet {
     padding-top: 3rem;
 }
 .bench-sheet-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    /* Stack vertically on all devices — the ledger is the content */
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    align-items: start;
+    max-width: 900px;
+    margin: 0 auto;
 }
 .bench-sheet-header {
-    padding-top: 1rem;
+    text-align: center;
 }
+.bench-sheet-header .section-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ── The ledger itself — like a clipboard card ── */
 .bench-sheet-ledger {
     background:
         linear-gradient(180deg, rgba(255,255,255,0.9), rgba(253,243,231,0.96)),
         repeating-linear-gradient(180deg, transparent 0, transparent 42px, rgba(60,36,21,0.06) 42px, rgba(60,36,21,0.06) 43px);
     border: 1px solid rgba(60,36,21,0.12);
     border-radius: 1.75rem;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 2.25rem;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     box-shadow: 0 24px 60px rgba(60,36,21,0.08);
     position: relative;
 }
+/* Red margin line — like a ledger's left rule */
 .bench-sheet-ledger::before {
     content: "";
     position: absolute;
-    inset: 1rem auto 1rem 1rem;
+    inset: 1.25rem auto 1.25rem 1rem;
     width: 2px;
-    background: linear-gradient(180deg, rgba(184,68,68,0.28), rgba(184,68,68,0.12));
+    border-radius: 1px;
+    background: linear-gradient(180deg, rgba(184,68,68,0.32), rgba(184,68,68,0.12) 60%, rgba(184,68,68,0.05));
 }
+
 .ledger-card {
     background: rgba(255,249,242,0.82);
     border: 1px solid rgba(60,36,21,0.1);
     border-radius: 1.25rem;
     padding: 1.25rem 1.25rem 1.25rem 1.5rem;
     position: relative;
-    margin-left: 1rem;
 }
+/* Main card spans all 3 columns on desktop */
 .ledger-card-main {
     grid-column: 1 / -1;
     background: rgba(255,255,255,0.88);
 }
+/* Process cards: 3 across on desktop */
+.ledger-card:not(.ledger-card-main) {
+    /* Each process card takes 1 column naturally */
+}
+
+/* ── Ledger typography ── */
 .ledger-eyebrow,
 .ledger-label,
 .ledger-index {
@@ -322,10 +340,21 @@ section { padding: 6rem 2rem; scroll-margin-top: 100px; }
     font-size: 0.75rem;
     color: #8B6F5C;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+/* Small clipboard ring at the top */
+.ledger-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(184,68,68,0.25);
+    flex-shrink: 0;
 }
 .ledger-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
 }
 .ledger-grid strong,
