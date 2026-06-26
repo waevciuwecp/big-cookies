@@ -19,7 +19,7 @@
     var mqCoarse  = window.matchMedia('(pointer: coarse)');
     var mqFine    = window.matchMedia('(pointer: fine)');
     var mqData    = window.matchMedia('(prefers-reduced-data: reduce)');
-    // Low-power heuristic: coarse pointer OR hardwareConcurrency <= 4
+    // Low-power heuristic: coarse pointer AND small screen, OR very few cores
     var cores = navigator.hardwareConcurrency || 8;
 
     function update() {
@@ -28,7 +28,7 @@
         G.mobile        = mqCoarse.matches && window.innerWidth < 1024;
         G.saveData      = !!(navigator.connection && navigator.connection.saveData) || mqData.matches;
         G.isHidden      = document.hidden;
-        G.lowPower      = G.mobile || cores <= 4;
+        G.lowPower      = G.mobile || cores <= 2;  // only truly low-end devices
     }
     update();
 
@@ -66,7 +66,9 @@
     var isHomePath = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/index.html') || window.location.pathname === '/';
     if (!isHomePath) return;
     var P = window.BigCookiesPerf;
-    if (P && (P.reducedMotion || P.saveData || P.lowPower)) return;
+    // Skip only on explicit reduce-motion or save-data; lowPower is too aggressive
+    // for a feature already deferred to idle time with only 4 icons.
+    if (P && (P.reducedMotion || P.saveData)) return;
     var favicon = document.querySelector('link[rel="icon"]');
     if (!favicon) return;
     var favicons = [];
@@ -80,6 +82,39 @@
     }
 
     function startFavicons() {
+        // Hidden sandbox for getBBox() measurement — must be in DOM
+        var sandbox = document.createElement('div');
+        sandbox.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;visibility:hidden;pointer-events:none;';
+        document.body.appendChild(sandbox);
+
+        function tightenSVG(svgText) {
+            try {
+                sandbox.innerHTML = svgText;
+                var svg = sandbox.querySelector('svg');
+                if (!svg) return null;
+                var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                var els = svg.querySelectorAll('circle, ellipse, rect, path, polygon, polyline, line');
+                els.forEach(function(el) {
+                    var bbox;
+                    try { bbox = el.getBBox(); } catch(e) { return; }
+                    if (bbox.width === 0 && bbox.height === 0) return;
+                    minX = Math.min(minX, bbox.x);
+                    minY = Math.min(minY, bbox.y);
+                    maxX = Math.max(maxX, bbox.x + bbox.width);
+                    maxY = Math.max(maxY, bbox.y + bbox.height);
+                });
+                if (!isFinite(minX)) return null;
+                var vbw = maxX - minX, vbh = maxY - minY;
+                if (vbw > vbh) vbh = vbw; else vbw = vbh;
+                svg.setAttribute('viewBox', [minX, minY, vbw, vbh].join(' '));
+                svg.setAttribute('width', '64');
+                svg.setAttribute('height', '64');
+                var dataURL = 'data:image/svg+xml,' + encodeURIComponent(svg.outerHTML);
+                sandbox.innerHTML = '';
+                return dataURL;
+            } catch(e) { sandbox.innerHTML = ''; return null; }
+        }
+
         // Use shared cache for products.json
         var BCD = window.BigCookiesData;
         var productsPromise = BCD ? BCD.fetchJSON('data/products.json') :
@@ -88,30 +123,24 @@
         productsPromise.then(function(data) {
             var list = data.products || data;
             if (!Array.isArray(list) || !list.length) return;
-            // Only preload first 4 icons to keep cost low
+            // First 4 icons only to keep network cost low
             var subset = list.slice(0, 4);
             var jobs = subset.map(function(p) {
                 return fetch(p.icon)
                     .then(function(r) { return r.text(); })
-                    .then(function(svg) {
-                        // Minimal tighten: just set viewBox on first <svg>
-                        var m = svg.match(/viewBox="([^"]*)"/);
-                        if (m) {
-                            return 'data:image/svg+xml,' + encodeURIComponent(
-                                svg.replace(/<svg/, '<svg width="64" height="64"')
-                            );
-                        }
-                        return 'data:image/svg+xml,' + encodeURIComponent(svg);
-                    })
+                    .then(function(svg) { return tightenSVG(svg); })
                     .catch(function() { return null; });
             });
             return Promise.all(jobs);
         }).then(function(results) {
+            sandbox.remove();
             favicons = results.filter(Boolean);
             if (!favicons.length) return;
             cycleFavicon();
             timer = setInterval(cycleFavicon, 2500);
-        }).catch(function() { /* silent */ });
+        }).catch(function() {
+            sandbox.remove();
+        });
     }
 
     // Defer to idle time or 4s fallback
