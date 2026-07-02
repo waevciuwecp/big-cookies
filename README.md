@@ -6,6 +6,7 @@ A handcrafted, zero-dependency static website for an artisan cookie bakery. No f
 
 ```bash
 # Serve locally (pick one)
+cd www
 python3 -m http.server 8080
 # or
 npx serve .
@@ -19,48 +20,54 @@ No `npm install`, no bundler, no transpilation. Just open and go.
 
 ```
 big-cookies/
-├── index.html              # Homepage (hero, menu, flavor atlas, builder, quiz…)
-├── about.html               # About the bakery
-├── archive.html             # Retired & seasonal flavors
-├── awards.html              # Accolades & press
-├── factory.html             # Production tour
-├── faculty.html             # The team
-├── faq.html                 # Frequently asked questions
-├── kitchen.html             # Kitchen photo stories
-├── news.html                # Latest updates
-├── 404.html                 # Custom 404 page
+├── CLAUDE.md                # Claude Code guidance
+├── README.md                # This file
 │
-├── app.js                   # Main application logic (~2500 lines)
-├── builder.js               # Shopping cart & box builder
-├── data-loader.js           # JSON → HTML template renderer
-├── nav.js                   # Navigation & mobile menu
-├── quiz.js                  # Cookie Personality Quiz
-├── ui.js                    # UI utilities (footer, batch banner, etc.)
+├── www/                     # Website root (deployed to Pages)
+│   ├── index.html           # Homepage (hero, menu, flavor atlas, builder, quiz…)
+│   ├── about.html           # About the bakery
+│   ├── archive.html         # Retired & seasonal flavors
+│   ├── awards.html          # Accolades & press
+│   ├── factory.html         # Production tour
+│   ├── faculty.html         # The team
+│   ├── faq.html             # Frequently asked questions
+│   ├── kitchen.html         # Kitchen photo stories
+│   ├── news.html            # Latest updates
+│   ├── 404.html             # Custom 404 page
+│   │
+│   ├── app.js               # Main application logic (~2500 lines)
+│   ├── builder.js           # Shopping cart & box builder
+│   ├── data-loader.js       # JSON → HTML template renderer
+│   ├── nav.js               # Navigation & mobile menu
+│   ├── quiz.js              # Cookie Personality Quiz
+│   ├── ui.js                # UI utilities (footer, batch banner, etc.)
+│   │
+│   ├── base.css             # Reset, typography, layout, utilities
+│   ├── components.css       # All component styles (~2600 lines)
+│   ├── theme.css            # Dark mode & theme variables
+│   │
+│   ├── data/
+│   │   ├── products.json    # Cookie catalog (the source of truth)
+│   │   ├── archive.json     # Retired flavors
+│   │   ├── awards.json      # Awards data
+│   │   ├── easter-superhero.json
+│   │   ├── faculty.json     # Team members
+│   │   ├── faq.json         # FAQs
+│   │   ├── kitchen-stories.json
+│   │   ├── news.json        # News articles
+│   │   └── testimonials.json
+│   │
+│   ├── svg/
+│   │   ├── cookies/         # Cookie illustrations (20+)
+│   │   ├── kitchen_story/   # Kitchen process illustrations
+│   │   └── main_story/      # UI icons & graphics
+│   │
+│   ├── manifest.json        # PWA manifest
+│   ├── robots.txt           # SEO
+│   ├── sitemap.xml          # Sitemap
+│   └── favicon.svg          # Site favicon
 │
-├── base.css                 # Reset, typography, layout, utilities
-├── components.css           # All component styles (~2600 lines)
-├── theme.css                # Dark mode & theme variables
-│
-├── data/
-│   ├── products.json        # Cookie catalog (the source of truth)
-│   ├── archive.json         # Retired flavors
-│   ├── awards.json          # Awards data
-│   ├── easter-superhero.json # Easter egg messages
-│   ├── faculty.json         # Team members
-│   ├── faq.json             # FAQs
-│   ├── kitchen-stories.json # Photo stories
-│   ├── news.json            # News articles
-│   └── testimonials.json    # Customer testimonials
-│
-├── svg/
-│   ├── cookies/             # Individual cookie illustrations (20+)
-│   ├── kitchen_story/       # Kitchen process illustrations
-│   └── main_story/          # UI icons & graphics
-│
-├── manifest.json            # PWA manifest
-├── robots.txt               # SEO
-├── sitemap.xml              # Sitemap
-└── favicon.svg              # Site favicon
+└── .github/workflows/static.yml  # GitHub Pages deploy
 ```
 
 ## Architecture
@@ -121,11 +128,11 @@ big-cookies/
 
 ## Deploy
 
-Static files served from any web server. Production host: `oreoz:/var/www/reality/`.
+Static files served from any web server. Production host: `oreot:/var/www/reality/`.
 
 ```bash
-# Deploy changed files
-scp -P 9093 app.js data/products.json oreoz:/var/www/reality/
+# Deploy all files
+scp -r www/* oreot:/var/www/reality/
 ```
 
 ## Design Principles
